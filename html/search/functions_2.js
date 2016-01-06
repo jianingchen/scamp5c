@@ -1,6 +1,11 @@
 var searchData=
 [
-  ['io_5fanalog_5finput',['io_analog_input',['../a00012.html#a953dd45295d823524f15149018f120b1',1,'io_macros.h']]],
-  ['io_5fanalog_5foutput',['io_analog_output',['../a00012.html#a192564e583cdc054f4db66ce890d336b',1,'io_macros.h']]],
-  ['io_5fget_5fslider_5fvalue',['io_get_slider_value',['../a00012.html#a18a29ef9546d79db6553eb3ebd9e09b7',1,'io_macros.h']]]
+  ['f_5fabs',['F_abs',['../a00027.html#a3d48ea13aec9b954e72e1278e5c8d4ff',1,'pe_macros.h']]],
+  ['f_5fadd',['F_add',['../a00027.html#a710e6cc82629b382ae0e1d56d0bb0728',1,'pe_macros.h']]],
+  ['f_5fcopy',['F_copy',['../a00027.html#a3d07cc65553a6a209f4fcd6f99b2de86',1,'pe_macros.h']]],
+  ['f_5fdivide',['F_divide',['../a00027.html#aea96dee6913d5b5182794621ebdab143',1,'pe_macros.h']]],
+  ['f_5fdump_5fpix',['F_dump_pix',['../a00027.html#a04e3cce40a0281d40767acd40ae716b6',1,'pe_macros.h']]],
+  ['f_5fnegate',['F_negate',['../a00027.html#a6740ce6c4633b98214f1985c920486a0',1,'pe_macros.h']]],
+  ['f_5freset_5fpix',['F_reset_pix',['../a00027.html#a153b8ae7f9e274cad1385a7773bd892a',1,'pe_macros.h']]],
+  ['f_5fsub',['F_sub',['../a00027.html#ab470f9361c60681bcc191fbb1b689c92',1,'pe_macros.h']]]
 ];

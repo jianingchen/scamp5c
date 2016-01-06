@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: PE Macros</title>
+<title>SCAMP-5c Vision System: host_and_sim.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -15,6 +15,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doc_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -44,7 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -63,7 +64,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div><!-- top -->
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>Globals</span></a></li>
+    </ul>
+  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -78,31 +84,145 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#files">Files</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">PE Macros</div>  </div>
+<div class="title">host_and_sim.h File Reference<div class="ingroups"><a class="el" href="a00027.html">Host and Simulation Functions</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Macros of parallel operations to ease the programming.  
-<a href="#details">More...</a></p>
+<p><a href="a00022_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:a00016"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00016.html">pe_macros.h</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a18a29ef9546d79db6553eb3ebd9e09b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">reg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00022.html#a18a29ef9546d79db6553eb3ebd9e09b7">io_get_slider_value</a> (handle h)</td></tr>
+<tr class="memdesc:a18a29ef9546d79db6553eb3ebd9e09b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the value of a slider from the host  <a href="#a18a29ef9546d79db6553eb3ebd9e09b7">More...</a><br /></td></tr>
+<tr class="separator:a18a29ef9546d79db6553eb3ebd9e09b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a953dd45295d823524f15149018f120b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00022.html#a953dd45295d823524f15149018f120b1">io_analog_input</a> (<a class="el" href="a00011.html">areg</a> a1, <a class="el" href="a00015.html">rint</a> v)</td></tr>
+<tr class="memdesc:a953dd45295d823524f15149018f120b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">set an analogue register for all pe with a value  <a href="#a953dd45295d823524f15149018f120b1">More...</a><br /></td></tr>
+<tr class="separator:a953dd45295d823524f15149018f120b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a192564e583cdc054f4db66ce890d336b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00022.html#a192564e583cdc054f4db66ce890d336b">io_analog_output</a> (<a class="el" href="a00011.html">areg</a> a1, handle h)</td></tr>
+<tr class="memdesc:a192564e583cdc054f4db66ce890d336b"><td class="mdescLeft">&#160;</td><td class="mdescRight">sample and output an entire analogue register array (256x256 values)  <a href="#a192564e583cdc054f4db66ce890d336b">More...</a><br /></td></tr>
+<tr class="separator:a192564e583cdc054f4db66ce890d336b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Macros of parallel operations to ease the programming. </p>
-<h1><a class="anchor" id="Introduction"></a>
-Introduction</h1>
-<p>Most of these macro provide a relatively carefree version of the parallel operations. That is, they produce less noise/error and handle the analogue polarity issue. For example, <code>"A = F.copy(B)"</code> execute an idealized copy operation, with polarity of the image preserved and offset error removed. </p>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a18a29ef9546d79db6553eb3ebd9e09b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00014.html">reg</a> io_get_slider_value </td>
+          <td>(</td>
+          <td class="paramtype">handle&#160;</td>
+          <td class="paramname"><em>h</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get the value of a slider from the host </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h</td><td>handle of the slider</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value of the slider</dd></dl>
+<p>Flagging: Z.</p>
+<p>Example Usage:</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = io.get_slider_value(my_slider_1)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a953dd45295d823524f15149018f120b1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">io_analog_input </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00015.html">rint</a>&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set an analogue register for all pe with a value </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the analogue register </td></tr>
+    <tr><td class="paramname">v</td><td>a value with a range of [0,255]</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Flagging: Z.</p>
+<p>The ranged is shifted by 127, so the actual value applied is (v - 127)</p>
+<p>Example Usage:</p>
+<p>Filling register A with +20: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;io.analog_input(A,147)</div>
+</div><!-- fragment --><p>Filling register A with a value read from a slider on the host: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = io.get_slider_value(my_slider_1)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;io.analog_input(A,s0)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a192564e583cdc054f4db66ce890d336b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">io_analog_output </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">handle&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sample and output an entire analogue register array (256x256 values) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the analogue register </td></tr>
+    <tr><td class="paramname">h</td><td>handle of the display window</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This transmit the image stored in an analogue register array to the host.</p>
+<p>Note, this macro contains a large routine and some polling waits. In fact, for most of alogrithms in development, the output macros within a frame cycle takes much more time than the alogrithm itself.</p>
+<p>Example Usage:</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;F.dump_pix(B,C)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;io.analog_output(C,my_window_1)</div>
+</div><!-- fragment --> 
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 5 2016 12:00:10 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2016 18:11:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

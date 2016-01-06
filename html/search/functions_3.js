@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['l_5fand',['L_and',['../a00016.html#aa8c617ddb405cbf2d05205dd9f85d06d',1,'pe_macros.h']]],
-  ['l_5fnand',['L_nand',['../a00016.html#a26d41d7a4af0cef69ffdd7ddbb7ff160',1,'pe_macros.h']]],
-  ['l_5fnor',['L_nor',['../a00016.html#af0493919a1dde0586af3fd05161ca8bd',1,'pe_macros.h']]],
-  ['l_5for',['L_or',['../a00016.html#ae4f2793fe07d91106a6faac0fab015f0',1,'pe_macros.h']]]
+  ['host_5fadd_5fdisplay',['host_add_display',['../a00023.html#a5b620814431ac260d2e287f5adcc739b',1,'host_and_sim.h']]],
+  ['host_5fadd_5fslider',['host_add_slider',['../a00023.html#a4b7cacf924ec2117ef530fd75811cc7c',1,'host_and_sim.h']]]
 ];

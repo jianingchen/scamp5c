@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: port Class Reference</title>
+<title>SCAMP-5c Vision System: Development Environment Setup</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -15,6 +15,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doc_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -41,9 +42,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -63,12 +64,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
-    </ul>
-  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -86,23 +81,72 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">port Class Reference</div>  </div>
+<div class="title">Development Environment Setup </div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>operand of this type can only be a port address  
- <a href="a00006.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00013_source.html">ipu_instructions.h</a>&gt;</code></p>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>operand of this type can only be a port address </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="a00013_source.html">ipu_instructions.h</a></li>
+<div class="textblock"><p><br />
+ </p>
+<h1><a class="anchor" id="sec_scamp5c_setup_1"></a>
+Installing Software</h1>
+<p>Currently, the SCAMP-5c development environment consists of a chain of software. All of the software are in the package. The following steps shows how to setup each of the software:</p>
+<ul>
+<li>Apron<ol type="1">
+<li>Copy the "apron" folder in the package into a approiate place on you hard drive.</li>
+<li>Our plugins for Apron are inside "./apron_ext/build". Copy the contents inside it into your own "apron/bin" folder.</li>
+<li>The second step may be repeated whenever a upadate to the plugins are updated.</li>
+</ol>
+</li>
+<li>Driver for Opal Kelly<ol type="1">
+<li>Run the installer in "./essential_software/OpalKelly"</li>
+</ol>
+</li>
+<li>Crimson Editor<ol type="1">
+<li>Run the installer in "./essential_software/CrimsonEditor" (or download the latest version).</li>
+<li>Copy "link", "spec" and "tools" folders into the installation path of Crimson Editor.</li>
+<li>Open Crimson Editor, setup the commandline shortcuts as follow: <div class="image">
+<img src="doc_setup_cme.png" alt="doc_setup_cme.png"/>
+</div>
+</li>
+</ol>
+</li>
 </ul>
-</div><!-- contents -->
+<p>Similar to many command-based toolchains, you have to specify the path to the executeables in the system environment variables for this toolchain. The following image shows how to do this: </p><div class="image">
+<img src="doc_setup_path.png" alt="doc_setup_path.png"/>
+</div>
+<p>The path in the blue circle is the directory that contains "acomp.exe", "asim.exe", etc.</p>
+<p><br />
+ </p>
+<h1><a class="anchor" id="sec_scamp5c_setup_2"></a>
+Testing</h1>
+<p>The easiest way to test whether the environment is correctly established is to run Example 1. More details about using Apron can be found in <a class="el" href="a00002.html">User Guide for Apron UI</a>.</p>
+<h2><a class="anchor" id="sec_scamp5c_setup_2_1"></a>
+Testing in Simulation</h2>
+<ol type="1">
+<li>Make sure that a usb webcam is connected and functioning.</li>
+<li>Open "./apron/script/examples/example_1_camera/s5c_camera.aps" in Crimson Editor</li>
+<li>To compile the script for the simulation, the simulation header file need to be used while the hardware header filer is commented out. So the beginning part of the script should look like: <div class="fragment"><div class="line">!include(<span class="stringliteral">&#39;apron.scamp5c.sim.aps&#39;</span>)<span class="comment">// this is the simulation header</span></div>
+<div class="line"><span class="comment">//!include(&#39;scamp5c/scamp5c_compile.aps&#39;)// this is the hardware header</span></div>
+</div><!-- fragment --></li>
+<li>In Crimson Editor, compile the script using the shortcut : "Tools" -&gt; "1 APRON Compiler" (or press Ctrl+1).</li>
+<li>Click "Tools" -&gt; "2 APRON Simulator" (or press Ctrl+2) to start the simulation.</li>
+<li>After the APRON UI shows up, click "Run"</li>
+</ol>
+<h2><a class="anchor" id="sec_scamp5c_setup_2_2"></a>
+Testing using The Hardware</h2>
+<ol type="1">
+<li>Make sure that the SCAMP-5c box is properly connected.</li>
+<li>Open "./apron/script/examples/example_1_camera/s5c_camera.aps" in Crimson Editor</li>
+<li>To compile the script for the hardware, the hardware header file need to be used while the simulation header filer is commented out. So the beginning part of the script should look like: <div class="fragment"><div class="line">!include(<span class="stringliteral">&#39;scamp5c/scamp5c_compile.aps&#39;</span>)<span class="comment">// this is the hardware header</span></div>
+<div class="line"><span class="comment">//!include(&#39;apron.scamp5c.sim.aps&#39;)// this is the simulation header</span></div>
+</div><!-- fragment --></li>
+<li>In Crimson Editor, compile the script using the shortcut : "Tools" -&gt; "1 APRON Compiler" (or press Ctrl+1).</li>
+<li>Click "Tools" -&gt; "3 APRON SCAMP-5 Host" (or press Ctrl+3) to run the hosting script for the hardware.</li>
+<li>After the APRON UI shows up, click "Run" </li>
+</ol>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 5 2016 12:00:10 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2016 18:42:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

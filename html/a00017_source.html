@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: pe_digital_macros.h Source File</title>
+<title>SCAMP-5c Vision System: io_macros.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -15,6 +15,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doc_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -86,36 +87,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">pe_digital_macros.h</div>  </div>
+<div class="title">io_macros.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a href="a00017.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">class </span><a class="code" href="a00003.html">areg</a>{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">class </span><a class="code" href="a00004.html">dreg</a>{</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<a class="code" href="a00010.html">reg</a> <a class="code" href="a00017.html#a18a29ef9546d79db6553eb3ebd9e09b7">io_get_slider_value</a>(handle h);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<a class="code" href="a00017.html#a153b8ae7f9e274cad1385a7773bd892a">F_reset_pix</a>();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<a class="code" href="a00017.html#a04e3cce40a0281d40767acd40ae716b6">F_dump_pix</a>(<a class="code" href="a00003.html">areg</a> a1,<a class="code" href="a00003.html">areg</a> a2);</div>
-<div class="ttc" id="a00017_html_a04e3cce40a0281d40767acd40ae716b6"><div class="ttname"><a href="a00017.html#a04e3cce40a0281d40767acd40ae716b6">F_dump_pix</a></div><div class="ttdeci">F_dump_pix(areg a1, areg a2)</div><div class="ttdoc">get the image from PIX, and reset PIX </div></div>
-<div class="ttc" id="a00003_html"><div class="ttname"><a href="a00003.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_analog.h:38</div></div>
-<div class="ttc" id="a00017_html_a153b8ae7f9e274cad1385a7773bd892a"><div class="ttname"><a href="a00017.html#a153b8ae7f9e274cad1385a7773bd892a">F_reset_pix</a></div><div class="ttdeci">F_reset_pix()</div><div class="ttdoc">reset the value of PIX (the photon diode) </div></div>
-<div class="ttc" id="a00004_html"><div class="ttname"><a href="a00004.html">dreg</a></div><div class="ttdoc">operand of this type can only be a digital register </div><div class="ttdef"><b>Definition:</b> pe_digital.h:37</div></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<a class="code" href="a00017.html#a953dd45295d823524f15149018f120b1">io_analog_input</a>(<a class="code" href="a00007.html">areg</a> a1,<a class="code" href="a00011.html">rint</a> v);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<a class="code" href="a00017.html#a192564e583cdc054f4db66ce890d336b">io_analog_output</a>(<a class="code" href="a00007.html">areg</a> a1,handle h);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="ttc" id="a00010_html"><div class="ttname"><a href="a00010.html">reg</a></div><div class="ttdoc">operand of this type can only be an ipu register </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:27</div></div>
+<div class="ttc" id="a00017_html_a192564e583cdc054f4db66ce890d336b"><div class="ttname"><a href="a00017.html#a192564e583cdc054f4db66ce890d336b">io_analog_output</a></div><div class="ttdeci">io_analog_output(areg a1, handle h)</div><div class="ttdoc">sample and output an entire analogue register array (256x256 values) </div></div>
+<div class="ttc" id="a00017_html_a953dd45295d823524f15149018f120b1"><div class="ttname"><a href="a00017.html#a953dd45295d823524f15149018f120b1">io_analog_input</a></div><div class="ttdeci">io_analog_input(areg a1, rint v)</div><div class="ttdoc">set an analogue register for all pe with a value </div></div>
+<div class="ttc" id="a00011_html"><div class="ttname"><a href="a00011.html">rint</a></div><div class="ttdoc">operand of this type can be either an ipu register or a constant integer </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:34</div></div>
+<div class="ttc" id="a00017_html_a18a29ef9546d79db6553eb3ebd9e09b7"><div class="ttname"><a href="a00017.html#a18a29ef9546d79db6553eb3ebd9e09b7">io_get_slider_value</a></div><div class="ttdeci">reg io_get_slider_value(handle h)</div><div class="ttdoc">get the value of a slider from the host </div></div>
+<div class="ttc" id="a00007_html"><div class="ttname"><a href="a00007.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_analog.h:38</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 22 2015 16:51:28 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2016 17:58:45 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

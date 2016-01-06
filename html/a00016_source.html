@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: pe_macros.h Source File</title>
+<title>SCAMP-5c Vision System: host_and_sim.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -15,6 +15,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doc_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -86,77 +87,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">pe_macros.h</div>  </div>
+<div class="title">host_and_sim.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a href="a00016.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<a class="code" href="a00016.html#a153b8ae7f9e274cad1385a7773bd892a">F_reset_pix</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<a class="code" href="a00016.html#a04e3cce40a0281d40767acd40ae716b6">F_dump_pix</a>(<a class="code" href="a00003.html">areg</a> a1,<a class="code" href="a00003.html">areg</a> a2);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<a class="code" href="a00003.html">areg</a> <a class="code" href="a00016.html#a3d07cc65553a6a209f4fcd6f99b2de86">F_copy</a>(<a class="code" href="a00003.html">areg</a> a1);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<a class="code" href="a00003.html">areg</a> <a class="code" href="a00016.html#a710e6cc82629b382ae0e1d56d0bb0728">F_add</a>(<a class="code" href="a00003.html">areg</a> a1,<a class="code" href="a00003.html">areg</a> a2);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<a class="code" href="a00003.html">areg</a> <a class="code" href="a00016.html#ab470f9361c60681bcc191fbb1b689c92">F_sub</a>(<a class="code" href="a00003.html">areg</a> a1,<a class="code" href="a00003.html">areg</a> a2);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<a class="code" href="a00003.html">areg</a> <a class="code" href="a00016.html#a6740ce6c4633b98214f1985c920486a0">F_negate</a>(<a class="code" href="a00003.html">areg</a> a1);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<a class="code" href="a00003.html">areg</a> <a class="code" href="a00016.html#a3d48ea13aec9b954e72e1278e5c8d4ff">F_abs</a>(<a class="code" href="a00003.html">areg</a> a1);</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<a class="code" href="a00003.html">areg</a> <a class="code" href="a00016.html#aea96dee6913d5b5182794621ebdab143">F_divide</a>(a1,a2,a3);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<a class="code" href="a00004.html">dreg</a> <a class="code" href="a00016.html#ae4f2793fe07d91106a6faac0fab015f0">L_or</a>(<a class="code" href="a00004.html">dreg</a> a1,<a class="code" href="a00004.html">dreg</a> a2);</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<a class="code" href="a00004.html">dreg</a> <a class="code" href="a00016.html#aa8c617ddb405cbf2d05205dd9f85d06d">L_and</a>(<a class="code" href="a00004.html">dreg</a> a1,<a class="code" href="a00004.html">dreg</a> a2);</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<a class="code" href="a00004.html">dreg</a> <a class="code" href="a00016.html#af0493919a1dde0586af3fd05161ca8bd">L_nor</a>(<a class="code" href="a00004.html">dreg</a> a1,<a class="code" href="a00004.html">dreg</a> a2);</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<a class="code" href="a00004.html">dreg</a> <a class="code" href="a00016.html#a26d41d7a4af0cef69ffdd7ddbb7ff160">L_nand</a>(<a class="code" href="a00004.html">dreg</a> a1,<a class="code" href="a00004.html">dreg</a> a2);</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
-<div class="ttc" id="a00016_html_a710e6cc82629b382ae0e1d56d0bb0728"><div class="ttname"><a href="a00016.html#a710e6cc82629b382ae0e1d56d0bb0728">F_add</a></div><div class="ttdeci">areg F_add(areg a1, areg a2)</div><div class="ttdoc">add two AREGs into another AREG </div></div>
-<div class="ttc" id="a00016_html_a6740ce6c4633b98214f1985c920486a0"><div class="ttname"><a href="a00016.html#a6740ce6c4633b98214f1985c920486a0">F_negate</a></div><div class="ttdeci">areg F_negate(areg a1)</div><div class="ttdoc">invert the polarity of AREG and copy to another AREG </div></div>
-<div class="ttc" id="a00003_html"><div class="ttname"><a href="a00003.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_analog.h:38</div></div>
-<div class="ttc" id="a00016_html_ae4f2793fe07d91106a6faac0fab015f0"><div class="ttname"><a href="a00016.html#ae4f2793fe07d91106a6faac0fab015f0">L_or</a></div><div class="ttdeci">dreg L_or(dreg a1, dreg a2)</div><div class="ttdoc">OR two DREGs into another DREG. </div></div>
-<div class="ttc" id="a00016_html_aea96dee6913d5b5182794621ebdab143"><div class="ttname"><a href="a00016.html#aea96dee6913d5b5182794621ebdab143">F_divide</a></div><div class="ttdeci">areg F_divide(a1, a2, a3)</div><div class="ttdoc">divide (by half) an AREG into two AREGs </div></div>
-<div class="ttc" id="a00016_html_aa8c617ddb405cbf2d05205dd9f85d06d"><div class="ttname"><a href="a00016.html#aa8c617ddb405cbf2d05205dd9f85d06d">L_and</a></div><div class="ttdeci">dreg L_and(dreg a1, dreg a2)</div><div class="ttdoc">AND two DREGs into another DREG. </div></div>
-<div class="ttc" id="a00016_html_a153b8ae7f9e274cad1385a7773bd892a"><div class="ttname"><a href="a00016.html#a153b8ae7f9e274cad1385a7773bd892a">F_reset_pix</a></div><div class="ttdeci">F_reset_pix()</div><div class="ttdoc">reset the value of PIX (the photon diode) </div></div>
-<div class="ttc" id="a00016_html_ab470f9361c60681bcc191fbb1b689c92"><div class="ttname"><a href="a00016.html#ab470f9361c60681bcc191fbb1b689c92">F_sub</a></div><div class="ttdeci">areg F_sub(areg a1, areg a2)</div><div class="ttdoc">subtract two AREGs, put the result another AREG </div></div>
-<div class="ttc" id="a00016_html_a26d41d7a4af0cef69ffdd7ddbb7ff160"><div class="ttname"><a href="a00016.html#a26d41d7a4af0cef69ffdd7ddbb7ff160">L_nand</a></div><div class="ttdeci">dreg L_nand(dreg a1, dreg a2)</div><div class="ttdoc">NAND two DREGs into another DREG. </div></div>
-<div class="ttc" id="a00016_html_a04e3cce40a0281d40767acd40ae716b6"><div class="ttname"><a href="a00016.html#a04e3cce40a0281d40767acd40ae716b6">F_dump_pix</a></div><div class="ttdeci">F_dump_pix(areg a1, areg a2)</div><div class="ttdoc">get the image from PIX, and reset PIX </div></div>
-<div class="ttc" id="a00016_html_af0493919a1dde0586af3fd05161ca8bd"><div class="ttname"><a href="a00016.html#af0493919a1dde0586af3fd05161ca8bd">L_nor</a></div><div class="ttdeci">dreg L_nor(dreg a1, dreg a2)</div><div class="ttdoc">NOR two DREGs into another DREG. </div></div>
-<div class="ttc" id="a00016_html_a3d07cc65553a6a209f4fcd6f99b2de86"><div class="ttname"><a href="a00016.html#a3d07cc65553a6a209f4fcd6f99b2de86">F_copy</a></div><div class="ttdeci">areg F_copy(areg a1)</div><div class="ttdoc">make a copy of an AREG </div></div>
-<div class="ttc" id="a00004_html"><div class="ttname"><a href="a00004.html">dreg</a></div><div class="ttdoc">operand of this type can only be a digital register </div><div class="ttdef"><b>Definition:</b> pe_digital.h:37</div></div>
-<div class="ttc" id="a00016_html_a3d48ea13aec9b954e72e1278e5c8d4ff"><div class="ttname"><a href="a00016.html#a3d48ea13aec9b954e72e1278e5c8d4ff">F_abs</a></div><div class="ttdeci">areg F_abs(areg a1)</div><div class="ttdoc">take the absolute value of an AREG and copy to another AREG </div></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<a class="code" href="a00010.html">reg</a> <a class="code" href="a00016.html#a18a29ef9546d79db6553eb3ebd9e09b7">io_get_slider_value</a>(handle h);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<a class="code" href="a00016.html#a953dd45295d823524f15149018f120b1">io_analog_input</a>(<a class="code" href="a00007.html">areg</a> a1,<a class="code" href="a00011.html">rint</a> v);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<a class="code" href="a00016.html#a192564e583cdc054f4db66ce890d336b">io_analog_output</a>(<a class="code" href="a00007.html">areg</a> a1,handle h);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
+<div class="ttc" id="a00010_html"><div class="ttname"><a href="a00010.html">reg</a></div><div class="ttdoc">operand of this type can only be an ipu register </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:27</div></div>
+<div class="ttc" id="a00016_html_a192564e583cdc054f4db66ce890d336b"><div class="ttname"><a href="a00016.html#a192564e583cdc054f4db66ce890d336b">io_analog_output</a></div><div class="ttdeci">io_analog_output(areg a1, handle h)</div><div class="ttdoc">sample and output an entire analogue register array (256x256 values) </div></div>
+<div class="ttc" id="a00016_html_a18a29ef9546d79db6553eb3ebd9e09b7"><div class="ttname"><a href="a00016.html#a18a29ef9546d79db6553eb3ebd9e09b7">io_get_slider_value</a></div><div class="ttdeci">reg io_get_slider_value(handle h)</div><div class="ttdoc">get the value of a slider from the host </div></div>
+<div class="ttc" id="a00016_html_a953dd45295d823524f15149018f120b1"><div class="ttname"><a href="a00016.html#a953dd45295d823524f15149018f120b1">io_analog_input</a></div><div class="ttdeci">io_analog_input(areg a1, rint v)</div><div class="ttdoc">set an analogue register for all pe with a value </div></div>
+<div class="ttc" id="a00011_html"><div class="ttname"><a href="a00011.html">rint</a></div><div class="ttdoc">operand of this type can be either an ipu register or a constant integer </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:34</div></div>
+<div class="ttc" id="a00007_html"><div class="ttname"><a href="a00007.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_analog.h:38</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 5 2016 12:00:10 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2016 17:58:45 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

@@ -15,6 +15,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doc_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -87,19 +88,42 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  </p>
 <h1><a class="anchor" id="sec_intro"></a>
 Introduction</h1>
-<p>We have developed a vision chip in 0.18 um CMOS technology with 256x256 processing elements (PEs). Each element incorporates 7 analogue memories and a relative plethora of digital memories, while reducing the processing element size to less than half its area. A diagram of the functional elements of the system and processor array is shown in figure 1. Within a single processing element, the process of reading or writing these memories to common buses allows sequential, simple computations that can implement complex algorithms. With many PEs operating in parallel in an SIMD (single instruction multiple data) architecture, high speed image processing is made possible.</p>
+<p>SCAMP-5 is a vision chip built in 0.18 um CMOS technology with 256x256 processing elements (PEs). Each element incorporates 7 analogue memories and a relative plethora of digital memories, while reducing the processing element size to less than half its area. A diagram of the functional elements of the system and processor array is shown in figure 1. Within a single processing element, the process of reading or writing these memories to common buses allows sequential, simple computations that can implement complex algorithms. With many PEs operating in parallel in an SIMD (single instruction multiple data) architecture, high speed image processing is made possible.</p>
 <p><br />
  </p>
 <h1><a class="anchor" id="sec_environment"></a>
 Development Environment</h1>
 <ul>
 <li>Windows 7 or Above</li>
-<li>A webcam is required for running simulation </li>
+<li>A webcam is required for running simulation</li>
 </ul>
+<p><br />
+ </p>
+<h1><a class="anchor" id="sec_files"></a>
+File List</h1>
+<ul>
+<li>apron<ul>
+<li>bin &mdash; contains the executables and DLLs of APRON.</li>
+<li>examples &mdash; contains the example algorithms.</li>
+<li>script &mdash; contains some other algorithms.</li>
+</ul>
+</li>
+<li>apron_ext<ul>
+<li>build &mdash; contains SCAMP-5c plugins for APRON.</li>
+<li>dev &mdash; contains the C++ source code and project files of the plugins for APRON.</li>
+</ul>
+</li>
+<li>essential_software &mdash; installers of the software essential for the development.</li>
+</ul>
+<p><br />
+ </p>
+<h1><a class="anchor" id="sec_startup"></a>
+Getting Started</h1>
+<p>One can follow the steps in <a class="el" href="a00006.html">Development Environment Setup</a> to setup the development environment. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 5 2016 12:00:10 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2016 18:42:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
