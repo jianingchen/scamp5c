@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: IPU Instructions</title>
+<title>SCAMP-5c Vision System: pe_async_processing.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -45,7 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -64,7 +64,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div><!-- top -->
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>Globals</span></a></li>
+    </ul>
+  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,31 +84,113 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#files">Files</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">IPU Instructions</div>  </div>
+<div class="title">pe_async_processing.h File Reference<div class="ingroups"><a class="el" href="a00036.html">PE Asynchronous Processing</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>IPU Instructions.  
-<a href="#details">More...</a></p>
+<p><a href="a00030_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:a00025"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html">ipu_instructions.h</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aac4b017a1d11ea3978a16a54837c10e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00030.html#aac4b017a1d11ea3978a16a54837c10e9">P_flood_from_boundary</a> (<a class="el" href="a00014.html">dreg</a> r1)</td></tr>
+<tr class="memdesc:aac4b017a1d11ea3978a16a54837c10e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">flooding a DREG plane with '1's from the boundary  <a href="#aac4b017a1d11ea3978a16a54837c10e9">More...</a><br /></td></tr>
+<tr class="separator:aac4b017a1d11ea3978a16a54837c10e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6f49e0c6207da69b4e43f54287191d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00030.html#ae6f49e0c6207da69b4e43f54287191d5">P_flood_from_source</a> (<a class="el" href="a00014.html">dreg</a> r1, <a class="el" href="a00014.html">dreg</a> r2)</td></tr>
+<tr class="memdesc:ae6f49e0c6207da69b4e43f54287191d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">flooding a DREG plane with '1's from the '1's in another DREG plane  <a href="#ae6f49e0c6207da69b4e43f54287191d5">More...</a><br /></td></tr>
+<tr class="separator:ae6f49e0c6207da69b4e43f54287191d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>IPU Instructions. </p>
-<h1><a class="anchor" id="Introduction"></a>
-Introduction</h1>
-<p>(TODO) </p>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="aac4b017a1d11ea3978a16a54837c10e9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00014.html">dreg</a> P_flood_from_boundary </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>r1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>flooding a DREG plane with '1's from the boundary </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r1</td><td>the control register</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result</dd></dl>
+<p>Flagging: Z.</p>
+<p>Used DREG: R0, R1, R2, R3, R4, R12</p>
+<p>Starting from the boundary pixels, each pixel that have at least one '1' neighbour will be filled with 1 if the control register of that pixel is 1. This step is repeated hundreds of times asynchronously in less than 20 clock cycles. As a result, after one call of this macro, the result register is usually flooded by '1's except those areas that are closed by '0's in the control register.</p>
+<div class="image">
+<img src="module_async_propagation.png" alt="module_async_propagation.png"/>
+</div>
+<p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = P.flood_from_boundary(R2)" is invalid.</p>
+<p>Example Usage:</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R1 = P.flood_from_boundary(R5)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="ae6f49e0c6207da69b4e43f54287191d5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00014.html">dreg</a> P_flood_from_source </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>r1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>r2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>flooding a DREG plane with '1's from the '1's in another DREG plane </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r1</td><td>the control register </td></tr>
+    <tr><td class="paramname">r2</td><td>the source of the flood</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result</dd></dl>
+<p>Flagging: Z.</p>
+<p>Used DREG: R0, R1, R2, R3, R4, R12</p>
+<p>This process is similar to <a class="el" href="a00030.html#aac4b017a1d11ea3978a16a54837c10e9" title="flooding a DREG plane with &#39;1&#39;s from the boundary ">P_flood_from_boundary</a>. The only difference is that the source of the flood are from the '1's in another DREG plane rather than the boundary.</p>
+<div class="image">
+<img src="module_async_propagation2.png" alt="module_async_propagation2.png"/>
+</div>
+<p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = P.flood_from_source(R2,R3)" is invalid.</p>
+<p>Example Usage:</p>
+<p>Flooding R1 from coordinates (100,50): </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;io.set_pixel(R6,100,50)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;R1 = P.flood_from_source(R5,R6)</div>
+</div><!-- fragment --> 
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 11:14:07 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 7 2016 18:41:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

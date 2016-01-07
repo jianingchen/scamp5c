@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: PE Analogue Instructions and Programming Outline</title>
+<title>SCAMP-5c Vision System: Development Environment Setup</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -81,23 +81,78 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PE Analogue Instructions and Programming Outline </div>  </div>
+<div class="title">Development Environment Setup </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="Introduction"></a>
-Introduction</h1>
-<h2><a class="anchor" id="Analogue"></a>
-Registers</h2>
-<p>A, B, C, D, E, F, NEWS, PIX, IN.</p>
-<p>Among these registers:</p><ul>
-<li>F is reserved for analogue macros.</li>
-<li>IN and PIX are read-only since their value are determined by external sources.</li>
-<li>The PE can read the NEWS registers of its four neighbouring PEs, referred as NORTH, EAST, WEST and SOUTH. </li>
+<div class="textblock"><p><br />
+ </p>
+<h1><a class="anchor" id="sec_scamp5c_setup_1"></a>
+Setup for Simulation</h1>
+<h2><a class="anchor" id="sec_scamp5c_setup_1_1"></a>
+Installing Software</h2>
+<p>Currently, the SCAMP-5c development environment consists of a chain of software. All of the software are in the package. The following steps shows how to setup each of the software:</p>
+<ul>
+<li>Apron<ol type="1">
+<li>Copy the "apron" folder in the package into a approiate place on you hard drive.</li>
+<li>Our plugins for Apron are inside "./apron_ext/build". Copy the contents inside it into your own "apron/bin" folder.</li>
+<li>The second step may be repeated whenever a upadate to the plugins are updated.</li>
+</ol>
+</li>
+<li>Crimson Editor<ol type="1">
+<li>Run the installer in "./essential_software/CrimsonEditor" (or download the latest version).</li>
+<li>Copy "link", "spec" and "tools" folders into the installation path of Crimson Editor.</li>
+<li>Open Crimson Editor, setup the commandline shortcuts as follow: <div class="image">
+<img src="doc_setup_cme.png" alt="doc_setup_cme.png"/>
+</div>
+</li>
+</ol>
+</li>
 </ul>
+<p>Similar to many command-based toolchains, you have to specify the path to the executeables in the system environment variables for this toolchain. The following image shows how to do this: </p><div class="image">
+<img src="doc_setup_path.png" alt="doc_setup_path.png"/>
+</div>
+<p>"System Properties" window can be opened by pressing Win + Pause/Break. The path in the blue circle is the directory that contains "acomp.exe", "asim.exe", etc.</p>
+<h2><a class="anchor" id="sec_scamp5c_setup_1_2"></a>
+Testing</h2>
+<p>The easiest way to test whether the environment is correctly established is to run Example 1. More details about using Apron can be found in <a class="el" href="a00002.html">User Guide for Apron UI</a>.</p>
+<ol type="1">
+<li>Make sure that a usb webcam is connected and functioning.</li>
+<li>Open "./apron/examples/example_1_camera/s5c_camera.aps" in Crimson Editor</li>
+<li>To compile the script for the simulation, the simulation header file need to be used while the hardware header filer is commented out. So the beginning part of the script should look like: <div class="fragment"><div class="line">!include(<span class="stringliteral">&#39;apron.scamp5c.sim.aps&#39;</span>)<span class="comment">// this is the simulation header</span></div>
+<div class="line"><span class="comment">//!include(&#39;scamp5c/scamp5c_compile.aps&#39;)// this is the hardware header</span></div>
+</div><!-- fragment --></li>
+<li>In Crimson Editor, compile the script using the shortcut : "Tools" -&gt; "1 APRON Compiler" (or press Ctrl+1).</li>
+<li>Click "Tools" -&gt; "2 APRON Simulator" (or press Ctrl+2) to start the simulation.</li>
+<li>After the APRON UI shows up, click "Run"</li>
+</ol>
+<p><br />
+ </p>
+<h1><a class="anchor" id="sec_scamp5c_setup_2"></a>
+Setup for Hardware</h1>
+<h2><a class="anchor" id="sec_scamp5c_setup_2_1"></a>
+Installing Software</h2>
+<p>After the setup and test for the simulation is successful, the only software component needed is:</p><ul>
+<li>Driver for Opal Kelly<ol type="1">
+<li>Run the installer in "./essential_software/OpalKelly"</li>
+</ol>
+</li>
+</ul>
+<h2><a class="anchor" id="sec_scamp5c_setup_2_2"></a>
+Testing using The Hardware</h2>
+<ol type="1">
+<li>Make sure that the SCAMP-5c box is properly connected.</li>
+<li>Open "./apron/script/examples/example_1_camera/s5c_camera.aps" in Crimson Editor</li>
+<li>To compile the script for the hardware, the hardware header file need to be used while the simulation header filer is commented out. So the beginning part of the script should look like: <div class="fragment"><div class="line">!include(<span class="stringliteral">&#39;scamp5c/scamp5c_compile.aps&#39;</span>)<span class="comment">// this is the hardware header</span></div>
+<div class="line"><span class="comment">//!include(&#39;apron.scamp5c.sim.aps&#39;)// this is the simulation header</span></div>
+</div><!-- fragment --></li>
+<li>In Crimson Editor, compile the script using the shortcut : "Tools" -&gt; "1 APRON Compiler" (or press Ctrl+1).</li>
+<li>Click "Tools" -&gt; "3 APRON SCAMP-5 Host" (or press Ctrl+3) to run the hosting script for the hardware.</li>
+<li>After the APRON UI shows up, click "Run" </li>
+</ol>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 11:14:07 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 7 2016 18:41:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

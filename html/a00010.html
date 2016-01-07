@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: PE Digital Instructions and Programming Outline</title>
+<title>SCAMP-5c Vision System: PE Analogue Instructions and Programming Outline</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -81,23 +81,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PE Digital Instructions and Programming Outline </div>  </div>
+<div class="title">PE Analogue Instructions and Programming Outline </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="Introduction"></a>
 Introduction</h1>
-<h2><a class="anchor" id="Digital"></a>
+<h2><a class="anchor" id="Analogue"></a>
 Registers</h2>
-<p>R0, R1, R2, ... R11, R12.</p>
+<p>A, B, C, D, E, F, NEWS, PIX, IN.</p>
 <p>Among these registers:</p><ul>
-<li>R0 is reserved for digital macros.</li>
-<li>digital operations applied to R12 is masked by R0.</li>
-<li>R1, R2, R3, R4 are used as arguments to control digital neighbouring accesss. </li>
+<li>F is reserved for analogue macros.</li>
+<li>IN and PIX are read-only since their value are determined by external sources.</li>
+<li>The PE can read the NEWS registers of its four neighbouring PEs, referred as NORTH, EAST, WEST and SOUTH. </li>
 </ul>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 11:14:07 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 7 2016 18:41:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

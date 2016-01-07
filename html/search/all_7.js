@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['pe_5fasync_5fprocessing_2eh',['pe_async_processing.h',['../a00026.html',1,'']]],
-  ['pe_5fmacros_2eh',['pe_macros.h',['../a00027.html',1,'']]],
-  ['port',['port',['../a00014.html',1,'']]],
-  ['pe_20analogue_20instructions_20and_20programming_20outline',['PE Analogue Instructions and Programming Outline',['../a00008.html',1,'']]],
-  ['pe_20asynchronous_20processing',['PE Asynchronous Processing',['../a00031.html',1,'']]],
-  ['pe_20digital_20instructions_20and_20programming_20outline',['PE Digital Instructions and Programming Outline',['../a00010.html',1,'']]],
-  ['pe_20macros',['PE Macros',['../a00032.html',1,'']]]
+  ['l_5fand',['L_and',['../a00031.html#aa8c617ddb405cbf2d05205dd9f85d06d',1,'pe_digital_macros.h']]],
+  ['l_5fnand',['L_nand',['../a00031.html#a26d41d7a4af0cef69ffdd7ddbb7ff160',1,'pe_digital_macros.h']]],
+  ['l_5fnor',['L_nor',['../a00031.html#af0493919a1dde0586af3fd05161ca8bd',1,'pe_digital_macros.h']]],
+  ['l_5for',['L_or',['../a00031.html#ae4f2793fe07d91106a6faac0fab015f0',1,'pe_digital_macros.h']]]
 ];

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: PE Asynchronous Processing</title>
+<title>SCAMP-5c Vision System: pe_digital_macros.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -45,7 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -64,7 +64,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div><!-- top -->
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>Globals</span></a></li>
+    </ul>
+  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,33 +84,198 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#files">Files</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">PE Asynchronous Processing</div>  </div>
+<div class="title">pe_digital_macros.h File Reference<div class="ingroups"><a class="el" href="a00037.html">PE Digital Operation Macros</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The interface of the asynchronous processing functionality on the SCAMP-5 chip.  
-<a href="#details">More...</a></p>
+<p><a href="a00031_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:a00026"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html">pe_async_processing.h</a></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00014.html">dreg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">operand of this type can only be a digital register  <a href="a00014.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae4f2793fe07d91106a6faac0fab015f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00031.html#ae4f2793fe07d91106a6faac0fab015f0">L_or</a> (<a class="el" href="a00014.html">dreg</a> a1, <a class="el" href="a00014.html">dreg</a> a2)</td></tr>
+<tr class="memdesc:ae4f2793fe07d91106a6faac0fab015f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">OR two DREGs into another DREG.  <a href="#ae4f2793fe07d91106a6faac0fab015f0">More...</a><br /></td></tr>
+<tr class="separator:ae4f2793fe07d91106a6faac0fab015f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8c617ddb405cbf2d05205dd9f85d06d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00031.html#aa8c617ddb405cbf2d05205dd9f85d06d">L_and</a> (<a class="el" href="a00014.html">dreg</a> a1, <a class="el" href="a00014.html">dreg</a> a2)</td></tr>
+<tr class="memdesc:aa8c617ddb405cbf2d05205dd9f85d06d"><td class="mdescLeft">&#160;</td><td class="mdescRight">AND two DREGs into another DREG.  <a href="#aa8c617ddb405cbf2d05205dd9f85d06d">More...</a><br /></td></tr>
+<tr class="separator:aa8c617ddb405cbf2d05205dd9f85d06d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0493919a1dde0586af3fd05161ca8bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00031.html#af0493919a1dde0586af3fd05161ca8bd">L_nor</a> (<a class="el" href="a00014.html">dreg</a> a1, <a class="el" href="a00014.html">dreg</a> a2)</td></tr>
+<tr class="memdesc:af0493919a1dde0586af3fd05161ca8bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">NOR two DREGs into another DREG.  <a href="#af0493919a1dde0586af3fd05161ca8bd">More...</a><br /></td></tr>
+<tr class="separator:af0493919a1dde0586af3fd05161ca8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26d41d7a4af0cef69ffdd7ddbb7ff160"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00031.html#a26d41d7a4af0cef69ffdd7ddbb7ff160">L_nand</a> (<a class="el" href="a00014.html">dreg</a> a1, <a class="el" href="a00014.html">dreg</a> a2)</td></tr>
+<tr class="memdesc:a26d41d7a4af0cef69ffdd7ddbb7ff160"><td class="mdescLeft">&#160;</td><td class="mdescRight">NAND two DREGs into another DREG.  <a href="#a26d41d7a4af0cef69ffdd7ddbb7ff160">More...</a><br /></td></tr>
+<tr class="separator:a26d41d7a4af0cef69ffdd7ddbb7ff160"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>The interface of the asynchronous processing functionality on the SCAMP-5 chip. </p>
-<h1><a class="anchor" id="Introduction"></a>
-Introduction</h1>
-<p>(TODO)</p>
-<h1><a class="anchor" id="Example"></a>
-Usage</h1>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ae4f2793fe07d91106a6faac0fab015f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00014.html">dreg</a> L_or </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>a2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>OR two DREGs into another DREG. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>first DREG </td></tr>
+    <tr><td class="paramname">a2</td><td>second DREG</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result</dd></dl>
+<p>Example Usage:</p>
+<p>The following line achieves the Boolean operation "R1 = R2 OR R3": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R1 = L.or(R2,R3)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="aa8c617ddb405cbf2d05205dd9f85d06d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00014.html">dreg</a> L_and </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>a2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AND two DREGs into another DREG. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>first DREG </td></tr>
+    <tr><td class="paramname">a2</td><td>second DREG</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result</dd></dl>
+<p>Example Usage:</p>
+<p>The following line achieves the Boolean operation "R1 = R2 AND R3": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R1 = L.and(R2,R3)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="af0493919a1dde0586af3fd05161ca8bd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00014.html">dreg</a> L_nor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>a2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>NOR two DREGs into another DREG. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>first DREG </td></tr>
+    <tr><td class="paramname">a2</td><td>second DREG</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result</dd></dl>
+<p>Example Usage:</p>
+<p>The following line achieves the Boolean operation "R1 = R2 NOR R3": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R1 = L.nor(R2,R3)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a26d41d7a4af0cef69ffdd7ddbb7ff160"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00014.html">dreg</a> L_nand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>a2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>NAND two DREGs into another DREG. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>first DREG </td></tr>
+    <tr><td class="paramname">a2</td><td>second DREG</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result</dd></dl>
+<p>Example Usage:</p>
+<p>The following line achieves the Boolean operation "R1 = R2 NAND R3": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R1 = L.nand(R2,R3)</div>
+</div><!-- fragment --> 
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 11:14:07 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 7 2016 18:41:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

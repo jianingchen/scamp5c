@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: PE Macros</title>
+<title>SCAMP-5c Vision System: Host and Simulation Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,27 +83,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#files">Files</a>  </div>
   <div class="headertitle">
-<div class="title">PE Macros</div>  </div>
+<div class="title">Host and Simulation Functions</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>these macros provide a relatively care-free version of the basic PE operations  
+<p>Configuration of the simulation and the SCAMP-5 hosting environment.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
 Files</h2></td></tr>
-<tr class="memitem:a00027"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00027.html">pe_macros.h</a></td></tr>
+<tr class="memitem:a00026"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html">host_and_sim.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>these macros provide a relatively care-free version of the basic PE operations </p>
-<h1><a class="anchor" id="Introduction"></a>
+<p>Configuration of the simulation and the SCAMP-5 hosting environment. </p>
+<h1><a class="anchor" id="sec_host_sim_1"></a>
 Introduction</h1>
-<p>Most of these macro provide a relatively carefree version of the parallel operations going on the PE. That is, they produce less error and handle the analogue polarity issue. For example, <code>"A = F.copy(B)"</code> execute an idealized copy operation, with polarity of the image preserved and the offset error removed. </p>
-</div><!-- contents -->
+<p>(TODO)</p>
+<h1><a class="anchor" id="sec_host_sim_2"></a>
+Example Usage</h1>
+<div class="fragment"><div class="line">apron.config_begin()</div>
+<div class="line">slider_1 = host.add_slider(<span class="stringliteral">&#39;parameter a&#39;</span>, 0, 255, 127, 1, 1)</div>
+<div class="line">slider_2 = host.add_slider(<span class="stringliteral">&#39;parameter b&#39;</span>, 0, 255, 3, 1, 1)</div>
+<div class="line">window_1 = host.add_display(<span class="stringliteral">&#39;Captured&#39;</span>)</div>
+<div class="line">window_2 = host.add_display(<span class="stringliteral">&#39;Processed&#39;</span>)</div>
+<div class="line">sim.pix_source_webcam()<span class="comment">// use webcam as image source when in simulation</span></div>
+<div class="line">apron.config_end()</div>
+</div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 11:14:07 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 7 2016 18:41:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
