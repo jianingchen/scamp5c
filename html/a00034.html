@@ -99,11 +99,15 @@ Files</h2></td></tr>
 <p>IPU Instructions. </p>
 <h1><a class="anchor" id="Introduction"></a>
 Introduction</h1>
+<p>The ipu has 16 8-bit general purpose registers (s0 - s15) and two flag bits (C and Z).</p>
+<p>Among the registers, s10 to s15 are reserved for the macros.</p>
+<p>Flag Z will be set after an instruction produces a result that is 0. Flag Z will be cleared after an instruction produces a result that is not 0.</p>
+<p>Flag C will be set after an arthematic instruction that has overflow or underflow. Flag C will be cleared after an arthematic instruction that operates within a valid range.</p>
 <p>(TODO) </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 18:41:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 18 2016 18:58:53 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

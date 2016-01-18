@@ -118,11 +118,8 @@ Testing</h2>
 <ol type="1">
 <li>Make sure that a usb webcam is connected and functioning.</li>
 <li>Open "./apron/examples/example_1_camera/s5c_camera.aps" in Crimson Editor</li>
-<li>To compile the script for the simulation, the simulation header file need to be used while the hardware header filer is commented out. So the beginning part of the script should look like: <div class="fragment"><div class="line">!include(<span class="stringliteral">&#39;apron.scamp5c.sim.aps&#39;</span>)<span class="comment">// this is the simulation header</span></div>
-<div class="line"><span class="comment">//!include(&#39;scamp5c/scamp5c_compile.aps&#39;)// this is the hardware header</span></div>
-</div><!-- fragment --></li>
-<li>In Crimson Editor, compile the script using the shortcut : "Tools" -&gt; "1 APRON Compiler" (or press Ctrl+1).</li>
-<li>Click "Tools" -&gt; "2 APRON Simulator" (or press Ctrl+2) to start the simulation.</li>
+<li>In Crimson Editor, compile the script using the shortcut : "Tools" -&gt; "1 SCAMP-5c Compile Simulation" (or press Ctrl+1).</li>
+<li>Click "Tools" -&gt; "1 SCAMP-5c Run Simulation" (or press Ctrl+2) to start the simulation.</li>
 <li>After the APRON UI shows up, click "Run"</li>
 </ol>
 <p><br />
@@ -138,21 +135,18 @@ Installing Software</h2>
 </li>
 </ul>
 <h2><a class="anchor" id="sec_scamp5c_setup_2_2"></a>
-Testing using The Hardware</h2>
+Hardware Testing</h2>
 <ol type="1">
 <li>Make sure that the SCAMP-5c box is properly connected.</li>
 <li>Open "./apron/script/examples/example_1_camera/s5c_camera.aps" in Crimson Editor</li>
-<li>To compile the script for the hardware, the hardware header file need to be used while the simulation header filer is commented out. So the beginning part of the script should look like: <div class="fragment"><div class="line">!include(<span class="stringliteral">&#39;scamp5c/scamp5c_compile.aps&#39;</span>)<span class="comment">// this is the hardware header</span></div>
-<div class="line"><span class="comment">//!include(&#39;apron.scamp5c.sim.aps&#39;)// this is the simulation header</span></div>
-</div><!-- fragment --></li>
-<li>In Crimson Editor, compile the script using the shortcut : "Tools" -&gt; "1 APRON Compiler" (or press Ctrl+1).</li>
-<li>Click "Tools" -&gt; "3 APRON SCAMP-5 Host" (or press Ctrl+3) to run the hosting script for the hardware.</li>
+<li>In Crimson Editor, compile the script using the shortcut : "Tools" -&gt; "3 SCAMP-5c Compile ICW" (or press Ctrl+3).</li>
+<li>Click "Tools" -&gt; "4 SCAMP-5c Host ICW" (or press Ctrl+4) to run the hosting script for the hardware.</li>
 <li>After the APRON UI shows up, click "Run" </li>
 </ol>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 18:41:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 18 2016 18:58:53 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
