@@ -125,6 +125,12 @@ sim&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a0002
 <tr class="memitem:a5b620814431ac260d2e287f5adcc739b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00015.html">handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a5b620814431ac260d2e287f5adcc739b">host_add_display</a> (string text)</td></tr>
 <tr class="memdesc:a5b620814431ac260d2e287f5adcc739b"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a display window to the APRON UI  <a href="#a5b620814431ac260d2e287f5adcc739b">More...</a><br /></td></tr>
 <tr class="separator:a5b620814431ac260d2e287f5adcc739b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6624d82e3c8c59b0ddfa0156b58a2178"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00015.html">handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a6624d82e3c8c59b0ddfa0156b58a2178">host_add_datasheet</a> (string text, int r, int c, enum d)</td></tr>
+<tr class="memdesc:a6624d82e3c8c59b0ddfa0156b58a2178"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a datasheet to the APRON host  <a href="#a6624d82e3c8c59b0ddfa0156b58a2178">More...</a><br /></td></tr>
+<tr class="separator:a6624d82e3c8c59b0ddfa0156b58a2178"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9b91fb61e745d20a1c2a47fcd54b1d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#ac9b91fb61e745d20a1c2a47fcd54b1d5">host_set_frame_rate</a> (int v)</td></tr>
+<tr class="memdesc:ac9b91fb61e745d20a1c2a47fcd54b1d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the desired frame rate  <a href="#ac9b91fb61e745d20a1c2a47fcd54b1d5">More...</a><br /></td></tr>
+<tr class="separator:ac9b91fb61e745d20a1c2a47fcd54b1d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
@@ -209,12 +215,12 @@ sim&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a0002
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>handle of the slider</dd></dl>
-<p>Use this function to create a slider in APRON UI to send a parameter to the program in both simulation and real hardware. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;apron.config_begin()</div>
+<p>Use this function to create a slider in APRON UI to send a parameter to the program in both simulation and real hardware. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;apron.config_begin</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;slider_1 = host.add_slider(&#39;parameter a&#39;, 0, 255, 127, 1, 1)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;apron.config_end()</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;apron.config_end</div>
 </div><!-- fragment --><p> create a slider that can be referred as <code>slider_1</code>.</p>
-<p>In the program, the value presented on a slider can be obtained and stored in an IPU register. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = ipu.get_slider_value(slider_1)</div>
-</div><!-- fragment --><p> put the value on <code>slider_1</code> into ipu register <code>s0</code>. See also ::ipu_get_slider_value. </p>
+<p>In the program, the value presented on a slider can be obtained and stored in an IPU register. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = io.slider(slider_1)</div>
+</div><!-- fragment --><p> put the value on <code>slider_1</code> into ipu register <code>s0</code>. See also <a class="el" href="a00027.html#a42f84ed20a1f129fddd596b1d3b11920" title="get the value of a slider from the host ">io_slider</a>. </p>
 
 </div>
 </div>
@@ -235,24 +241,115 @@ sim&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a0002
 <p>add a display window to the APRON UI </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">text</td><td>handle of the slider</td></tr>
+    <tr><td class="paramname">text</td><td>name of the display</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>handle of the display window</dd></dl>
-<p>Use this function to create a window in APRON UI that can show an image (register array) received from the program. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;apron.config_begin()</div>
+<p>Use this function to create a window in APRON UI that can show an image (register array) received from the program. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;apron.config_begin</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;window_1 = host.add_display(&#39;Captured&#39;)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;apron.config_end()</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;apron.config_end</div>
 </div><!-- fragment --><p> create a window that can be referred as <code>window_1</code>.</p>
 <p>In the program, a particular register for each of the PEs can be read as a image. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;io.analog_output(C,window_1)</div>
 </div><!-- fragment --><p> send analogue register <code>C</code> to <code>window_1</code> of the APRON hosting UI as an image of 256x256. See also ::io_analog_output. </p>
 
 </div>
 </div>
+<a class="anchor" id="a6624d82e3c8c59b0ddfa0156b58a2178"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00015.html">handle</a> host_add_datasheet </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum&#160;</td>
+          <td class="paramname"><em>d</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>add a datasheet to the APRON host </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>name of the datasheet </td></tr>
+    <tr><td class="paramname">r</td><td>number of rows </td></tr>
+    <tr><td class="paramname">c</td><td>number of cols </td></tr>
+    <tr><td class="paramname">d</td><td>direction of data to be filled via streaming</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>handle of the datasheet </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac9b91fb61e745d20a1c2a47fcd54b1d5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">host_set_frame_rate </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the desired frame rate </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the frame rate</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Note, this only affect the frame trigger. In a debug loop, the actual visible frame rate is dominated by the frame readout process as it takes much time. The following structure can be used to keep the exposure time to be (1/framerate):</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;...</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;host.set_frame_rate(50)// 50 frames per sec</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;...</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;#frame_loop</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    // maintain an exposure time of 1/50 sec</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    ipu.wait_frame_trigger</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    F.rpix</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    ipu.wait_frame_trigger</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    F.rpix(B,C)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    // the rest of the program</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    ...</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;_jump(#frame_loop)</div>
+</div><!-- fragment --> 
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 18 2016 18:58:53 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 26 2016 12:42:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

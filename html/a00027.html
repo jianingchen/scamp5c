@@ -106,6 +106,21 @@ Functions</h2></td></tr>
 <tr class="memitem:ac9cd74d812c5c0d5fa82e23e2f70c093"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00027.html#ac9cd74d812c5c0d5fa82e23e2f70c093">io_d2aout</a> (<a class="el" href="a00014.html">dreg</a> b1, <a class="el" href="a00015.html">handle</a> h)</td></tr>
 <tr class="memdesc:ac9cd74d812c5c0d5fa82e23e2f70c093"><td class="mdescLeft">&#160;</td><td class="mdescRight">output an entire 256x256 DREG plane as an analog image  <a href="#ac9cd74d812c5c0d5fa82e23e2f70c093">More...</a><br /></td></tr>
 <tr class="separator:ac9cd74d812c5c0d5fa82e23e2f70c093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6a264e13e4ea895b435b0aa02464638"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00027.html#ae6a264e13e4ea895b435b0aa02464638">io_pixel_set</a> (<a class="el" href="a00014.html">dreg</a> b1, <a class="el" href="a00018.html">rint</a> x, <a class="el" href="a00018.html">rint</a> y)</td></tr>
+<tr class="memdesc:ae6a264e13e4ea895b435b0aa02464638"><td class="mdescLeft">&#160;</td><td class="mdescRight">set one pixel in a DREG plane  <a href="#ae6a264e13e4ea895b435b0aa02464638">More...</a><br /></td></tr>
+<tr class="separator:ae6a264e13e4ea895b435b0aa02464638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeda5a030713570ef997a2431fd30a87"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00027.html#aaeda5a030713570ef997a2431fd30a87">io_stream_begin</a> (<a class="el" href="a00015.html">handle</a> h)</td></tr>
+<tr class="memdesc:aaeda5a030713570ef997a2431fd30a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">begin streaming data to the host  <a href="#aaeda5a030713570ef997a2431fd30a87">More...</a><br /></td></tr>
+<tr class="separator:aaeda5a030713570ef997a2431fd30a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad759f64a31d8e3ded9173da213d11d9c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00027.html#ad759f64a31d8e3ded9173da213d11d9c">io_stream_send</a> (<a class="el" href="a00018.html">rint</a> v)</td></tr>
+<tr class="memdesc:ad759f64a31d8e3ded9173da213d11d9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">send a value for the ongoing stream  <a href="#ad759f64a31d8e3ded9173da213d11d9c">More...</a><br /></td></tr>
+<tr class="separator:ad759f64a31d8e3ded9173da213d11d9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2df8c702136006fbfd833594f31e5f7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00027.html#a2df8c702136006fbfd833594f31e5f7f">io_stream_end</a> (<a class="el" href="a00018.html">rint</a> p, <a class="el" href="a00018.html">rint</a> v)</td></tr>
+<tr class="memdesc:a2df8c702136006fbfd833594f31e5f7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">end an ongoing data stream  <a href="#a2df8c702136006fbfd833594f31e5f7f">More...</a><br /></td></tr>
+<tr class="separator:a2df8c702136006fbfd833594f31e5f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291468405971c1e092418c789cde2c9e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00027.html#a291468405971c1e092418c789cde2c9e">io_scan_events</a> (<a class="el" href="a00015.html">handle</a> h, <a class="el" href="a00014.html">dreg</a> r, <a class="el" href="a00018.html">rint</a> n)</td></tr>
+<tr class="memdesc:a291468405971c1e092418c789cde2c9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">scan upto a certain number of points in a DREG plane and send their coordinates to the host  <a href="#a291468405971c1e092418c789cde2c9e">More...</a><br /></td></tr>
+<tr class="separator:a291468405971c1e092418c789cde2c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
@@ -221,10 +236,181 @@ Functions</h2></td></tr>
 </div><!-- fragment --> 
 </div>
 </div>
+<a class="anchor" id="ae6a264e13e4ea895b435b0aa02464638"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">io_pixel_set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>b1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00018.html">rint</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00018.html">rint</a>&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set one pixel in a DREG plane </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b1</td><td>the DREG plane </td></tr>
+    <tr><td class="paramname">x</td><td>x coordinate of the pixel </td></tr>
+    <tr><td class="paramname">y</td><td>y coordinate of the pixel</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Example Usage:</p>
+<p>Make (30,50) and (50,50) in R5 DREG plane to be 1: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R5 = 0</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;io.pixel_set(R5,30,50)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;io.pixel_set(R5,50,50)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="aaeda5a030713570ef997a2431fd30a87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">io_stream_begin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00015.html">handle</a>&#160;</td>
+          <td class="paramname"><em>h</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>begin streaming data to the host </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h</td><td>the datesheet to hold the values </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ad759f64a31d8e3ded9173da213d11d9c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">io_stream_send </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00018.html">rint</a>&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>send a value for the ongoing stream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>value to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a2df8c702136006fbfd833594f31e5f7f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">io_stream_end </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00018.html">rint</a>&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00018.html">rint</a>&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>end an ongoing data stream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>number of padding bytes </td></tr>
+    <tr><td class="paramname">v</td><td>value to be padded </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a291468405971c1e092418c789cde2c9e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">io_scan_events </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00015.html">handle</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00018.html">rint</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>scan upto a certain number of points in a DREG plane and send their coordinates to the host </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h</td><td>the datesheet to hold the values </td></tr>
+    <tr><td class="paramname">r</td><td>the DREG plane to be scanned </td></tr>
+    <tr><td class="paramname">n</td><td>maximum number of points </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 18 2016 18:58:53 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 26 2016 12:42:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
