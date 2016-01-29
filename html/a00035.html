@@ -99,11 +99,12 @@ Files</h2></td></tr>
 <p>provide a relatively care-free version of the basic PE analogue operations </p>
 <h1><a class="anchor" id="Introduction"></a>
 Introduction</h1>
-<p>Most of these macro provide a relatively carefree version of the parallel operations going on the PE. That is, they produce less error and handle the analogue polarity issue. For example, <code>"A = F.mov(B)"</code> execute an idealized copy operation, with polarity of the image preserved and the offset error removed. </p>
+<p>Most of these macro provide a relatively carefree version of the parallel operations going on the PE. That is, they produce less error and handle the analogue polarity issue. For example, <code>"A = F.mov(B)"</code> execute an idealized copy operation, with polarity of the image preserved and the offset error removed.</p>
+<p>Note, in these macros, the result AREG cannot be same as any of the source AREGs. For example, <code>"A = F.add(A,B)"</code> is invalid. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 26 2016 12:42:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 29 2016 19:04:11 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

@@ -90,14 +90,24 @@ Introduction</h1>
 Registers</h2>
 <p>A, B, C, D, E, F, NEWS, PIX, IN.</p>
 <p>Among these registers:</p><ul>
-<li>F is reserved for analogue macros.</li>
-<li>IN and PIX are read-only since their value are determined by external sources.</li>
-<li>The PE can read the NEWS registers of its four neighbouring PEs, referred as NORTH, EAST, WEST and SOUTH. </li>
+<li>F, IN and PIX are reserved for macros.</li>
+<li>The PE can read the NEWS registers of its four neighbouring PEs, referred as NORTH, EAST, WEST and SOUTH.</li>
+</ul>
+<p>Each of the analogue registers stores a signed value using current.</p>
+<p>When the value of an analogue register need to be read by any digital device (such as the PC host), it is digitized an 8-bit integer with range [-127,127].</p>
+<h2><a class="anchor" id="Instructions"></a>
+Instructions</h2>
+<ul>
+<li><code>load</code> </li>
+<li><code>add</code> </li>
+<li><code>div</code> </li>
+<li><code>where</code> </li>
+<li><code>all</code> </li>
 </ul>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 26 2016 12:42:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 29 2016 19:04:11 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

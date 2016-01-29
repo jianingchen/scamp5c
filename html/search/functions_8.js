@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['user_20guide_20for_20apron_20ui',['User Guide for Apron UI',['../a00002.html',1,'']]],
   ['usb_5faout',['usb_aout',['../a00027.html#a6185368d95142035f24ec36d535b3e11',1,'io_macros.h']]],
   ['usb_5fd2aout',['usb_d2aout',['../a00027.html#ac5da89e6654b3189d2e558b9880e51e2',1,'io_macros.h']]],
   ['usb_5fscan_5fevents',['usb_scan_events',['../a00027.html#a6d86f8d6f2a32150a32b1ac3aee13708',1,'io_macros.h']]],

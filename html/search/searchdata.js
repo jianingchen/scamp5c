@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "_adefhilprsu",
   1: "adhpr",
   2: "hip",
-  3: "_afhilp",
+  3: "_afhilpsu",
   4: "hip",
   5: "deipsu"
 };

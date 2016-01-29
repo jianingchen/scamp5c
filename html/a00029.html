@@ -114,10 +114,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a65f32d26dcc0ec3b1e0d36bf640f864c"><td class="mdescLeft">&#160;</td><td class="mdescRight">make a copy of an AREG  <a href="#a65f32d26dcc0ec3b1e0d36bf640f864c">More...</a><br /></td></tr>
 <tr class="separator:a65f32d26dcc0ec3b1e0d36bf640f864c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a710e6cc82629b382ae0e1d56d0bb0728"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a710e6cc82629b382ae0e1d56d0bb0728">F_add</a> (<a class="el" href="a00013.html">areg</a> a1, <a class="el" href="a00013.html">areg</a> a2)</td></tr>
-<tr class="memdesc:a710e6cc82629b382ae0e1d56d0bb0728"><td class="mdescLeft">&#160;</td><td class="mdescRight">add two AREGs into another AREG  <a href="#a710e6cc82629b382ae0e1d56d0bb0728">More...</a><br /></td></tr>
+<tr class="memdesc:a710e6cc82629b382ae0e1d56d0bb0728"><td class="mdescLeft">&#160;</td><td class="mdescRight">add two AREGs  <a href="#a710e6cc82629b382ae0e1d56d0bb0728">More...</a><br /></td></tr>
 <tr class="separator:a710e6cc82629b382ae0e1d56d0bb0728"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab470f9361c60681bcc191fbb1b689c92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#ab470f9361c60681bcc191fbb1b689c92">F_sub</a> (<a class="el" href="a00013.html">areg</a> a1, <a class="el" href="a00013.html">areg</a> a2)</td></tr>
-<tr class="memdesc:ab470f9361c60681bcc191fbb1b689c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">subtract two AREGs, put the result another AREG  <a href="#ab470f9361c60681bcc191fbb1b689c92">More...</a><br /></td></tr>
+<tr class="memdesc:ab470f9361c60681bcc191fbb1b689c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">subtract two AREGs  <a href="#ab470f9361c60681bcc191fbb1b689c92">More...</a><br /></td></tr>
 <tr class="separator:ab470f9361c60681bcc191fbb1b689c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58f90acd47320b46c7c58fc47bcb2662"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a58f90acd47320b46c7c58fc47bcb2662">F_neg</a> (<a class="el" href="a00013.html">areg</a> a1)</td></tr>
 <tr class="memdesc:a58f90acd47320b46c7c58fc47bcb2662"><td class="mdescLeft">&#160;</td><td class="mdescRight">invert the polarity of AREG and copy to another AREG  <a href="#a58f90acd47320b46c7c58fc47bcb2662">More...</a><br /></td></tr>
@@ -244,7 +244,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>add two AREGs into another AREG </p>
+<p>add two AREGs </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">a1</td><td>first AREG </td></tr>
@@ -255,6 +255,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>the result of "a1 + a2"</dd></dl>
 <p>Example Usage:</p>
 <p>The following line arithmetically achieves "A = B + C": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = F.add(B,C)</div>
+</div><!-- fragment --><p>The following line arithmetically achieves "B = B + C": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;F.add(B,C)</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -282,7 +283,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>subtract two AREGs, put the result another AREG </p>
+<p>subtract two AREGs </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">a1</td><td>the AREG to subtract from </td></tr>
@@ -293,6 +294,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>the result of (a1 - a2)</dd></dl>
 <p>Example Usage:</p>
 <p>The following line arithmetically achieves "A = B - C": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = F.sub(B,C)</div>
+</div><!-- fragment --><p>The following line arithmetically achieves "B = B - C": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;F.sub(B,C)</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -421,8 +423,8 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>the analogue register to store the value</dd></dl>
 <p>The ranged is shifted by 127, so the actual value applied is (v - 127)</p>
 <p>Example Usage:</p>
-<p>Filling register A with 50: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;io.analog_input(A,50)</div>
-</div><!-- fragment --><p>Filling register A with a value read from a slider on the host: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = io.slider(my_slider_1)</div>
+<p>Filling register A with 50: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = F.in(50)</div>
+</div><!-- fragment --><p>Filling register A with a value read from a slider on the host: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = usb.slider(my_slider_1)</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;A = F.in(s0)</div>
 </div><!-- fragment --> 
 </div>
@@ -430,7 +432,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 26 2016 12:42:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 29 2016 19:04:11 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
