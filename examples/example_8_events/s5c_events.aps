@@ -1,0 +1,70 @@
+
+apron.config_begin
+    host.template('scamp5c_host_template.txt')
+    host.firmware('../ok_scamp5_0106.bit')
+    window_1 = host.add_display('source')
+    window_2 = host.add_display('result')
+    slider_1 = host.add_slider('threshold', -120, 120, 10, 1, 1)
+    slider_2 = host.add_slider('x', 0, 255, 40, 1, 1)
+    slider_3 = host.add_slider('y', 0, 255, 30, 1, 1)
+    data_1 = host.add_datasheet('coords',16,2,ROW_STREAM)
+    host.set_frame_rate(50)
+    sim.pix_source_webcam
+apron.config_end
+
+#start
+    
+    ipu.wait_frame_trigger
+    F.rpix(B,C)
+    
+    R5 = 0
+    R6 = 0
+    R7 = 0
+
+    s1 = usb.slider(slider_2)
+    s2 = usb.slider(slider_3)
+    
+    // put some '1's on a DREG plane
+    ipu.pixel_set(R5,s1,s2)
+    ipu.pixel_set(R5,200,100)
+    ipu.pixel_set(R5,128,128)
+    ipu.pixel_set(R5,100,200)
+    B = F.d2a(R5)
+    
+    // events read out
+    usb.stream_begin(data_1)
+    _mov(s0,16)
+    #scan_event
+        
+        // locate a '1'
+        pro.locate_event(R5,s1,s2)
+        
+        // send the coordinates
+        usb.stream_send(s1)
+        usb.stream_send(s2)
+        
+        // remove the found '1' from the DREG plane
+        R7 = 0
+        ipu.pixel_set(R7,s1,s2)
+        R6 = not(R7)
+        R7 = L.and(R5,R6)
+        R5 = R7
+        
+        _sub(s0,1)
+    _jump(nz,#scan_event)
+    usb.stream_end(0,0)
+    
+    /// The whole events readout process can also be achieved by the macro below
+    /// with less transparency but higher efficiency. 
+    /// Note: this macro won't change R5 whereas the program above changed R5. 
+    //usb.scan_events(data_1,R5,16)// scan and send all coordinates
+    
+    C = F.d2a(R5)
+    
+    usb.aout(B,window_1)
+    usb.aout(C,window_2)
+    
+    _jump(#start)
+    
+apron.genereate_host
+apron.compile_host

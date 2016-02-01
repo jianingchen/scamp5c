@@ -1,0 +1,33 @@
+
+apron.config_begin
+    sim.pix_source_webcam
+    host.template('scamp5c_host_template.txt')
+    host.firmware('../ok_scamp5_0106.bit')
+    host.set_frame_rate(50)
+    window_1 = host.add_display('Captured')
+    window_2 = host.add_display('Processed')
+apron.config_end
+
+#start
+
+    ipu.wait_frame_trigger
+    
+    F.rpix(B,C)
+    
+    usb.aout(C,window_1)// display original image
+    
+    D = F.sub(C,A)// D = C - A
+    
+    A = F.mov(C)// store this frame in A for use in next cycle
+    
+    B = F.abs(D)// B = |D| 
+    
+    D = F.neg(B)// we want the changed pixels to be rendered in black
+    
+    F.rpix
+    usb.aout(D,window_2)// display processed image
+    
+_jump(#start)
+
+apron.genereate_host
+apron.compile_host

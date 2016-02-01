@@ -1,0 +1,35 @@
+
+apron.config_begin
+    //sim.pix_source_webcam
+    sim.pix_source_image('test_image.jpg')// use a file as image source
+    host.template('scamp5c_host_template.txt')
+    host.firmware('../ok_scamp5_0106.bit')
+    window_1 = host.add_display('cap')
+    window_2 = host.add_display('out')
+    slider_1 = host.add_slider('threshold', -127, 127, 55, 1, 1)
+apron.config_end
+
+#start
+
+    ipu.wait_frame_trigger
+    
+    F.rpix(B,C)
+    usb.aout(C,window_1)
+    
+    s0 = usb.slider(slider_1)
+    D = F.in(s0)
+    
+    E = F.sub(B,D)
+    
+    A = F.in(-120)
+    where(E)
+        A = F.in(120)
+    all
+    
+    F.rpix
+    usb.aout(A,window_2)
+    
+    _jump(#start)
+    
+apron.genereate_host
+apron.compile_host

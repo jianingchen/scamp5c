@@ -1,0 +1,295 @@
+//
+// IPU Routines (not to be used directly in user algorithms)
+// 
+// Aliased IPU registers:
+// su -- s15
+// sv -- s14
+// sw -- s13
+// sx -- s12
+// sy -- s11
+// sz -- s10
+// 
+// Assuming a number of volatile registers, indiceted in name as follow:
+// sa -- su, sv, sw, sx, sy, sz,
+// sh -- su, sv, sw,
+// st -- su, sv,
+// sw --         sw.
+// 
+// If a routine produces a result, the result will always be stored in sw.
+//
+//------------------------------------------------------------------------------
+
+#_ipu_st_delay
+
+	_nop
+	
+	_mov(su,5)
+	#delay_outer_loop
+		_nop
+		
+		_mov(sv,255)
+		#delay_inner_loop
+			_nop
+			_sub(sv,1)
+		_jump(nz,#delay_inner_loop)
+		_nop
+		
+		_sub(su,1)
+	_jump(nz,#delay_outer_loop)
+	_nop
+	
+_ret
+
+//------------------------------------------------------------------------------
+
+#_ipu_sw_sample_ana
+	
+	_exp(1, IPU_PORT_ADC_START_SAMPLE)
+	
+	#sample_ana_loop
+		_imp(sw, IPU_PORT_ADC_STOP_SAMPLE)
+		_and(sw, 1)
+	_jump(z,#sample_ana_loop)
+	
+	_exp(0, IPU_PORT_ADC_START_SAMPLE)
+	
+	_imp(sw, IPU_PORT_NO_VC_DI)
+	
+_ret
+
+//------------------------------------------------------------------------------
+
+!if(USE_CALL_READOUT_256_COL_MAJOR, ==, 1)
+
+// There are many ways of messing with this algo to try and improve the frame rate and
+// to remove striping during readout etc. e.g.
+//Increase the sample rate. Currently set at 45MHz so in sync with IPU at 90MHz. ADC is specced to 60MHz
+//Remove the FE switching
+//Add LR cycling betweeen pixels
+//Increase/decrease the ADC_DELAY. Set at 3 at mo.
+//Current performance under these conditions are 0.65 sd time sd with 21fps possible. 
+//with minor striping visible at code 240
+//If changing, checkout (a) Time sd
+//						(b) First pixel readout  - it it plausible?
+//						(c) First col readout - is there dragover from 255th col?
+//						(d) Column striping across a range of output values
+#_ipu_sa_readout_256_cm
+	
+	// boost clocks
+	_exp(255, IPU_PORT_CLK_SWITCH)
+	_nop
+	_exp(1, IPU_PORT_RD)
+	_nop
+	
+	// image header packet
+	ipu.send_byte(PCKT_START)
+	ipu.send_byte(PCKT_ID_FRAME)
+	ipu.send_byte(0) // x-min
+	ipu.send_byte(0) // y-min
+	ipu.send_byte(255) // x-max
+	ipu.send_byte(255) // y-max
+	
+	// Set Block Size
+	_exp(0, IPU_PORT_ADDR) //was0
+	_exp(1, IPU_PORT_LRX)
+	_exp(0, IPU_PORT_LRX)
+	_exp(1, IPU_PORT_LCX)
+	_exp(0, IPU_PORT_LCX)
+	
+	// Set ADC Delay
+	//_imp(s8, 20)//8 looks good //was 5 on previous
+	_exp(1, IPU_PORT_ADC_DELAY) //1 seems good, slower looks worse. Go faster than 3 (which you can) and you get visible addressing noise (external wire)
+	_exp(3, IPU_PORT_ADC_FEAMP) 
+	_exp(0, IPU_PORT_ADDR) 
+	_exp(1, IPU_PORT_LR)
+	//_exp(0, IPU_PORT_LR)
+	
+	_mov(sx, 0)
+	#cm_loop_col
+		
+		_nop
+		
+		// column address
+		_exp(sx, IPU_PORT_ADDR) 
+		_exp(1, IPU_PORT_LC)
+		_exp(0, IPU_PORT_LC)
+		
+		// row address
+ 		_mov(sy, 0)
+ 		_exp(sy, IPU_PORT_ADDR) 
+ 		_exp(1, IPU_PORT_LR)
+ 		_exp(2, IPU_PORT_ADC_FEAMP) //setup VGA --AorBOP Norm = 0 (8); EnB Norm  0 (4) ; EnA Norm = 2 (0) ;AorBIP Norm = 0 (1) (So Norm = 2; open cct = 1)
+
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		
+		#cm_loop_row
+			_nop
+			
+			_add(sy, 1)
+			
+			// sample and store in sw
+			_call(#_ipu_sw_sample_ana)
+			
+			// row address
+			_exp(sy, IPU_PORT_ADDR)
+			_exp(2, IPU_PORT_ADC_FEAMP)
+			
+			// send result to host
+			ipu.send_byte(sw)
+			
+			_cmp(sy,0)
+		_jump(nz, #cm_loop_row)
+		_nop
+		
+		_exp(3, IPU_PORT_ADC_FEAMP) //setup VGA --AorBOP Norm = 0 (8); EnB Norm  0 (4) ; EnA Norm = 2 (0) ;AorBIP Norm = 0 (1) (So Norm = 2; open cct = 1)
+		
+		_add(sx, 1)
+	_jump(nz, #cm_loop_col)
+	_nop
+	
+	// clocks back to normal (9MHz at 90MHz clk)
+ 	_exp(8, IPU_PORT_CLK_SWITCH)
+	_exp(0, IPU_PORT_RD)
+	
+_ret
+
+!endif
+
+//------------------------------------------------------------------------------
+
+!if(USE_CALL_READOUT_256_ROW_MAJOR, ==, 1)
+
+//This readout algo looks better than the Row version since less streaking is visible from other pixels. However, there does appear to be a shift of pixel value if run at high speed.
+//Add a square block of significant different intensity to see streaking effect that this algo avoids.
+#_ipu_sa_readout_256_rm
+	
+	// boost clocks
+	_exp(255, IPU_PORT_CLK_SWITCH)
+	_nop
+	
+	// image header packet
+	ipu.send_byte(PCKT_START)
+	ipu.send_byte(PCKT_ID_FRAME)
+	ipu.send_byte(0) // x-min
+	ipu.send_byte(0) // y-min
+	ipu.send_byte(255) // x-max
+	ipu.send_byte(255) // y-max
+	
+	// Set Block Size
+	_exp(0, IPU_PORT_ADDR) //was0
+	_exp(1, IPU_PORT_LRX)
+	_exp(0, IPU_PORT_LRX)
+	_exp(1, IPU_PORT_LCX)
+	_exp(0, IPU_PORT_LCX)
+	
+	// Set ADC Delay
+	//_imp(s8, 20)//8 looks good //was 5 on previous
+	_exp(3, IPU_PORT_ADC_DELAY) //go faster than 15 (which you can) and you get visible addressing noise (external wire)
+	_exp(1, IPU_PORT_RD)
+	_exp(0, IPU_PORT_ADDR) 
+	_exp(1, IPU_PORT_LR)
+	_exp(0, IPU_PORT_LR)
+	
+	 // 255 dummy samples to smooth out acquisition
+	_mov(su,0)
+	#dummy22
+		_nop
+		_call(#_ipu_sw_sample_ana)
+		_add(su, 1)
+	_jump(nz, #dummy22)
+	_nop
+	
+	// whole plane sampling loop
+	_mov(sy, 0)
+	#rm_loop_row
+		_nop
+		
+		// row address
+		_exp(sy, IPU_PORT_ADDR) 
+		_exp(1, IPU_PORT_LR)
+		_exp(0, IPU_PORT_LR)
+		
+		// column address
+ 		_mov(sx, 0)
+ 		_exp(sx, IPU_PORT_ADDR) 
+	//	_exp(3, IPU_PORT_ADC_FEAMP)
+		_exp(1, IPU_PORT_LC)
+	//	_exp(0, IPU_PORT_LC)
+		_exp(2, IPU_PORT_ADC_FEAMP)
+ 
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		_nop
+		
+		#rm_loop_col
+			_nop
+			
+			_add(sx, 1)
+			
+			// sample and store in sw
+			_call(#_ipu_sw_sample_ana)
+			
+			// column address
+			_exp(3, IPU_PORT_ADC_FEAMP)
+			//_exp(2, IPU_PORT_ADC_FEAMP)
+			_exp(sx, IPU_PORT_ADDR)
+ 			_exp(1, IPU_PORT_LC)
+ 			_exp(0, IPU_PORT_LC)
+			_exp(2, IPU_PORT_ADC_FEAMP)
+			
+			// send result back to host
+			ipu.send_byte(sw)
+			
+			_cmp(sx,0)
+		_jump(nz, #rm_loop_col)
+		_nop
+		
+		_add(sy, 1)
+	_jump(nz, #rm_loop_row)
+	_nop
+	
+	
+	#rm_quit
+	
+	// clocks back to normal (9MHz at 90MHz clk)
+ 	_exp(8, IPU_PORT_CLK_SWITCH)
+	_exp(0, IPU_PORT_RD)
+	
+_ret
+
+!endif
+
+//------------------------------------------------------------------------------
+
+	
+	

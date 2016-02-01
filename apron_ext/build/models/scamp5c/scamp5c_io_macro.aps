@@ -1,0 +1,231 @@
+//
+// IPU IO Macros
+//
+// Aliased IPU registers:
+// su -- s15
+// sv -- s14
+// sw -- s13
+// sx -- s12
+// sy -- s11
+// sz -- s10
+// 
+// These macros assume the above ipu registers, R0, R1 and F to be volatile.
+// 
+//------------------------------------------------------------------------------
+
+
+!macro_def
+    $p1 = usb.slider($p2)
+!macro_begin
+    su = host_slider($p2)
+    _mov($p1,su)
+!macro_end
+
+
+
+!macro_def
+    usb.aout($r1,$h)
+!macro_begin
+    host_aout($h)
+    _exp(2, IPU_PORT_ADC_FEAMP)
+    keep
+    set_sel_ana($r1)
+    _call(#_ipu_sa_readout_256_rm)
+    _nop
+!macro_end
+
+
+
+!macro_def
+    usb.d2aout($r1,$h)
+!macro_begin
+    R0 = FLAG
+    all
+    set('plrb' 'rid' ) //this drives the bus to zero volts
+    _exp(0, IPU_PORT_B)
+    F = IN
+    where($r1)
+        set('plrb' 'rid' ) //this drives the bus to zero volts
+        _exp(255, IPU_PORT_B)
+        F = IN
+    all
+    FLAG = R0
+    _nop
+    host_aout($h)
+    _exp(2, IPU_PORT_ADC_FEAMP)
+    keep
+    set_sel_ana(F)
+    _call(#_ipu_sa_readout_256_rm)
+    _nop
+!macro_end
+
+
+
+!macro_def
+    usb.dout($r1,$h)
+!macro_begin
+    host_dout($h)
+    //(TODO)
+!macro_end
+
+
+
+!macro_def
+    usb.stream_begin($h)
+!macro_begin
+    host_xout($h)
+    ipu.send_byte(PCKT_START)
+    ipu.send_byte(13) // 7 for x, 8 for y, 13 for a stream of bytes
+    ipu.send_byte(0)
+    ipu.send_byte(0)
+    ipu.send_byte(0)
+    ipu.send_byte(0)
+!macro_end
+
+
+
+!macro_def
+    usb.stream_send($p1)
+!macro_begin
+    ipu.send_byte($p1)
+    _nop
+!macro_end
+
+
+
+!macro_def
+    usb.stream_end($p1,$p2)
+!macro_begin
+    _mov(sz,$p1)
+    _jump(z,:#no_padding_bytes)
+    :#padding_bytes
+    ipu.send_byte($p2)
+    _sub(sz,1)
+    _jump(nz,:#padding_bytes)
+    :#no_padding_bytes
+    _nop
+!macro_end
+
+
+
+!macro_def
+    usb.scan_events($h,$r1,$p1)
+!macro_begin
+
+    host_xout($h)
+    
+    ipu.send_byte(PCKT_START)
+    ipu.send_byte(13) // 7 for x, 8 for y, 13 for a stream of bytes
+    ipu.send_byte(0)
+    ipu.send_byte(0)
+    ipu.send_byte(0)
+    ipu.send_byte(0)
+    _nop
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(0, IPU_PORT_RD)
+    _nop
+    nop
+    nop
+    nop
+    nop
+    _exp(4, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
+    _nop
+    _exp(5,IPU_PORT_FALL_C1)
+    _exp(6,IPU_PORT_RISE_C2)
+    
+    R0 = $r1
+    R3 = 0
+    
+    _mov(sz,$p1)
+    
+    _exp(255, IPU_PORT_ADDR) //search all rows
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    _exp(1, IPU_PORT_LC) //leave latch up on col
+    _exp(0, IPU_PORT_LC)
+    
+    #output_pix //returns "events" from R5. All coords of pixels in R5
+    _nop
+ 
+    //Remove a pixel that has already been output (none on first run)
+    set('LR4' 'nbit' 'plrb' 'rfl' ) //R7 = not(R5)
+    set('lfl' 'RR4' 'RR3' 'nbit' 'plrb' )//R5 = not( R4 OR R3)
+    
+    R2 = $r1
+    $r1 = R2
+    
+    all
+    where(R0)
+    _exp(0, IPU_PORT_CLK_SWITCH)
+    _nop
+    set('pgdb' 'pgdbobus' 'col_out') //output first live column (all rows active)
+    set('col_out')
+    _exp(255, IPU_PORT_CLK_SWITCH)//FAST
+    _nop//await data
+    _nop
+    _nop
+    _nop
+    _nop        
+    _imp(sx,234) //Get data from Dig port
+    
+    _exp(4,IPU_PORT_CLK_SWITCH) // dreg operation clock
+    _nop
+    R2 = $r1
+    $r1 = R2
+    
+    _exp(sx, IPU_PORT_ADDR) //Specifies which column searched (that is, the column just found above). 
+    _exp(1, IPU_PORT_LC)
+    _exp(0, IPU_PORT_LC)
+    _exp(0, IPU_PORT_CLK_SWITCH)
+    _nop
+    set('pgdb' 'row_out')
+    set('row_out')
+    _exp(255, IPU_PORT_CLK_SWITCH) //FAST
+    _nop
+    _nop
+    _nop //3 starts to work
+    _nop
+    _nop
+    _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
+    
+     //send coordinate to USB
+    _mov(sv,255)
+    _sub(sv,sx)
+    ipu.send_byte(sv)
+    _nop
+    ipu.send_byte(sy)
+    _nop
+    
+    //Now writing to coordinate found so can remove from image
+    _exp(sy, IPU_PORT_ADDR)
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+    _exp(0, IPU_PORT_ADDR) //Just specify one row
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    
+    _exp(4, IPU_PORT_CLK_SWITCH) // dreg operation clock
+    _nop
+    set('LR3' 'wr' 'bitmode' 'bit' 'plrb'  )
+    
+    //search all rows again to look for next pixel
+    _exp(255, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    
+    _sub(sz,1)
+    _jump(nz,#output_pix)
+    _nop
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+//     _exp(0, IPU_PORT_RD)
+//     _nop
+    
+    all
+    
+!macro_end

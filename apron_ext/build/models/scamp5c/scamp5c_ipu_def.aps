@@ -1,0 +1,141 @@
+
+// IPU Register Definitions
+//------------------------------------------------------------------------------
+
+!create('s0', IPUVAR)
+!create('s1', IPUVAR)
+!create('s2', IPUVAR)
+!create('s3', IPUVAR)
+!create('s4', IPUVAR)
+!create('s5', IPUVAR)
+!create('s6', IPUVAR)
+!create('s7', IPUVAR)
+!create('s8', IPUVAR)
+!create('s9', IPUVAR)
+!create('s10', IPUVAR)
+!create('s11', IPUVAR)
+!create('s12', IPUVAR)
+!create('s13', IPUVAR)
+!create('s14', IPUVAR)
+!create('s15', IPUVAR)
+
+!define(s0, ipuvar[0])
+!define(s1, ipuvar[1])
+!define(s2, ipuvar[2])
+!define(s3, ipuvar[3])
+!define(s4, ipuvar[4])
+!define(s5, ipuvar[5])
+!define(s6, ipuvar[6])
+!define(s7, ipuvar[7])
+!define(s8, ipuvar[8])
+!define(s9, ipuvar[9])
+!define(s10, ipuvar[10])
+!define(s11, ipuvar[11])
+!define(s12, ipuvar[12])
+!define(s13, ipuvar[13])
+!define(s14, ipuvar[14])
+!define(s15, ipuvar[15])
+
+!define(su, ipuvar[15])
+!define(sv, ipuvar[14])
+!define(sw, ipuvar[13])
+!define(sx, ipuvar[12])
+!define(sy, ipuvar[11])
+!define(sz, ipuvar[10])
+
+// enumerations
+!define(c, 1)
+!define(nc, 2)
+!define(z, 3)
+!define(nz, 4)
+
+!define(north, 1)
+!define(east, 2)
+!define(west, 3)
+!define(south, 4)
+
+
+// IPU Port Definitions
+//------------------------------------------------------------------------------
+
+!define(IPU_PORT_NO_PM_DIN,	128)
+!define(IPU_PORT_NO_FIFO,	129)
+!define(IPU_PORT_NO_DBG_CNTR0, 130)
+!define(IPU_PORT_NO_DBG_CNTR1, 131)
+!define(IPU_PORT_NO_DBG_CNTR2, 132)
+
+!define(IPU_PORT_NO_DBG_CNTR3, 133)
+!define(IPU_PORT_NO_INT_ADDR0, 134)
+!define(IPU_PORT_NO_INT_ADDR1, 135)
+!define(IPU_PORT_PC_DBG_OUT_L, 136)
+!define(IPU_PORT_PC_DBG_OUT_H, 137)
+
+!define(IPU_PORT_ADDR, 138)
+!define(IPU_PORT_RISE_C1, 139)
+!define(IPU_PORT_FALL_C1, 140)
+!define(IPU_PORT_RISE_C2, 141)
+!define(IPU_PORT_FALL_C2, 142)
+!define(IPU_PORT_RISE_C3, 143)
+!define(IPU_PORT_FALL_C3, 144)
+!define(IPU_PORT_RISE_C4, 145)
+!define(IPU_PORT_FALL_C4, 146)
+!define(IPU_PORT_FRAME_CNT_B0, 147)
+!define(IPU_PORT_FRAME_CNT_B1, 148)
+!define(IPU_PORT_FRAME_CNT_B2, 149)
+
+!define(IPU_PORT_NO_SOFT_RST, 151)
+
+!define(IPU_PORT_NO_USB_FLAGS, 224)  // The data at this port is (0 0 0 0 0 0 rxe txf)
+!define(IPU_PORT_NO_VC_DI, 225)
+!define(IPU_PORT_NO_IPU_DO, 226)
+
+!define(IPU_PORT_FB_X,227)   
+!define(IPU_PORT_FB_Y,228)   
+!define(IPU_PORT_FB_D,229)   
+!define(IPU_PORT_FB_X_MIN,230)
+!define(IPU_PORT_FB_X_MAX,231)	
+!define(IPU_PORT_FB_Y_MIN,232)
+!define(IPU_PORT_FB_Y_MAX,233)
+!define(IPU_PORT_VC_DI_DIG8,234)
+!define(IPU_PORT_FT_IN,235)
+
+!define(IPU_PORT_ADC_DELAY,236)
+!define(IPU_PORT_ADC_START_SAMPLE,237)
+!define(IPU_PORT_ADC_STOP_SAMPLE,238)
+!define(IPU_PORT_B,239)
+!define(IPU_PORT_LC,240)
+!define(IPU_PORT_LR,241)
+!define(IPU_PORT_LCX,242)
+!define(IPU_PORT_LRX,243)
+!define(IPU_PORT_RD,244)
+!define(IPU_PORT_GOR_IN,245)
+!define(IPU_PORT_ADC_TRI,246)
+!define(IPU_PORT_CLK_SWITCH,247)
+
+!define(IPU_PORT_ADC_FEAMP,248)
+!define(IPU_PORT_DACS,249)
+!define(IPU_PORT_DACsLSBs,250)
+!define(IPU_PORT_calib,251)
+!define(IPU_PORT_POWER,252)
+
+!define(IPU_PORT_INPUT_1, 18)
+!define(IPU_PORT_INPUT_2, 19)
+!define(IPU_PORT_INPUT_3, 20)
+!define(IPU_PORT_INPUT_4, 21)
+!define(IPU_PORT_INPUT_5, 22)
+
+
+
+// USB Packet Definitions
+//------------------------------------------------------------------------------
+
+!define(PCKT_START, 85)
+!define(PCKT_ID_PORT_WR, 1)
+!define(PCKT_ID_PM_WR, 2)
+!define(PCKT_ID_IPU_START, 3)
+!define(PCKT_ID_IPU_STOP, 4)
+!define(PCKT_ID_FRAME, 5)
+!define(PCKT_ID_BOX, 6)
+!define(PCKT_ID_X_COORD, 7)
+!define(PCKT_ID_Y_COORD, 8)
+

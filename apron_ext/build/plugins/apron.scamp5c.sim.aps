@@ -1,0 +1,789 @@
+
+!include('apron.aps')
+!include('apron.io.aps')
+!include('apron.webcam.aps')
+
+!module('apron.scamp5c.sim.dll')
+
+!define(PE_DIM_X, 256)
+!define(PE_DIM_Y, 256)
+
+
+
+/// datasheet
+
+!default_palette(0,'Raw')
+!object('datasheet', 'd', 201, 'SIM_REGISTER')
+
+
+/// analog registers
+
+!default_palette(0,'scamp5c_analog')
+!object('A_REG', 'a', 300, 'SIM_REGISTER')
+
+!create('a_a', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('a_b', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('a_c', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('a_d', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('a_e', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('a_f', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('news', 'A_REG', PE_DIM_Y, PE_DIM_Y)
+!create('pix', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('in', 'A_REG', PE_DIM_X, PE_DIM_Y)
+
+!define(A, a[a_a])
+!define(B, a[a_b])
+!define(C, a[a_c])
+!define(D, a[a_d])
+!define(E, a[a_e])
+!define(F, a[a_f])
+!define(NEWS, a[news])
+!define(PIX, a[pix])
+!define(IN, a[in])
+
+
+
+/// digital (binary) registers
+!default_palette(0,'scamp5c_digital')
+!object('D_REG', 'b', 301, 'SIM_REGISTER')
+
+!create('b_0', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_1', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_2', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_3', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_4', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_5', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_6', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_7', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_8', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_9', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_10', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_11', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('b_12', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('flag', 'D_REG', PE_DIM_X, PE_DIM_Y)
+
+!define(R0, b[b_0])
+!define(R1, b[b_1])
+!define(R2, b[b_2])
+!define(R3, b[b_3])
+!define(R4, b[b_4])
+!define(R5, b[b_5])
+!define(R6, b[b_6])
+!define(R7, b[b_7])
+!define(R8, b[b_8])
+!define(R9, b[b_9])
+!define(R10, b[b_10])
+!define(R11, b[b_11])
+!define(R12, b[b_12])
+!define(FLAG, b[flag])
+
+
+
+/// ipu registers
+!object('IPU_REG', 's', 302, 'SIM_VARIABLE')
+
+!create('s_0', 'IPU_REG')
+!create('s_1', 'IPU_REG')
+!create('s_2', 'IPU_REG')
+!create('s_3', 'IPU_REG')
+!create('s_4', 'IPU_REG')
+!create('s_5', 'IPU_REG')
+!create('s_6', 'IPU_REG')
+!create('s_7', 'IPU_REG')
+!create('s_8', 'IPU_REG')
+!create('s_9', 'IPU_REG')
+!create('s_10', 'IPU_REG')
+!create('s_11', 'IPU_REG')
+!create('s_12', 'IPU_REG')
+!create('s_13', 'IPU_REG')
+!create('s_14', 'IPU_REG')
+!create('s_15', 'IPU_REG')
+// !create('if_z', 'IPU_REG')
+// !create('if_c', 'IPU_REG')
+
+IPU_C = 0
+IPU_Z = 0
+
+!define(s0, s[s_0])
+!define(s1, s[s_1])
+!define(s2, s[s_2])
+!define(s3, s[s_3])
+!define(s4, s[s_4])
+!define(s5, s[s_5])
+!define(s6, s[s_6])
+!define(s7, s[s_7])
+!define(s8, s[s_8])
+!define(s9, s[s_9])
+!define(s10, s[s_10])
+!define(s11, s[s_11])
+!define(s12, s[s_12])
+!define(s13, s[s_13])
+!define(s14, s[s_14])
+!define(s15, s[s_15])
+
+!define(su, s[s_15])
+!define(sv, s[s_14])
+!define(sw, s[s_13])
+!define(sx, s[s_12])
+!define(sy, s[s_11])
+!define(sz, s[s_10])
+
+
+
+// hidden registers
+
+!default_palette(1.0, 'Raw')
+!object('interim', 'x', 400, 'SIM_REGISTER')
+!create('pix_image', 'interim', PE_DIM_X, PE_DIM_Y)
+!create('apron_mask', 'interim', PE_DIM_X, PE_DIM_Y)
+!create('where_temp', 'interim', PE_DIM_X, PE_DIM_Y)
+!create('dnews_temp', 'interim', PE_DIM_X, PE_DIM_Y)
+
+!define(PIX_IMAGE, interim[pix_image])
+!default_palette(1.0,'SimpleGrey')
+sim_pix_source = 0
+sim_pix_source_file = 'default.bmp'
+sim_pix_source_folder = 'images/'
+sim_pix_source_digits = 4
+sim_pix_source_extension = '.bmp'
+
+
+
+// other vars
+
+!object('enumeration', 'e', 401, 'SIM_VARIABLE')
+!create('enum_north', 'enumeration')
+!create('enum_east', 'enumeration')
+!create('enum_west', 'enumeration')
+!create('enum_south', 'enumeration')
+!define(NORTH, e[enum_north])
+!define(EAST, e[enum_east])
+!define(WEST, e[enum_west])
+!define(SOUTH, e[enum_south])
+
+NORTH = 1
+EAST = 2
+WEST = 3
+SOUTH = 4
+
+!define(c, 1)
+!define(nc, 2)
+!define(z, 3)
+!define(nz, 4)
+
+!define(ROW_STREAM, 0)
+!define(COL_STREAM, 1)
+
+//
+!macro_def
+    $p1 = pload($p2)
+!macro_begin
+    plugin(?, 0, $p1, $p2)
+!macro_end
+
+// digital news
+!macro_def
+    $p1 = s5c_sim_dnews($p2,$p3,$p4,$p5,$p6)
+!macro_begin
+    plugin(?, 110, $p1, $p2, $p3,$p4,$p5,$p6)
+!macro_end
+
+// diffuse both vertically and horizontally
+!macro_def
+    $r1 = s5c_sim_diffuse($r2,$p1,$p2)
+!macro_begin
+    plugin(?, 111, $r1, $r2, $p1, $p2)
+!macro_end
+
+//
+!macro_def
+    s5c_sim_flood_boundary($p1,$p2)
+!macro_begin
+    plugin(?, 112, $p1, $p2)
+!macro_end
+
+//
+!macro_def
+    s5c_sim_flood_source($p1,$p2,$p3)
+!macro_begin
+    plugin(?, 113, $p1, $p2, $p3)
+!macro_end
+
+//
+!macro_def
+    $p1 = s5c_sim_adc($p2)
+!macro_begin
+    plugin(?, 114, $p1, $p2)
+!macro_end
+
+//
+!macro_def
+    s5c_sim_locate_event($p1,$p2,$p3)
+!macro_begin
+    plugin(?, 115, $p1, $p2, $p3)
+!macro_end
+
+//
+!macro_def
+    s5c_sim_scan_events($p1,$p2,$p3)
+!macro_begin
+    plugin(?, 116, $p1, $p2, $p3)
+!macro_end
+
+
+
+/// Native PE Instructions
+
+// native reset pix
+!macro_def
+    respix
+!macro_begin
+    plugin(?, 100, PIX)
+!macro_end
+
+// native add
+!macro_def
+    $p1 = add($p2,$p3)
+!macro_begin
+    plugin(?, 102, $p1, $p2, $p3)
+!macro_end
+
+// native add
+!macro_def
+    $p1 = add($p2,$p3,$p4)
+!macro_begin
+    plugin(?, 103, $p1, $p2, $p3, $p4)
+!macro_end
+
+// native divide
+!macro_def
+    div($p1, $p2, $p3)
+!macro_begin
+    plugin(?, 104, $p1, $p2, $p3)
+!macro_end
+
+// native NOT
+!macro_def
+    $r1 = not($r2)
+!macro_begin
+    plugin(?, 105, $r1, $r2)
+!macro_end
+
+// native OR
+!macro_def
+    $r1 = or($r2,$r3)
+!macro_begin
+    plugin(?, 106, $r1, $r2, $r3)
+!macro_end
+
+// native NOR
+!macro_def
+    $r1 = nor($r2,$r3)
+!macro_begin
+    plugin(?, 107, $r1, $r2, $r3)
+!macro_end
+
+//
+!macro_def
+    where($r1)
+!macro_begin
+    mask.off
+    core.load(FLAG, 0.0)
+    x[apron_mask] = mask.if($r1, >, 0)
+    mask.on(x[apron_mask])
+    core.load(FLAG, 1)
+!macro_end
+
+//
+!macro_def
+    all
+!macro_begin
+    mask.off
+    core.load(FLAG, 1.0)
+!macro_end
+
+//
+!macro_def
+    setf
+!macro_begin
+    mask.off
+    core.load(FLAG, 1.0)
+!macro_end
+
+
+
+/// Native IPU Instructions
+//------------------------------------------------------------------------------
+
+//
+!macro_def
+    _nop
+!macro_begin
+    nop
+!macro_end
+
+//
+!macro_def
+    _mov( $r1, $r2 )
+!macro_begin
+    plugin(?, 200, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _or( $r1, $r2 )
+!macro_begin
+    plugin(?, 201, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _and( $r1, $r2 )
+!macro_begin
+    plugin(?, 202, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _add( $r1, $r2 )
+!macro_begin
+    plugin(?, 203, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _sub( $r1, $r2 )
+!macro_begin
+    plugin(?, 204, $r1, $r2)
+!macro_end
+
+
+//
+!macro_def
+    usb.stream_begin($p1)
+!macro_begin
+    plugin(?, 210, $p1)
+!macro_end
+
+
+//
+!macro_def
+    usb.stream_end($p1,$p2)
+!macro_begin
+    plugin(?, 211, $p1, $p2)
+!macro_end
+
+
+//
+!macro_def
+    usb.stream_send($p1)
+!macro_begin
+    plugin(?, 212, $p1)
+!macro_end
+
+
+
+
+
+/// Simulator Implementation of io and ipu macro
+//------------------------------------------------------------------------------
+
+//
+!macro_def
+    ipu.wait_frame_trigger
+!macro_begin
+    if(sim_pix_source,==,1)
+        PIX_IMAGE = webcam.getLuminance(0)
+    endif
+    if(sim_pix_source,==,2)
+        // static image, not changing
+    endif
+    core.mul(PIX,PIX_IMAGE,0.495)
+    core.sub(PIX,PIX,127.0)
+!macro_end
+
+
+//
+!macro_def
+    ipu.pixel_set($r1,$p1,$p2)
+!macro_begin
+    pixel.set($r1,$p1,$p2,1.0)
+!macro_end
+
+
+//
+!macro_def
+    $p1 = usb.slider($p2)
+!macro_begin
+     sim.slider.get($p2,s15)
+     _mov($p1,s15)
+!macro_end
+
+
+//
+!macro_def
+    usb.aout($p1,$p2)
+!macro_begin
+    $p2 = s5c_sim_adc($p1)
+    sim.show($p2)
+!macro_end
+
+
+//
+!macro_def
+    usb.d2aout($p1,$p2)
+!macro_begin
+    core.load(F,$p1)
+    F = F*254.0
+    F = F - 127
+    usb.aout(F,$p2)
+!macro_end
+
+//
+!macro_def
+    $r1 = pro.digital_news($r2,$p3,$p4,$p5,$p6)
+!macro_begin
+    $r1 = s5c_sim_dnews($r2,$p3,$p4,$p5,$p6)
+!macro_end
+
+//
+!macro_def
+    $r1 = pro.flood_from_boundary($r2)
+!macro_begin
+    s5c_sim_flood_boundary($r1,$r2)
+!macro_end
+
+
+//
+!macro_def
+    $r1 = pro.flood_from_source($r2,$r3)
+!macro_begin
+    s5c_sim_flood_source($r1,$r2,$r3)
+!macro_end
+
+
+//
+!macro_def
+    $r1 = pro.diffuse($r2,$p1,$p2)
+!macro_begin
+    s5c_sim_diffuse($r1,$r2,$p1,$p2)
+!macro_end
+
+
+//
+!macro_def
+    pro.locate_event($p1,$p2,$p3)
+!macro_begin
+    s5c_sim_locate_event($p1,$p2,$p3)
+!macro_end
+
+
+//
+!macro_def
+    usb.scan_events($p1,$p2,$p3)
+!macro_begin
+    s5c_sim_scan_events($p1,$p2,$p3)
+!macro_end
+
+
+//
+!macro_def
+    $p1 = F.in($p2)
+!macro_begin
+    plugin(?, 101, IN, $p2)
+    $p1 = pload(IN)
+!macro_end
+
+
+// $r1 will be a half-toned image, $r2 will be a full range image
+!macro_def
+    F.rpix($r1,$r2)
+!macro_begin
+    $r1 = pload(PIX)
+    F = pload(PIX)
+    respix
+    $r2 = add($r1,F,PIX)
+    $r1 = add(F,PIX)
+!macro_end
+
+!macro_def
+    F.rpix
+!macro_begin
+    respix
+!macro_end
+
+// carefree copy
+!macro_def
+    $r1 = F.mov($r2)
+!macro_begin
+    F = pload($r2)
+    $r1 = pload(F)
+!macro_end
+
+// carefree add
+!macro_def
+    $r1 = F.add($r2,$r3)
+!macro_begin
+    F = add($r2,$r3)
+    $r1 = pload(F)
+!macro_end
+
+!macro_def
+    F.add($r2,$r3)
+!macro_begin
+    F = add($r2,$r3)
+    $r2 = pload(F)
+!macro_end
+
+// carefree subtract
+!macro_def
+    $r1 = F.sub($r2,$r3)
+!macro_begin
+    F = pload($r2)
+    $r1 = add(F,$r3)
+!macro_end
+
+!macro_def
+    F.sub($r2,$r3)
+!macro_begin
+    F = pload($r2)
+    $r2 = add(F,$r3)
+!macro_end
+
+// carefree negate
+!macro_def
+    $r1 = F.neg($r2)
+!macro_begin
+    F = pload(0)
+    $r1 = add($r2,F)
+!macro_end
+
+// carefree abs
+!macro_def
+    $r1 = F.abs($r2)
+!macro_begin
+    $r1 = pload($r2)
+    F = pload($r2)
+    where($r2)
+        $r1 = pload(F)
+    all
+!macro_end
+
+// carefree divide
+!macro_def
+    F.div($r1,$r2,$r3)
+!macro_begin
+    div($r1,$r2,$r3)
+    F = $r1 + $r2
+    $r2 = F + $r3
+    div($r2,F,$r3)
+    $r2 = pload(F)
+!macro_end
+
+//
+!macro_def
+    $r1 = L.not($r2)
+!macro_begin
+    $r1 = not($r2)
+!macro_end
+
+//
+!macro_def
+    $r1 = L.or($r2,$r3)
+!macro_begin
+    $r1 = or($r2,$r3)
+!macro_end
+
+//
+!macro_def
+    $r1 = L.nor($r2,$r3)
+!macro_begin
+    $r1 = nor($r2,$r3)
+!macro_end
+
+//
+!macro_def
+    $r1 = L.and($r2,$r3)
+!macro_begin
+    R0 = not($r2) //invert both inputs
+    $r2 = not($r3)
+    $r1 = nor(R0,$r2)
+    $r2 = not(R0) //re-instating R$r2
+!macro_end
+
+//
+!macro_def
+    $r1 = L.nand($r2,$r3)
+!macro_begin
+    R0 = not($r2) //invert both inputs
+    $r2 = not($r3) 
+    $r1 = or(R0,$r2)
+    $r2 = not(R0) //re-instating R$r2
+!macro_end
+
+//
+!macro_def
+    $r1 = F.d2a($r2)
+!macro_begin
+    core.load($r1,$r2)
+    $r1 = $r1*254.0
+    $r1 = $r1 - 127
+!macro_end
+
+
+
+// Simulator Functions
+//------------------------------------------------------------------------------
+
+//
+!macro_def
+    $p1 = sim.test_pattern($p2)
+!macro_begin
+    plugin(?, 300, $p1, $p2)
+!macro_end
+
+//
+!macro_def
+    sim.error_model_1($p1)
+!macro_begin
+    plugin(?, 306, $p1)
+!macro_end
+
+//
+!macro_def
+    sim.error_model_2($p1,$p2)
+!macro_begin
+    plugin(?, 307, $p1, $p2)
+!macro_end
+
+//
+!macro_def
+    sim.error_model_3($p1,$p2,$p3)
+!macro_begin
+    plugin(?, 308, $p1, $p2, $p3)
+!macro_end
+
+//
+!macro_def
+    $r0 = host.add_slider($r2,$r3,$r4,$r5,$r6,$r7)
+!macro_begin
+    $r0 = sim.slider.add($r2,$r3,$r4,$r5,$r6,$r7)
+!macro_end
+
+//
+!macro_def
+    $r0 = host.add_slider_channel($r1,$r2,$r3,$r4,$r5,$r6,$r7)
+!macro_begin
+    $r0 = sim.slider.add($r2,$r3,$r4,$r5,$r6,$r7)
+!macro_end
+
+//
+!macro_def
+    host.firmware($p1)
+!macro_begin
+    // do nothing
+!macro_end
+
+//
+!macro_def
+    host.template($p1)
+!macro_begin
+    // do nothing
+!macro_end
+
+//
+!macro_def
+    host.record_display($p1,$p2,$p3)
+!macro_begin
+    // TODO
+!macro_end
+
+//
+!macro_def
+    host.set_frame_rate($p2)
+!macro_begin
+    // do nothing
+!macro_end
+
+//
+!macro_def
+    apron.config_begin
+!macro_begin
+    // do nothing
+!macro_end
+
+//
+!macro_def
+    apron.config_end
+!macro_begin
+    // do nothing
+!macro_end
+
+//
+!macro_def
+    apron.genereate_host
+!macro_begin
+    // do nothing
+!macro_end
+
+//
+!macro_def
+    apron.compile_host
+!macro_begin
+    // do nothing
+!macro_end
+
+
+//
+!macro_def
+    sim.pix_source_webcam($p1)
+!macro_begin
+    webcam.init(PE_DIM_X, PE_DIM_Y)
+    sim_pix_source = 1
+!macro_end
+
+//
+!macro_def
+    sim.pix_source_image($p1)
+!macro_begin
+    sim_pix_source = 2
+    sim_pix_source_file = $p1
+    PIX_IMAGE = io.image.open($p1)
+!macro_end
+
+//
+!macro_def
+    sim.pix_source_video($p1)
+!macro_begin
+    sim_pix_source = 3
+    sim_pix_source_file = $p1
+!macro_end
+
+//
+!macro_def
+    sim.pix_source_image_sequence($p1,$p2,$p3)
+!macro_begin
+    sim_pix_source = 4
+    sim_pix_source_folder = $p1
+    sim_pix_source_digits = $p2
+    sim_pix_source_extension = $p3
+!macro_end
+
+
+
+// Operators 
+
+!operator(=,pload)
+!operator(+,add)
+
+
+// Initialize
+
+!default_palette(0,'scamp5c_analog')
+!object('frame', 'f', 405, 'SIM_REGISTER')
+
+plugin(?, 301, A, B, C, D, E, F)
+plugin(?, 302, NORTH,EAST,WEST,SOUTH,NEWS,PIX)
+plugin(?, 303, R1,R2,R3,R4,R5,R6)
+plugin(?, 304, R7,R8,R9,R10,R11,R12)
+plugin(?, 305, R0,FLAG,IPU_C,IPU_Z)

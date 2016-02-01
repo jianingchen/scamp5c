@@ -1,0 +1,33 @@
+
+!define(INPUT_CHANNEL_1, IPU_PORT_INPUT_1)
+!define(INPUT_CHANNEL_2, IPU_PORT_INPUT_2)
+!define(INPUT_CHANNEL_3, IPU_PORT_INPUT_3)
+!define(INPUT_CHANNEL_4, IPU_PORT_INPUT_4)
+!define(INPUT_CHANNEL_5, IPU_PORT_INPUT_5)
+
+!define(ROW_STREAM, 0)
+!define(COL_STREAM, 1)
+
+//------------------------------------------------------------------------------
+
+
+!macro_def
+    sim.load_pix
+!macro_begin
+    // ignored
+!macro_end
+
+
+!macro_def
+    sim.pix_source_webcam
+!macro_begin
+    // ignored
+!macro_end
+
+
+!macro_def
+    sim.pix_source_image($p1)
+!macro_begin
+    // ignored
+!macro_end
+

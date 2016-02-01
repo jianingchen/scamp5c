@@ -1,0 +1,221 @@
+
+//      R1 = 1// south (shift north)
+//      R2 = 0// west (shift east)
+//      R3 = 0// north
+//      R4 = 0// east
+!macro_def
+    $ret = pro.digital_news($r1,$str)
+!macro_begin
+    _exp(4,IPU_PORT_CLK_SWITCH)
+    _exp(6,IPU_PORT_RISE_C2)
+    _exp(7,IPU_PORT_FALL_C2)
+    
+        
+    R1 R2 R3 R4 = 0
+    resolve_dnews($str)
+    
+    R0 = dnews($r1)
+    $ret = R0
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(4,IPU_PORT_FALL_C1)
+    _exp(4,IPU_PORT_RISE_C2)
+!macro_end
+
+
+//------------------------------------------------------------------------------
+
+
+//  Description:
+//  Floods "1"'s from the boundary of the 256x256 array into all areas that can be reached that are not inhibited by "0"'s in $r1.
+//  The flooded area is stored in R12.
+// Inputs:
+//  $r1 (Can be R5..R11)
+// Destroys:
+//  FL, R1, R2, R3, R4
+// Outputs:
+//  R12 (always)
+// Comments
+//  $r1 is the mask that you want to apply to inhibit/allow propagation. "0" inhibits
+//  Result in R12 ALWAYS
+//  Timing works for propagating at 16MHz across half the array (from all directions)
+//  May not work at lower frequencies because of need to refresh perhaps or maybe delete some prop statements
+!macro_def
+    $ret = pro.flood_from_boundary($r1)
+!macro_begin
+    R0 = 1
+    R1 = 1
+    R2 = 1
+    R3 = 1
+    R4 = 1 //Sets -up direction
+    R12 = 0 //R12 is our prop. register. Must always be initialised to zero for a prop from boundary
+    R0 = $r1 //loads up mask
+    set('RR12' 'plrb' 'bit' 'bitmode') //discharges all Write Buses 
+    _exp(4, IPU_PORT_CLK_SWITCH)
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' ) //precharges all read buses and starts propagation
+    _exp(0,IPU_PORT_RISE_C2) //makes prop run as fast as possible
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'pupd' 'float' )
+    _exp(4,IPU_PORT_RISE_C2)
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
+    $ret = R12
+!macro_end
+
+
+//  Description
+// P.flood_from_point($r1,$r2,$r3) e.g. Prop_from_point(R5,s3,s5)
+//  Writes to location x,y  and propagates to boundaries provided in digital register $r1. 
+// Inputs:
+//  $r1 (Can be R5..R11)
+//  $r2,$r3 are the column and row ordinates
+// Destroys:
+//  FL, R1, R2, R3, R4 and destroys the written-to R12 (due to this holding result).
+// Outputs:
+//  R12 (always)
+// Comments
+//  $r1 is the mask that you want to apply to inhibit/allow propagation. "0" inhibits
+//  Result in R12 ALWAYS
+//  Timing works for propagating at 9MHz across half the array (from all directions)
+//  May not work at lower frequencies because of need to refresh perhaps or maybe delete some prop statements 
+!macro_def
+    $ret = pro.flood_from_source($r1,$r2)
+!macro_begin
+    _exp(4, IPU_PORT_CLK_SWITCH)
+    _nop
+    R0 = 1
+    R1 = 1
+    R2 = 1
+    R3 = 1
+    R4 = 1 //This should be needed to load R12 but works without
+    R12 = $r2
+    R0 = $r1 //loading flag from my hole image
+    set('RR12' 'plrb' 'bit' 'bitmode') //discharge plwb, except for start pixel
+    _exp(4, IPU_PORT_CLK_SWITCH)
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'float' ) //i.e. pupd=0. Boundary is zero.
+    _exp(0,IPU_PORT_RISE_C2)
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'float' )
+    set('LR12' 'RR12' 'rid' 'nb' 'plrb' 'float' )
+    //set('LR12' 'RR12' 'rid' 'nb' 'float' 'setf') //setting flag for next instr.
+    _exp(4,IPU_PORT_RISE_C2)
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
+    $ret = R12
+!macro_end
+
+
+ 
+//Description
+//Diffuses $r2 into $r1 e.g. A = SimpDiff(B, 1, 1)
+//Destroys R11  
+//Inputs 
+// $r3 = [1/0] controls diffusion in NORTH-SOUTH direction ("1" is on)
+// $r4 = [1/0] controls diffusion in EAST-WEST direction ("1" is on)
+// Analog register $r2 
+// //A good differential diffusion:
+//  C = SimpDiff(A, 1, 1)
+//  D = C
+//  A = 
+//  C = SimpDiff(A, 1, 1)
+//  B = C+D
+// Outputs: Analog register $r1
+!macro_def
+    $r1 = pro.diffuse($r2, $r3, $r4)        
+!macro_begin
+    R0 = 1
+    R3 = 1
+    R1 = $r3 //Controls North-South direction
+    R2 = $r4 //Controls EAST-WEST direction
+    set('RR3') //pulls down read bus
+    F = diff($r2 'south' 'east') //do the diffusion
+    $r1 = F
+!macro_end
+
+
+
+//------------------------------------------------------------------------------
+
+
+
+!macro_def
+    pro.locate_event($r1,$p2,$p3)
+!macro_begin
+    
+    _exp(4,IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
+    _nop
+    _exp(5,IPU_PORT_FALL_C1)
+    _exp(6,IPU_PORT_RISE_C2)
+    
+    _exp(255, IPU_PORT_ADDR)//search all rows
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    
+    _exp(0, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    _exp(1, IPU_PORT_LC)//leave latch up on col
+    _exp(0, IPU_PORT_LC)
+    
+    R1 = $r1
+    R2 = $r1
+    
+    all
+    where($r1)
+    
+    _exp(0, IPU_PORT_CLK_SWITCH)
+    _nop
+    set( 'pgdb' 'pgdbobus' 'col_out' ) //output first live column (all rows active)
+    set( 'col_out' )
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)//FAST
+    _nop
+    _nop
+    _nop
+    _nop
+    _nop        
+    _imp(sx, 234)//Get data from Dig port
+    
+    _exp(sx, IPU_PORT_ADDR) //Specifies which column searched (that is, the column just found above). 
+    _exp(1, IPU_PORT_LC)
+    _exp(0, IPU_PORT_LC)
+    
+    _exp(4,IPU_PORT_CLK_SWITCH) // dreg operation clock
+    _nop
+    R1 = $r1
+    R2 = $r1
+    
+    _exp(0, IPU_PORT_CLK_SWITCH)
+    _nop
+    set( 'pgdb' 'row_out' )
+    set( 'row_out' )
+    
+    _exp(255, IPU_PORT_CLK_SWITCH) //FAST
+    _nop
+    _nop
+    _nop
+    _nop
+    _nop
+    _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
+    
+    _mov($p2,255)
+    _sub($p2,sx)
+    _mov($p3,sy)
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+//     _exp(0, IPU_PORT_RD)
+//     _nop
+    
+    all
+    
+!macro_end

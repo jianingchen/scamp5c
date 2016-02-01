@@ -1,0 +1,366 @@
+
+!module('apron.scamp5c.host.dll')
+
+!define(SCAMP5C_FPGA_BIT_FILE, 'ipu_ok_scamp5_itfc.bit' )
+!define(SCAMP5C_BYTES_PER_ICW,16)
+!default_palette(0,'scamp5c_analog')
+
+!object('datasheet', 'ds', 301, 'SIM_REGISTER')
+
+
+//------------------------------------------------------------------------------
+
+
+!macro_def
+    scamp5c.connect
+!macro_begin
+    plugin(?, 0, SCAMP5C_FPGA_BIT_FILE)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.program($icw_file)
+!macro_begin
+    plugin(?, 1, $icw_file, SCAMP5C_BYTES_PER_ICW)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.start
+!macro_begin
+    plugin(?, 2)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.stop
+!macro_begin
+    plugin(?, 3)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.frame.send($r1)
+!macro_begin
+    plugin(?, 4, $r1, 0, 0, 160, 80)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.frame.sendwindow($r1, $xMin, $yMin, $xMax, $yMax)
+!macro_begin
+    plugin(?, 4, $r1, $xMin, $yMin, $xMax, $yMax)
+!macro_end
+
+
+
+!macro_def
+    $r1 = scamp5c.frame.wait($r2)
+!macro_begin
+    plugin(?, 5, $r1, $r2)
+!macro_end
+
+
+!macro_def
+    scamp5c.port($id, $value)
+!macro_begin
+    plugin(?, 6, $id, $value)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.reset.all
+!macro_begin
+    plugin(?, 7)
+!macro_end
+
+
+
+!macro_def
+    $p1 = scamp5c.get_file_modification_time($p2)
+!macro_begin
+    plugin(?, 16, $p1, $p2)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.fpacframe.sendwindow($r1, $xMin, $yMin, $xMax, $yMax)
+!macro_begin
+    plugin(?, 17, $r1, $xMin, $yMin, $xMax, $yMax)
+!macro_end
+
+
+
+!macro_def
+    $r1 = scamp5c.fpacframe.wait($r2)
+!macro_begin
+    plugin(?, 18, $r1, $r2)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.fpacgreyframe.sendwindow($r1, $xMin, $yMin, $xMax, $yMax)
+!macro_begin
+    plugin(?, 19, $r1, $xMin, $yMin, $xMax, $yMax)
+!macro_end
+
+
+
+!macro_def
+    $r1 = scamp5c.fpacgreyframe.wait($r2)
+!macro_begin
+    plugin(?, 20, $r1, $r2)
+!macro_end
+
+
+
+!macro_def
+    $r1 = scamp5c.bit_frame.wait($r2)
+!macro_begin
+    plugin(?, 21, $r1, $r2)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.draw.rect($reg,$xmin,$xmax,$ymin,$ymax,$val)
+!macro_begin
+    :x=$xmin
+    :y=$ymin
+    :#loop1     
+        pixel.set($reg,:x,$ymin,$val)
+        pixel.set($reg,:x,$ymax,$val)       
+        :x=:x+1
+    jumpif(:x,<=,$xmax,:#loop1)
+    :#loop2     
+        pixel.set($reg,$xmin,:y,$val)
+        pixel.set($reg,$xmax,:y,$val)       
+        :y=:y+1
+    jumpif(:y,<=,$ymax,:#loop2)
+!macro_end
+
+
+!macro_def
+    scamp5c.box.wait($xmin, $xmax, $ymin, $ymax)
+!macro_begin
+    plugin(?, 8, $xmin, $xmax, $ymin, $ymax)
+!macro_end
+
+
+!macro_def
+    $r1 =scamp5c.dig8.wait($r2)
+!macro_begin
+    plugin(?, 21, $r1, $r2)
+!macro_end
+
+
+!macro_def
+    scamp5c.coord.stream($streams, $id, $first_x, $first_y, $samples)
+!macro_begin
+    plugin(?, 22, $streams, $first_x, $first_y, $id, $samples)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.coord.stream.reg($streams, $id)
+!macro_begin
+    plugin(?, 23, $streams,$id)
+!macro_end
+
+
+
+!macro_def
+    $r1 = scamp5c.datasheet.wait($rows,$cols,$row_major)
+!macro_begin
+    plugin(?, 24, $r1, $rows, $cols, $row_major )
+!macro_end
+
+
+
+!macro_def
+    scamp5c.coord.x.wait($v1)
+!macro_begin
+    plugin(?, 9, $v1)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.coord.y.wait($v1)
+!macro_begin
+    plugin(?, 10, $v1)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.voltages
+!macro_begin
+    plugin(?, 12, volt[pin7], volt[pin8], volt[vga_opoff], volt[dac_bias], volt[vga_gainscale], volt[vga_ipoffset])
+    plugin(?, 13, volt[vref_ampA], volt[vref_ampB], volt[adc_ref_hi], volt[adc_ref_lo], volt[pin2], volt[vref])
+    plugin(?, 14, volt[c_bias], volt[c_bus], volt[p_bias], volt[vrpix], volt[vga_gainctrl], volt[dac_ref])
+    plugin(?, 15, volt[tp22], volt[vddf], volt[vdda], volt[vres], volt[vpre])
+    plugin(?, 11)
+!macro_end
+
+
+
+!macro_def
+    scamp5c.verbose($r1)
+!macro_begin
+    plugin(?, 16, $r1)
+!macro_end
+
+
+//------------------------------------------------------------------------------
+
+
+!define(PE_DIM_X, 256)
+!define(PE_DIM_Y, 256)
+
+!object('clocks', 'clk', 800, 'SIM_VARIABLE')
+!object('voltages', 'volt', 801, 'SIM_VARIABLE')
+!define(CLK, 'clocks')
+!define(VOLT, 'voltages')
+
+!create('pin7', VOLT)
+!create('pin8', VOLT) 
+!create('vga_opoff', VOLT)
+!create('dac_bias', VOLT) 
+!create('vga_gainscale', VOLT) 
+!create('vga_ipoffset', VOLT) 
+!create('vref_ampA', VOLT) 
+!create('vref_ampB', VOLT) 
+!create('adc_ref_hi', VOLT) 
+!create('adc_ref_lo', VOLT) 
+!create('pin2', VOLT) 
+!create('vref', VOLT)
+!create('c_bias', VOLT)
+!create('c_bus', VOLT) 
+!create('p_bias', VOLT)
+!create('vrpix', VOLT) 
+!create('vga_gainctrl', VOLT)
+!create('dac_ref', VOLT)
+!create('tp22', VOLT) 
+!create('vddf', VOLT)
+!create('vdda', VOLT) 
+!create('vres', VOLT) 
+!create('vpre', VOLT) 
+
+!create('frame_rate', CLK)
+!create('clk1_r', CLK)
+!create('clk1_f', CLK)
+!create('clk2_r', CLK)
+!create('clk2_f', CLK)
+!create('clk3_r', CLK)
+!create('clk3_f', CLK)
+!create('clk4_r', CLK)
+!create('clk4_f', CLK)
+
+// Default clock values
+clk[clk1_r] = 1 //was0
+clk[clk1_f] = 3  //4
+
+clk[clk2_r] = 4 //4
+clk[clk2_f] = 9 //9
+
+clk[clk3_r] = 0 //0
+clk[clk3_f] = 9 //10
+
+clk[clk4_r] = 0
+clk[clk4_f] = 10
+
+clk[frame_rate] = 30
+
+// Default voltages
+volt[pin7]          = 1.0
+volt[pin8]          = 1.250
+volt[vga_opoff]     = 1.1 //pre 1.1
+volt[dac_bias]      = 0.3  //prev 0.45
+volt[vga_gainscale] = 0.0
+volt[vga_ipoffset]  = 0.23
+volt[vref_ampA]     = 0.45
+volt[vref_ampB]     = 0.45
+volt[adc_ref_hi]    = 1.6
+volt[adc_ref_lo]    = 0.2
+volt[pin2]          = 2.0
+volt[vref]          = 1.0
+volt[c_bias]        = 1.530
+volt[c_bus]         = 1.0
+volt[p_bias]        = 2.9
+volt[vrpix]         = 0.33
+volt[vga_gainctrl]  = -0.695 //prev -0.695
+volt[dac_ref]       = -0.2 //prev -0.1
+volt[tp22]          = 3.3
+volt[vddf]          = 2.9
+volt[vdda]          = 2.68
+volt[vres]          = 1.46
+volt[vpre]          = 1.9
+
+pixels = PE_DIM_X
+pixels = pixels*PE_DIM_Y
+
+frame_count = 0
+sim_step = 0
+
+!default_palette(0,'raw')
+!create( 'image_buffer', REGISTER, PE_DIM_X, PE_DIM_Y )
+
+//------------------------------------------------------------------------------
+
+!include('apron.timer.aps')
+!include('apron.math.aps')
+!include('apron.stack.aps')
+
+!define(IPU_PORT_INPUT_1, 18)
+!define(IPU_PORT_INPUT_2, 19)
+!define(IPU_PORT_INPUT_3, 20)
+!define(IPU_PORT_INPUT_4, 21)
+!define(IPU_PORT_INPUT_5, 22)
+
+!macro_def
+    _h_macro_program_clocks
+!macro_begin
+    // Reprogram the clocks
+    scamp5c.port(3, clk[clk1_r])
+    scamp5c.port(4, clk[clk1_f])    
+    scamp5c.port(5, clk[clk2_r])
+    scamp5c.port(6, clk[clk2_f])    
+    scamp5c.port(7, clk[clk3_r])
+    scamp5c.port(8, clk[clk3_f])
+    scamp5c.port(9, clk[clk4_r])
+    scamp5c.port(10,clk[clk4_f])
+    
+    //Need to convert frame rate to a 16bit divisor of 1MHz
+    loword = 0
+    miword = 0
+    hiword = 0
+    
+    k = 1000000 // clock in Hz
+    k = k / clk[frame_rate]
+    k = math.floor(k)
+    
+    hiword = k / 65536
+    hiword = math.floor(hiword)
+    j = hiword * 65536
+    
+    k = k - j
+    miword = k / 256
+    miword = math.floor(miword)
+    j = miword * 256
+    
+    loword = k - j
+    
+    scamp5c.port(11, loword)
+    scamp5c.port(12, miword)
+    scamp5c.port(13, hiword)
+!macro_end
