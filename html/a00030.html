@@ -137,7 +137,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the result</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the flooded DREG plane</dd></dl>
 <p>Flagging: Z.</p>
 <p>Used DREG: R0, R1, R2, R3, R4, R12</p>
 <p>Starting from the boundary pixels, each pixel that have at least one '1' neighbour will be filled with 1 if the control register of that pixel is 1. This step is repeated hundreds of times asynchronously in less than 20 clock cycles. As a result, after one call of this macro, the result register is usually flooded by '1's except those areas that are closed by '0's in the control register.</p>
@@ -182,14 +182,20 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the result</dd></dl>
-<p>Flagging: Z.</p>
+<dl class="section return"><dt>Returns</dt><dd>the flooded DREG plane</dd></dl>
 <p>Used DREG: R0, R1, R2, R3, R4, R12</p>
 <p>This process is similar to ::P_flood_from_boundary. The only difference is that the source of the flood are from the '1's in another DREG plane rather than the boundary.</p>
 <div class="image">
 <img src="module_async_propagation2.png" alt="module_async_propagation2.png"/>
 </div>
-<p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = P.flood_from_source(R2,R3)" is invalid.</p>
+<p>The traveling distance of the flood will not cover the whole plane. The following image shows the result of a flood sourced by one poxel at (128,128): </p><div class="image">
+<img src="module_async_point_flood.png" alt="module_async_point_flood.png"/>
+</div>
+<p>To increase the traveling distance, one can use this macro multiple times using the result of a previous flood as the source: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.pixel_set(R5,100,100)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;R5 = pro.flood_from_source(R8,R5)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;R5 = pro.flood_from_source(R8,R5)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;R5 = pro.flood_from_source(R8,R5)</div>
+</div><!-- fragment --><p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = P.flood_from_source(R2,R3)" is invalid.</p>
 <p>Example Usage:</p>
 <p>Flooding R1 from coordinates (100,50): </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.set_pixel(R6,100,50)</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;R1 = pro.flood_from_source(R5,R6)</div>
@@ -338,7 +344,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 29 2016 19:04:11 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 1 2016 12:44:00 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
