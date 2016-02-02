@@ -437,6 +437,7 @@ SOUTH = 4
     F = F*254.0
     F = F - 127
     usb.aout(F,$p2)
+    all
 !macro_end
 
 //
@@ -578,6 +579,35 @@ SOUTH = 4
     $r2 = F + $r3
     div($r2,F,$r3)
     $r2 = pload(F)
+!macro_end
+
+//
+!macro_def
+    $r1 = F.north($r2)
+!macro_begin
+    NEWS = pload($r2)
+    $r1 = pload(NORTH)
+!macro_end
+
+!macro_def
+    $r1 = F.east($r2)
+!macro_begin
+    NEWS = pload($r2)
+    $r1 = pload(EAST)
+!macro_end
+
+!macro_def
+    $r1 = F.west($r2)
+!macro_begin
+    NEWS = pload($r2)
+    $r1 = pload(WEST)
+!macro_end
+
+!macro_def
+    $r1 = F.south($r2)
+!macro_begin
+    NEWS = pload($r2)
+    $r1 = pload(SOUTH)
 !macro_end
 
 //
