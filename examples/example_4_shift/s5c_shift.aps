@@ -24,8 +24,7 @@ apron.config_end
     _jump(z, #end_loop_shift_h)
     #begin_loop_shift_h
         
-        NEWS = A
-        A = WEST
+        A = F.west(A)
         
     _sub(s0, 1)
     _jump(nz,#begin_loop_shift_h)
@@ -36,8 +35,7 @@ apron.config_end
     _jump(z, #end_loop_shift_v)
     #begin_loop_shift_v
     
-        NEWS = A
-        A = SOUTH
+        A = F.south(A)
         
     _sub(s0, 1)
     _jump(nz,#begin_loop_shift_v)

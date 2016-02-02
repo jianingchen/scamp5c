@@ -39,7 +39,6 @@
 !macro_def
     usb.d2aout($r1,$h)
 !macro_begin
-    R0 = FLAG
     all
     set('plrb' 'rid' ) //this drives the bus to zero volts
     _exp(0, IPU_PORT_B)
@@ -49,7 +48,6 @@
         _exp(255, IPU_PORT_B)
         F = IN
     all
-    FLAG = R0
     _nop
     host_aout($h)
     _exp(2, IPU_PORT_ADC_FEAMP)

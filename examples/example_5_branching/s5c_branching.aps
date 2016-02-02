@@ -17,7 +17,7 @@ apron.config_end
     
     usb.aout(C,window_1)
     
-    A = C
+    A = F.mov(C)
     
     s0 = usb.slider(slider_1)
     _sub(s0,127) // will set the carry flag if s0 < 127
@@ -26,8 +26,7 @@ apron.config_end
     
     #begin_loop_shift_east
         
-        NEWS = A
-        A = WEST
+        A = F.west(A)
         
     _sub(s0, 1)
     _jump(nz,#begin_loop_shift_east)
@@ -35,17 +34,14 @@ apron.config_end
     
     #begin_loop_shift_west
         
-        NEWS = A
-        A = EAST
+        A = F.east(A)
         
     _add(s0, 1)
     _jump(nz,#begin_loop_shift_west)
     #end_loop_shift_h
     
-    B = A
-    
     F.rpix
-    usb.aout(B,window_2)
+    usb.aout(A,window_2)
     
     _jump(#start)
     

@@ -87,10 +87,9 @@
 !macro_begin
     $r1 = $r2
     F = $r2
-    R0 = FLAG
     where($r2)
         $r1 = F
-    FLAG = R0
+    all
 !macro_end
 
 
@@ -126,20 +125,47 @@
 
 
 !macro_def
+    $r1 = F.north($r2)
+!macro_begin
+    NEWS = $r2
+    $r1 = NORTH
+!macro_end
+
+!macro_def
+    $r1 = F.east($r2)
+!macro_begin
+    NEWS = $r2
+    $r1 = EAST
+!macro_end
+
+!macro_def
+    $r1 = F.west($r2)
+!macro_begin
+    NEWS = $r2
+    $r1 = WEST
+!macro_end
+
+!macro_def
+    $r1 = F.south($r2)
+!macro_begin
+    NEWS = $r2
+    $r1 = SOUTH
+!macro_end
+
+
+
+!macro_def
     $r1 = F.d2a($r2)
 !macro_begin
-    R0 = FLAG
     all
     set('plrb' 'rid') //this drives the bus to zero volts
-    _exp(255,IPU_PORT_B)
-    F = IN
+    _exp(0,IPU_PORT_B)
+    $r1 = IN
     where($r2)
         set('plrb' 'rid') //this drives the bus to zero volts
-        _exp(0, IPU_PORT_B)
-        F = IN
+        _exp(255, IPU_PORT_B)
+        $r1 = IN
     all
-    $r1 = F
-    FLAG = R0
 !macro_end
 
 
