@@ -131,6 +131,18 @@ Functions</h2></td></tr>
 <tr class="memitem:af4b265f9fc332d2884107a3261bc438e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#af4b265f9fc332d2884107a3261bc438e">F_in</a> (<a class="el" href="a00018.html">rint</a> v)</td></tr>
 <tr class="memdesc:af4b265f9fc332d2884107a3261bc438e"><td class="mdescLeft">&#160;</td><td class="mdescRight">set an analogue register for all pe with a value  <a href="#af4b265f9fc332d2884107a3261bc438e">More...</a><br /></td></tr>
 <tr class="separator:af4b265f9fc332d2884107a3261bc438e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a8919dabc02a581685b4e8a052a3426"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a6a8919dabc02a581685b4e8a052a3426">F_north</a> (<a class="el" href="a00013.html">areg</a> a1)</td></tr>
+<tr class="memdesc:a6a8919dabc02a581685b4e8a052a3426"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy the AREG of the north neighbouring PE  <a href="#a6a8919dabc02a581685b4e8a052a3426">More...</a><br /></td></tr>
+<tr class="separator:a6a8919dabc02a581685b4e8a052a3426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab5a6101fb11d0fb1473db882c9c52c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#aab5a6101fb11d0fb1473db882c9c52c4">F_east</a> (<a class="el" href="a00013.html">areg</a> a1)</td></tr>
+<tr class="memdesc:aab5a6101fb11d0fb1473db882c9c52c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy the AREG of the east neighbouring PE  <a href="#aab5a6101fb11d0fb1473db882c9c52c4">More...</a><br /></td></tr>
+<tr class="separator:aab5a6101fb11d0fb1473db882c9c52c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3689a02c337542b70192376ae8ea8bab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a3689a02c337542b70192376ae8ea8bab">F_west</a> (<a class="el" href="a00013.html">areg</a> a1)</td></tr>
+<tr class="memdesc:a3689a02c337542b70192376ae8ea8bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy the AREG of the west neighbouring PE  <a href="#a3689a02c337542b70192376ae8ea8bab">More...</a><br /></td></tr>
+<tr class="separator:a3689a02c337542b70192376ae8ea8bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69d52996428303621eceb0bc7585b3eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a69d52996428303621eceb0bc7585b3eb">F_south</a> (<a class="el" href="a00013.html">areg</a> a1)</td></tr>
+<tr class="memdesc:a69d52996428303621eceb0bc7585b3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy the AREG of the south neighbouring PE  <a href="#a69d52996428303621eceb0bc7585b3eb">More...</a><br /></td></tr>
+<tr class="separator:a69d52996428303621eceb0bc7585b3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
@@ -429,10 +441,112 @@ Functions</h2></td></tr>
 </div><!-- fragment --> 
 </div>
 </div>
+<a class="anchor" id="a6a8919dabc02a581685b4e8a052a3426"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00013.html">areg</a> F_north </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00013.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>copy the AREG of the north neighbouring PE </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the target AREG of the north neighbouring PE</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value analogue register</dd></dl>
+<p>Example Usage:</p>
+<p>Copy <code>B</code> of the north neighbour to the <code>B</code> in this PE: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;B = F.north(B)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="aab5a6101fb11d0fb1473db882c9c52c4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00013.html">areg</a> F_east </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00013.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>copy the AREG of the east neighbouring PE </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the target AREG of the east neighbouring PE</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value analogue register </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3689a02c337542b70192376ae8ea8bab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00013.html">areg</a> F_west </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00013.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>copy the AREG of the west neighbouring PE </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the target AREG of the west neighbouring PE</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value analogue register </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a69d52996428303621eceb0bc7585b3eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00013.html">areg</a> F_south </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00013.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>copy the AREG of the south neighbouring PE </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the target AREG of the south neighbouring PE</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value analogue register </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 1 2016 12:44:00 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Feb 2 2016 14:56:42 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
