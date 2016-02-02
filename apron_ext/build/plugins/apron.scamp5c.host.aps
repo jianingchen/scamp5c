@@ -266,15 +266,14 @@
 !create('clk4_r', CLK)
 !create('clk4_f', CLK)
 
-// Default clock values
 clk[clk1_r] = 1 //was0
-clk[clk1_f] = 3  //4
+clk[clk1_f] = 5  //4
 
-clk[clk2_r] = 4 //4
+clk[clk2_r] = 6 //4
 clk[clk2_f] = 9 //9
 
 clk[clk3_r] = 0 //0
-clk[clk3_f] = 9 //10
+clk[clk3_f] = 10 //10
 
 clk[clk4_r] = 0
 clk[clk4_f] = 10
