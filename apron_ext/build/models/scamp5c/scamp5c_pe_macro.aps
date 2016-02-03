@@ -194,7 +194,9 @@
 !macro_def
     $r1 = L.nor($r2,$r3)
 !macro_begin
-    set(xPLRB xNBIT xL$r1 xR$r2 xR$r3) 
+//     set(xPLRB xNBIT xL$r1 xR$r2 xR$r3) 
+    R0 = load($r2,$r3)
+    $r1 = not(R0)
 !macro_end
 
 
@@ -202,10 +204,15 @@
 !macro_def
     $r1 = L.and($r2,$r3)
 !macro_begin
-    R0 = not($r2) //invert both inputs
+//     R0 = not($r2) //invert both inputs
+//     $r2 = not($r3)
+//     set(xPLRB xNBIT xL$r1 xRFL xR$r2) 
+//     $r2 = not(R0) //re-instating R$r2
+    $r1 = not($r2)
     $r2 = not($r3)
-    set(xPLRB xNBIT xL$r1 xRFL xR$r2) 
-    $r2 = not(R0) //re-instating R$r2
+    R0 = load($r1,$r2)
+    $r2 = not($r1)
+    $r1 = not(R0)
 !macro_end
 
 
