@@ -30,7 +30,12 @@
     _exp(2, IPU_PORT_ADC_FEAMP)
     keep
     set_sel_ana($r1)
+    !if(USE_CALL_READOUT_256_COL_MAJOR, ==, 1)
+    _call(#_ipu_sa_readout_256_cm)
+    !endif
+    !if(USE_CALL_READOUT_256_ROW_MAJOR, ==, 1)
     _call(#_ipu_sa_readout_256_rm)
+    !endif
     _nop
 !macro_end
 
@@ -53,7 +58,12 @@
     _exp(2, IPU_PORT_ADC_FEAMP)
     keep
     set_sel_ana(F)
+    !if(USE_CALL_READOUT_256_COL_MAJOR, ==, 1)
+    _call(#_ipu_sa_readout_256_cm)
+    !endif
+    !if(USE_CALL_READOUT_256_ROW_MAJOR, ==, 1)
     _call(#_ipu_sa_readout_256_rm)
+    !endif
     _nop
 !macro_end
 
