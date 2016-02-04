@@ -1,0 +1,85 @@
+
+apron.config_begin
+    sim.pix_source_webcam
+    host.set_frame_rate(25)
+    host.template('scamp5c_host_template.txt')
+    host.firmware('../ok_s5c_ipu.bit')
+    window_1 = host.add_display('region')
+    window_2 = host.add_display('result')
+    slider_1 = host.add_slider('x', 0, 255, 120, 1, 1)
+    slider_2 = host.add_slider('y', 0, 255, 120, 1, 1)
+apron.config_end
+
+#start
+    ipu.wait_frame_trigger
+    F.rpix
+    ipu.wait_frame_trigger
+    F.rpix(B,C)
+    
+    // make a small window in R5
+    R6 = 0
+    ipu.pixel_select(R6,0,0,191,191)
+    
+    R7 = 0
+    ipu.pixel_select(R7,0,0,127,127)
+    
+    R5 = L.and(R6,R7)
+    
+    
+    // shift the window in R5 to a position
+    s1 = usb.slider(slider_1)
+    s2 = usb.slider(slider_2)
+    
+    _mov(s0,255)
+    _sub(s0,s1)
+    _jump(z,#shift_loop1_end)
+    #shift_loop1_begin
+        
+        R5 = pro.digital_news(R5,'east')
+    
+    _sub(s0,1)
+    _jump(nz,#shift_loop1_begin)
+    #shift_loop1_end
+    
+    _mov(s0,s2)
+    _jump(z,#shift_loop2_end)
+    #shift_loop2_begin
+        
+        R5 = pro.digital_news(R5,'north')
+    
+    _sub(s0,1)
+    _jump(nz,#shift_loop2_begin)
+    #shift_loop2_end
+    
+    // compose a image for inspection
+    B = pro.diffuse(C,1,1)
+    B = pro.diffuse(B,1,1)
+    B = pro.diffuse(B,1,1)
+    where(R5)
+        F.mov(B,C)
+    all
+    usb.aout(B,window_1)
+    
+    // make an image with only the part inside the R5 window
+    res(A)
+    where(R5)
+        F.mov(A,C)
+    all
+    
+    // do a global summation (essentially sum up only the region inside the R5 window)
+    s0 = ipu.global_sum(A,15)
+    
+    // draw a image to show the result
+    R7 = 0
+    ipu.pixel_set(R7,s0,250)
+    B = F.d2a(R7)
+    
+    where(R5)
+        F.mov(B,A)
+    all
+    usb.aout(B,window_2)
+    
+    _jump(#start)
+    
+apron.genereate_host
+apron.compile_host

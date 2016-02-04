@@ -1,0 +1,91 @@
+!include('apron.aps')
+!include('apron.io.aps')
+!include('apron.scamp5c.host.aps')
+
+!default_palette(0,'scamp5c_analog')
+
+timer.quickfps.start( 1000 )
+
+// section A: locate the icw file and set frame rate
+
+%s
+
+//------------------------------------------------------------------------------
+
+// section B: establish the gui
+
+%s
+
+//------------------------------------------------------------------------------
+
+_h_button_c = sim.switch.add('Apply Clocks', 0)
+_h_old_c = 1
+_h_new_c = 0
+
+_h_button_p = sim.switch.add('Reprogram', 1)
+_h_old_p = 1
+_h_new_p = 0
+
+_h_temp = 0
+
+_h_file_time = 0
+_h_auto_program = 0
+
+//------------------------------------------------------------------------------
+
+!define( SCAMP5C_FPGA_BIT_FILE, 'ok_scamp5_0106.bit' )
+scamp5c.connect
+scamp5c.start
+
+#start
+
+	sim.switch.get( _h_button_c, _h_new_c )
+	if( _h_new_c, !=, _h_old_c )
+		_h_old_c = _h_new_c
+		println('SCAMP5: Writing clocks...')
+		_h_macro_program_clocks
+		println('SCAMP5: Writing finished.')
+	endif
+	
+	//----------------
+	
+	sim.switch.get( _h_button_p, _h_new_p )
+	if( _h_new_p, !=, _h_old_p )
+		_h_old_p = _h_new_p
+        if( _h_auto_program, >, 0 )
+            _h_auto_program = 0
+        else
+            _h_auto_program = 1
+        endif
+	endif
+	
+    if( _h_auto_program, >, 0 )
+        _h_temp = scamp5c.get_file_modification_time( ALGORITHM )
+        if( _h_file_time, !=, _h_temp )
+            _h_file_time = _h_temp
+            println('SCAMP5: Writing program...')
+            scamp5c.program(ALGORITHM)
+            println('SCAMP5: Writing finished.')
+        endif
+	endif
+    
+	//----------------
+	
+	// section C: get slider value and send to ipu
+    
+%s
+	
+	//-----------------
+	
+	timer.quickfps.update
+	frame_count = frame_count + 1
+	
+	//-----------------
+	
+	// section D: get image and display
+    
+%s
+	
+	jump(#start)
+	
+// end

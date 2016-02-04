@@ -1,0 +1,34 @@
+
+apron.config_begin
+    sim.pix_source_webcam
+    host.set_frame_rate(25)
+    host.template('scamp5c_host_template.txt')
+    host.firmware('../ok_s5c_ipu.bit')
+    window_1 = host.add_display('result')
+    slider_1 = host.add_slider('x', 0, 255, 1, 1, 1)
+    slider_2 = host.add_slider('y', 0, 255, 1, 1, 1)
+    slider_3 = host.add_slider('x_mask', 0, 255, 239, 1, 1)
+    slider_4 = host.add_slider('y_mask', 0, 255, 239, 1, 1)
+apron.config_end
+
+#start
+//     ipu.wait_frame_trigger
+//     F.rpix
+//     ipu.wait_frame_trigger
+//     F.rpix(B,C)
+//     usb.aout(C,window_1)
+    
+    s1 = usb.slider(slider_1)
+    s2 = usb.slider(slider_2)
+    s3 = usb.slider(slider_3)
+    s4 = usb.slider(slider_4)
+    
+    R5 = 0
+    ipu.pixel_select(R5,s1,s2,s3,s4)
+    
+    usb.d2aout(R5,window_1)
+    
+    _jump(#start)
+    
+apron.genereate_host
+apron.compile_host

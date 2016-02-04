@@ -2,7 +2,7 @@
 apron.config_begin
     sim.pix_source_webcam
     host.template('scamp5c_host_template.txt')
-    host.firmware('../ok_scamp5_0106.bit')
+    host.firmware('../ok_s5c_ipu.bit')
     host.set_frame_rate(25)
     slider_1 = host.add_slider('x shift', 0, 255, 120, 1, 1)
     window_1 = host.add_display('cap')

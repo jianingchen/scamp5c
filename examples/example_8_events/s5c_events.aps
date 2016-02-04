@@ -1,7 +1,7 @@
 
 apron.config_begin
     host.template('scamp5c_host_template.txt')
-    host.firmware('../ok_scamp5_0106.bit')
+    host.firmware('../ok_s5c_ipu.bit')
     window_1 = host.add_display('source')
     window_2 = host.add_display('result')
     slider_1 = host.add_slider('threshold', -120, 120, 10, 1, 1)
