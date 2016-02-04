@@ -7,8 +7,8 @@
 !generate_icw_file
 !max_addr(2000)
 
-!define(USE_CALL_READOUT_256_COL_MAJOR, 0)
-!define(USE_CALL_READOUT_256_ROW_MAJOR, 1)
+!define(USE_CALL_READOUT_256_COL_MAJOR, 1)
+!define(USE_CALL_READOUT_256_ROW_MAJOR, 0)
 
 //------------------------------------------------------------------------------
 
@@ -43,3 +43,5 @@ _mov(s1,0)
 
 ipu.config_clocks
 ipu.analog_calibrate
+SetCentres
+Calib_IN_Diff

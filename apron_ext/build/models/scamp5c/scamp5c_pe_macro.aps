@@ -113,13 +113,12 @@
     $r1 = F.in($v)
 !macro_begin
     _mov(su,$v)
-    _add(su,128)
-    _clrc
-    set('plrb' 'rid' ) //this drives the bus to zero volts
-    _exp(0, IPU_PORT_B)
-    _exp(su, IPU_PORT_B)
-    $r1 = IN
-    $r1 = IN
+    _exp(128, IPU_PORT_B)// I resend this every time since oughta keep transitions the same. 
+	 set('sin')	//drags the bus to the IN level.
+	_add(su,128)
+	F = IN
+	_exp(su, IPU_PORT_B)
+	$r1 = F IN
 !macro_end
 
 

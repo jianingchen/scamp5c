@@ -83,7 +83,7 @@ _ret
     
     // image header packet
     ipu.send_byte(PCKT_START)
-    ipu.send_byte(PCKT_ID_FRAME)
+    ipu.send_byte(5) // column major format ID
     ipu.send_byte(0) // x-min
     ipu.send_byte(0) // y-min
     ipu.send_byte(255) // x-max
@@ -98,7 +98,7 @@ _ret
     
     // Set ADC Delay
     //_imp(s8, 20)//8 looks good //was 5 on previous
-    _exp(1, IPU_PORT_ADC_DELAY) //1 seems good, slower looks worse. Go faster than 3 (which you can) and you get visible addressing noise (external wire)
+    _exp(3, IPU_PORT_ADC_DELAY) //1 seems good, slower looks worse. Go faster than 3 (which you can) and you get visible addressing noise (external wire)
     _exp(3, IPU_PORT_ADC_FEAMP) 
     _exp(0, IPU_PORT_ADDR) 
     _exp(1, IPU_PORT_LR)
@@ -182,10 +182,10 @@ _ret
     // boost clocks
     _exp(255, IPU_PORT_CLK_SWITCH)
     _nop
-    
+    _exp(7, IPU_PORT_ADC_FEAMP)
     // image header packet
     ipu.send_byte(PCKT_START)
-    ipu.send_byte(PCKT_ID_FRAME)
+    ipu.send_byte(6) // row major format ID
     ipu.send_byte(0) // x-min
     ipu.send_byte(0) // y-min
     ipu.send_byte(255) // x-max
@@ -200,26 +200,26 @@ _ret
     
     // Set ADC Delay
     //_imp(s8, 20)//8 looks good //was 5 on previous
-    _exp(3, IPU_PORT_ADC_DELAY) //go faster than 15 (which you can) and you get visible addressing noise (external wire)
+    _exp(8, IPU_PORT_ADC_DELAY) //go faster than 15 (which you can) and you get visible addressing noise (external wire)
     _exp(1, IPU_PORT_RD)
     _exp(0, IPU_PORT_ADDR) 
     _exp(1, IPU_PORT_LR)
     _exp(0, IPU_PORT_LR)
     
      // 255 dummy samples to smooth out acquisition
-    _mov(su,0)
-    #dummy22
-        _nop
-        _call(#_ipu_sw_sample_ana)
-        _add(su, 1)
-    _jump(nz, #dummy22)
-    _nop
+//     _mov(su,0)
+//     #dummy22
+//         _nop
+//         _call(#_ipu_sw_sample_ana)
+//         _add(su, 1)
+//     _jump(nz, #dummy22)
+//     _nop
     
     // whole plane sampling loop
     _mov(sy, 0)
     #rm_loop_row
         _nop
-        
+         _exp(7, IPU_PORT_ADC_FEAMP)
         // row address
         _exp(sy, IPU_PORT_ADDR) 
         _exp(1, IPU_PORT_LR)
@@ -228,10 +228,10 @@ _ret
         // column address
         _mov(sx, 0)
         _exp(sx, IPU_PORT_ADDR) 
-    //  _exp(3, IPU_PORT_ADC_FEAMP)
+         
         _exp(1, IPU_PORT_LC)
-    //  _exp(0, IPU_PORT_LC)
-        _exp(2, IPU_PORT_ADC_FEAMP)
+          _exp(0, IPU_PORT_LC)
+        _exp(6, IPU_PORT_ADC_FEAMP)
  
         _nop
         _nop
@@ -260,16 +260,24 @@ _ret
             _call(#_ipu_sw_sample_ana)
             
             // column address
-            _exp(3, IPU_PORT_ADC_FEAMP)
+            _exp(7 , IPU_PORT_ADC_FEAMP)
             //_exp(2, IPU_PORT_ADC_FEAMP)
             _exp(sx, IPU_PORT_ADDR)
             _exp(1, IPU_PORT_LC)
             _exp(0, IPU_PORT_LC)
-            _exp(2, IPU_PORT_ADC_FEAMP)
-            
+            _exp(6, IPU_PORT_ADC_FEAMP)
+//             _cmp(sx,5)
+//             _jump(z, #out)
+//             _nop
             // send result back to host
             ipu.send_byte(sw)
-            
+//             _jump(#here)
+//             _nop
+//             #out
+//             _nop
+//             ipu.send_byte(1)
+//             #here
+//             _nop
             _cmp(sx,0)
         _jump(nz, #rm_loop_col)
         _nop
@@ -284,7 +292,8 @@ _ret
     // clocks back to normal (9MHz at 90MHz clk)
     _exp(8, IPU_PORT_CLK_SWITCH)
     _exp(0, IPU_PORT_RD)
-    
+    //N.B. Placing the clocks here MIGHT cause some deleterious effects since clocks
+    //will run in spite of potentially no new ICWs being issued.... But should be short in most circumstances.
 _ret
 
 !endif

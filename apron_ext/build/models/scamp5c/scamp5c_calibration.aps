@@ -2,7 +2,8 @@
 !macro_def
     ipu.analog_calibrate
 !macro_begin
-
+_exp(19, IPU_PORT_POWER) //power up Analog
+_nop
     _nop
     _exp(32, IPU_PORT_CLK_SWITCH)//really slow clock
     _nop
@@ -33,119 +34,271 @@
     
     _nop
 
-    _exp(4, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
-    _nop
-    _exp(0,IPU_PORT_calib)
-    _exp(0, IPU_PORT_RD)
-    _exp(8, IPU_PORT_DACS) //Vdiv2
-    _exp(70, IPU_PORT_B) //Vdiv2
-    _exp(9, IPU_PORT_DACS)//Vres
-    _exp(75, IPU_PORT_B)//Vres
-    _exp(10, IPU_PORT_DACS) //Vdiff
-    _exp(211, IPU_PORT_B)//Vdiff
-    _exp(11, IPU_PORT_DACS)//vxc
-    _exp(158, IPU_PORT_B)//vxc
-    _exp(12, IPU_PORT_DACS) //pbias
-    _exp(211, IPU_PORT_B)//pbias
-    _exp(13, IPU_PORT_DACS)//vdiv1
-    _exp(67, IPU_PORT_B)//vdiv1
-    _exp(14, IPU_PORT_DACS) //cbias
-    _exp(63, IPU_PORT_B)//cbias
-    _exp(15, IPU_PORT_DACS)//cbus
-    _exp(70, IPU_PORT_B)//cbus
-    _exp(16, IPU_PORT_DACS) //ADCrefhi
-    _exp(234, IPU_PORT_B)//ADCrefhi
-    _exp(17, IPU_PORT_DACS)//1VrefAmpA
-    _exp(71, IPU_PORT_B)//1VrefAmpA
-    _exp(18, IPU_PORT_DACS) //Secampoffset
-    _exp(97, IPU_PORT_B)//Secampoffset
-     //_exp(12, IPU_PORT_DACsLSBs)
-    _exp(19, IPU_PORT_DACS)//1VrefAMPB
-     //_exp(0, IPU_PORT_DACsLSBs)
-    _exp(71, IPU_PORT_B)//1VrefAMPB
-    _exp(20, IPU_PORT_DACS) //ADCreflo
-    _exp(23, IPU_PORT_B)//ADCreflo
-    _exp(21, IPU_PORT_DACS)//VDACbias
-    _exp(94, IPU_PORT_B)//VDACbias
-    _exp(22, IPU_PORT_DACS) //Vdacref
-    _exp(164, IPU_PORT_B)//Vdacref
-    _exp(23, IPU_PORT_DACS) //empty
-    _exp(117, IPU_PORT_B)//empty
-    _exp(0, IPU_PORT_DACS) //set for ordinary portB commands
+	_exp(4, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
+	_nop
+	_exp(0,IPU_PORT_calib)
+	_exp(0, IPU_PORT_RD)
+	_exp(8, IPU_PORT_DACS) //Vdiv2
+	_exp(70, IPU_PORT_B) //Vdiv2
+	_exp(9, IPU_PORT_DACS)//Vres
+	_exp(79, IPU_PORT_B)//Vres //75 1st system, 79 second
+	_exp(10, IPU_PORT_DACS) //Vdiff
+	_exp(211, IPU_PORT_B)//Vdiff
+	_exp(11, IPU_PORT_DACS)//vxc
+	_exp(106, IPU_PORT_B)//vxc //was 158 for other boxes
+	_exp(12, IPU_PORT_DACS) //pbias
+	_exp(211, IPU_PORT_B)//pbias
+	_exp(13, IPU_PORT_DACS)//vdiv1
+	_exp(67, IPU_PORT_B)//vdiv1
+	_exp(14, IPU_PORT_DACS) //cbias
+	_exp(63, IPU_PORT_B)//cbias
+	_exp(15, IPU_PORT_DACS)//cbus
+	_exp(70, IPU_PORT_B)//cbus
+		_exp(16, IPU_PORT_DACS) //ADCrefhi
+		_exp(234, IPU_PORT_B)//ADCrefhi
+	_exp(17, IPU_PORT_DACS)//1VrefAmpA
+	_exp(71, IPU_PORT_B)//1VrefAmpA
+	_exp(18, IPU_PORT_DACS) //Secampoffset
+	_exp(107, IPU_PORT_B)//Secampoffset 105 first board!
+	_exp(248, IPU_PORT_DACsLSBs) //Increase to increase A= ; out A return
+	_exp(19, IPU_PORT_DACS)//1VrefAMPB
+	_exp(72, IPU_PORT_B)//1VrefAMPB
+	_exp(0, IPU_PORT_DACsLSBs)
+	_exp(20, IPU_PORT_DACS) //ADCreflo
+	_exp(23, IPU_PORT_B)//ADCreflo
+	_exp(21, IPU_PORT_DACS)//VDACbias
+	_exp(94, IPU_PORT_B)//VDACbias
+	_exp(22, IPU_PORT_DACS) //Vdacref
+	_exp(164, IPU_PORT_B)//Vdacref
+	_exp(23, IPU_PORT_DACS) //empty
+	_exp(117, IPU_PORT_B)//empty
+	_exp(0, IPU_PORT_DACS) //set for ordinary portB commands
 //end set voltages
 
-//Now starting the IN calibration routine   
-    _exp(8, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
-    _nop
-    all
-    _exp(4,IPU_PORT_FALL_C1)
-    _exp(4,IPU_PORT_RISE_C2)
-     _exp(0, IPU_PORT_ADDR) 
-    _exp(1, IPU_PORT_LRX)
-    _exp(0, IPU_PORT_LRX)
-    _exp(1, IPU_PORT_LCX)
-    _exp(0, IPU_PORT_LCX)
-    
-    // Set ADC Delay
-
-    _exp(3, IPU_PORT_ADC_DELAY)
-    _exp(64, IPU_PORT_ADDR) //use pixel at (64,64)
-    _exp(1, IPU_PORT_LR)
-    _exp(0, IPU_PORT_LR)
-    _exp(1, IPU_PORT_LC)
-    _exp(0, IPU_PORT_LC)
-    _exp(2, 248)
-     _exp(255, IPU_PORT_B)
-    _exp(1,IPU_PORT_calib) //OK. Now we're calibrating
-    _mov(s9,0) //Zero will be first element of table to be filled
-    _call(#_ipu_st_delay)//a delay to allow the pre-filling of zero data into array
-    _nop
-    _mov(s6,255)// Start at highest B values=> lowest Vin => highest IN source=> lowest A values
-     #cycleMSB
-     _nop
-     _mov(s5,15)
-     #cycleLSB
-     _nop
-     _exp(s5, IPU_PORT_DACsLSBs)
-     _exp(255, IPU_PORT_B)// I resend this every time since oughta keep transitions the same
-     _exp(s6, IPU_PORT_B)
-     A = IN
-     keep
-    set( 'SEL1' 'ana' )
-    _exp(1, IPU_PORT_RD) //gotta take read hi to turn ADC clock on
-    _mov(s8,35)
-    #zdelayer
-    _nop
-    _sub(s8,1)
-     _jump(nz, #zdelayer)
-     _nop
-     _call(#_ipu_sw_sample_ana)
-     _nop
-    _exp(0, IPU_PORT_RD) //gotta take read lo turn ordinary clocks on
-    _sub(sw,s9)//subtract s9 from s3
-    _jump(c, #nostore)//if a carry occurs it means new value is lower than before
-    _nop
-    _exp(3,IPU_PORT_calib)
-    _nop
-    _nop
-    _exp(1,IPU_PORT_calib)
-    _cmp(s9,255) 
-    _jump(z, #end)//if the system has reached the mac value 255, then the B-ramp cuts out early and ends
-    _nop
-    _add(s9,1)//add 1 to s9 for the next mem to be filled
-    #nostore
-    _nop
-    _sub(s5,1)//CAHNGE BACK TO 1
-    _jump(nz, #cycleLSB)
-    _nop
-    _sub(s6,1)
-    _jump(nz, #cycleMSB)
-    _nop
-    #end
-    _nop
-    _exp(0,IPU_PORT_calib)//turn calib off
-    _nop
 !macro_end
 
+!macro_def
+	SetCentres //Given a command A = {nothing}, we want output to deliver value of 0. Adjusts voltage SecAmpOffset to achieve this
+!macro_begin
+	_exp(8, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
+	_exp(0, IPU_PORT_RD)
+	_nop
+	all
+	_exp(106, IPU_PORT_B)
+	_exp(18, IPU_PORT_DACS) //Setting SecAmpOffset
+	_mov(s6,106)// Start at 106
+	 #CcycleMSBB
+	 _nop
+	 _mov(s5,240) //Start at 0. 240 is "zero" when you look at the 4 LSBs. A bug in hardware perhaps
+	 #CcycleLSBB
+	 _nop
+	 _exp(2,248)
+	 _exp(8, IPU_PORT_CLK_SWITCH) 
+	 _exp(0, IPU_PORT_RD)
+	_nop
+	_call(#_ipu_st_delay)
+	_nop
+	 _exp(s6, IPU_PORT_B)
+	 _nop
+	 _exp(s5, IPU_PORT_DACsLSBs)
+	 _nop
+		A = 
+	 	keep 
+	set('SEL1' 'ana' ) 
+ 	_call(#Calibreadout)
+	 _nop
+	_add(sw,131)//subtract 131 from ReadData Set at 131 since it appears to work.
+	_jump(c, #FoundCentre)//if a carry occurs it means 128 reached
+	_nop
+	 _add(s5,1)
+	 _jump(nz, #CcycleLSBB)
+	 _nop
+	 _add(s6,1)
+	 _jump(nz, #CcycleMSBB)
+	  _nop
+	  #FoundCentre
+	  _nop
+	 _exp(23, IPU_PORT_DACS) //empty Adding this seems to make it work better (reason?)
+	 _exp(0, IPU_PORT_DACS) 
+!macro_end
+
+!macro_def
+	Calib_IN_Diff
+!macro_begin
+
+//Now starting the IN calibration routine	
+	_exp(8, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
+	_nop
+	all
+	 _exp(0, IPU_PORT_ADDR) 
+	_exp(1, IPU_PORT_LRX)
+	_exp(0, IPU_PORT_LRX)
+	_exp(1, IPU_PORT_LCX)
+	_exp(0, IPU_PORT_LCX)
+	
+	// Set ADC Delay
+
+	_exp(3, IPU_PORT_ADC_DELAY)
+	_exp(63, IPU_PORT_ADDR) //use pixel at (63,63)
+	_exp(1, IPU_PORT_LR)
+	//_exp(0, IPU_PORT_LR)
+	_exp(1, IPU_PORT_LC)
+	//_exp(0, IPU_PORT_LC)
+	_exp(2, 248)
+
+ 	_exp(1,IPU_PORT_calib) //OK. Now we're calibrating
+ 	
+ 	//First find the IN corresponding to the 128 position so can get the calibration right
+ 	_mov(s6, 255)
+ 	#Find128position
+ 	_nop
+ 	_exp(s6, IPU_PORT_B)
+ 	_exp(0, IPU_PORT_RD) 
+ 	A = IN
+ 	keep //not really needed since clocks turned off afterwards
+	set( 'SEL1' 'ana' )
+	_call(#Calibreadout)
+	_exp(8, IPU_PORT_CLK_SWITCH)
+ 	_exp(0, IPU_PORT_RD) 
+	_nop
+	_sub(s6, 1)
+	_add(sw,128)//Add 128.... so will jump and repeat if not over 128.
+	_jump(nc,#Find128position)
+	_nop
+	_mov(s12, s6) //s12 = s6 
+	//So saved the 128 value in s12
+	//Now decrementing IN values from 255
+	_mov(s6, 255)
+	 _exp(s12, IPU_PORT_B)
+ 	_mov(s9,0) //Zero will be first element of table to be filled
+  	_call(#_ipu_st_delay)//a delay to allow the pre-filling of zero data into array
+	_nop
+	_mov(s6,255)// Start at highest B values=> lowest Vin => highest IN source=> lowest A values
+	 #cycleMSBB
+	 _nop
+	 _mov(s5,255) //was15. The 3 LSBs seem to get stuck periodically. THe 255 start works around the D1-D2. But D0 requires that it is not used
+	 //since it sticks at 1. So decrement by 2.
+	 #cycleLSBB
+	 _nop
+	 _exp(s5, IPU_PORT_DACsLSBs)
+// 	// _nop UNDELETE this nop if trying to go at 9MHz
+	 _exp(s12, IPU_PORT_B)// I resend 128 every time since want to keep transitions the same. 
+	set('sin')	
+	_nop //This nop is IMPORTANT. It matches the Set, Sin, import,set, A =IN of the IN macro. It gets timing the same - replaces the missing import that isnt needed here
+	F = IN
+	_exp(s6, IPU_PORT_B) //Now exporting the new DAC value
+	// _nop UNDELETE this nop if trying to go at 9MHz
+	 A =  F IN
+	 keep //not really needed since clocks turned off afterwards
+	set( 'SEL1' 'ana' )
+	_call(#Calibreadout)
+	 _nop
+	_sub(sw,s9)//subtract ReadData by s9 
+	_jump(c, #nostoreB)//if a carry occurs it means new value is lower than previous value already stored
+	_nop
+	_exp(3,IPU_PORT_calib)
+	_nop
+	_nop
+	_exp(1,IPU_PORT_calib)
+	_cmp(s9,255) 
+	_jump(z, #endB)//if the system has reached the match value 255, then the B-ramp cuts out and ends
+	_nop
+	_add(s9,1)//add 1 to s9 for the next mem to be filled
+	#nostoreB
+	_nop
+	_exp(8, IPU_PORT_CLK_SWITCH)
+ 	_exp(0, IPU_PORT_RD) //gotta take read lo turn ordinary clocks on
+	 _exp(s12, IPU_PORT_B) //Centres the IPU port B. Can only be done here since B value is IPU imported to store in calib file
+	 _nop
+	 _sub(s5,2)//CAHNGE BACK TO 1 if get LSB working
+	 _cmp(s5,241)
+	 _jump(nz, #cycleLSBB)
+	 _nop
+	 _sub(s6,1)
+	 _jump(nz, #cycleMSBB)
+	  _nop
+	  #endB
+	  _nop
+	 _exp(0,IPU_PORT_calib)//turn calib off
+	 _nop
+!macro_end
+
+#Calibreadout
+//!macro_begin
+//This reads towards the  63x63 pixels in the same manner as a larger readout
+
+	_exp(255, IPU_PORT_CLK_SWITCH)
+	_nop
+	_exp(1, IPU_PORT_RD)
+		_nop
+//	nop
+	//set()
+	_exp(0, IPU_PORT_LR)
 
 
+	// Set ADC Delay
+	//_imp(s8, 20)//8 looks good //was 5 on previous
+	_exp(3, IPU_PORT_ADC_DELAY) //1 seems good, slower looks worse. Go faster than 3 (which you can) and you get visible addressing noise (external wire)
+	_exp(3, 248) 
+	_exp(61, IPU_PORT_ADDR) 
+	_exp(1, IPU_PORT_LR)
+	//_exp(0, IPU_PORT_LR)
+	_mov(s1, 61) //was61
+
+	#loop_colB
+	_nop
+		// Set Column address
+		_exp(s1, IPU_PORT_ADDR) 
+		_exp(1, IPU_PORT_LC)
+		_exp(0, IPU_PORT_LC)
+ 		_mov(s2,0)
+ 		_exp(s2, IPU_PORT_ADDR) 
+ 		_exp(1, IPU_PORT_LR)
+ 		_exp(2, 248) //setup VGA --AorBOP Norm = 0 (8); EnB Norm  0 (4) ; EnA Norm = 2 (0) ;AorBIP Norm = 0 (1) (So Norm = 2; open cct = 1)
+
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			
+		
+			
+		#loop_rowB
+			_nop
+			_add(s2, 1)	
+			// Set Row address
+			
+			_call(#_ipu_sw_sample_ana)
+			//_exp(s9, IPU_PORT_ADDR)
+				_exp(s2, IPU_PORT_ADDR)
+				_exp(2, 248)
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			_nop
+			//ipu.sendbyte(s3)
+			_cmp(s2,63)
+			_jump(nz, #loop_rowB)
+			_nop
+				_exp(7, 248) //setup VGA --AorBOP Norm = 0 (8); EnB Norm  0 (4) ; EnA Norm = 2 (0) ;AorBIP Norm = 0 (1) (So Norm = 2; open cct = 1)
+			_add(s1, 1)
+			_cmp(s1,63)
+		_jump(nz, #loop_colB)
+	_nop
+_ret

@@ -34,7 +34,7 @@
     ipu.set_clock_boost
 !macro_begin
     _exp(255, IPU_PORT_CLK_SWITCH)
-    _exp(0, IPU_PORT_RD)
+    _exp(1, IPU_PORT_RD)
 !macro_end
 
 
