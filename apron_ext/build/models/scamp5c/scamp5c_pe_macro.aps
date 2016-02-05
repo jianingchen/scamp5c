@@ -114,11 +114,11 @@
 !macro_begin
     _mov(su,$v)
     _exp(128, IPU_PORT_B)// I resend this every time since oughta keep transitions the same. 
-	 set('sin')	//drags the bus to the IN level.
-	_add(su,128)
-	F = IN
-	_exp(su, IPU_PORT_B)
-	$r1 = F IN
+     set('sin') //drags the bus to the IN level.
+    _add(su,128)
+    F = IN
+    _exp(su, IPU_PORT_B)
+    $r1 = F IN
 !macro_end
 
 
@@ -225,3 +225,12 @@
     $r2 = not(R0) //re-instating R$r2
 !macro_end
 
+
+// 
+!macro_def
+    $r1 = L.a2d($r2)
+!macro_begin
+    where($r2)
+    $r1 = load(FLAG)
+    all
+!macro_end

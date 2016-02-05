@@ -103,8 +103,6 @@
 !macro_def
     ipu.pixel_set($r1,$r2,$r3)
 !macro_begin
-    //R1 = $r1
-    R12 = $r1
     _exp(255, IPU_PORT_CLK_SWITCH) //FAST
     _exp($r3, IPU_PORT_ADDR)
     _exp(1, IPU_PORT_LR)
@@ -123,12 +121,11 @@
     _exp(4, IPU_PORT_CLK_SWITCH) //9Mhz
     _exp(6, IPU_PORT_RISE_C2)
     _exp(5, IPU_PORT_FALL_C1)
-    set('lfl' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
+    //set('lfl' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
+    set('LR2' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
     _exp(8, IPU_PORT_CLK_SWITCH)
-    R12 = 1
-    R0 = 1
-    $r1 = R12
-    //$r1 = load(R0,R1)
+    R1 = $r1
+    $r1 = load(R1,R2)
 !macro_end
 
 
@@ -136,13 +133,12 @@
 !macro_def
     ipu.pixel_select($r1,$r2,$r3,$r4,$r5)
 !macro_begin
-    R12 = $r1
     _exp(255, IPU_PORT_CLK_SWITCH) //FAST
     
-    _exp($r2, IPU_PORT_ADDR)//y
+    _exp($r3, IPU_PORT_ADDR)//y
     _exp(1, IPU_PORT_LR)
     _exp(0, IPU_PORT_LR)
-    _exp($r3, IPU_PORT_ADDR)//x
+    _exp($r2, IPU_PORT_ADDR)//x
     _exp(1, IPU_PORT_LC)
     _exp(0, IPU_PORT_LC)
     
@@ -157,11 +153,42 @@
     _exp(4, IPU_PORT_CLK_SWITCH) //9Mhz
     _exp(6, IPU_PORT_RISE_C2)
     _exp(5, IPU_PORT_FALL_C1)
-    set('lfl' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
+    set('LR2' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
     _exp(8, IPU_PORT_CLK_SWITCH)
-    R12 = 1
-    R0 = 1
-    $r1 = R12
+    $r1 = load(R2)
+!macro_end
+
+
+
+!macro_def
+    $r1 = ipu.global_sum($r2,$r3)
+!macro_begin
+    _exp(2, IPU_PORT_CLK_SWITCH) 
+    _exp(1, IPU_PORT_ADC_DELAY)
+    
+    _exp(0, IPU_PORT_ADDR)
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+    _exp(1, IPU_PORT_LC)
+    _exp(0, IPU_PORT_LC)
+    _exp(255, IPU_PORT_ADDR)
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp($r3,248)// gain
+    all
+    keep
+    set_sel_ana($r2)
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(1, IPU_PORT_RD)// clocks
+    _nop
+    _call(#_ipu_sw_sample_ana)
+    _nop
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
+    _nop
+    _mov($r1,sw)
 !macro_end
 
 

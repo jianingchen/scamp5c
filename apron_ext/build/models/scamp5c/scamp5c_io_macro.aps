@@ -73,7 +73,10 @@
     usb.dout($r1,$h)
 !macro_begin
     host_dout($h)
-    //(TODO)
+    all
+    where($r1)
+    _call(#_digitalread)
+    _nop
 !macro_end
 
 

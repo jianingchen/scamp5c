@@ -185,7 +185,7 @@ _ret
     _exp(7, IPU_PORT_ADC_FEAMP)
     // image header packet
     ipu.send_byte(PCKT_START)
-    ipu.send_byte(6) // row major format ID
+    ipu.send_byte(6)
     ipu.send_byte(0) // x-min
     ipu.send_byte(0) // y-min
     ipu.send_byte(255) // x-max
@@ -199,8 +199,9 @@ _ret
     _exp(0, IPU_PORT_LCX)
     
     // Set ADC Delay
-    //_imp(s8, 20)//8 looks good //was 5 on previous
-    _exp(8, IPU_PORT_ADC_DELAY) //go faster than 15 (which you can) and you get visible addressing noise (external wire)
+
+    _exp(8, IPU_PORT_ADC_DELAY) //For this algo, the critical factor is how well IN matches calibration (which is based on the other readout routine)
+    //Increasing speed destroys calibration at high end
     _exp(1, IPU_PORT_RD)
     _exp(0, IPU_PORT_ADDR) 
     _exp(1, IPU_PORT_LR)
@@ -230,8 +231,8 @@ _ret
         _exp(sx, IPU_PORT_ADDR) 
          
         _exp(1, IPU_PORT_LC)
-          _exp(0, IPU_PORT_LC)
-        _exp(6, IPU_PORT_ADC_FEAMP)
+//        _exp(0, IPU_PORT_LC)
+         _exp(6, IPU_PORT_ADC_FEAMP)
  
         _nop
         _nop
@@ -258,26 +259,12 @@ _ret
             
             // sample and store in sw
             _call(#_ipu_sw_sample_ana)
-            
+           
             // column address
-            _exp(7 , IPU_PORT_ADC_FEAMP)
-            //_exp(2, IPU_PORT_ADC_FEAMP)
+            _exp(7 , IPU_PORT_ADC_FEAMP) //Set low gain
             _exp(sx, IPU_PORT_ADDR)
-            _exp(1, IPU_PORT_LC)
-            _exp(0, IPU_PORT_LC)
-            _exp(6, IPU_PORT_ADC_FEAMP)
-//             _cmp(sx,5)
-//             _jump(z, #out)
-//             _nop
-            // send result back to host
-            ipu.send_byte(sw)
-//             _jump(#here)
-//             _nop
-//             #out
-//             _nop
-//             ipu.send_byte(1)
-//             #here
-//             _nop
+             _exp(6, IPU_PORT_ADC_FEAMP) //Set high gain
+              ipu.send_byte(sw)
             _cmp(sx,0)
         _jump(nz, #rm_loop_col)
         _nop
@@ -298,7 +285,63 @@ _ret
 
 !endif
 
-//------------------------------------------------------------------------------
+#_digitalread
 
-    
+_exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    keep
+            set('pgdb' 'dig8' 'pgdbobus' 'sin') //get the command required sent whenever I turn clocks on
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    //_nop
+    _exp(0, IPU_PORT_RD) //turn on clocks
+    ipu.send_byte(PCKT_START)
+    ipu.send_byte(8)
+    ipu.send_byte(0) // x-min
+    ipu.send_byte(0) // y-min
+    // APRON will interpret this as 256x256 (putting 255x255)
+    ipu.send_byte(255) // x-max
+    ipu.send_byte(255) // y-max
+    // Set Block Size
+    _exp(0, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(7, IPU_PORT_ADDR) //note that 8 bits are returned at a time
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    _mov(s1, 0)
+    //_exp(s1, IPU_PORT_ADDR) 
+    #loop_row43
+        _nop
+        // Set Column address
+        _exp(s1, IPU_PORT_ADDR)
+        _exp(1, IPU_PORT_LR)
+        _exp(0, IPU_PORT_LR)
+        _mov(s2,0)
+        _exp(1, IPU_PORT_LC)
+    //  _exp(0, IPU_PORT_RD) //turn off clocks
+//          _nop
+//          keep
+//              set('pgdb' 'dig8' 'pgdbobus' 'sin') //moved these commands to the start of the macro
+        #loop_col4
+        _nop
+            // Set Row address
+            _exp(s2, IPU_PORT_ADDR) 
+            _exp(4, IPU_PORT_CLK_SWITCH) //sensible speed for VC commands
+            _exp(1, IPU_PORT_RD) //sends the VC command "kept" at start of macro
+            _exp(255, IPU_PORT_CLK_SWITCH) //high speed for read and send
+            _imp(sw, 234)
+            _exp(0, IPU_PORT_RD)
+            ipu.send_byte(sw)
+            
+            _add(s2, 8) //increment by 8
+            _jump(nz, #loop_col4)
+            _nop
+            _add(s1, 1)
+        _jump(nz, #loop_row43)
+        _nop 
+        _exp(0, IPU_PORT_LC) //return LC low
+           _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
+_ret
+//------------------------------------------------------------------------------
     
