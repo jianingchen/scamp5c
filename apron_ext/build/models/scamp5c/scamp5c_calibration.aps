@@ -45,7 +45,7 @@ _nop
 	_exp(10, IPU_PORT_DACS) //Vdiff
 	_exp(211, IPU_PORT_B)//Vdiff
 	_exp(11, IPU_PORT_DACS)//vxc
-	_exp(106, IPU_PORT_B)//vxc //was 158 for other boxes
+	_exp(158, IPU_PORT_B)//vxc //was 158 for other boxes
 	_exp(12, IPU_PORT_DACS) //pbias
 	_exp(211, IPU_PORT_B)//pbias
 	_exp(13, IPU_PORT_DACS)//vdiv1
@@ -59,10 +59,10 @@ _nop
 	_exp(17, IPU_PORT_DACS)//1VrefAmpA
 	_exp(71, IPU_PORT_B)//1VrefAmpA
 	_exp(18, IPU_PORT_DACS) //Secampoffset
-	_exp(107, IPU_PORT_B)//Secampoffset 105 first board!
+	_exp(102, IPU_PORT_B)//Secampoffset 105 first board! //102 and 248 first board
 	_exp(248, IPU_PORT_DACsLSBs) //Increase to increase A= ; out A return
 	_exp(19, IPU_PORT_DACS)//1VrefAMPB
-	_exp(72, IPU_PORT_B)//1VrefAMPB
+	_exp(71, IPU_PORT_B)//1VrefAMPB //was72
 	_exp(0, IPU_PORT_DACsLSBs)
 	_exp(20, IPU_PORT_DACS) //ADCreflo
 	_exp(23, IPU_PORT_B)//ADCreflo
@@ -86,7 +86,7 @@ _nop
 	all
 	_exp(106, IPU_PORT_B)
 	_exp(18, IPU_PORT_DACS) //Setting SecAmpOffset
-	_mov(s6,106)// Start at 106
+	_mov(s6,105)// Start at 106
 	 #CcycleMSBB
 	 _nop
 	 _mov(s5,240) //Start at 0. 240 is "zero" when you look at the 4 LSBs. A bug in hardware perhaps

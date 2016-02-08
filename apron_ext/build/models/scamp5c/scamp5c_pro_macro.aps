@@ -219,3 +219,78 @@
     all
     
 !macro_end
+
+!macro_def
+    Wr_Code_to_Dig_Reg($r2,$r1)
+!macro_begin
+//Aim is to save a code stored in IPU register $r1 to Scamp registers R8 to R1 inclusive
+//Overwrites IPU registers su and sv and sw
+	_mov(su, 128) //start with saving the MSB
+	all
+    where($r2)
+    //Bit 7
+    R0 = 1 //R0 is the register formerly known as FL
+    		R12 = R8 //preload R12 with whatever R8 used to be
+    		_call(#Conditionally_load_Scamp_from_IPU)
+   			_nop
+			R8 = R12 //Save back R12 into R8
+	//bit 6	
+    		R12 = R7
+			_call(#Conditionally_load_Scamp_from_IPU)
+   			_nop
+			R7 = R12
+	//bit 5 
+    		R12 = R6
+  			_call(#Conditionally_load_Scamp_from_IPU)
+   			_nop
+			R6 = R12 
+	//bit 4 
+    		R12 = R5
+    		_call(#Conditionally_load_Scamp_from_IPU)
+   			_nop
+			R5 = R12 
+	//bit 3 
+			R12 = R4
+    		_call(#Conditionally_load_Scamp_from_IPU)
+   			_nop
+			R4 = R12 
+	//bit 2 
+			R12 = R3
+    		_call(#Conditionally_load_Scamp_from_IPU)
+   			_nop
+			R3 = R12 
+	//bit 1 
+			R12 = R2
+    		_call(#Conditionally_load_Scamp_from_IPU)
+   			_nop
+			R2 = R12 
+	//bit 0 
+			R12 = R1
+    		_call(#Conditionally_load_Scamp_from_IPU)
+   			_nop
+			R1 = R12
+			_exp(8, IPU_PORT_CLK_SWITCH)
+			_exp(5,IPU_PORT_FALL_C1)
+			_exp(6,IPU_PORT_RISE_C2)
+			_jump(#end)
+			_nop
+			#Conditionally_load_Scamp_from_IPU
+			_nop
+			R0 = FLAG //Setting conditional load. So overwrites R12 dependant upon the where(B) condition above
+   					 //MSB first?
+    	   	R12 = 0
+    	   	_mov(sw,$r1) //$r1 has my counter
+    	   //	_mov(sw, 1)
+	    	_and(sw, su) //AND sw and su, result in sw. su starts with 128. ANDs Counter with a bit (start with MSB)
+	    	_jump(z, #setzero)
+	    	_nop
+	    	R12 = 1
+	    	#setzero
+			_nop
+			_shl(sv,su) 
+			_mov(su,sv)// Last 2 ops. su now shifted right (yes "right") by 1.  su=128 changed to su=64 etc
+			FL = 1
+			_ret
+			#end
+			_nop
+!macro_end

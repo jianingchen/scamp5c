@@ -126,7 +126,10 @@
 !macro_def
     $r1 = F.north($r2)
 !macro_begin
+    //R0 = FLAG
+    //all
     NEWS = $r2
+    //where(R0)
     $r1 = NORTH
 !macro_end
 

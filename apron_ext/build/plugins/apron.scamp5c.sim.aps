@@ -239,6 +239,13 @@ SOUTH = 4
 
 //
 !macro_def
+    s5c_sim_global_sum($p1,$p2,$p3)
+!macro_begin
+    plugin(?, 118, $p1, $p2, $p3 )
+!macro_end
+
+//
+!macro_def
     s5c_sim_mov($p1,$p2)
 !macro_begin
     plugin(?, 199, $p1, $p2)
@@ -252,6 +259,13 @@ SOUTH = 4
     respix
 !macro_begin
     plugin(?, 100, PIX)
+!macro_end
+
+// native reset pix
+!macro_def
+    res($r1)
+!macro_begin
+    $r1 = s5c_load(0)
 !macro_end
 
 // native add
@@ -436,6 +450,14 @@ SOUTH = 4
     ipu.pixel_select($r1,$p1,$p2,$p3,$p4)
 !macro_begin
     s5c_sim_select($r1,$p1,$p2,$p3,$p4)
+!macro_end
+
+
+//
+!macro_def
+    $p1 = ipu.global_sum($p2,$p3)
+!macro_begin
+    s5c_sim_global_sum($p1,$p2,$p3)
 !macro_end
 
 
