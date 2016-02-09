@@ -21,25 +21,25 @@
 !default_palette(0,'scamp5c_analog')
 !object('A_REG', 'a', 300, 'SIM_REGISTER')
 
-!create('a_a', 'A_REG', PE_DIM_X, PE_DIM_Y)
-!create('a_b', 'A_REG', PE_DIM_X, PE_DIM_Y)
-!create('a_c', 'A_REG', PE_DIM_X, PE_DIM_Y)
-!create('a_d', 'A_REG', PE_DIM_X, PE_DIM_Y)
-!create('a_e', 'A_REG', PE_DIM_X, PE_DIM_Y)
-!create('a_f', 'A_REG', PE_DIM_X, PE_DIM_Y)
-!create('news', 'A_REG', PE_DIM_Y, PE_DIM_Y)
-!create('pix', 'A_REG', PE_DIM_X, PE_DIM_Y)
-!create('in', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('_A', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('_B', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('_C', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('_D', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('_E', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('_F', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('_NEWS', 'A_REG', PE_DIM_Y, PE_DIM_Y)
+!create('_PIX', 'A_REG', PE_DIM_X, PE_DIM_Y)
+!create('_IN', 'A_REG', PE_DIM_X, PE_DIM_Y)
 
-!define(A, a[a_a])
-!define(B, a[a_b])
-!define(C, a[a_c])
-!define(D, a[a_d])
-!define(E, a[a_e])
-!define(F, a[a_f])
-!define(NEWS, a[news])
-!define(PIX, a[pix])
-!define(IN, a[in])
+!define(A, a[_A])
+!define(B, a[_B])
+!define(C, a[_C])
+!define(D, a[_D])
+!define(E, a[_E])
+!define(F, a[_F])
+!define(NEWS, a[_NEWS])
+!define(PIX, a[_PIX])
+!define(IN, a[_IN])
 
 
 
@@ -47,35 +47,35 @@
 !default_palette(0,'scamp5c_digital')
 !object('D_REG', 'b', 301, 'SIM_REGISTER')
 
-!create('b_0', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_1', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_2', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_3', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_4', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_5', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_6', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_7', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_8', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_9', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_10', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_11', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('b_12', 'D_REG', PE_DIM_X, PE_DIM_Y)
-!create('flag', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R0', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R1', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R2', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R3', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R4', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R5', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R6', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R7', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R8', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R9', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R10', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R11', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_R12', 'D_REG', PE_DIM_X, PE_DIM_Y)
+!create('_FLAG', 'D_REG', PE_DIM_X, PE_DIM_Y)
 
-!define(R0, b[b_0])
-!define(R1, b[b_1])
-!define(R2, b[b_2])
-!define(R3, b[b_3])
-!define(R4, b[b_4])
-!define(R5, b[b_5])
-!define(R6, b[b_6])
-!define(R7, b[b_7])
-!define(R8, b[b_8])
-!define(R9, b[b_9])
-!define(R10, b[b_10])
-!define(R11, b[b_11])
-!define(R12, b[b_12])
-!define(FLAG, b[flag])
+!define(R0, b[_R0])
+!define(R1, b[_R1])
+!define(R2, b[_R2])
+!define(R3, b[_R3])
+!define(R4, b[_R4])
+!define(R5, b[_R5])
+!define(R6, b[_R6])
+!define(R7, b[_R7])
+!define(R8, b[_R8])
+!define(R9, b[_R9])
+!define(R10, b[_R10])
+!define(R11, b[_R11])
+!define(R12, b[_R12])
+!define(FLAG, b[_FLAG])
 
 
 
@@ -398,12 +398,47 @@ SOUTH = 4
     plugin(?, 206, $r1, $r2)
 !macro_end
 
+//
+!macro_def
+    _cmp( $r1, $r2 )
+!macro_begin
+    plugin(?, 207, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _clrc
+!macro_begin
+    plugin(?, 208)
+!macro_end
+
+//
+!macro_def
+    _clrz
+!macro_begin
+    plugin(?, 209)
+!macro_end
+
+//
+!macro_def
+    _setc
+!macro_begin
+    plugin(?, 210)
+!macro_end
+
+//
+!macro_def
+    _setz
+!macro_begin
+    plugin(?, 211)
+!macro_end
+
 
 //
 !macro_def
     usb.stream_begin($p1)
 !macro_begin
-    plugin(?, 210, $p1)
+    plugin(?, 212, $p1)
 !macro_end
 
 
@@ -411,7 +446,7 @@ SOUTH = 4
 !macro_def
     usb.stream_end($p1,$p2)
 !macro_begin
-    plugin(?, 211, $p1, $p2)
+    plugin(?, 213, $p1, $p2)
 !macro_end
 
 
@@ -419,7 +454,7 @@ SOUTH = 4
 !macro_def
     usb.stream_send($p1)
 !macro_begin
-    plugin(?, 212, $p1)
+    plugin(?, 214, $p1)
 !macro_end
 
 
