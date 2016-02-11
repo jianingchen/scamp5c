@@ -285,20 +285,21 @@ _ret
 
 !endif
 
-#_digitalread
+//------------------------------------------------------------------------------
 
-_exp(8, IPU_PORT_CLK_SWITCH)
+#_digitalread
+	_exp(255, IPU_PORT_CLK_SWITCH)
+    _exp(8, IPU_PORT_CLK_SWITCH)
     _nop
     keep
-            set('pgdb' 'dig8' 'pgdbobus' 'sin') //get the command required sent whenever I turn clocks on
+    set('pgdb' 'dig8' 'pgdbobus' 'sin') //get the command required sent whenever I turn clocks on
     _exp(255, IPU_PORT_CLK_SWITCH)
     //_nop
     _exp(0, IPU_PORT_RD) //turn on clocks
     ipu.send_byte(PCKT_START)
-    ipu.send_byte(8)
+    ipu.send_byte(8) // packet id for digital frame
     ipu.send_byte(0) // x-min
     ipu.send_byte(0) // y-min
-    // APRON will interpret this as 256x256 (putting 255x255)
     ipu.send_byte(255) // x-max
     ipu.send_byte(255) // y-max
     // Set Block Size
@@ -308,24 +309,26 @@ _exp(8, IPU_PORT_CLK_SWITCH)
     _exp(7, IPU_PORT_ADDR) //note that 8 bits are returned at a time
     _exp(1, IPU_PORT_LCX)
     _exp(0, IPU_PORT_LCX)
-    _mov(s1, 0)
-    //_exp(s1, IPU_PORT_ADDR) 
+    
+    _mov(sy, 0)
+    //_exp(sy, IPU_PORT_ADDR) 
     #loop_row43
         _nop
+        
         // Set Column address
-        _exp(s1, IPU_PORT_ADDR)
+        _exp(sy, IPU_PORT_ADDR)
         _exp(1, IPU_PORT_LR)
         _exp(0, IPU_PORT_LR)
-        _mov(s2,0)
+        _mov(sx,0)
         _exp(1, IPU_PORT_LC)
-    //  _exp(0, IPU_PORT_RD) //turn off clocks
-//          _nop
-//          keep
-//              set('pgdb' 'dig8' 'pgdbobus' 'sin') //moved these commands to the start of the macro
+//      _exp(0, IPU_PORT_RD) //turn off clocks
+//      _nop
+//      keep
+//      set('pgdb' 'dig8' 'pgdbobus' 'sin') //moved these commands to the start of the macro
         #loop_col4
         _nop
             // Set Row address
-            _exp(s2, IPU_PORT_ADDR) 
+            _exp(sx, IPU_PORT_ADDR) 
             _exp(4, IPU_PORT_CLK_SWITCH) //sensible speed for VC commands
             _exp(1, IPU_PORT_RD) //sends the VC command "kept" at start of macro
             _exp(255, IPU_PORT_CLK_SWITCH) //high speed for read and send
@@ -333,15 +336,17 @@ _exp(8, IPU_PORT_CLK_SWITCH)
             _exp(0, IPU_PORT_RD)
             ipu.send_byte(sw)
             
-            _add(s2, 8) //increment by 8
-            _jump(nz, #loop_col4)
-            _nop
-            _add(s1, 1)
-        _jump(nz, #loop_row43)
-        _nop 
-        _exp(0, IPU_PORT_LC) //return LC low
-           _exp(8, IPU_PORT_CLK_SWITCH)
+            _add(sx, 8) //increment by 8
+        _jump(nz, #loop_col4)
+        _nop
+        
+        _add(sy, 1)
+    _jump(nz, #loop_row43)
+    _nop 
+    
+    _exp(0, IPU_PORT_LC) //return LC low
+    _exp(8, IPU_PORT_CLK_SWITCH)
     _exp(0, IPU_PORT_RD)
 _ret
+
 //------------------------------------------------------------------------------
-    

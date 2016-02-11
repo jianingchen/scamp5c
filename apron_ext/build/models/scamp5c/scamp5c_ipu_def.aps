@@ -49,17 +49,12 @@
 !define(z, 3)
 !define(nz, 4)
 
-!define(north, 1)
-!define(east, 2)
-!define(west, 3)
-!define(south, 4)
-
 
 // IPU Port Definitions
 //------------------------------------------------------------------------------
 
-!define(IPU_PORT_NO_PM_DIN,	128)
-!define(IPU_PORT_NO_FIFO,	129)
+!define(IPU_PORT_NO_PM_DIN, 128)
+!define(IPU_PORT_NO_FIFO,   129)
 !define(IPU_PORT_NO_DBG_CNTR0, 130)
 !define(IPU_PORT_NO_DBG_CNTR1, 131)
 !define(IPU_PORT_NO_DBG_CNTR2, 132)
@@ -93,7 +88,7 @@
 !define(IPU_PORT_FB_Y,228)   
 !define(IPU_PORT_FB_D,229)   
 !define(IPU_PORT_FB_X_MIN,230)
-!define(IPU_PORT_FB_X_MAX,231)	
+!define(IPU_PORT_FB_X_MAX,231)  
 !define(IPU_PORT_FB_Y_MIN,232)
 !define(IPU_PORT_FB_Y_MAX,233)
 !define(IPU_PORT_VC_DI_DIG8,234)

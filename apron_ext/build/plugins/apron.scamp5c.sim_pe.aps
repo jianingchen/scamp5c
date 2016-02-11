@@ -1,86 +1,165 @@
-//
-// SCAMP-5 PE Operation Macros 
-//
-// Assume analog register F and digital register R0 to be volatile
-//
+
+/// PE Instructions
 //------------------------------------------------------------------------------
 
-// reset pix to min level
+//
 !macro_def
-    pe.rpix
+    where($r1)
 !macro_begin
+    mask.off
+    core.load(FLAG, 0.0)
+    x[apron_mask] = mask.if($r1, >, 0)
+    mask.on(x[apron_mask])
+    core.load(FLAG, 1)
+!macro_end
+
+//
+!macro_def
+    all
+!macro_begin
+    mask.off
+    core.load(FLAG, 1.0)
+!macro_end
+
+//
+!macro_def
+    setf
+!macro_begin
+    mask.off
+    core.load(FLAG, 1.0)
+!macro_end
+
+//
+!macro_def
+    res($r1)
+!macro_begin
+    $r1 = s5c_sim_load(0)
+!macro_end
+
+//
+!macro_def
     respix
-    respix
+!macro_begin
+    s5c_sim_respix
+!macro_end
+
+//
+!macro_def
+    $r1 = not($r2)
+!macro_begin
+    $r1 = s5c_sim_not($r2)
+!macro_end
+
+//
+!macro_def
+    $r1 = or($r2,$r3)
+!macro_begin
+    $r1 = s5c_sim_or($r2,$r3)
+!macro_end
+
+//
+!macro_def
+    $r1 = nor($r2,$r3)
+!macro_begin
+    $r1 = s5c_sim_nor($r2,$r3)
+!macro_end
+
+
+
+
+/// PE Macros
+//------------------------------------------------------------------------------
+
+//
+!macro_def
+    $a = pe.in($p)
+!macro_begin
+    s5c_sim_in(IN,$p)
+    $a = s5c_sim_load(IN)
 !macro_end
 
 // $r1 will be a half-toned image, $r2 will be a full range image
 !macro_def
     pe.rpix($r1,$r2)
 !macro_begin
-    $r1 = PIX
-    F = PIX
+    if(sim_pix_source,==,1)
+        PIX_IMAGE = webcam.getLuminance(0)
+    endif
+    if(sim_pix_source,==,2)
+        // static image, not changing
+    endif
+    core.mul(PIX,PIX_IMAGE,0.495)
+    core.sub(PIX,PIX,127.0)
+    $r1 = s5c_sim_load(PIX)
+    F = s5c_sim_load(PIX)
     respix
-    nop
-    $r2 = load($r1 F PIX)
-    $r1 = load(F PIX)
+    $r2 = s5c_sim_add3($r1,F,PIX)
+    $r1 = s5c_sim_add(F,PIX)
+!macro_end
+
+//
+!macro_def
+    pe.rpix
+!macro_begin
+    respix
 !macro_end
 
 //
 !macro_def
     $r1 = pe.copy($r2)
 !macro_begin
-    F = $r2
-    $r1 = F
+    F = s5c_sim_load($r2)
+    $r1 = s5c_sim_load(F)
 !macro_end
 
 //
 !macro_def
     $r1 = pe.add($r2,$r3)
 !macro_begin
-    F = load($r2 $r3)
-    $r1 = F
+    F = s5c_sim_add($r2,$r3)
+    $r1 = s5c_sim_load(F)
 !macro_end
 
 //
 !macro_def
-    pe.add($r1,$r2)
+    pe.add($r2,$r3)
 !macro_begin
-    F = load($r1 $r2)
-    $r1 = F
+    F = s5c_sim_add($r2,$r3)
+    $r2 = s5c_sim_load(F)
 !macro_end
 
 //
 !macro_def
     $r1 = pe.sub($r2,$r3)
 !macro_begin
-    F = $r2
-    $r1 = load(F $r3)
+    F = s5c_sim_load($r2)
+    $r1 = s5c_sim_add(F,$r3)
 !macro_end
 
 //
 !macro_def
     pe.sub($r2,$r3)
 !macro_begin
-    F = $r2
-    $r2 = load(F $r3)
+    F = s5c_sim_load($r2)
+    $r2 = s5c_sim_add(F,$r3)
 !macro_end
 
 //
 !macro_def
     $r1 = pe.neg($r2)
 !macro_begin
-    res(F)
-    $r1 = load($r2 F)
+    F = s5c_sim_load(0)
+    $r1 = s5c_sim_add($r2,F)
 !macro_end
 
 //
 !macro_def
     $r1 = pe.abs($r2)
 !macro_begin
-    $r1 = $r2
-    F = $r2
+    $r1 = s5c_sim_load($r2)
+    F = s5c_sim_load($r2)
     where($r2)
-        $r1 = F
+        $r1 = s5c_sim_load(F)
     all
 !macro_end
 
@@ -88,82 +167,41 @@
 !macro_def
     pe.div($r1,$r2,$r3)
 !macro_begin
-    $r2 $r3 = $r1
-    F = load($r1 $r3)
-    $r3 = load(F $r2)
-    $r2 F = $r3
-    $r2 = F
-    $r3 = F
-    // under testing
+    s5c_sim_div($r1,F,$r3)
+    $r2 = s5c_sim_load(F)
 !macro_end
 
-
-!macro_def
-    $r1 = pe.in($v)
-!macro_begin
-    _mov(su,$v)
-    _exp(128, IPU_PORT_B)// I resend this every time since oughta keep transitions the same. 
-     set('sin') //drags the bus to the IN level.
-    _add(su,128)
-    F = IN
-    _exp(su, IPU_PORT_B)
-    $r1 = F IN
-!macro_end
-
-
+//
 !macro_def
     $r1 = pe.north($r2)
 !macro_begin
-    //R0 = FLAG
-    //all
-    NEWS = $r2
-    //where(R0)
-    $r1 = NORTH
+    NEWS = s5c_sim_load($r2)
+    $r1 = s5c_sim_load(NORTH)
 !macro_end
 
-
+//
 !macro_def
     $r1 = pe.east($r2)
 !macro_begin
-    NEWS = $r2
-    $r1 = EAST
+    NEWS = s5c_sim_load($r2)
+    $r1 = s5c_sim_load(EAST)
 !macro_end
 
-
+//
 !macro_def
     $r1 = pe.west($r2)
 !macro_begin
-    NEWS = $r2
-    $r1 = WEST
+    NEWS = s5c_sim_load($r2)
+    $r1 = s5c_sim_load(WEST)
 !macro_end
 
-
+//
 !macro_def
     $r1 = pe.south($r2)
 !macro_begin
-    NEWS = $r2
-    $r1 = SOUTH
+    NEWS = s5c_sim_load($r2)
+    $r1 = s5c_sim_load(SOUTH)
 !macro_end
-
-
-!macro_def
-    $r1 = pe.d2a($r2)
-!macro_begin
-    all
-    set('plrb' 'rid') //this drives the bus to zero volts
-    _exp(0,IPU_PORT_B)
-    $r1 = IN
-    where($r2)
-        set('plrb' 'rid') //this drives the bus to zero volts
-        _exp(255, IPU_PORT_B)
-        $r1 = IN
-    all
-!macro_end
-
-
-
-// Digital Operation Macros (R0 is volatile)
-//------------------------------------------------------------------------------
 
 //
 !macro_def
@@ -176,27 +214,24 @@
 !macro_def
     $r1 = pe.or($r2,$r3)
 !macro_begin
-    $r1 = load($r2,$r3)
+    $r1 = or($r2,$r3)
 !macro_end
 
 //
 !macro_def
     $r1 = pe.nor($r2,$r3)
 !macro_begin
-//  set(xPLRB xNBIT xL$r1 xR$r2 xR$r3) 
-    R0 = load($r2,$r3)
-    $r1 = not(R0)
+    $r1 = nor($r2,$r3)
 !macro_end
 
 //
 !macro_def
     $r1 = pe.and($r2,$r3)
 !macro_begin
-    $r1 = not($r2)
+    R0 = not($r2) //invert both inputs
     $r2 = not($r3)
-    R0 = load($r1,$r2)
-    $r2 = not($r1)
-    $r1 = not(R0)
+    $r1 = nor(R0,$r2)
+    $r2 = not(R0) //re-instating R$r2
 !macro_end
 
 //
@@ -205,8 +240,17 @@
 !macro_begin
     R0 = not($r2) //invert both inputs
     $r2 = not($r3) 
-    set(xPLRB xBIT xBITMODE xL$r1 xRFL xR$r2) 
+    $r1 = or(R0,$r2)
     $r2 = not(R0) //re-instating R$r2
+!macro_end
+
+//
+!macro_def
+    $r1 = pe.d2a($r2)
+!macro_begin
+    s5c_sim_mov($r1,$r2)
+    core.mul($r1,$r1,254.0)
+    core.sub($r1,$r1,127.0)
 !macro_end
 
 // 
@@ -214,10 +258,44 @@
     $r1 = pe.a2d($r2)
 !macro_begin
     where($r2)
-    $r1 = load(FLAG)
+    s5c_sim_mov($r1,FLAG)
     all
 !macro_end
 
+//
+!macro_def
+    $r1 = pro.digital_news($r2,$p3,$p4,$p5,$p6)
+!macro_begin
+    $r1 = s5c_sim_dnews($r2,$p3,$p4,$p5,$p6)
+!macro_end
+
+//
+!macro_def
+    $r1 = pro.flood_from_boundary($r2)
+!macro_begin
+    s5c_sim_flood_boundary($r1,$r2)
+!macro_end
+
+//
+!macro_def
+    $r1 = pro.flood_from_source($r2,$r3)
+!macro_begin
+    s5c_sim_flood_source($r1,$r2,$r3)
+!macro_end
+
+//
+!macro_def
+    $r1 = pro.diffuse($r2,$p1,$p2)
+!macro_begin
+    s5c_sim_diffuse($r1,$r2,$p1,$p2)
+!macro_end
+
+//
+!macro_def
+    pro.locate_event($p1,$p2,$p3)
+!macro_begin
+    s5c_sim_locate_event($p1,$p2,$p3)
+!macro_end
 
 
 // Alternative Name
@@ -341,7 +419,6 @@
 !macro_begin
     $r1 = pe.nand($r2,$r3)
 !macro_end
-
 
 
 // Deprecated Name

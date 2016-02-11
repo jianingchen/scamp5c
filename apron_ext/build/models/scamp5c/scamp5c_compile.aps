@@ -2,7 +2,10 @@
 !sim_core('cores/core_scamp5b_mod.dll')
 
 !operator(=, load)
-!operator(+, add)
+!operator(+, _invalid_operator )
+!operator(-, _invalid_operator )
+!operator(*, _invalid_operator )
+!operator(/, _invalid_operator )
 
 !generate_icw_file
 !max_addr(2000)
@@ -45,3 +48,6 @@ ipu.config_clocks
 ipu.analog_calibrate
 SetCentres
 Calib_IN_Diff
+
+
+

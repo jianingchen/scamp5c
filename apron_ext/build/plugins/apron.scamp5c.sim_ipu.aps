@@ -1,0 +1,192 @@
+
+/// IPU Instructions
+//------------------------------------------------------------------------------
+
+//
+!macro_def
+    _nop
+!macro_begin
+    nop
+!macro_end
+
+//
+!macro_def
+    _mov( $r1, $r2 )
+!macro_begin
+    plugin(?, 200, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _or( $r1, $r2 )
+!macro_begin
+    plugin(?, 201, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _and( $r1, $r2 )
+!macro_begin
+    plugin(?, 202, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _add( $r1, $r2 )
+!macro_begin
+    plugin(?, 203, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _sub( $r1, $r2 )
+!macro_begin
+    plugin(?, 204, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _shl( $r1, $r2 )
+!macro_begin
+    plugin(?, 205, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _shr( $r1, $r2 )
+!macro_begin
+    plugin(?, 206, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _cmp( $r1, $r2 )
+!macro_begin
+    plugin(?, 207, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    _clrc
+!macro_begin
+    plugin(?, 208)
+!macro_end
+
+//
+!macro_def
+    _clrz
+!macro_begin
+    plugin(?, 209)
+!macro_end
+
+//
+!macro_def
+    _setc
+!macro_begin
+    plugin(?, 210)
+!macro_end
+
+//
+!macro_def
+    _setz
+!macro_begin
+    plugin(?, 211)
+!macro_end
+
+//
+!macro_def
+    usb.stream_begin($p1)
+!macro_begin
+    plugin(?, 212, $p1)
+!macro_end
+
+//
+!macro_def
+    usb.stream_end($p1,$p2)
+!macro_begin
+    plugin(?, 213, $p1, $p2)
+!macro_end
+
+//
+!macro_def
+    usb.stream_send($p1)
+!macro_begin
+    plugin(?, 214, $p1)
+!macro_end
+
+
+/// IPU Macros
+//------------------------------------------------------------------------------
+
+//
+!macro_def
+    ipu.wait_frame_trigger
+!macro_begin
+    
+!macro_end
+
+//
+!macro_def
+    ipu.pixel_set($r1,$p1,$p2)
+!macro_begin
+    pixel.set($r1,$p1,$p2,1.0)
+!macro_end
+
+//
+!macro_def
+    ipu.pixel_select($r1,$p1,$p2,$p3,$p4)
+!macro_begin
+    s5c_sim_select($r1,$p1,$p2,$p3,$p4)
+!macro_end
+
+//
+!macro_def
+    $p1 = ipu.global_sum($p2,$p3)
+!macro_begin
+    s5c_sim_global_sum($p1,$p2,$p3)
+!macro_end
+
+//
+!macro_def
+    $p1 = usb.slider($p2)
+!macro_begin
+     sim.slider.get($p2,s15)
+     _mov($p1,s15)
+!macro_end
+
+//
+!macro_def
+    usb.aout($p1,$p2)
+!macro_begin
+    $p2 = s5c_sim_adc($p1)
+    $p2 = reg.setPalette('scamp5c_analog')
+    sim.show($p2)
+!macro_end
+
+//
+!macro_def
+    usb.dout($p1,$p2)
+!macro_begin
+    s5c_sim_mov($p2,$p1)
+    $p2 = reg.setPalette('scamp5c_digital')
+    sim.show($p2)
+!macro_end
+
+//
+!macro_def
+    usb.d2aout($p1,$p2)
+!macro_begin
+    core.load(F,$p1)
+    F = F*254.0
+    F = F - 127
+    usb.aout(F,$p2)
+    all
+!macro_end
+
+//
+!macro_def
+    usb.scan_events($p1,$p2,$p3)
+!macro_begin
+    s5c_sim_scan_events($p1,$p2,$p3)
+!macro_end
+

@@ -174,21 +174,85 @@ SOUTH = 4
 !define(ROW_STREAM, 0)
 !define(COL_STREAM, 1)
 
+!operator(+, core.add)
+!operator(-, core.sub)
+!operator(/, core.div)
+!operator(*, core.mul)
+
+// Plugin Functions
+//------------------------------------------------------------------------------
+
 //
 !macro_def
-    $p1 = s5c_load($p2)
+    $p1 = s5c_sim_load($p2)
 !macro_begin
     plugin(?, 0, $p1, $p2)
 !macro_end
 
-// digital news
+//
+!macro_def
+    s5c_sim_respix
+!macro_begin
+    plugin(?, 100, PIX)
+!macro_end
+
+//
+!macro_def
+    s5c_sim_in($a,$p)
+!macro_begin
+    plugin(?, 101, $a, $p)
+!macro_end
+
+//
+!macro_def
+    $p1 = s5c_sim_add($p2,$p3)
+!macro_begin
+    plugin(?, 102, $p1, $p2, $p3)
+!macro_end
+
+//
+!macro_def
+    $p1 = s5c_sim_add3($p2,$p3,$p4)
+!macro_begin
+    plugin(?, 103, $p1, $p2, $p3, $p4)
+!macro_end
+
+//
+!macro_def
+    s5c_sim_div($p1, $p2, $p3)
+!macro_begin
+    plugin(?, 104, $p1, $p2, $p3)
+!macro_end
+
+//
+!macro_def
+    $r1 = s5c_sim_not($r2)
+!macro_begin
+    plugin(?, 105, $r1, $r2)
+!macro_end
+
+//
+!macro_def
+    $r1 = s5c_sim_or($r2,$r3)
+!macro_begin
+    plugin(?, 106, $r1, $r2, $r3)
+!macro_end
+
+//
+!macro_def
+    $r1 = s5c_sim_nor($r2,$r3)
+!macro_begin
+    plugin(?, 107, $r1, $r2, $r3)
+!macro_end
+
+//
 !macro_def
     $p1 = s5c_sim_dnews($p2,$p3,$p4,$p5,$p6)
 !macro_begin
     plugin(?, 110, $p1, $p2, $p3,$p4,$p5,$p6)
 !macro_end
 
-// diffuse both vertically and horizontally
+//
 !macro_def
     $r1 = s5c_sim_diffuse($r2,$p1,$p2)
 !macro_begin
@@ -251,530 +315,6 @@ SOUTH = 4
     plugin(?, 199, $p1, $p2)
 !macro_end
 
-
-/// Native PE Instructions
-
-// native reset pix
-!macro_def
-    respix
-!macro_begin
-    plugin(?, 100, PIX)
-!macro_end
-
-// native reset pix
-!macro_def
-    res($r1)
-!macro_begin
-    $r1 = s5c_load(0)
-!macro_end
-
-// native add
-!macro_def
-    $p1 = s5c_add($p2,$p3)
-!macro_begin
-    plugin(?, 102, $p1, $p2, $p3)
-!macro_end
-
-// native add three values
-!macro_def
-    $p1 = s5c_add($p2,$p3,$p4)
-!macro_begin
-    plugin(?, 103, $p1, $p2, $p3, $p4)
-!macro_end
-
-// native divide
-!macro_def
-    s5c_div($p1, $p2, $p3)
-!macro_begin
-    plugin(?, 104, $p1, $p2, $p3)
-!macro_end
-
-// native NOT
-!macro_def
-    $r1 = not($r2)
-!macro_begin
-    plugin(?, 105, $r1, $r2)
-!macro_end
-
-// native OR
-!macro_def
-    $r1 = or($r2,$r3)
-!macro_begin
-    plugin(?, 106, $r1, $r2, $r3)
-!macro_end
-
-// native NOR
-!macro_def
-    $r1 = nor($r2,$r3)
-!macro_begin
-    plugin(?, 107, $r1, $r2, $r3)
-!macro_end
-
-//
-!macro_def
-    where($r1)
-!macro_begin
-    mask.off
-    core.load(FLAG, 0.0)
-    x[apron_mask] = mask.if($r1, >, 0)
-    mask.on(x[apron_mask])
-    core.load(FLAG, 1)
-!macro_end
-
-//
-!macro_def
-    all
-!macro_begin
-    mask.off
-    core.load(FLAG, 1.0)
-!macro_end
-
-//
-!macro_def
-    setf
-!macro_begin
-    mask.off
-    core.load(FLAG, 1.0)
-!macro_end
-
-
-
-/// Native IPU Instructions
-//------------------------------------------------------------------------------
-
-//
-!macro_def
-    _nop
-!macro_begin
-    nop
-!macro_end
-
-//
-!macro_def
-    _mov( $r1, $r2 )
-!macro_begin
-    plugin(?, 200, $r1, $r2)
-!macro_end
-
-//
-!macro_def
-    _or( $r1, $r2 )
-!macro_begin
-    plugin(?, 201, $r1, $r2)
-!macro_end
-
-//
-!macro_def
-    _and( $r1, $r2 )
-!macro_begin
-    plugin(?, 202, $r1, $r2)
-!macro_end
-
-//
-!macro_def
-    _add( $r1, $r2 )
-!macro_begin
-    plugin(?, 203, $r1, $r2)
-!macro_end
-
-//
-!macro_def
-    _sub( $r1, $r2 )
-!macro_begin
-    plugin(?, 204, $r1, $r2)
-!macro_end
-
-//
-!macro_def
-    _shl( $r1, $r2 )
-!macro_begin
-    plugin(?, 205, $r1, $r2)
-!macro_end
-
-//
-!macro_def
-    _shr( $r1, $r2 )
-!macro_begin
-    plugin(?, 206, $r1, $r2)
-!macro_end
-
-//
-!macro_def
-    _cmp( $r1, $r2 )
-!macro_begin
-    plugin(?, 207, $r1, $r2)
-!macro_end
-
-//
-!macro_def
-    _clrc
-!macro_begin
-    plugin(?, 208)
-!macro_end
-
-//
-!macro_def
-    _clrz
-!macro_begin
-    plugin(?, 209)
-!macro_end
-
-//
-!macro_def
-    _setc
-!macro_begin
-    plugin(?, 210)
-!macro_end
-
-//
-!macro_def
-    _setz
-!macro_begin
-    plugin(?, 211)
-!macro_end
-
-
-//
-!macro_def
-    usb.stream_begin($p1)
-!macro_begin
-    plugin(?, 212, $p1)
-!macro_end
-
-
-//
-!macro_def
-    usb.stream_end($p1,$p2)
-!macro_begin
-    plugin(?, 213, $p1, $p2)
-!macro_end
-
-
-//
-!macro_def
-    usb.stream_send($p1)
-!macro_begin
-    plugin(?, 214, $p1)
-!macro_end
-
-
-
-
-
-/// Simulator Implementation of io and ipu macro
-//------------------------------------------------------------------------------
-
-//
-!macro_def
-    ipu.wait_frame_trigger
-!macro_begin
-    
-!macro_end
-
-
-//
-!macro_def
-    ipu.pixel_set($r1,$p1,$p2)
-!macro_begin
-    pixel.set($r1,$p1,$p2,1.0)
-!macro_end
-
-
-//
-!macro_def
-    ipu.pixel_select($r1,$p1,$p2,$p3,$p4)
-!macro_begin
-    s5c_sim_select($r1,$p1,$p2,$p3,$p4)
-!macro_end
-
-
-//
-!macro_def
-    $p1 = ipu.global_sum($p2,$p3)
-!macro_begin
-    s5c_sim_global_sum($p1,$p2,$p3)
-!macro_end
-
-
-//
-!macro_def
-    $p1 = usb.slider($p2)
-!macro_begin
-     sim.slider.get($p2,s15)
-     _mov($p1,s15)
-!macro_end
-
-
-//
-!macro_def
-    usb.aout($p1,$p2)
-!macro_begin
-    $p2 = s5c_sim_adc($p1)
-    $p2 = reg.setPalette('scamp5c_analog')
-    sim.show($p2)
-!macro_end
-
-
-//
-!macro_def
-    usb.dout($p1,$p2)
-!macro_begin
-    s5c_sim_mov($p2,$p1)
-    $p2 = reg.setPalette('scamp5c_digital')
-    sim.show($p2)
-!macro_end
-
-
-//
-!macro_def
-    usb.d2aout($p1,$p2)
-!macro_begin
-    core.load(F,$p1)
-    F = F*254.0
-    F = F - 127
-    usb.aout(F,$p2)
-    all
-!macro_end
-
-//
-!macro_def
-    $r1 = pro.digital_news($r2,$p3,$p4,$p5,$p6)
-!macro_begin
-    $r1 = s5c_sim_dnews($r2,$p3,$p4,$p5,$p6)
-!macro_end
-
-//
-!macro_def
-    $r1 = pro.flood_from_boundary($r2)
-!macro_begin
-    s5c_sim_flood_boundary($r1,$r2)
-!macro_end
-
-
-//
-!macro_def
-    $r1 = pro.flood_from_source($r2,$r3)
-!macro_begin
-    s5c_sim_flood_source($r1,$r2,$r3)
-!macro_end
-
-
-//
-!macro_def
-    $r1 = pro.diffuse($r2,$p1,$p2)
-!macro_begin
-    s5c_sim_diffuse($r1,$r2,$p1,$p2)
-!macro_end
-
-
-//
-!macro_def
-    pro.locate_event($p1,$p2,$p3)
-!macro_begin
-    s5c_sim_locate_event($p1,$p2,$p3)
-!macro_end
-
-
-//
-!macro_def
-    usb.scan_events($p1,$p2,$p3)
-!macro_begin
-    s5c_sim_scan_events($p1,$p2,$p3)
-!macro_end
-
-
-//
-!macro_def
-    $p1 = F.in($p2)
-!macro_begin
-    plugin(?, 101, IN, $p2)
-    $p1 = s5c_load(IN)
-!macro_end
-
-
-// $r1 will be a half-toned image, $r2 will be a full range image
-!macro_def
-    F.rpix($r1,$r2)
-!macro_begin
-    if(sim_pix_source,==,1)
-        PIX_IMAGE = webcam.getLuminance(0)
-    endif
-    if(sim_pix_source,==,2)
-        // static image, not changing
-    endif
-    core.mul(PIX,PIX_IMAGE,0.495)
-    core.sub(PIX,PIX,127.0)
-    $r1 = s5c_load(PIX)
-    F = s5c_load(PIX)
-    respix
-    $r2 = s5c_add($r1,F,PIX)
-    $r1 = s5c_add(F,PIX)
-!macro_end
-
-!macro_def
-    F.rpix
-!macro_begin
-    respix
-!macro_end
-
-// carefree copy
-!macro_def
-    $r1 = F.mov($r2)
-!macro_begin
-    F = s5c_load($r2)
-    $r1 = s5c_load(F)
-!macro_end
-
-// carefree add
-!macro_def
-    $r1 = F.add($r2,$r3)
-!macro_begin
-    F = s5c_add($r2,$r3)
-    $r1 = s5c_load(F)
-!macro_end
-
-!macro_def
-    F.add($r2,$r3)
-!macro_begin
-    F = s5c_add($r2,$r3)
-    $r2 = s5c_load(F)
-!macro_end
-
-// carefree subtract
-!macro_def
-    $r1 = F.sub($r2,$r3)
-!macro_begin
-    F = s5c_load($r2)
-    $r1 = s5c_add(F,$r3)
-!macro_end
-
-!macro_def
-    F.sub($r2,$r3)
-!macro_begin
-    F = s5c_load($r2)
-    $r2 = s5c_add(F,$r3)
-!macro_end
-
-// carefree negate
-!macro_def
-    $r1 = F.neg($r2)
-!macro_begin
-    F = s5c_load(0)
-    $r1 = s5c_add($r2,F)
-!macro_end
-
-// carefree abs
-!macro_def
-    $r1 = F.abs($r2)
-!macro_begin
-    $r1 = s5c_load($r2)
-    F = s5c_load($r2)
-    where($r2)
-        $r1 = s5c_load(F)
-    all
-!macro_end
-
-// carefree s5c_divide
-!macro_def
-    F.div($r1,$r2,$r3)
-!macro_begin
-    s5c_div($r1,F,$r3)
-    $r2 = s5c_load(F)
-!macro_end
-
-//
-!macro_def
-    $r1 = F.north($r2)
-!macro_begin
-    NEWS = s5c_load($r2)
-    $r1 = s5c_load(NORTH)
-!macro_end
-
-!macro_def
-    $r1 = F.east($r2)
-!macro_begin
-    NEWS = s5c_load($r2)
-    $r1 = s5c_load(EAST)
-!macro_end
-
-!macro_def
-    $r1 = F.west($r2)
-!macro_begin
-    NEWS = s5c_load($r2)
-    $r1 = s5c_load(WEST)
-!macro_end
-
-!macro_def
-    $r1 = F.south($r2)
-!macro_begin
-    NEWS = s5c_load($r2)
-    $r1 = s5c_load(SOUTH)
-!macro_end
-
-//
-!macro_def
-    $r1 = L.not($r2)
-!macro_begin
-    $r1 = not($r2)
-!macro_end
-
-//
-!macro_def
-    $r1 = L.or($r2,$r3)
-!macro_begin
-    $r1 = or($r2,$r3)
-!macro_end
-
-//
-!macro_def
-    $r1 = L.nor($r2,$r3)
-!macro_begin
-    $r1 = nor($r2,$r3)
-!macro_end
-
-//
-!macro_def
-    $r1 = L.and($r2,$r3)
-!macro_begin
-    R0 = not($r2) //invert both inputs
-    $r2 = not($r3)
-    $r1 = nor(R0,$r2)
-    $r2 = not(R0) //re-instating R$r2
-!macro_end
-
-//
-!macro_def
-    $r1 = L.nand($r2,$r3)
-!macro_begin
-    R0 = not($r2) //invert both inputs
-    $r2 = not($r3) 
-    $r1 = or(R0,$r2)
-    $r2 = not(R0) //re-instating R$r2
-!macro_end
-
-//
-!macro_def
-    $r1 = F.d2a($r2)
-!macro_begin
-    s5c_sim_mov($r1,$r2)
-    $r1 = $r1*254.0
-    $r1 = $r1 - 127
-!macro_end
-
-// 
-!macro_def
-    $r1 = L.a2d($r2)
-!macro_begin
-    where($r2)
-    s5c_sim_mov($r1,FLAG)
-    all
-!macro_end
-
-
-
-// Simulator Functions
-//------------------------------------------------------------------------------
-
 //
 !macro_def
     $p1 = sim.test_pattern($p2)
@@ -788,6 +328,46 @@ SOUTH = 4
 !macro_begin
     plugin(?, 306, $p1)
 !macro_end
+
+//
+!macro_def
+    sim.pix_source_webcam($p1)
+!macro_begin
+    webcam.init(PE_DIM_X, PE_DIM_Y)
+    sim_pix_source = 1
+!macro_end
+
+//
+!macro_def
+    sim.pix_source_image($p1)
+!macro_begin
+    sim_pix_source = 2
+    sim_pix_source_file = $p1
+    PIX_IMAGE = io.image.open($p1)
+!macro_end
+
+//
+!macro_def
+    sim.pix_source_video($p1)
+!macro_begin
+    sim_pix_source = 3
+    sim_pix_source_file = $p1
+!macro_end
+
+//
+!macro_def
+    sim.pix_source_image_sequence($p1,$p2,$p3)
+!macro_begin
+    sim_pix_source = 4
+    sim_pix_source_folder = $p1
+    sim_pix_source_digits = $p2
+    sim_pix_source_extension = $p3
+!macro_end
+
+
+
+// Others
+//------------------------------------------------------------------------------
 
 //
 !macro_def
@@ -853,47 +433,14 @@ SOUTH = 4
 !macro_end
 
 
-//
-!macro_def
-    sim.pix_source_webcam($p1)
-!macro_begin
-    webcam.init(PE_DIM_X, PE_DIM_Y)
-    sim_pix_source = 1
-!macro_end
-
-//
-!macro_def
-    sim.pix_source_image($p1)
-!macro_begin
-    sim_pix_source = 2
-    sim_pix_source_file = $p1
-    PIX_IMAGE = io.image.open($p1)
-!macro_end
-
-//
-!macro_def
-    sim.pix_source_video($p1)
-!macro_begin
-    sim_pix_source = 3
-    sim_pix_source_file = $p1
-!macro_end
-
-//
-!macro_def
-    sim.pix_source_image_sequence($p1,$p2,$p3)
-!macro_begin
-    sim_pix_source = 4
-    sim_pix_source_folder = $p1
-    sim_pix_source_digits = $p2
-    sim_pix_source_extension = $p3
-!macro_end
-
+!include('apron.scamp5c.sim_ipu.aps')
+!include('apron.scamp5c.sim_pe.aps')
 
 
 // Operators 
 
-!operator(=,s5c_load)
-!operator(+,s5c_add)
+!operator(=,s5c_sim_load)
+!operator(+,s5c_sim_add)
 
 
 // Initialize

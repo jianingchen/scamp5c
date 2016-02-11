@@ -50,7 +50,7 @@ apron.config_end
     _jump(nz,#shift_loop2_begin)
     #shift_loop2_end
     
-    usb.d2aout(R5,window_2)
+    usb.dout(R5,window_2)
     
     _jump(#start)
     

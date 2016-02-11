@@ -269,9 +269,11 @@
     		_call(#Conditionally_load_Scamp_from_IPU)
    			_nop
 			R1 = R12
+			 _exp(255, IPU_PORT_CLK_SWITCH)
 			_exp(8, IPU_PORT_CLK_SWITCH)
 			_exp(5,IPU_PORT_FALL_C1)
 			_exp(6,IPU_PORT_RISE_C2)
+			_nop
 			_jump(#end)
 			_nop
 			#Conditionally_load_Scamp_from_IPU
