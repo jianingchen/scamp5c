@@ -14,18 +14,18 @@ apron.config_end
 #start
     
     ipu.wait_frame_trigger
-    F.rpix
+    rpix
     
     ipu.wait_frame_trigger
-    F.rpix(B,C)
+    rpix(B,C)
     
     usb.aout(C,window_1)
     
     // give R8 some pattern
     s0 = usb.slider(slider_1)
-    D = F.in(s0)
-    A = F.sub(C,D)// A = C - D
-    R8 = L.a2d(A)
+    D = pe.in(s0)
+    A = pe.sub(C,D)// A = C - D
+    R8 = pe.a2d(A)
     
     // shift the pattern
     R5 = R8

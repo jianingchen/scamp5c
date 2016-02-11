@@ -11,11 +11,11 @@ apron.config_end
 #start
     ipu.wait_frame_trigger
     
-    F.rpix(B,C)
+    pe.rpix(B,C)
     
     usb.aout(B,window_1)
     
-    F.rpix // this keeps the exposure time to be one "usb.aout" (not essential)
+    pe.rpix // this keeps the exposure time to be one "usb.aout" (not essential)
     
     usb.aout(C,window_2)
     

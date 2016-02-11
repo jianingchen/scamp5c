@@ -1,7 +1,8 @@
 
 apron.config_begin
     sim.pix_source_webcam
-    host.set_frame_rate(25)
+    sim.use_error_model(2)
+    host.set_frame_rate(50)
     host.template('scamp5c_host_template.txt')
     host.firmware('../ok_s5c_ipu.bit')
     window_1 = host.add_display('region')
@@ -12,9 +13,9 @@ apron.config_end
 
 #start
     ipu.wait_frame_trigger
-    F.rpix
+    rpix
     ipu.wait_frame_trigger
-    F.rpix(B,C)
+    rpix(B,C)
     
     // make a small window in R5
     R6 = 0
@@ -23,7 +24,7 @@ apron.config_end
     R7 = 0
     ipu.pixel_select(R7,0,0,127,127)
     
-    R5 = L.and(R6,R7)
+    R5 = and(R6,R7)
     
     
     // shift the window in R5 to a position
@@ -42,6 +43,7 @@ apron.config_end
     #shift_loop1_end
     
     _mov(s0,s2)
+    _cmp(s0,0)
     _jump(z,#shift_loop2_end)
     #shift_loop2_begin
         
@@ -56,14 +58,14 @@ apron.config_end
     B = pro.diffuse(B,1,1)
     B = pro.diffuse(B,1,1)
     where(R5)
-        F.mov(B,C)
+        B = copy(C)
     all
     usb.aout(B,window_1)
     
     // make an image with only the part inside the R5 window
     res(A)
     where(R5)
-        F.mov(A,C)
+        A = copy(C)
     all
     
     // do a global summation (essentially sum up only the region inside the R5 window)
@@ -72,10 +74,10 @@ apron.config_end
     // draw a image to show the result
     R7 = 0
     ipu.pixel_set(R7,s0,250)
-    B = F.d2a(R7)
+    B = pe.d2a(R7)
     
     where(R5)
-        F.mov(B,A)
+        B = copy(A)
     all
     usb.aout(B,window_2)
     

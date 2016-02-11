@@ -14,17 +14,17 @@ apron.config_end
 
     ipu.wait_frame_trigger
     
-    F.rpix(B,C)
+    rpix(B,C)
     
     usb.aout(C,window_1)
     
-    A = F.mov(C)
+    A = copy(C)
     
     s0 = usb.slider(slider_1) // will set the z-flag if s0 is zero
     _jump(z, #end_loop_shift_h)
     #begin_loop_shift_h
         
-        A = F.west(A)
+        A = pe.west(A)
         
     _sub(s0, 1)
     _jump(nz,#begin_loop_shift_h)
@@ -35,13 +35,13 @@ apron.config_end
     _jump(z, #end_loop_shift_v)
     #begin_loop_shift_v
     
-        A = F.south(A)
+        A = pe.south(A)
         
     _sub(s0, 1)
     _jump(nz,#begin_loop_shift_v)
     #end_loop_shift_v
     
-    F.rpix
+    rpix
     
     usb.aout(A,window_2)
     

@@ -13,20 +13,20 @@ apron.config_end
 
     ipu.wait_frame_trigger
     
-    F.rpix(B,C)
+    rpix(B,C)
     usb.aout(C,window_1)
     
     s0 = usb.slider(slider_1)
-    D = F.in(s0)
+    D = in(s0)
     
-    E = F.sub(B,D)
+    E = sub(B,D)
     
-    A = F.in(-120)
+    A = in(-120)
     where(E)
-        A = F.in(120)
+        A = in(120)
     all
     
-    F.rpix
+    rpix
     usb.aout(A,window_2)
     
     _jump(#start)

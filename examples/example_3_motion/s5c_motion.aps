@@ -11,20 +11,20 @@ apron.config_end
 #start
 
     ipu.wait_frame_trigger
-    
-    F.rpix(B,C)
+    rpix
+    ipu.wait_frame_trigger
+    rpix(B,C)
     
     usb.aout(C,window_1)// display original image
     
-    D = F.sub(C,A)// D = C - A
+    D = sub(C,A)// D = C - A
     
-    A = F.mov(C)// store this frame in A for use in next cycle
+    A = copy(C)// store this frame in A for use in next cycle
     
-    B = F.abs(D)// B = |D| 
+    B = abs(D)// B = |D| 
     
-    D = F.neg(B)// we want the changed pixels to be rendered in black
+    D = neg(B)// we want the changed pixels to be rendered in black
     
-    F.rpix
     usb.aout(D,window_2)// display processed image
     
 _jump(#start)

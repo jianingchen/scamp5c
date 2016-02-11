@@ -1,6 +1,7 @@
 
 apron.config_begin
     sim.pix_source_webcam
+    sim.use_error_model(2)
     host.template('scamp5c_host_template.txt')
     host.firmware('../ok_s5c_ipu.bit')
     host.set_frame_rate(25)
@@ -13,11 +14,11 @@ apron.config_end
 
     ipu.wait_frame_trigger
     
-    F.rpix(B,C)
+    rpix(B,C)
     
     usb.aout(C,window_1)
     
-    A = F.mov(C)
+    A = copy(C)
     
     s0 = usb.slider(slider_1)
     _sub(s0,127) // will set the carry flag if s0 < 127
@@ -26,7 +27,7 @@ apron.config_end
     
     #begin_loop_shift_east
         
-        A = F.west(A)
+        A = west(A)
         
     _sub(s0, 1)
     _jump(nz,#begin_loop_shift_east)
@@ -34,13 +35,13 @@ apron.config_end
     
     #begin_loop_shift_west
         
-        A = F.east(A)
+        A = east(A)
         
     _add(s0, 1)
     _jump(nz,#begin_loop_shift_west)
     #end_loop_shift_h
     
-    F.rpix
+    rpix
     usb.aout(A,window_2)
     
     _jump(#start)

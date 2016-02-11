@@ -13,17 +13,18 @@ apron.config_end
 #start
     
     ipu.wait_frame_trigger
-    
-    F.rpix(B,C)
+    rpix
+    ipu.wait_frame_trigger
+    rpix(B,C)
     
     // obtain a crisp image to show the effect of diffusion
     s0 = usb.slider(slider_1)
-    D = F.in(s0)
-    E = F.sub(B,D)
+    D = in(s0)
+    E = sub(B,D)
     where(E)
     R8 = FLAG
     all
-    A = F.d2a(R8)
+    A = pe.d2a(R8)
     
     usb.aout(A,window_1)
     
@@ -36,7 +37,6 @@ apron.config_end
     _sub(s1,1)
     _jump(nz,#diffuse_loop)
     
-    F.rpix
     usb.aout(A,window_2)
     
     _jump(#start)

@@ -13,20 +13,20 @@ apron.config_end
 
     // use double frame trigger to maintain the exposure time
     ipu.wait_frame_trigger
-    F.rpix
+    rpix
     
     ipu.wait_frame_trigger
-    F.rpix(B,C)
+    rpix(B,C)
     
     usb.aout(C,window_1)
     
-    A = F.in(-127)
+    A = in(-127)
     
     s0 = usb.slider(slider_1)
-    D = F.in(s0)
-    E = F.sub(C,D)// E = C - D
+    D = in(s0)
+    E = sub(C,D)// E = C - D
     where(E)// where E > 0 (essentially where C > D)
-        A = F.in(127)
+        A = in(127)
     all
     
     usb.aout(A,window_2)
