@@ -330,6 +330,20 @@
 
 //
 !macro_def
+    $r1 = or($r2,$r3)
+!macro_begin
+    $r1 = pe.or($r2,$r3)
+!macro_end
+
+//
+!macro_def
+    $r1 = nor($r2,$r3)
+!macro_begin
+    $r1 = pe.nor($r2,$r3)
+!macro_end
+
+//
+!macro_def
     $r1 = and($r2,$r3)
 !macro_begin
     $r1 = pe.and($r2,$r3)
