@@ -91,27 +91,42 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <a href="a00024.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<a class="code" href="a00015.html">reg</a> <a class="code" href="a00024.html#aee1d53ca24944131e8e5bff479b244d3">ipu_get_slider_value</a>(<a class="code" href="a00013.html">handle</a> h);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<a class="code" href="a00024.html#a953dd45295d823524f15149018f120b1">io_analog_input</a>(<a class="code" href="a00011.html">areg</a> a1,<a class="code" href="a00016.html">rint</a> v);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<a class="code" href="a00024.html#a192564e583cdc054f4db66ce890d336b">io_analog_output</a>(<a class="code" href="a00011.html">areg</a> a1,<a class="code" href="a00013.html">handle</a> h);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="ttc" id="a00024_html_aee1d53ca24944131e8e5bff479b244d3"><div class="ttname"><a href="a00024.html#aee1d53ca24944131e8e5bff479b244d3">ipu_get_slider_value</a></div><div class="ttdeci">reg ipu_get_slider_value(handle h)</div><div class="ttdoc">get the value of a slider from the host </div></div>
-<div class="ttc" id="a00015_html"><div class="ttname"><a href="a00015.html">reg</a></div><div class="ttdoc">operand of this type can only be an ipu register </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:27</div></div>
-<div class="ttc" id="a00024_html_a192564e583cdc054f4db66ce890d336b"><div class="ttname"><a href="a00024.html#a192564e583cdc054f4db66ce890d336b">io_analog_output</a></div><div class="ttdeci">io_analog_output(areg a1, handle h)</div><div class="ttdoc">sample and output an entire analogue register array (256x256 values) </div></div>
-<div class="ttc" id="a00024_html_a953dd45295d823524f15149018f120b1"><div class="ttname"><a href="a00024.html#a953dd45295d823524f15149018f120b1">io_analog_input</a></div><div class="ttdeci">io_analog_input(areg a1, rint v)</div><div class="ttdoc">set an analogue register for all pe with a value </div></div>
-<div class="ttc" id="a00013_html"><div class="ttname"><a href="a00013.html">handle</a></div><div class="ttdoc">variable of this type is a handle to a APRON UI object </div><div class="ttdef"><b>Definition:</b> host_and_sim.h:46</div></div>
-<div class="ttc" id="a00011_html"><div class="ttname"><a href="a00011.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_macros.h:32</div></div>
-<div class="ttc" id="a00016_html"><div class="ttname"><a href="a00016.html">rint</a></div><div class="ttdoc">operand of this type can be either an ipu register or a constant integer </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:34</div></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<a class="code" href="a00015.html">reg</a> <a class="code" href="a00024.html#a29da39b4d65bcc7a049b8d8dbe98b5b9">usb_slider</a>(<a class="code" href="a00013.html">handle</a> h);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<a class="code" href="a00024.html#a6185368d95142035f24ec36d535b3e11">usb_aout</a>(<a class="code" href="a00011.html">areg</a> a1,<a class="code" href="a00013.html">handle</a> h);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<a class="code" href="a00024.html#ac5da89e6654b3189d2e558b9880e51e2">usb_d2aout</a>(<a class="code" href="a00012.html">dreg</a> b1,<a class="code" href="a00013.html">handle</a> h);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<a class="code" href="a00024.html#a6eea40b4468a8e4a675eeb827efa02da">usb_stream_begin</a>(<a class="code" href="a00013.html">handle</a> h);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<a class="code" href="a00024.html#ac8ac356b1a0ceda8cf45d23ed0c41b5d">usb_stream_send</a>(<a class="code" href="a00016.html">rint</a> v);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<a class="code" href="a00024.html#abbc10df44281f7688d827e1a94c04c5e">usb_stream_end</a>(<a class="code" href="a00016.html">rint</a> p,<a class="code" href="a00016.html">rint</a> v);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<a class="code" href="a00024.html#a6d86f8d6f2a32150a32b1ac3aee13708">usb_scan_events</a>(<a class="code" href="a00013.html">handle</a> h,<a class="code" href="a00012.html">dreg</a> r,<a class="code" href="a00016.html">rint</a> n);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
+<div class="ttc" id="a00024_html_a6eea40b4468a8e4a675eeb827efa02da"><div class="ttname"><a href="a00024.html#a6eea40b4468a8e4a675eeb827efa02da">usb_stream_begin</a></div><div class="ttdeci">usb_stream_begin(handle h)</div><div class="ttdoc">begin streaming data to the host </div></div>
+<div class="ttc" id="a00024_html_a29da39b4d65bcc7a049b8d8dbe98b5b9"><div class="ttname"><a href="a00024.html#a29da39b4d65bcc7a049b8d8dbe98b5b9">usb_slider</a></div><div class="ttdeci">reg usb_slider(handle h)</div><div class="ttdoc">get the value of a slider from the host </div></div>
+<div class="ttc" id="a00015_html"><div class="ttname"><a href="a00015.html">reg</a></div><div class="ttdoc">operand of this type can only be an ipu register </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:37</div></div>
+<div class="ttc" id="a00024_html_a6d86f8d6f2a32150a32b1ac3aee13708"><div class="ttname"><a href="a00024.html#a6d86f8d6f2a32150a32b1ac3aee13708">usb_scan_events</a></div><div class="ttdeci">usb_scan_events(handle h, dreg r, rint n)</div><div class="ttdoc">scan upto a certain number of points in a DREG plane and send their coordinates to the host ...</div></div>
+<div class="ttc" id="a00024_html_abbc10df44281f7688d827e1a94c04c5e"><div class="ttname"><a href="a00024.html#abbc10df44281f7688d827e1a94c04c5e">usb_stream_end</a></div><div class="ttdeci">usb_stream_end(rint p, rint v)</div><div class="ttdoc">end an ongoing data stream </div></div>
+<div class="ttc" id="a00012_html"><div class="ttname"><a href="a00012.html">dreg</a></div><div class="ttdoc">operand of this type can only be a digital register </div><div class="ttdef"><b>Definition:</b> pe_digital_macros.h:39</div></div>
+<div class="ttc" id="a00024_html_ac8ac356b1a0ceda8cf45d23ed0c41b5d"><div class="ttname"><a href="a00024.html#ac8ac356b1a0ceda8cf45d23ed0c41b5d">usb_stream_send</a></div><div class="ttdeci">usb_stream_send(rint v)</div><div class="ttdoc">send a value for the ongoing stream </div></div>
+<div class="ttc" id="a00024_html_a6185368d95142035f24ec36d535b3e11"><div class="ttname"><a href="a00024.html#a6185368d95142035f24ec36d535b3e11">usb_aout</a></div><div class="ttdeci">usb_aout(areg a1, handle h)</div><div class="ttdoc">sample and output an entire 256x256 AREG plane </div></div>
+<div class="ttc" id="a00013_html"><div class="ttname"><a href="a00013.html">handle</a></div><div class="ttdoc">variable of this type is a handle to a APRON UI object </div><div class="ttdef"><b>Definition:</b> host_and_sim.h:50</div></div>
+<div class="ttc" id="a00011_html"><div class="ttname"><a href="a00011.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_analog_macros.h:55</div></div>
+<div class="ttc" id="a00016_html"><div class="ttname"><a href="a00016.html">rint</a></div><div class="ttdoc">operand of this type can be either an ipu register or a constant integer </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:44</div></div>
+<div class="ttc" id="a00024_html_ac5da89e6654b3189d2e558b9880e51e2"><div class="ttname"><a href="a00024.html#ac5da89e6654b3189d2e558b9880e51e2">usb_d2aout</a></div><div class="ttdeci">usb_d2aout(dreg b1, handle h)</div><div class="ttdoc">output an entire 256x256 DREG plane as an analog image </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 12:38:41 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

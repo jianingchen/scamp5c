@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: host_and_sim.h File Reference</title>
+<title>SCAMP-5c Vision System: pe_analog_macros.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,7 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">host_and_sim.h File Reference<div class="ingroups"><a class="el" href="a00032.html">Host and Simulation Functions</a></div></div>  </div>
+<div class="title">pe_analog_macros.h File Reference<div class="ingroups"><a class="el" href="a00032.html">PE Analogue Operation Macros</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -98,308 +98,455 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00015.html">handle</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">variable of this type is a handle to a APRON UI object  <a href="a00015.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00011.html">areg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">operand of this type can only be an analogue register  <a href="a00011.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a66b019920e81547070685c3002449182"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66b019920e81547070685c3002449182"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a66b019920e81547070685c3002449182">apron_config_begin</a> ()</td></tr>
-<tr class="memdesc:a66b019920e81547070685c3002449182"><td class="mdescLeft">&#160;</td><td class="mdescRight">this function start the configuration section of the script <br /></td></tr>
-<tr class="separator:a66b019920e81547070685c3002449182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af96f8c0444e27c86a1bbfd4b8c8a3b26"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af96f8c0444e27c86a1bbfd4b8c8a3b26"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#af96f8c0444e27c86a1bbfd4b8c8a3b26">apron_config_end</a> ()</td></tr>
-<tr class="memdesc:af96f8c0444e27c86a1bbfd4b8c8a3b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">this function finish the configuration section of the script <br /></td></tr>
-<tr class="separator:af96f8c0444e27c86a1bbfd4b8c8a3b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68b8c14eac950eb4ef7e083da8719753"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68b8c14eac950eb4ef7e083da8719753"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a68b8c14eac950eb4ef7e083da8719753">sim_pix_source_webcam</a> ()</td></tr>
-<tr class="memdesc:a68b8c14eac950eb4ef7e083da8719753"><td class="mdescLeft">&#160;</td><td class="mdescRight">use a webcam as the image source when running as simulation <br /></td></tr>
-<tr class="separator:a68b8c14eac950eb4ef7e083da8719753"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab591c7c67f94faaa666eadab80a25df3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#ab591c7c67f94faaa666eadab80a25df3">sim_pix_source_image</a> (string path)</td></tr>
-<tr class="memdesc:ab591c7c67f94faaa666eadab80a25df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">use an image as the image source when running as simulation  <a href="#ab591c7c67f94faaa666eadab80a25df3">More...</a><br /></td></tr>
-<tr class="separator:ab591c7c67f94faaa666eadab80a25df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9b91fb61e745d20a1c2a47fcd54b1d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#ac9b91fb61e745d20a1c2a47fcd54b1d5">host_set_frame_rate</a> (int v)</td></tr>
-<tr class="memdesc:ac9b91fb61e745d20a1c2a47fcd54b1d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the desired frame rate  <a href="#ac9b91fb61e745d20a1c2a47fcd54b1d5">More...</a><br /></td></tr>
-<tr class="separator:ac9b91fb61e745d20a1c2a47fcd54b1d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b7cacf924ec2117ef530fd75811cc7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00015.html">handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a4b7cacf924ec2117ef530fd75811cc7c">host_add_slider</a> (string text, int min, int max, int init, int step, int gain)</td></tr>
-<tr class="memdesc:a4b7cacf924ec2117ef530fd75811cc7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a slider to the APRON UI  <a href="#a4b7cacf924ec2117ef530fd75811cc7c">More...</a><br /></td></tr>
-<tr class="separator:a4b7cacf924ec2117ef530fd75811cc7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b620814431ac260d2e287f5adcc739b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00015.html">handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a5b620814431ac260d2e287f5adcc739b">host_add_display</a> (string text)</td></tr>
-<tr class="memdesc:a5b620814431ac260d2e287f5adcc739b"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a display window to the APRON UI  <a href="#a5b620814431ac260d2e287f5adcc739b">More...</a><br /></td></tr>
-<tr class="separator:a5b620814431ac260d2e287f5adcc739b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6624d82e3c8c59b0ddfa0156b58a2178"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00015.html">handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a6624d82e3c8c59b0ddfa0156b58a2178">host_add_datasheet</a> (string text, int r, int c, enum d)</td></tr>
-<tr class="memdesc:a6624d82e3c8c59b0ddfa0156b58a2178"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a datasheet to the APRON host  <a href="#a6624d82e3c8c59b0ddfa0156b58a2178">More...</a><br /></td></tr>
-<tr class="separator:a6624d82e3c8c59b0ddfa0156b58a2178"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35f31d53580e41d234e5106f1026190d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a35f31d53580e41d234e5106f1026190d">host_record_display</a> (<a class="el" href="a00015.html">handle</a> h, string path, int n)</td></tr>
-<tr class="memdesc:a35f31d53580e41d234e5106f1026190d"><td class="mdescLeft">&#160;</td><td class="mdescRight">save frames received in a display  <a href="#a35f31d53580e41d234e5106f1026190d">More...</a><br /></td></tr>
-<tr class="separator:a35f31d53580e41d234e5106f1026190d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72e6c5925a98135403284f0c2b9bb658"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a72e6c5925a98135403284f0c2b9bb658">pe_rpix</a> ()</td></tr>
+<tr class="memdesc:a72e6c5925a98135403284f0c2b9bb658"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset PIX (the photodiode)  <a href="#a72e6c5925a98135403284f0c2b9bb658">More...</a><br /></td></tr>
+<tr class="separator:a72e6c5925a98135403284f0c2b9bb658"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af279536c1942f9029b5681c8d474e7bd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#af279536c1942f9029b5681c8d474e7bd">pe_rpix</a> (<a class="el" href="a00011.html">areg</a> a1, <a class="el" href="a00011.html">areg</a> a2)</td></tr>
+<tr class="memdesc:af279536c1942f9029b5681c8d474e7bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">read the image from PIX in to AREGs, and reset PIX  <a href="#af279536c1942f9029b5681c8d474e7bd">More...</a><br /></td></tr>
+<tr class="separator:af279536c1942f9029b5681c8d474e7bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa60315c9299dae42140e3dd63de10115"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#aa60315c9299dae42140e3dd63de10115">pe_mov</a> (<a class="el" href="a00011.html">areg</a> a1)</td></tr>
+<tr class="memdesc:aa60315c9299dae42140e3dd63de10115"><td class="mdescLeft">&#160;</td><td class="mdescRight">make a copy of an AREG  <a href="#aa60315c9299dae42140e3dd63de10115">More...</a><br /></td></tr>
+<tr class="separator:aa60315c9299dae42140e3dd63de10115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a878efeb6e7a71b15ad2482f1d060b078"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a878efeb6e7a71b15ad2482f1d060b078">pe_add</a> (<a class="el" href="a00011.html">areg</a> a1, <a class="el" href="a00011.html">areg</a> a2)</td></tr>
+<tr class="memdesc:a878efeb6e7a71b15ad2482f1d060b078"><td class="mdescLeft">&#160;</td><td class="mdescRight">add two AREGs  <a href="#a878efeb6e7a71b15ad2482f1d060b078">More...</a><br /></td></tr>
+<tr class="separator:a878efeb6e7a71b15ad2482f1d060b078"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e6e0cfb458c08e82cbe094fe71aa8ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a9e6e0cfb458c08e82cbe094fe71aa8ea">pe_sub</a> (<a class="el" href="a00011.html">areg</a> a1, <a class="el" href="a00011.html">areg</a> a2)</td></tr>
+<tr class="memdesc:a9e6e0cfb458c08e82cbe094fe71aa8ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">subtract two AREGs  <a href="#a9e6e0cfb458c08e82cbe094fe71aa8ea">More...</a><br /></td></tr>
+<tr class="separator:a9e6e0cfb458c08e82cbe094fe71aa8ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38f8418c46d18aa29ffe7fc8fa123daf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a38f8418c46d18aa29ffe7fc8fa123daf">pe_neg</a> (<a class="el" href="a00011.html">areg</a> a1)</td></tr>
+<tr class="memdesc:a38f8418c46d18aa29ffe7fc8fa123daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">invert the polarity of AREG and copy to another AREG  <a href="#a38f8418c46d18aa29ffe7fc8fa123daf">More...</a><br /></td></tr>
+<tr class="separator:a38f8418c46d18aa29ffe7fc8fa123daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6388534fadc00acac1067ee70364ed36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a6388534fadc00acac1067ee70364ed36">pe_abs</a> (<a class="el" href="a00011.html">areg</a> a1)</td></tr>
+<tr class="memdesc:a6388534fadc00acac1067ee70364ed36"><td class="mdescLeft">&#160;</td><td class="mdescRight">take the absolute value of an AREG and copy to another AREG  <a href="#a6388534fadc00acac1067ee70364ed36">More...</a><br /></td></tr>
+<tr class="separator:a6388534fadc00acac1067ee70364ed36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8e370388dbfb9039e9565b21693182"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a8d8e370388dbfb9039e9565b21693182">pe_div</a> (<a class="el" href="a00011.html">areg</a> a1, <a class="el" href="a00011.html">areg</a> a2, <a class="el" href="a00011.html">areg</a> a3)</td></tr>
+<tr class="memdesc:a8d8e370388dbfb9039e9565b21693182"><td class="mdescLeft">&#160;</td><td class="mdescRight">divide (by half) an AREG into two AREGs  <a href="#a8d8e370388dbfb9039e9565b21693182">More...</a><br /></td></tr>
+<tr class="separator:a8d8e370388dbfb9039e9565b21693182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae3f4deac8df988d04b25f6b5ea7bc38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#aae3f4deac8df988d04b25f6b5ea7bc38">pe_in</a> (<a class="el" href="a00016.html">rint</a> v)</td></tr>
+<tr class="memdesc:aae3f4deac8df988d04b25f6b5ea7bc38"><td class="mdescLeft">&#160;</td><td class="mdescRight">set an analogue register for all pe with a value  <a href="#aae3f4deac8df988d04b25f6b5ea7bc38">More...</a><br /></td></tr>
+<tr class="separator:aae3f4deac8df988d04b25f6b5ea7bc38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a373059ed11bf69c61bd3d09951720f7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a373059ed11bf69c61bd3d09951720f7f">pe_north</a> (<a class="el" href="a00011.html">areg</a> a1)</td></tr>
+<tr class="memdesc:a373059ed11bf69c61bd3d09951720f7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy the AREG of the north neighbouring PE  <a href="#a373059ed11bf69c61bd3d09951720f7f">More...</a><br /></td></tr>
+<tr class="separator:a373059ed11bf69c61bd3d09951720f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac429ad6f1c601a1e00d3c526498dded9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#ac429ad6f1c601a1e00d3c526498dded9">pe_east</a> (<a class="el" href="a00011.html">areg</a> a1)</td></tr>
+<tr class="memdesc:ac429ad6f1c601a1e00d3c526498dded9"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy the AREG of the east neighbouring PE  <a href="#ac429ad6f1c601a1e00d3c526498dded9">More...</a><br /></td></tr>
+<tr class="separator:ac429ad6f1c601a1e00d3c526498dded9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a232ba933adfa131160c3da9c41d34111"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a232ba933adfa131160c3da9c41d34111">pe_west</a> (<a class="el" href="a00011.html">areg</a> a1)</td></tr>
+<tr class="memdesc:a232ba933adfa131160c3da9c41d34111"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy the AREG of the west neighbouring PE  <a href="#a232ba933adfa131160c3da9c41d34111">More...</a><br /></td></tr>
+<tr class="separator:a232ba933adfa131160c3da9c41d34111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a730aab57d5ba3fa82f6c44f60edaf0b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">areg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#a730aab57d5ba3fa82f6c44f60edaf0b3">pe_south</a> (<a class="el" href="a00011.html">areg</a> a1)</td></tr>
+<tr class="memdesc:a730aab57d5ba3fa82f6c44f60edaf0b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy the AREG of the south neighbouring PE  <a href="#a730aab57d5ba3fa82f6c44f60edaf0b3">More...</a><br /></td></tr>
+<tr class="separator:a730aab57d5ba3fa82f6c44f60edaf0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ab591c7c67f94faaa666eadab80a25df3"></a>
+<a class="anchor" id="a72e6c5925a98135403284f0c2b9bb658"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">sim_pix_source_image </td>
+          <td class="memname">pe_rpix </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>use an image as the image source when running as simulation </p>
-<p>The image need to have a size of 256 x 256. </p>
+<p>reset PIX (the photodiode) </p>
+<p>As this macro clears the light accumulated on the photodiode, it also marks the beginning of a new exposure period. </p>
 
 </div>
 </div>
-<a class="anchor" id="ac9b91fb61e745d20a1c2a47fcd54b1d5"></a>
+<a class="anchor" id="af279536c1942f9029b5681c8d474e7bd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">host_set_frame_rate </td>
+          <td class="memname">pe_rpix </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>read the image from PIX in to AREGs, and reset PIX </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>stores the image using a range of [0,-127] </td></tr>
+    <tr><td class="paramname">a2</td><td>stores the image using a range of [-127,-127]</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Both of the stored images have positive polarity, but they have different ranges.</p>
+<p>For a1, the theoretical range is 0 to 127 from darkest to brightest.</p>
+<p>For a2, the theoretical range is -127 to 127 from darkest to brightest.</p>
+<p>Example Usage:</p>
+<p>The first thing to do in a new frame is likely to be: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;pe.rpix(B,C)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="aa60315c9299dae42140e3dd63de10115"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_mov </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>make a copy of an AREG </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the AREG to be copied</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the destination AREG to place the copy</dd></dl>
+<p>Example Usage:</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = pe.mov(B)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a878efeb6e7a71b15ad2482f1d060b078"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>add two AREGs </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>first AREG </td></tr>
+    <tr><td class="paramname">a2</td><td>second AREG</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result of "a1 + a2"</dd></dl>
+<p>Example Usage:</p>
+<p>The following line arithmetically achieves "A = B + C": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = pe.add(B,C)</div>
+</div><!-- fragment --><p>The following line arithmetically achieves "B = B + C": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;pe.add(B,C)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a9e6e0cfb458c08e82cbe094fe71aa8ea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_sub </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>subtract two AREGs </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the AREG to subtract from </td></tr>
+    <tr><td class="paramname">a2</td><td>the subtracted AREG</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result of (a1 - a2)</dd></dl>
+<p>Example Usage:</p>
+<p>The following line arithmetically achieves "A = B - C": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = pe.sub(B,C)</div>
+</div><!-- fragment --><p>The following line arithmetically achieves "B = B - C": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;pe.sub(B,C)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a38f8418c46d18aa29ffe7fc8fa123daf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_neg </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>invert the polarity of AREG and copy to another AREG </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the source AREG</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the resulted copy</dd></dl>
+<p>The copy step in this macro is free of offset error.</p>
+<p>Example Usage:</p>
+<p>The following line arithmetically achieves "A = -B": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = pe.neg(B)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a6388534fadc00acac1067ee70364ed36"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_abs </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>take the absolute value of an AREG and copy to another AREG </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the source AREG</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the resulted copy</dd></dl>
+<p>The copy step in this macro is free of offset error.</p>
+<p>Example Usage:</p>
+<p>The following line arithmetically achieves "A = |B|": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = pe.abs(B)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a8d8e370388dbfb9039e9565b21693182"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pe_div </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>divide (by half) an AREG into two AREGs </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the source AREG </td></tr>
+    <tr><td class="paramname">a2</td><td>the first half of the result </td></tr>
+    <tr><td class="paramname">a3</td><td>the second half of the result</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>The copy step in this macro is free of offset error. Note, the two results may not be equal, a small mismatch error may still exist despite a compensation procedure being applied within this macro.</p>
+<p>Example Usage:</p>
+<p>The following line arithmetically achieves "B = A/2, C = A/2": </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;pe.div(A,B,C)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="aae3f4deac8df988d04b25f6b5ea7bc38"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_in </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>set the desired frame rate </p>
+<p>set an analogue register for all pe with a value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>the frame rate</td></tr>
+    <tr><td class="paramname">v</td><td>a value with a range of [0,255]</td></tr>
   </table>
   </dd>
 </dl>
-<p>Note, this only affect the frame trigger. In a debug loop, the actual visible frame rate is dominated by the frame readout process as it takes much time. The following structure can be used to keep the exposure time to be (1/framerate):</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;...</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;host.set_frame_rate(50)// 50 frames per sec</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;...</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;#frame_loop</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    // maintain an exposure time of 1/50 sec</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    ipu.wait_frame_trigger</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    F.rpix</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    ipu.wait_frame_trigger</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    F.rpix(B,C)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    // the rest of the program</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    ...</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;_jump(#frame_loop)</div>
-</div><!-- fragment --> 
-</div>
-</div>
-<a class="anchor" id="a4b7cacf924ec2117ef530fd75811cc7c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00015.html">handle</a> host_add_slider </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>text</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>min</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>max</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>init</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>step</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>gain</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>add a slider to the APRON UI </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">text</td><td>text showing on the slider </td></tr>
-    <tr><td class="paramname">min</td><td>minimum value of the slider, ranged in [0,255] </td></tr>
-    <tr><td class="paramname">max</td><td>maximum value of the slider, ranged in [0,255] </td></tr>
-    <tr><td class="paramname">init</td><td>initial value of the slider, ranged in [0,255] </td></tr>
-    <tr><td class="paramname">step</td><td>step size of the slider </td></tr>
-    <tr><td class="paramname">gain</td><td>gain applied on the value</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>handle of the slider</dd></dl>
-<p>Use this function to create a slider in APRON UI to send a parameter to the program in both simulation and real hardware. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;apron.config_begin</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;slider_1 = host.add_slider(&#39;parameter a&#39;, 0, 255, 127, 1, 1)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;apron.config_end</div>
-</div><!-- fragment --><p> create a slider that can be referred as <code>slider_1</code>.</p>
-<p>In the program, the value presented on a slider can be obtained and stored in an IPU register. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = usb.slider(slider_1)</div>
-</div><!-- fragment --><p> put the value on <code>slider_1</code> into ipu register <code>s0</code>. See also <a class="el" href="a00027.html#a29da39b4d65bcc7a049b8d8dbe98b5b9" title="get the value of a slider from the host ">usb_slider</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="a5b620814431ac260d2e287f5adcc739b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00015.html">handle</a> host_add_display </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>text</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>add a display window to the APRON UI </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">text</td><td>name of the display</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>handle of the display window</dd></dl>
-<p>Use this function to create a window in APRON UI that can show an image (register array) received from the program. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;apron.config_begin</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;window_1 = host.add_display(&#39;Captured&#39;)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;apron.config_end</div>
-</div><!-- fragment --><p> create a window that can be referred as <code>window_1</code>.</p>
-<p>In the program, a particular register for each of the PEs can be read as a image. For example, </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;usb.aout(C,window_1)</div>
-</div><!-- fragment --><p> send analogue register <code>C</code> to <code>window_1</code> of the APRON hosting UI as an image of 256x256. See also <a class="el" href="a00027.html#a6185368d95142035f24ec36d535b3e11" title="sample and output an entire 256x256 AREG plane ">usb_aout</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="a6624d82e3c8c59b0ddfa0156b58a2178"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00015.html">handle</a> host_add_datasheet </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>text</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>r</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>c</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">enum&#160;</td>
-          <td class="paramname"><em>d</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>add a datasheet to the APRON host </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">text</td><td>name of the datasheet </td></tr>
-    <tr><td class="paramname">r</td><td>number of rows </td></tr>
-    <tr><td class="paramname">c</td><td>number of cols </td></tr>
-    <tr><td class="paramname">d</td><td>direction of data to be filled via streaming</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>handle of the datasheet</dd></dl>
-<p>Create a datasheet in the host to store incoming data stream. See also <a class="el" href="a00027.html#a6eea40b4468a8e4a675eeb827efa02da" title="begin streaming data to the host ">usb_stream_begin</a> . </p>
-
-</div>
-</div>
-<a class="anchor" id="a35f31d53580e41d234e5106f1026190d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">host_record_display </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00015.html">handle</a>&#160;</td>
-          <td class="paramname"><em>h</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>n</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>save frames received in a display </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">h</td><td>handle of the display </td></tr>
-    <tr><td class="paramname">path</td><td>path and filename of the saved image file </td></tr>
-    <tr><td class="paramname">n</td><td>maximum number of image saved</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Save each of the frame received in a display as a BMP file. Any folders in the path need to be created manually.</p>
+<dl class="section return"><dt>Returns</dt><dd>the analogue register to store the value</dd></dl>
+<p>The ranged is shifted by 127, so the actual value applied is (v - 127)</p>
 <p>Example Usage:</p>
-<p>The following configuration enables the first 100 frames received in <code>window_1</code> to be saved in the folder "snapshots". The name of the image files are "out_1.bmp" to "out_100.bmp". </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;window_1 = host.add_display(&#39;out&#39;)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;host.record_display(window_1,&#39;snapshots/out_&#39;,100)</div>
+<p>Filling register A with 50: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = pe.in(50)</div>
+</div><!-- fragment --><p>Filling register A with a value read from a slider on the host: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = usb.slider(my_slider_1)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;A = pe.in(s0)</div>
 </div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a373059ed11bf69c61bd3d09951720f7f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_north </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>copy the AREG of the north neighbouring PE </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the target AREG of the north neighbouring PE</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value analogue register</dd></dl>
+<p>Example Usage:</p>
+<p>Copy <code>B</code> of the north neighbour to the <code>B</code> in this PE: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;B = pe.north(B)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="ac429ad6f1c601a1e00d3c526498dded9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_east </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>copy the AREG of the east neighbouring PE </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the target AREG of the east neighbouring PE</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value analogue register </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a232ba933adfa131160c3da9c41d34111"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_west </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>copy the AREG of the west neighbouring PE </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the target AREG of the west neighbouring PE</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value analogue register </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a730aab57d5ba3fa82f6c44f60edaf0b3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html">areg</a> pe_south </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a1</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>copy the AREG of the south neighbouring PE </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a1</td><td>the target AREG of the south neighbouring PE</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value analogue register </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 2 2016 14:56:42 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

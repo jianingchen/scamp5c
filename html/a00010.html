@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: PE Analogue Instructions and Programming Outline</title>
+<title>SCAMP-5c Vision System: PE Instructions and Programming Outline</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -81,33 +81,95 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PE Analogue Instructions and Programming Outline </div>  </div>
+<div class="title">PE Instructions and Programming Outline </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="Introduction"></a>
+<div class="textblock"><h1><a class="anchor" id="pe_instructions_sec_1"></a>
 Introduction</h1>
-<h2><a class="anchor" id="Analogue"></a>
-Registers</h2>
-<p>A, B, C, D, E, F, NEWS, PIX, IN.</p>
+<p>PE operations are issued by the IPU to all of the 256x256 PEs simultaneously while each of the PE executes the operation with its own registers.</p>
+<h1><a class="anchor" id="pe_instructions_sec_2"></a>
+PE Registers</h1>
+<p>Each of the PEs has 7 analogue registers, 13 digital registers and 3 special registers.</p>
+<h2><a class="anchor" id="pe_instructions_sec_2_1"></a>
+Analogue Registers</h2>
+<p>A, B, C, D, E, F, NEWS.</p>
 <p>Among these registers:</p><ul>
-<li>F, IN and PIX are reserved for macros.</li>
+<li>F is reserved for macros.</li>
 <li>The PE can read the NEWS registers of its four neighbouring PEs, referred as NORTH, EAST, WEST and SOUTH.</li>
 </ul>
-<p>Each of the analogue registers stores a signed value using current.</p>
-<p>When the value of an analogue register need to be read by any digital device (such as the PC host), it is digitized an 8-bit integer with range [-127,127].</p>
-<h2><a class="anchor" id="Instructions"></a>
-Instructions</h2>
-<ul>
-<li><code>load</code> </li>
-<li><code>add</code> </li>
-<li><code>div</code> </li>
-<li><code>where</code> </li>
-<li><code>all</code> </li>
+<h2><a class="anchor" id="pe_instructions_sec_2_2"></a>
+Digital Registers</h2>
+<p>R0, R1, R2, ... R11, R12.</p>
+<p>Among these registers:</p><ul>
+<li><code>R0</code> is reserved for macros.</li>
+<li>Digital operations applied to <code>R12</code> is masked by <code>R0</code>.</li>
+<li><code>R1</code>, <code>R2</code>, <code>R3</code>, <code>R4</code> are used in some of the <a class="el" href="a00033.html">PE Asynchronous Processing</a> macros.</li>
+<li><code>R5</code> - <code>R11</code> is totally free to use.</li>
 </ul>
+<h2><a class="anchor" id="pe_instructions_sec_2_3"></a>
+Special Registers</h2>
+<p>PIX, IN, FLAG</p>
+<ul>
+<li><code>PIX</code> is the photodiode. It acts as a read-only analogue registers.</li>
+<li><code>IN</code> is the global analogue input. It acts as a read-only analogue registers.</li>
+<li><code>FLAG</code> is the analog operation mask. Any analogue operation will not be executed if FLAG is 0 for the PE</li>
+<li><code>FLAG</code> can only be modified using <code>'where'</code> and <code>'all'</code>.</li>
+<li><code>FLAG</code> can be read into any digital register. e.g. <code>"R5 = FLAG"</code>.</li>
+</ul>
+<h1><a class="anchor" id="pe_instructions_sec_3"></a>
+PE Operations</h1>
+<h2><a class="anchor" id="pe_instructions_sec_3_2"></a>
+Native PE Register Arthematic Operations</h2>
+<p>Native PE arthematic statement is written as "&lt;list of destination registers&gt; = &lt;list of source registers&gt;", which means divide the sum of the source registers equally into the destination registers. Such a statements can thus achieve addition and division of analogue registers, as well as performing logical OR of digital registers. For the analogue case, the result in the left side of the <code>"="</code> is the negative copy of the supposed result. For instance, <code>"A = B C"</code> mathematically achieves <code>"A = -(B + C)"</code>, while <code>"A = B"</code> is <code>"A = -B"</code>. <b>Note, statment written like these cannot be executed as simulation. Furthermore, they do not handle the error occured in native operations. </b></p>
+<p>More examples:</p>
+<p>Add <code>B</code> and <code>C</code> into <code>A:</code> </p><div class="fragment"><div class="line">A = B C <span class="comment">// A = -(B + C)</span></div>
+</div><!-- fragment --><p>Add <code>B</code>, <code>C</code> and <code>D</code> into <code>A:</code> </p><div class="fragment"><div class="line">A = B C D <span class="comment">// A = -(B + C + D)</span></div>
+</div><!-- fragment --><p>Divide <code>C</code> in to <code>A</code> and <code>B</code> : </p><div class="fragment"><div class="line">A B = C <span class="comment">// A = -0.5*C, B = -0.5*C</span></div>
+</div><!-- fragment --><p>Digital OR: </p><div class="fragment"><div class="line">R1 = R2 R3 <span class="comment">// R1 = R2 OR R3</span></div>
+<div class="line">R1 = R2 R3 R4 <span class="comment">// R1 = R2 OR R3 OR R4</span></div>
+</div><!-- fragment --><p>Constant value can be written directly into digital registers: </p><div class="fragment"><div class="line">R5 = 1 <span class="comment">// set R5</span></div>
+<div class="line">R6 = 0 <span class="comment">// clear R6</span></div>
+<div class="line">R1 R2 R3 R4 = 1 <span class="comment">// set all of the four digital registers</span></div>
+</div><!-- fragment --><h2><a class="anchor" id="pe_instructions_sec_3_1"></a>
+Native PE Instructions</h2>
+<p>Some of the speical operations need to be done using the native PE instructions listed in the following table:</p>
+<table class="doxtable">
+<tr>
+<th>Instruction </th><th>Example </th><th>Functionaility  </th></tr>
+<tr>
+<td><code>respix</code> </td><td><code>"respix"</code> </td><td>reset <code>PIX</code> to lowest level (-127) </td></tr>
+<tr>
+<td><code>res</code> </td><td><code>"res(A)"</code> </td><td>reset an AREG to 0 </td></tr>
+<tr>
+<td><code>load*</code> </td><td><code>"A = load(B,C)"</code> </td><td>native arthematic operation <code>"A = B C"</code> </td></tr>
+<tr>
+<td><code>where</code> </td><td><code>"where(A)"</code> </td><td>set <code>FLAG</code> at where A &gt; 0 </td></tr>
+<tr>
+<td><code>where</code> </td><td><code>"where(R1)"</code> </td><td>set <code>FLAG</code> according to <code>R1</code> </td></tr>
+<tr>
+<td><code>all</code> </td><td><code>"all"</code> </td><td>set <code>FLAG</code> </td></tr>
+<tr>
+<td><code>not</code> </td><td><code>"R1 = not(R2)"</code> </td><td>logical NOT for digital registers </td></tr>
+</table>
+<p>(*) Simulation support for <code>"load"</code> has not been finished yet, but it is supposed to be used when a native arthematic operation need to be used.</p>
+<h2><a class="anchor" id="pe_instructions_sec_4"></a>
+Analogue Saturation</h2>
+<p>Each of the analogue registers stores a signed value using current. When the value of an analogue register need to be read by any digital device (such as the PC host), it is digitized an 8-bit integer with range [-127,127] while maximum and minimum represent the min max value inherited from the sources of all values (<code>IN</code> and <code>PIX</code>). However, after arthmatic operations are applied, the value store in a analogue register can go beyond that range.</p>
+<p>For example, the following addition will result a value around 150 to be stored in <code>A:</code> </p><div class="fragment"><div class="line">B = pe.in(-70)</div>
+<div class="line">C = pe.in(-80)</div>
+<div class="line">A = B C</div>
+</div><!-- fragment --><p>However, when <code>A</code> is read out, the value will still be 127 as it is the maximum value the ADC can provide.</p>
+<p>The exact value stored internally can be checked by dividing the result of an addition: </p><div class="fragment"><div class="line">B = pe.in(-80)</div>
+<div class="line">C = pe.in(-70)</div>
+<div class="line">A = B C</div>
+<div class="line">D E = A</div>
+</div><!-- fragment --><p>After the above code, <code>'D'</code> and <code>E</code> will be roughly -75 which implies <code>A</code> holds a value around 150.</p>
+<p>Nevertheless, the internal value will start diminishing when it is too big. However, there is not a hard threshould.</p>
+<p>(TODO: soft saturation plot) </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 2 2016 14:56:42 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

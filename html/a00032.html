@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: Host and Simulation Functions</title>
+<title>SCAMP-5c Vision System: PE Analogue Operation Macros</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,39 +83,59 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#files">Files</a>  </div>
   <div class="headertitle">
-<div class="title">Host and Simulation Functions</div>  </div>
+<div class="title">PE Analogue Operation Macros</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Configuration of the simulation and the SCAMP-5 hosting environment.  
+<p>provide a relatively care-free version of the basic PE analogue operations  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
 Files</h2></td></tr>
-<tr class="memitem:a00026"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html">host_and_sim.h</a></td></tr>
+<tr class="memitem:a00026"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html">pe_analog_macros.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Configuration of the simulation and the SCAMP-5 hosting environment. </p>
-<h1><a class="anchor" id="sec_host_sim_1"></a>
+<p>provide a relatively care-free version of the basic PE analogue operations </p>
+<h1><a class="anchor" id="pe_ana_macro_sec_1"></a>
 Introduction</h1>
-<p>(TODO)</p>
-<h1><a class="anchor" id="sec_host_sim_2"></a>
-Example Usage</h1>
-<div class="fragment"><div class="line">apron.config_begin</div>
-<div class="line">    sim.pix_source_webcam()<span class="comment">// use webcam as image source when in simulation</span></div>
-<div class="line">    host.template(<span class="stringliteral">&#39;scamp5c_host_template.txt&#39;</span>)<span class="comment">// specify host template file</span></div>
-<div class="line">    host.firmware(<span class="stringliteral">&#39;ok_scamp5_0106.bit&#39;</span>)<span class="comment">// specify bit file</span></div>
-<div class="line">    host.set_frame_rate(50)<span class="comment">// set frame trigger</span></div>
-<div class="line">    slider_1 = host.add_slider(<span class="stringliteral">&#39;parameter a&#39;</span>, 0, 255, 127, 1, 1)</div>
-<div class="line">    slider_2 = host.add_slider(<span class="stringliteral">&#39;parameter b&#39;</span>, 0, 255, 3, 1, 1)</div>
-<div class="line">    window_1 = host.add_display(<span class="stringliteral">&#39;Captured&#39;</span>)</div>
-<div class="line">    window_2 = host.add_display(<span class="stringliteral">&#39;Processed&#39;</span>)</div>
-<div class="line">apron.config_end</div>
-</div><!-- fragment --> </div><!-- contents -->
+<p>Most of these macro provide a relatively carefree version of the PE operations. That is, they produce less error and handle the analogue polarity issue. For example, <code>"A = pe.copy(B)"</code> execute an idealized copy operation, with polarity of the image preserved and the offset error reduced.</p>
+<p>Note, in these macros, the result AREG cannot be same as any of the source AREGs. For example, <code>"A = pe.add(A,B)"</code> is invalid.</p>
+<h1><a class="anchor" id="pe_ana_macro_sec_2"></a>
+Alternative Names</h1>
+<p>Some of these macros can be used without the "pe." prefix.</p>
+<table class="doxtable">
+<tr>
+<th>Macro Name </th><th>Alternative Name  </th></tr>
+<tr>
+<td><code>pe.rpix</code> </td><td><code>rpix</code> </td></tr>
+<tr>
+<td><code>pe.copy</code> </td><td><code>copy</code> </td></tr>
+<tr>
+<td><code>pe.add</code> </td><td><code>add</code> </td></tr>
+<tr>
+<td><code>pe.sub</code> </td><td><code>sub</code> </td></tr>
+<tr>
+<td><code>pe.div</code> </td><td><code>div</code> </td></tr>
+<tr>
+<td><code>pe.abs</code> </td><td><code>abs</code> </td></tr>
+<tr>
+<td><code>pe.neg</code> </td><td><code>neg</code> </td></tr>
+<tr>
+<td><code>pe.in</code> </td><td><code>in</code> </td></tr>
+<tr>
+<td><code>pe.north</code> </td><td><code>north</code> </td></tr>
+<tr>
+<td><code>pe.east</code> </td><td><code>east</code> </td></tr>
+<tr>
+<td><code>pe.west</code> </td><td><code>west</code> </td></tr>
+<tr>
+<td><code>pe.south</code> </td><td><code>south</code> </td></tr>
+</table>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 2 2016 14:56:42 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

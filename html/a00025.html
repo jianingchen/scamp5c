@@ -90,7 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">ipu_instructions.h File Reference<div class="ingroups"><a class="el" href="a00030.html">IPU Instructions</a></div></div>  </div>
+<div class="title">ipu_instructions.h File Reference<div class="ingroups"><a class="el" href="a00031.html">IPU Instructions and Macros</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -131,6 +131,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a2c567927a7d6b8d1e278f88f7eaf2971"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#a2c567927a7d6b8d1e278f88f7eaf2971">_jump</a> (condition f, label l)</td></tr>
 <tr class="memdesc:a2c567927a7d6b8d1e278f88f7eaf2971"><td class="mdescLeft">&#160;</td><td class="mdescRight">jump the program conditionally to a labeled position  <a href="#a2c567927a7d6b8d1e278f88f7eaf2971">More...</a><br /></td></tr>
 <tr class="separator:a2c567927a7d6b8d1e278f88f7eaf2971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad68fa867e21e5ecc4a60f44baa4aa1bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#ad68fa867e21e5ecc4a60f44baa4aa1bc">ipu_pixel_set</a> (<a class="el" href="a00012.html">dreg</a> b1, <a class="el" href="a00016.html">rint</a> x, <a class="el" href="a00016.html">rint</a> y)</td></tr>
+<tr class="memdesc:ad68fa867e21e5ecc4a60f44baa4aa1bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">set one pixel in a DREG plane  <a href="#ad68fa867e21e5ecc4a60f44baa4aa1bc">More...</a><br /></td></tr>
+<tr class="separator:ad68fa867e21e5ecc4a60f44baa4aa1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae67c1f24e4bec58094a95fddb5282215"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#ae67c1f24e4bec58094a95fddb5282215">ipu_wait_frame_trigger</a> ()</td></tr>
+<tr class="memdesc:ae67c1f24e4bec58094a95fddb5282215"><td class="mdescLeft">&#160;</td><td class="mdescRight">wait until a frame trigger is detected  <a href="#ae67c1f24e4bec58094a95fddb5282215">More...</a><br /></td></tr>
+<tr class="separator:ae67c1f24e4bec58094a95fddb5282215"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
@@ -168,7 +174,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>Example Usage: <code>_mov(s0,0)</code> <code>_mov(s0,15)</code> <code>_mov(s3,s4)</code> </p>
-<p>Flagging: Z. </p>
+<p>Flagging:</p>
+<p>set Z if s is equal to the data originally stored in <code>d</code> </p>
 
 </div>
 </div>
@@ -397,10 +404,78 @@ Functions</h2></td></tr>
 </div><!-- fragment --> 
 </div>
 </div>
+<a class="anchor" id="ad68fa867e21e5ecc4a60f44baa4aa1bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ipu_pixel_set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00012.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>b1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set one pixel in a DREG plane </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b1</td><td>the DREG plane </td></tr>
+    <tr><td class="paramname">x</td><td>x coordinate of the pixel </td></tr>
+    <tr><td class="paramname">y</td><td>y coordinate of the pixel</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Example Usage:</p>
+<p>Make (30,50) and (50,50) in R5 DREG plane to be 1: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R5 = 0 // do not forget to clear the plane before putting new points</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ipu.pixel_set(R5,30,50)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;ipu.pixel_set(R5,50,50)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="ae67c1f24e4bec58094a95fddb5282215"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ipu_wait_frame_trigger </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>wait until a frame trigger is detected </p>
+<p>The frame trigger signal is a series of pulse with a frequency specified by <a class="el" href="a00023.html#ac9b91fb61e745d20a1c2a47fcd54b1d5" title="set the desired frame rate ">host_set_frame_rate</a>.</p>
+<p>The following structure provide a frame of which the exposure time is the interval between two frame triggers: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.wait_frame_trigger</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;F.rpix</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;ipu.wait_frame_trigger</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;F.rpix(B,C)</div>
+</div><!-- fragment --> 
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 12:38:41 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

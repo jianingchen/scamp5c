@@ -89,7 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">io_macros.h File Reference<div class="ingroups"><a class="el" href="a00029.html">IO Macros</a></div></div>  </div>
+<div class="title">io_macros.h File Reference<div class="ingroups"><a class="el" href="a00030.html">IO Macros</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -97,25 +97,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aee1d53ca24944131e8e5bff479b244d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00015.html">reg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#aee1d53ca24944131e8e5bff479b244d3">ipu_get_slider_value</a> (<a class="el" href="a00013.html">handle</a> h)</td></tr>
-<tr class="memdesc:aee1d53ca24944131e8e5bff479b244d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the value of a slider from the host  <a href="#aee1d53ca24944131e8e5bff479b244d3">More...</a><br /></td></tr>
-<tr class="separator:aee1d53ca24944131e8e5bff479b244d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a953dd45295d823524f15149018f120b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#a953dd45295d823524f15149018f120b1">io_analog_input</a> (<a class="el" href="a00011.html">areg</a> a1, <a class="el" href="a00016.html">rint</a> v)</td></tr>
-<tr class="memdesc:a953dd45295d823524f15149018f120b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">set an analogue register for all pe with a value  <a href="#a953dd45295d823524f15149018f120b1">More...</a><br /></td></tr>
-<tr class="separator:a953dd45295d823524f15149018f120b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a192564e583cdc054f4db66ce890d336b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#a192564e583cdc054f4db66ce890d336b">io_analog_output</a> (<a class="el" href="a00011.html">areg</a> a1, <a class="el" href="a00013.html">handle</a> h)</td></tr>
-<tr class="memdesc:a192564e583cdc054f4db66ce890d336b"><td class="mdescLeft">&#160;</td><td class="mdescRight">sample and output an entire analogue register array (256x256 values)  <a href="#a192564e583cdc054f4db66ce890d336b">More...</a><br /></td></tr>
-<tr class="separator:a192564e583cdc054f4db66ce890d336b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29da39b4d65bcc7a049b8d8dbe98b5b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00015.html">reg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#a29da39b4d65bcc7a049b8d8dbe98b5b9">usb_slider</a> (<a class="el" href="a00013.html">handle</a> h)</td></tr>
+<tr class="memdesc:a29da39b4d65bcc7a049b8d8dbe98b5b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the value of a slider from the host  <a href="#a29da39b4d65bcc7a049b8d8dbe98b5b9">More...</a><br /></td></tr>
+<tr class="separator:a29da39b4d65bcc7a049b8d8dbe98b5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6185368d95142035f24ec36d535b3e11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#a6185368d95142035f24ec36d535b3e11">usb_aout</a> (<a class="el" href="a00011.html">areg</a> a1, <a class="el" href="a00013.html">handle</a> h)</td></tr>
+<tr class="memdesc:a6185368d95142035f24ec36d535b3e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">sample and output an entire 256x256 AREG plane  <a href="#a6185368d95142035f24ec36d535b3e11">More...</a><br /></td></tr>
+<tr class="separator:a6185368d95142035f24ec36d535b3e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5da89e6654b3189d2e558b9880e51e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#ac5da89e6654b3189d2e558b9880e51e2">usb_d2aout</a> (<a class="el" href="a00012.html">dreg</a> b1, <a class="el" href="a00013.html">handle</a> h)</td></tr>
+<tr class="memdesc:ac5da89e6654b3189d2e558b9880e51e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">output an entire 256x256 DREG plane as an analog image  <a href="#ac5da89e6654b3189d2e558b9880e51e2">More...</a><br /></td></tr>
+<tr class="separator:ac5da89e6654b3189d2e558b9880e51e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eea40b4468a8e4a675eeb827efa02da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#a6eea40b4468a8e4a675eeb827efa02da">usb_stream_begin</a> (<a class="el" href="a00013.html">handle</a> h)</td></tr>
+<tr class="memdesc:a6eea40b4468a8e4a675eeb827efa02da"><td class="mdescLeft">&#160;</td><td class="mdescRight">begin streaming data to the host  <a href="#a6eea40b4468a8e4a675eeb827efa02da">More...</a><br /></td></tr>
+<tr class="separator:a6eea40b4468a8e4a675eeb827efa02da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8ac356b1a0ceda8cf45d23ed0c41b5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#ac8ac356b1a0ceda8cf45d23ed0c41b5d">usb_stream_send</a> (<a class="el" href="a00016.html">rint</a> v)</td></tr>
+<tr class="memdesc:ac8ac356b1a0ceda8cf45d23ed0c41b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">send a value for the ongoing stream  <a href="#ac8ac356b1a0ceda8cf45d23ed0c41b5d">More...</a><br /></td></tr>
+<tr class="separator:ac8ac356b1a0ceda8cf45d23ed0c41b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbc10df44281f7688d827e1a94c04c5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#abbc10df44281f7688d827e1a94c04c5e">usb_stream_end</a> (<a class="el" href="a00016.html">rint</a> p, <a class="el" href="a00016.html">rint</a> v)</td></tr>
+<tr class="memdesc:abbc10df44281f7688d827e1a94c04c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">end an ongoing data stream  <a href="#abbc10df44281f7688d827e1a94c04c5e">More...</a><br /></td></tr>
+<tr class="separator:abbc10df44281f7688d827e1a94c04c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d86f8d6f2a32150a32b1ac3aee13708"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html#a6d86f8d6f2a32150a32b1ac3aee13708">usb_scan_events</a> (<a class="el" href="a00013.html">handle</a> h, <a class="el" href="a00012.html">dreg</a> r, <a class="el" href="a00016.html">rint</a> n)</td></tr>
+<tr class="memdesc:a6d86f8d6f2a32150a32b1ac3aee13708"><td class="mdescLeft">&#160;</td><td class="mdescRight">scan upto a certain number of points in a DREG plane and send their coordinates to the host  <a href="#a6d86f8d6f2a32150a32b1ac3aee13708">More...</a><br /></td></tr>
+<tr class="separator:a6d86f8d6f2a32150a32b1ac3aee13708"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="aee1d53ca24944131e8e5bff479b244d3"></a>
+<a class="anchor" id="a29da39b4d65bcc7a049b8d8dbe98b5b9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00015.html">reg</a> ipu_get_slider_value </td>
+          <td class="memname"><a class="el" href="a00015.html">reg</a> usb_slider </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="a00013.html">handle</a>&#160;</td>
           <td class="paramname"><em>h</em></td><td>)</td>
@@ -132,59 +144,19 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the value of the slider</dd></dl>
-<p>Flagging: Z.</p>
+<p>Flagging:</p>
+<p>Z - when 0 is returned. C - not affected.</p>
 <p>Example Usage:</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = ipu.get_slider_value(my_slider_1)</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = usb.slider(my_slider_1)</div>
 </div><!-- fragment --> 
 </div>
 </div>
-<a class="anchor" id="a953dd45295d823524f15149018f120b1"></a>
+<a class="anchor" id="a6185368d95142035f24ec36d535b3e11"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">io_analog_input </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
-          <td class="paramname"><em>a1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set an analogue register for all pe with a value </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">a1</td><td>the analogue register </td></tr>
-    <tr><td class="paramname">v</td><td>a value with a range of [0,255]</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Flagging: Z.</p>
-<p>The ranged is shifted by 127, so the actual value applied is (v - 127)</p>
-<p>Example Usage:</p>
-<p>Filling register A with +20: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;io.analog_input(A,147)</div>
-</div><!-- fragment --><p>Filling register A with a value read from a slider on the host: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = io.get_slider_value(my_slider_1)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;io.analog_input(A,s0)</div>
-</div><!-- fragment --> 
-</div>
-</div>
-<a class="anchor" id="a192564e583cdc054f4db66ce890d336b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">io_analog_output </td>
+          <td class="memname">usb_aout </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
           <td class="paramname"><em>a1</em>, </td>
@@ -203,7 +175,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>sample and output an entire analogue register array (256x256 values) </p>
+<p>sample and output an entire 256x256 AREG plane </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">a1</td><td>the analogue register </td></tr>
@@ -214,15 +186,182 @@ Functions</h2></td></tr>
 <p>This transmit the image stored in an analogue register array to the host.</p>
 <p>Note, this macro contains a large routine and some polling waits. In fact, for most of alogrithms in development, the output macros within a frame cycle takes much more time than the alogrithm itself.</p>
 <p>Example Usage:</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;F.dump_pix(B,C)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;io.analog_output(C,my_window_1)</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;pe.rpix(B,C)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;usb.aout(C,my_window_1)</div>
 </div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="ac5da89e6654b3189d2e558b9880e51e2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">usb_d2aout </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00012.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>b1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00013.html">handle</a>&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>output an entire 256x256 DREG plane as an analog image </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b1</td><td>the digital register </td></tr>
+    <tr><td class="paramname">h</td><td>handle of the display window</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This macro first renders the DREG plane as a black/white analogue image, then transmit the analogue image to the host.</p>
+<p>Example Usage:</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;pe.rpix(B,C)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;where(C)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;R5 = FLAG</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;all</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;usb.d2aout(R5,my_window_1)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a6eea40b4468a8e4a675eeb827efa02da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">usb_stream_begin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00013.html">handle</a>&#160;</td>
+          <td class="paramname"><em>h</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>begin streaming data to the host </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h</td><td>the datesheet to hold the values </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac8ac356b1a0ceda8cf45d23ed0c41b5d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">usb_stream_send </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>send a value for the ongoing stream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>value to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="abbc10df44281f7688d827e1a94c04c5e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">usb_stream_end </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>end an ongoing data stream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>number of padding bytes </td></tr>
+    <tr><td class="paramname">v</td><td>value to be padded </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6d86f8d6f2a32150a32b1ac3aee13708"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">usb_scan_events </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00013.html">handle</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00012.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>scan upto a certain number of points in a DREG plane and send their coordinates to the host </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h</td><td>the datesheet to hold the values </td></tr>
+    <tr><td class="paramname">r</td><td>the DREG plane to be scanned </td></tr>
+    <tr><td class="paramname">n</td><td>maximum number of points </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 12:38:41 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: pe_async_processing.h File Reference</title>
+<title>SCAMP-5c Vision System: IO Macros</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -45,7 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -64,12 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>Globals</span></a></li>
-    </ul>
-  </div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,267 +79,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#files">Files</a>  </div>
   <div class="headertitle">
-<div class="title">pe_async_processing.h File Reference<div class="ingroups"><a class="el" href="a00036.html">PE Asynchronous Processing</a></div></div>  </div>
+<div class="title">IO Macros</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a href="a00030_source.html">Go to the source code of this file.</a></p>
+<p>these macros typically provide the input/output related functionalities  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ad1cddbff61561dccf8b82ca528e5b70e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00030.html#ad1cddbff61561dccf8b82ca528e5b70e">pro_flood_from_boundary</a> (<a class="el" href="a00014.html">dreg</a> r1)</td></tr>
-<tr class="memdesc:ad1cddbff61561dccf8b82ca528e5b70e"><td class="mdescLeft">&#160;</td><td class="mdescRight">flooding a DREG plane with '1's from the boundary  <a href="#ad1cddbff61561dccf8b82ca528e5b70e">More...</a><br /></td></tr>
-<tr class="separator:ad1cddbff61561dccf8b82ca528e5b70e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ff7e44c2c40cea28d6dc83bd24c0e54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00030.html#a0ff7e44c2c40cea28d6dc83bd24c0e54">pro_flood_from_source</a> (<a class="el" href="a00014.html">dreg</a> r1, <a class="el" href="a00014.html">dreg</a> r2)</td></tr>
-<tr class="memdesc:a0ff7e44c2c40cea28d6dc83bd24c0e54"><td class="mdescLeft">&#160;</td><td class="mdescRight">flooding a DREG plane with '1's from the '1's in another DREG plane  <a href="#a0ff7e44c2c40cea28d6dc83bd24c0e54">More...</a><br /></td></tr>
-<tr class="separator:a0ff7e44c2c40cea28d6dc83bd24c0e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7633d5cf42fe528dedd694fa2b50dc4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00030.html#a7633d5cf42fe528dedd694fa2b50dc4f">pro_digital_news</a> (<a class="el" href="a00014.html">dreg</a> r1, string str)</td></tr>
-<tr class="memdesc:a7633d5cf42fe528dedd694fa2b50dc4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">acquire a certain DREG of from adjunct PEs  <a href="#a7633d5cf42fe528dedd694fa2b50dc4f">More...</a><br /></td></tr>
-<tr class="separator:a7633d5cf42fe528dedd694fa2b50dc4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4fe1054133b926526894d52f35f935a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00014.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00030.html#ac4fe1054133b926526894d52f35f935a">pro_diffuse</a> (<a class="el" href="a00013.html">areg</a> r1, int p1, int p2)</td></tr>
-<tr class="memdesc:ac4fe1054133b926526894d52f35f935a"><td class="mdescLeft">&#160;</td><td class="mdescRight">diffuse a AREG plane  <a href="#ac4fe1054133b926526894d52f35f935a">More...</a><br /></td></tr>
-<tr class="separator:ac4fe1054133b926526894d52f35f935a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0725e6c260489087d9e5af43db76846"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00030.html#aa0725e6c260489087d9e5af43db76846">pro_locate_event</a> (<a class="el" href="a00014.html">dreg</a> r1, <a class="el" href="a00017.html">reg</a> o1, <a class="el" href="a00017.html">reg</a> o2)</td></tr>
-<tr class="memdesc:aa0725e6c260489087d9e5af43db76846"><td class="mdescLeft">&#160;</td><td class="mdescRight">locate a '1' in a DREG plane, starting from bottom right  <a href="#aa0725e6c260489087d9e5af43db76846">More...</a><br /></td></tr>
-<tr class="separator:aa0725e6c260489087d9e5af43db76846"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
+Files</h2></td></tr>
+<tr class="memitem:a00024"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00024.html">io_macros.h</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ad1cddbff61561dccf8b82ca528e5b70e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00014.html">dreg</a> pro_flood_from_boundary </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
-          <td class="paramname"><em>r1</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>flooding a DREG plane with '1's from the boundary </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r1</td><td>the control register</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the flooded DREG plane</dd></dl>
-<p>Flagging: Z.</p>
-<p>Used DREG: R0, R1, R2, R3, R4, R12</p>
-<p>Starting from the boundary pixels, each pixel that have at least one '1' neighbour will be filled with 1 if the control register of that pixel is 1. This step is repeated hundreds of times asynchronously in less than 20 clock cycles. As a result, after one call of this macro, the result register is usually flooded by '1's except those areas that are closed by '0's in the control register.</p>
-<div class="image">
-<img src="module_async_propagation.png" alt="module_async_propagation.png"/>
-</div>
-<p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = P.flood_from_boundary(R2)" is invalid.</p>
-<p>Example Usage:</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R1 = pro.flood_from_boundary(R5)</div>
-</div><!-- fragment --> 
-</div>
-</div>
-<a class="anchor" id="a0ff7e44c2c40cea28d6dc83bd24c0e54"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00014.html">dreg</a> pro_flood_from_source </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
-          <td class="paramname"><em>r1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
-          <td class="paramname"><em>r2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>flooding a DREG plane with '1's from the '1's in another DREG plane </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r1</td><td>the control register </td></tr>
-    <tr><td class="paramname">r2</td><td>the source of the flood</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the flooded DREG plane</dd></dl>
-<p>Used DREG: R0, R1, R2, R3, R4, R12</p>
-<p>This process is similar to ::P_flood_from_boundary. The only difference is that the source of the flood are from the '1's in another DREG plane rather than the boundary.</p>
-<div class="image">
-<img src="module_async_propagation2.png" alt="module_async_propagation2.png"/>
-</div>
-<p>The traveling distance of the flood will not cover the whole plane. The following image shows the result of a flood sourced by one poxel at (128,128): </p><div class="image">
-<img src="module_async_point_flood.png" alt="module_async_point_flood.png"/>
-</div>
-<p>To increase the traveling distance, one can use this macro multiple times using the result of a previous flood as the source: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.pixel_set(R5,100,100)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;R5 = pro.flood_from_source(R8,R5)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;R5 = pro.flood_from_source(R8,R5)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;R5 = pro.flood_from_source(R8,R5)</div>
-</div><!-- fragment --><p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = P.flood_from_source(R2,R3)" is invalid.</p>
-<p>Example Usage:</p>
-<p>Flooding R1 from coordinates (100,50): </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.set_pixel(R6,100,50)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;R1 = pro.flood_from_source(R5,R6)</div>
-</div><!-- fragment --> 
-</div>
-</div>
-<a class="anchor" id="a7633d5cf42fe528dedd694fa2b50dc4f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00014.html">dreg</a> pro_digital_news </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
-          <td class="paramname"><em>r1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>str</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>acquire a certain DREG of from adjunct PEs </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r1</td><td>the DREG of the adjunct PE </td></tr>
-    <tr><td class="paramname">str</td><td>list of directions, can be 'north' 'east' 'west' 'south'</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the acquired value</dd></dl>
-<p>Flagging: clr Z.</p>
-<p>Used DREG: R0, R1, R2, R3, R4</p>
-<p>This is the function to achieve the digital NEWS functionality. Unlike the analogue NEWS, this function allows the read of any DREG of a neighbour PE.</p>
-<p>Example Usage:</p>
-<p>Shift R5 DREG plane to the east: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R5 = pro.digital_news(R5,&#39;west&#39;)</div>
-</div><!-- fragment --><p>Shift R5 DREG plane to the north east: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R5 = pro.digital_news(R5,&#39;west&#39;)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;R5 = pro.digital_news(R5,&#39;south&#39;)</div>
-</div><!-- fragment --><p>Let THIS.R5 = WEST.R5 OR SOUTH.R5: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R5 = pro.digital_news(R5,&#39;west south&#39;)</div>
-</div><!-- fragment --> 
-</div>
-</div>
-<a class="anchor" id="ac4fe1054133b926526894d52f35f935a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00014.html">dreg</a> pro_diffuse </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00013.html">areg</a>&#160;</td>
-          <td class="paramname"><em>r1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>p2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>diffuse a AREG plane </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r1</td><td>the source AREG value </td></tr>
-    <tr><td class="paramname">p1</td><td>Boolean value, enable vertical diffusion </td></tr>
-    <tr><td class="paramname">p2</td><td>Boolean value, enable horizontal diffusion</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the diffused AREG value</dd></dl>
-<p>Used DREG: R0, R1, R2, R3</p>
-<p>This function diffuse the AREG plane asynchronously.</p>
-<p>Example Usage:</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = pro.diffuse(A,1,1)</div>
-</div><!-- fragment --> 
-</div>
-</div>
-<a class="anchor" id="aa0725e6c260489087d9e5af43db76846"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">pro_locate_event </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00014.html">dreg</a>&#160;</td>
-          <td class="paramname"><em>r1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00017.html">reg</a>&#160;</td>
-          <td class="paramname"><em>o1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00017.html">reg</a>&#160;</td>
-          <td class="paramname"><em>o2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>locate a '1' in a DREG plane, starting from bottom right </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r1</td><td>the DREG plane to be searched </td></tr>
-    <tr><td class="paramname">o1</td><td>ipu register to store the x coordinate </td></tr>
-    <tr><td class="paramname">o2</td><td>ipu register to store the y coordinate</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the diffused AREG value</dd></dl>
-<p>Used DREG: R0, R1, R2, R3</p>
-<p>This function locate a '1' in a DREG plane. The search starts from south east and proceed towards north first. This process is executed asynchronously, which means the distance between the '1' and the start location won't affect the time cost to search.</p>
-<p>Example Usage:</p>
-<p>Get the coordinates of the first '1' in R5 DREG plane. </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;pro.locate_event(R5,s1,s2)</div>
-</div><!-- fragment --><p>A more systematic usage of events scanning can be found in <a class="el" href="a00004.html#sec_example_guide_2_8">Example 8: Events Scanning</a>. </p>
-
-</div>
-</div>
+<p>these macros typically provide the input/output related functionalities </p>
+<h1><a class="anchor" id="Introduction"></a>
+Introduction</h1>
+<p>(TODO) </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 2 2016 14:56:42 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

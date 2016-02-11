@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: host_and_sim.h Source File</title>
+<title>SCAMP-5c Vision System: pe_analog_macros.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,61 +87,83 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">host_and_sim.h</div>  </div>
+<div class="title">pe_analog_macros.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a href="a00026.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a00015.html">   49</a></span>&#160;<span class="keyword">class </span><a class="code" href="a00015.html">handle</a>{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<a class="code" href="a00026.html#a66b019920e81547070685c3002449182">apron_config_begin</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a00011.html">   55</a></span>&#160;<span class="keyword">class </span><a class="code" href="a00011.html">areg</a>{</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<a class="code" href="a00026.html#af96f8c0444e27c86a1bbfd4b8c8a3b26">apron_config_end</a>();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<a class="code" href="a00026.html#a68b8c14eac950eb4ef7e083da8719753">sim_pix_source_webcam</a>();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<a class="code" href="a00026.html#ab591c7c67f94faaa666eadab80a25df3">sim_pix_source_image</a>(<span class="keywordtype">string</span> path);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<a class="code" href="a00026.html#ac9b91fb61e745d20a1c2a47fcd54b1d5">host_set_frame_rate</a>(<span class="keywordtype">int</span> v);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<a class="code" href="a00015.html">handle</a> <a class="code" href="a00026.html#a4b7cacf924ec2117ef530fd75811cc7c">host_add_slider</a>(<span class="keywordtype">string</span> text, <span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> init, <span class="keywordtype">int</span> step, <span class="keywordtype">int</span> gain);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<a class="code" href="a00015.html">handle</a> <a class="code" href="a00026.html#a5b620814431ac260d2e287f5adcc739b">host_add_display</a>(<span class="keywordtype">string</span> text);</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<a class="code" href="a00015.html">handle</a> <a class="code" href="a00026.html#a6624d82e3c8c59b0ddfa0156b58a2178">host_add_datasheet</a>(<span class="keywordtype">string</span> text,<span class="keywordtype">int</span> r,<span class="keywordtype">int</span> c,<span class="keyword">enum</span> d);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<a class="code" href="a00026.html#a35f31d53580e41d234e5106f1026190d">host_record_display</a>(<a class="code" href="a00015.html">handle</a> h,<span class="keywordtype">string</span> path,<span class="keywordtype">int</span> n);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
-<div class="ttc" id="a00026_html_a66b019920e81547070685c3002449182"><div class="ttname"><a href="a00026.html#a66b019920e81547070685c3002449182">apron_config_begin</a></div><div class="ttdeci">apron_config_begin()</div><div class="ttdoc">this function start the configuration section of the script </div></div>
-<div class="ttc" id="a00026_html_a5b620814431ac260d2e287f5adcc739b"><div class="ttname"><a href="a00026.html#a5b620814431ac260d2e287f5adcc739b">host_add_display</a></div><div class="ttdeci">handle host_add_display(string text)</div><div class="ttdoc">add a display window to the APRON UI </div></div>
-<div class="ttc" id="a00015_html"><div class="ttname"><a href="a00015.html">handle</a></div><div class="ttdoc">variable of this type is a handle to a APRON UI object </div><div class="ttdef"><b>Definition:</b> host_and_sim.h:49</div></div>
-<div class="ttc" id="a00026_html_a68b8c14eac950eb4ef7e083da8719753"><div class="ttname"><a href="a00026.html#a68b8c14eac950eb4ef7e083da8719753">sim_pix_source_webcam</a></div><div class="ttdeci">sim_pix_source_webcam()</div><div class="ttdoc">use a webcam as the image source when running as simulation </div></div>
-<div class="ttc" id="a00026_html_a35f31d53580e41d234e5106f1026190d"><div class="ttname"><a href="a00026.html#a35f31d53580e41d234e5106f1026190d">host_record_display</a></div><div class="ttdeci">host_record_display(handle h, string path, int n)</div><div class="ttdoc">save frames received in a display </div></div>
-<div class="ttc" id="a00026_html_af96f8c0444e27c86a1bbfd4b8c8a3b26"><div class="ttname"><a href="a00026.html#af96f8c0444e27c86a1bbfd4b8c8a3b26">apron_config_end</a></div><div class="ttdeci">apron_config_end()</div><div class="ttdoc">this function finish the configuration section of the script </div></div>
-<div class="ttc" id="a00026_html_a4b7cacf924ec2117ef530fd75811cc7c"><div class="ttname"><a href="a00026.html#a4b7cacf924ec2117ef530fd75811cc7c">host_add_slider</a></div><div class="ttdeci">handle host_add_slider(string text, int min, int max, int init, int step, int gain)</div><div class="ttdoc">add a slider to the APRON UI </div></div>
-<div class="ttc" id="a00026_html_ab591c7c67f94faaa666eadab80a25df3"><div class="ttname"><a href="a00026.html#ab591c7c67f94faaa666eadab80a25df3">sim_pix_source_image</a></div><div class="ttdeci">sim_pix_source_image(string path)</div><div class="ttdoc">use an image as the image source when running as simulation </div></div>
-<div class="ttc" id="a00026_html_ac9b91fb61e745d20a1c2a47fcd54b1d5"><div class="ttname"><a href="a00026.html#ac9b91fb61e745d20a1c2a47fcd54b1d5">host_set_frame_rate</a></div><div class="ttdeci">host_set_frame_rate(int v)</div><div class="ttdoc">set the desired frame rate </div></div>
-<div class="ttc" id="a00026_html_a6624d82e3c8c59b0ddfa0156b58a2178"><div class="ttname"><a href="a00026.html#a6624d82e3c8c59b0ddfa0156b58a2178">host_add_datasheet</a></div><div class="ttdeci">handle host_add_datasheet(string text, int r, int c, enum d)</div><div class="ttdoc">add a datasheet to the APRON host </div></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<a class="code" href="a00026.html#a72e6c5925a98135403284f0c2b9bb658">pe_rpix</a>();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<a class="code" href="a00026.html#a72e6c5925a98135403284f0c2b9bb658">pe_rpix</a>(<a class="code" href="a00011.html">areg</a> a1,<a class="code" href="a00011.html">areg</a> a2);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#aa60315c9299dae42140e3dd63de10115">pe_mov</a>(<a class="code" href="a00011.html">areg</a> a1);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#a878efeb6e7a71b15ad2482f1d060b078">pe_add</a>(<a class="code" href="a00011.html">areg</a> a1,<a class="code" href="a00011.html">areg</a> a2);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#a9e6e0cfb458c08e82cbe094fe71aa8ea">pe_sub</a>(<a class="code" href="a00011.html">areg</a> a1,<a class="code" href="a00011.html">areg</a> a2);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#a38f8418c46d18aa29ffe7fc8fa123daf">pe_neg</a>(<a class="code" href="a00011.html">areg</a> a1);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#a6388534fadc00acac1067ee70364ed36">pe_abs</a>(<a class="code" href="a00011.html">areg</a> a1);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<a class="code" href="a00026.html#a8d8e370388dbfb9039e9565b21693182">pe_div</a>(<a class="code" href="a00011.html">areg</a> a1,<a class="code" href="a00011.html">areg</a> a2,<a class="code" href="a00011.html">areg</a> a3);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#aae3f4deac8df988d04b25f6b5ea7bc38">pe_in</a>(<a class="code" href="a00016.html">rint</a> v);</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#a373059ed11bf69c61bd3d09951720f7f">pe_north</a>(<a class="code" href="a00011.html">areg</a> a1);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#ac429ad6f1c601a1e00d3c526498dded9">pe_east</a>(<a class="code" href="a00011.html">areg</a> a1);</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#a232ba933adfa131160c3da9c41d34111">pe_west</a>(<a class="code" href="a00011.html">areg</a> a1);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<a class="code" href="a00011.html">areg</a> <a class="code" href="a00026.html#a730aab57d5ba3fa82f6c44f60edaf0b3">pe_south</a>(<a class="code" href="a00011.html">areg</a> a1);</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
+<div class="ttc" id="a00026_html_a38f8418c46d18aa29ffe7fc8fa123daf"><div class="ttname"><a href="a00026.html#a38f8418c46d18aa29ffe7fc8fa123daf">pe_neg</a></div><div class="ttdeci">areg pe_neg(areg a1)</div><div class="ttdoc">invert the polarity of AREG and copy to another AREG </div></div>
+<div class="ttc" id="a00026_html_aa60315c9299dae42140e3dd63de10115"><div class="ttname"><a href="a00026.html#aa60315c9299dae42140e3dd63de10115">pe_mov</a></div><div class="ttdeci">areg pe_mov(areg a1)</div><div class="ttdoc">make a copy of an AREG </div></div>
+<div class="ttc" id="a00026_html_a232ba933adfa131160c3da9c41d34111"><div class="ttname"><a href="a00026.html#a232ba933adfa131160c3da9c41d34111">pe_west</a></div><div class="ttdeci">areg pe_west(areg a1)</div><div class="ttdoc">copy the AREG of the west neighbouring PE </div></div>
+<div class="ttc" id="a00026_html_a8d8e370388dbfb9039e9565b21693182"><div class="ttname"><a href="a00026.html#a8d8e370388dbfb9039e9565b21693182">pe_div</a></div><div class="ttdeci">pe_div(areg a1, areg a2, areg a3)</div><div class="ttdoc">divide (by half) an AREG into two AREGs </div></div>
+<div class="ttc" id="a00026_html_a730aab57d5ba3fa82f6c44f60edaf0b3"><div class="ttname"><a href="a00026.html#a730aab57d5ba3fa82f6c44f60edaf0b3">pe_south</a></div><div class="ttdeci">areg pe_south(areg a1)</div><div class="ttdoc">copy the AREG of the south neighbouring PE </div></div>
+<div class="ttc" id="a00026_html_ac429ad6f1c601a1e00d3c526498dded9"><div class="ttname"><a href="a00026.html#ac429ad6f1c601a1e00d3c526498dded9">pe_east</a></div><div class="ttdeci">areg pe_east(areg a1)</div><div class="ttdoc">copy the AREG of the east neighbouring PE </div></div>
+<div class="ttc" id="a00026_html_a373059ed11bf69c61bd3d09951720f7f"><div class="ttname"><a href="a00026.html#a373059ed11bf69c61bd3d09951720f7f">pe_north</a></div><div class="ttdeci">areg pe_north(areg a1)</div><div class="ttdoc">copy the AREG of the north neighbouring PE </div></div>
+<div class="ttc" id="a00026_html_aae3f4deac8df988d04b25f6b5ea7bc38"><div class="ttname"><a href="a00026.html#aae3f4deac8df988d04b25f6b5ea7bc38">pe_in</a></div><div class="ttdeci">areg pe_in(rint v)</div><div class="ttdoc">set an analogue register for all pe with a value </div></div>
+<div class="ttc" id="a00026_html_a9e6e0cfb458c08e82cbe094fe71aa8ea"><div class="ttname"><a href="a00026.html#a9e6e0cfb458c08e82cbe094fe71aa8ea">pe_sub</a></div><div class="ttdeci">areg pe_sub(areg a1, areg a2)</div><div class="ttdoc">subtract two AREGs </div></div>
+<div class="ttc" id="a00026_html_a878efeb6e7a71b15ad2482f1d060b078"><div class="ttname"><a href="a00026.html#a878efeb6e7a71b15ad2482f1d060b078">pe_add</a></div><div class="ttdeci">areg pe_add(areg a1, areg a2)</div><div class="ttdoc">add two AREGs </div></div>
+<div class="ttc" id="a00011_html"><div class="ttname"><a href="a00011.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_analog_macros.h:55</div></div>
+<div class="ttc" id="a00026_html_a6388534fadc00acac1067ee70364ed36"><div class="ttname"><a href="a00026.html#a6388534fadc00acac1067ee70364ed36">pe_abs</a></div><div class="ttdeci">areg pe_abs(areg a1)</div><div class="ttdoc">take the absolute value of an AREG and copy to another AREG </div></div>
+<div class="ttc" id="a00026_html_a72e6c5925a98135403284f0c2b9bb658"><div class="ttname"><a href="a00026.html#a72e6c5925a98135403284f0c2b9bb658">pe_rpix</a></div><div class="ttdeci">pe_rpix()</div><div class="ttdoc">reset PIX (the photodiode) </div></div>
+<div class="ttc" id="a00016_html"><div class="ttname"><a href="a00016.html">rint</a></div><div class="ttdoc">operand of this type can be either an ipu register or a constant integer </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:44</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 2 2016 14:56:42 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

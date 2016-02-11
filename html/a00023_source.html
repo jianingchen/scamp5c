@@ -91,36 +91,61 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <a href="a00023.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a00013.html">   46</a></span>&#160;<span class="keyword">class </span><a class="code" href="a00013.html">handle</a>{</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a00013.html">   50</a></span>&#160;<span class="keyword">class </span><a class="code" href="a00013.html">handle</a>{</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<a class="code" href="a00023.html#a66b019920e81547070685c3002449182">apron_config_begin</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<a class="code" href="a00023.html#af96f8c0444e27c86a1bbfd4b8c8a3b26">apron_config_end</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<a class="code" href="a00013.html">handle</a> <a class="code" href="a00023.html#a4b7cacf924ec2117ef530fd75811cc7c">host_add_slider</a>(<span class="keywordtype">string</span> text, <span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> init, <span class="keywordtype">int</span> step, <span class="keywordtype">int</span> gain);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<a class="code" href="a00013.html">handle</a> <a class="code" href="a00023.html#a5b620814431ac260d2e287f5adcc739b">host_add_display</a>(<span class="keywordtype">string</span> text);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<a class="code" href="a00023.html#a66b019920e81547070685c3002449182">apron_config_begin</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<a class="code" href="a00023.html#af96f8c0444e27c86a1bbfd4b8c8a3b26">apron_config_end</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<a class="code" href="a00023.html#a68b8c14eac950eb4ef7e083da8719753">sim_pix_source_webcam</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<a class="code" href="a00023.html#ab591c7c67f94faaa666eadab80a25df3">sim_pix_source_image</a>(<span class="keywordtype">string</span> path);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<a class="code" href="a00023.html#a77a0030e8770d64afadaacb731426960">sim_use_error_model</a>(<span class="keywordtype">int</span> v);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<a class="code" href="a00023.html#ac9b91fb61e745d20a1c2a47fcd54b1d5">host_set_frame_rate</a>(<span class="keywordtype">int</span> v);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<a class="code" href="a00013.html">handle</a> <a class="code" href="a00023.html#a4b7cacf924ec2117ef530fd75811cc7c">host_add_slider</a>(<span class="keywordtype">string</span> text, <span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> init, <span class="keywordtype">int</span> step, <span class="keywordtype">int</span> gain);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<a class="code" href="a00013.html">handle</a> <a class="code" href="a00023.html#a5b620814431ac260d2e287f5adcc739b">host_add_display</a>(<span class="keywordtype">string</span> text);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<a class="code" href="a00013.html">handle</a> <a class="code" href="a00023.html#a6624d82e3c8c59b0ddfa0156b58a2178">host_add_datasheet</a>(<span class="keywordtype">string</span> text,<span class="keywordtype">int</span> r,<span class="keywordtype">int</span> c,<span class="keyword">enum</span> d);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<a class="code" href="a00023.html#a35f31d53580e41d234e5106f1026190d">host_record_display</a>(<a class="code" href="a00013.html">handle</a> h,<span class="keywordtype">string</span> path,<span class="keywordtype">int</span> n);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
+<div class="ttc" id="a00023_html_a77a0030e8770d64afadaacb731426960"><div class="ttname"><a href="a00023.html#a77a0030e8770d64afadaacb731426960">sim_use_error_model</a></div><div class="ttdeci">sim_use_error_model(int v)</div><div class="ttdoc">set the level of error model to use in simulation </div></div>
+<div class="ttc" id="a00023_html_ac9b91fb61e745d20a1c2a47fcd54b1d5"><div class="ttname"><a href="a00023.html#ac9b91fb61e745d20a1c2a47fcd54b1d5">host_set_frame_rate</a></div><div class="ttdeci">host_set_frame_rate(int v)</div><div class="ttdoc">set the desired frame rate </div></div>
+<div class="ttc" id="a00023_html_a6624d82e3c8c59b0ddfa0156b58a2178"><div class="ttname"><a href="a00023.html#a6624d82e3c8c59b0ddfa0156b58a2178">host_add_datasheet</a></div><div class="ttdeci">handle host_add_datasheet(string text, int r, int c, enum d)</div><div class="ttdoc">add a datasheet to the APRON host </div></div>
 <div class="ttc" id="a00023_html_a66b019920e81547070685c3002449182"><div class="ttname"><a href="a00023.html#a66b019920e81547070685c3002449182">apron_config_begin</a></div><div class="ttdeci">apron_config_begin()</div><div class="ttdoc">this function start the configuration section of the script </div></div>
-<div class="ttc" id="a00013_html"><div class="ttname"><a href="a00013.html">handle</a></div><div class="ttdoc">variable of this type is a handle to a APRON UI object </div><div class="ttdef"><b>Definition:</b> host_and_sim.h:46</div></div>
+<div class="ttc" id="a00013_html"><div class="ttname"><a href="a00013.html">handle</a></div><div class="ttdoc">variable of this type is a handle to a APRON UI object </div><div class="ttdef"><b>Definition:</b> host_and_sim.h:50</div></div>
 <div class="ttc" id="a00023_html_a5b620814431ac260d2e287f5adcc739b"><div class="ttname"><a href="a00023.html#a5b620814431ac260d2e287f5adcc739b">host_add_display</a></div><div class="ttdeci">handle host_add_display(string text)</div><div class="ttdoc">add a display window to the APRON UI </div></div>
+<div class="ttc" id="a00023_html_a68b8c14eac950eb4ef7e083da8719753"><div class="ttname"><a href="a00023.html#a68b8c14eac950eb4ef7e083da8719753">sim_pix_source_webcam</a></div><div class="ttdeci">sim_pix_source_webcam()</div><div class="ttdoc">use a webcam as the image source when running as simulation </div></div>
+<div class="ttc" id="a00023_html_a35f31d53580e41d234e5106f1026190d"><div class="ttname"><a href="a00023.html#a35f31d53580e41d234e5106f1026190d">host_record_display</a></div><div class="ttdeci">host_record_display(handle h, string path, int n)</div><div class="ttdoc">save frames received in a display </div></div>
 <div class="ttc" id="a00023_html_af96f8c0444e27c86a1bbfd4b8c8a3b26"><div class="ttname"><a href="a00023.html#af96f8c0444e27c86a1bbfd4b8c8a3b26">apron_config_end</a></div><div class="ttdeci">apron_config_end()</div><div class="ttdoc">this function finish the configuration section of the script </div></div>
 <div class="ttc" id="a00023_html_a4b7cacf924ec2117ef530fd75811cc7c"><div class="ttname"><a href="a00023.html#a4b7cacf924ec2117ef530fd75811cc7c">host_add_slider</a></div><div class="ttdeci">handle host_add_slider(string text, int min, int max, int init, int step, int gain)</div><div class="ttdoc">add a slider to the APRON UI </div></div>
+<div class="ttc" id="a00023_html_ab591c7c67f94faaa666eadab80a25df3"><div class="ttname"><a href="a00023.html#ab591c7c67f94faaa666eadab80a25df3">sim_pix_source_image</a></div><div class="ttdeci">sim_pix_source_image(string path)</div><div class="ttdoc">use an image as the image source when running as simulation </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 7 2016 12:38:41 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

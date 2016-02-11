@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: IPU Instructions and Macros</title>
+<title>SCAMP-5c Vision System: PE Digital Operation Macros</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,31 +83,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#files">Files</a>  </div>
   <div class="headertitle">
-<div class="title">IPU Instructions and Macros</div>  </div>
+<div class="title">PE Digital Operation Macros</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>IPU Instructions and Macros.  
+<p>provide a relatively care-free version of the basic PE digital operations  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
 Files</h2></td></tr>
-<tr class="memitem:a00028"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00028.html">ipu_instructions.h</a></td></tr>
+<tr class="memitem:a00028"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00028.html">pe_digital_macros.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>IPU Instructions and Macros. </p>
+<p>provide a relatively care-free version of the basic PE digital operations </p>
 <h1><a class="anchor" id="Introduction"></a>
 Introduction</h1>
-<p>The ipu has 16 8-bit general purpose registers (s0 - s15) and two flag bits (C and Z).</p>
-<p>Among the registers, s10 to s15 are reserved for the macros.</p>
-<p>Flag Z will be set after an instruction produces a result that is 0. Flag Z will be cleared after an instruction produces a result that is not 0.</p>
-<p>Flag C will be set after an arthematic instruction that has overflow or underflow. Flag C will be cleared after an arthematic instruction that operates within a valid range.</p>
-<p>(TODO) </p>
+<p>(TODO)</p>
+<h1><a class="anchor" id="pe_ana_macro_sec_2"></a>
+Alternative Names</h1>
+<p>Some of these macros can be used without the "pe." prefix.</p>
+<table class="doxtable">
+<tr>
+<th>Macro Name </th><th>Alternative Name  </th></tr>
+<tr>
+<td><code>pe.not</code> </td><td><code>not</code> (native) </td></tr>
+<tr>
+<td><code>pe.or</code> </td><td><code>or</code> </td></tr>
+<tr>
+<td><code>pe.nor</code> </td><td><code>nor</code> </td></tr>
+<tr>
+<td><code>pe.and</code> </td><td><code>and</code> </td></tr>
+<tr>
+<td><code>pe.nand</code> </td><td><code>nand</code> </td></tr>
+</table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 2 2016 14:56:42 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
