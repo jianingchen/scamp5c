@@ -31,16 +31,16 @@
 
 //
 !macro_def
-    res($r1)
+    respix
 !macro_begin
-    $r1 = s5c_sim_load(0)
+    s5c_sim_respix
 !macro_end
 
 //
 !macro_def
-    respix
+    res($r1)
 !macro_begin
-    s5c_sim_respix
+    s5c_sim_res($r1)
 !macro_end
 
 //
@@ -87,6 +87,9 @@
     endif
     if(sim_pix_source,==,2)
         // static image, not changing
+    endif
+    if(sim_pix_source,==,3)
+        video.clip.frame(PIX_IMAGE)
     endif
     core.mul(PIX,PIX_IMAGE,0.495)
     core.sub(PIX,PIX,127.0)

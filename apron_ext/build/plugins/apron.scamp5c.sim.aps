@@ -2,6 +2,7 @@
 !include('apron.aps')
 !include('apron.io.aps')
 !include('apron.webcam.aps')
+!include('apron.video.aps')
 
 !module('apron.scamp5c.sim.dll')
 
@@ -247,6 +248,13 @@ SOUTH = 4
 
 //
 !macro_def
+    s5c_sim_res($r1)
+!macro_begin
+    plugin(?, 109, $r1)
+!macro_end
+
+//
+!macro_def
     $p1 = s5c_sim_dnews($p2,$p3,$p4,$p5,$p6)
 !macro_begin
     plugin(?, 110, $p1, $p2, $p3,$p4,$p5,$p6)
@@ -352,6 +360,7 @@ SOUTH = 4
 !macro_begin
     sim_pix_source = 3
     sim_pix_source_file = $p1
+    video.clip.open($p1)
 !macro_end
 
 //

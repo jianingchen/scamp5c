@@ -33,6 +33,13 @@
 
 
 !macro_def
+    sim.pix_source_video($p1)
+!macro_begin
+    // ignored
+!macro_end
+
+
+!macro_def
     sim.use_error_model($p1)
 !macro_begin
     // ignored
