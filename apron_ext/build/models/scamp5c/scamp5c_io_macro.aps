@@ -19,8 +19,21 @@
 !macro_begin
     su = host_slider($p2)
     _mov($p1,su)
+    _cmp($p1,0)
 !macro_end
 
+
+!macro_def
+    usb.send_byte($p1)
+!macro_begin
+    :#wait_usb_buffer
+    // Check buffer has space
+    _imp(su, IPU_PORT_NO_USB_FLAGS)
+    _and(su, 1)
+    _jump(nz,:#wait_usb_buffer)
+    // Write byte
+    _exp($p1,IPU_PORT_NO_IPU_DO)
+!macro_end
 
 
 !macro_def
@@ -38,6 +51,85 @@
     !endif
     _nop
 !macro_end
+
+
+
+!macro_def
+    spi.buffer_space($p)
+!macro_begin
+    _imp(su,IPU_PORT_SPI_FIFO_SPACE)
+    _mov($p,su)
+    _cmp($p,0)
+!macro_end
+
+!macro_def
+    spi.send_byte($p1)
+!macro_begin
+    :#wait_spi_fifo
+    _imp(su, IPU_PORT_SPI_USB_FLAGS)
+    _and(su, 4)
+    _jump(nz,:#wait_spi_fifo)
+    _exp($p1,IPU_PORT_NO_IPU_DO)
+!macro_end
+
+// !macro_def
+//     spi.send_byte($p1)
+// !macro_begin
+//     :#wait_spi_fifo
+//     _imp(su,IPU_PORT_SPI_FIFO_SPACE)
+//     _and(su,'0x0F')
+//     _jump(z,:#wait_spi_fifo)
+//     _exp($p1,IPU_PORT_NO_IPU_DO)
+// !macro_end
+
+!macro_def
+    spi.send_byte_fast($p1)
+!macro_begin
+    _exp($p1,IPU_PORT_NO_IPU_DO)
+!macro_end
+
+!macro_def
+    spi.reset
+!macro_begin
+    _exp(4,253)
+    _exp(0,253)
+!macro_end
+
+!macro_def
+    spi.begin
+!macro_begin
+    _exp(0, IPU_PORT_SPI_FIFO_FLUSH)
+    _exp(1, 253)
+!macro_end
+
+!macro_def
+    spi.end
+!macro_begin
+    _exp(1, IPU_PORT_SPI_FIFO_FLUSH)
+    _exp(0, 253)
+!macro_end
+
+!macro_def
+    spi.aout($r1,$x)
+!macro_begin
+    //host_aout($h)
+    _exp(2, IPU_PORT_ADC_FEAMP)
+    keep
+    set_sel_ana($r1)
+    _call(#_ipu_sa_readout_256_rm_spi)
+    _nop
+!macro_end
+
+!macro_def
+    spi.aout64($r1,$x)
+!macro_begin
+    _exp(2, IPU_PORT_ADC_FEAMP)
+    keep
+    set_sel_ana($r1)
+    _call(#_ipu_sa_readout_64_rm_spi)
+    _nop
+!macro_end
+
 
 
 

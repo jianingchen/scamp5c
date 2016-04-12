@@ -121,6 +121,33 @@
 
 
 
+!define(IPU_PORT_SPI_USB_FLAGS, 224)
+!define(IPU_PORT_SPI_FIFO_SPACE, 226)
+!define(IPU_PORT_SPI_FIFO_FLUSH, 246)
+
+
+// General Purpose Port (Memory) Definitions
+//------------------------------------------------------------------------------
+
+!define(IPU_PORT_LOOPC_0, 32)
+!define(IPU_PORT_LOOPC_1, 33)
+!define(IPU_PORT_LOOPC_2, 34)
+!define(IPU_PORT_LOOPC_3, 35)
+!define(IPU_PORT_GP_BYTE_0, 210)
+!define(IPU_PORT_GP_BYTE_1, 211)
+!define(IPU_PORT_GP_BYTE_2, 212)
+!define(IPU_PORT_GP_BYTE_3, 213)
+!define(IPU_PORT_SPI_RX_0, 160)
+!define(IPU_PORT_SPI_RX_1, 161)
+!define(IPU_PORT_SPI_RX_2, 162)
+!define(IPU_PORT_SPI_RX_3, 163)
+!define(IPU_PORT_SPI_RX_4, 164)
+!define(IPU_PORT_SPI_RX_5, 165)
+!define(IPU_PORT_SPI_RX_6, 166)
+!define(IPU_PORT_SPI_RX_7, 167)
+
+
+
 // USB Packet Definitions
 //------------------------------------------------------------------------------
 

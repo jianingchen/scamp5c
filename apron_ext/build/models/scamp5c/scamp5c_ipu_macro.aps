@@ -10,6 +10,41 @@
 //------------------------------------------------------------------------------
 
 
+
+!macro_def
+    ipu.reset_loop_counter
+!macro_begin
+    _exp(0,IPU_PORT_LOOPC_0)
+    _exp(0,IPU_PORT_LOOPC_1)
+    _exp(0,IPU_PORT_LOOPC_2)
+    _exp(0,IPU_PORT_LOOPC_3)
+!macro_end
+
+
+!macro_def
+    ipu.inc_loop_counter
+!macro_begin
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    _imp(sw,IPU_PORT_LOOPC_0)
+    _imp(sx,IPU_PORT_LOOPC_1)
+    _imp(sy,IPU_PORT_LOOPC_2)
+    _imp(sz,IPU_PORT_LOOPC_3)
+    _add(sw,1)
+    _addc(sx,0)
+    _addc(sy,0)
+    _addc(sz,0)
+    _exp(sw,IPU_PORT_LOOPC_0)
+    _exp(sx,IPU_PORT_LOOPC_1)
+    _exp(sy,IPU_PORT_LOOPC_2)
+    _exp(sz,IPU_PORT_LOOPC_3)
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+!macro_end
+
+
 !macro_def
     ipu.sat_addu($p1,$p2)
 !macro_begin
@@ -89,11 +124,11 @@
 !macro_def
     ipu.send_byte($p1)
 !macro_begin
-    :#send_byte
+    :#wait_usb_buffer
     // Check buffer has space
     _imp(su, IPU_PORT_NO_USB_FLAGS)
     _and(su, 1)
-    _jump(nz,:#send_byte)
+    _jump(nz,:#wait_usb_buffer)
     // Write byte
     _exp($p1,IPU_PORT_NO_IPU_DO)
 !macro_end

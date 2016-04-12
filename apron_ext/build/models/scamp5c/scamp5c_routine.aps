@@ -263,8 +263,11 @@ _ret
             // column address
             _exp(7 , IPU_PORT_ADC_FEAMP) //Set low gain
             _exp(sx, IPU_PORT_ADDR)
-             _exp(6, IPU_PORT_ADC_FEAMP) //Set high gain
-              ipu.send_byte(sw)
+            _exp(6, IPU_PORT_ADC_FEAMP) //Set high gain
+            
+            // send result
+            ipu.send_byte(sw)
+             
             _cmp(sx,0)
         _jump(nz, #rm_loop_col)
         _nop
@@ -288,7 +291,7 @@ _ret
 //------------------------------------------------------------------------------
 
 #_digitalread
-	_exp(255, IPU_PORT_CLK_SWITCH)
+    _exp(255, IPU_PORT_CLK_SWITCH)
     _exp(8, IPU_PORT_CLK_SWITCH)
     _nop
     keep
@@ -350,3 +353,231 @@ _ret
 _ret
 
 //------------------------------------------------------------------------------
+
+#_ipu_sa_readout_256_rm_spi
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(0, IPU_PORT_SPI_FIFO_FLUSH)// trigger high when fifo > 256
+    _exp(1, 253)
+    
+    _exp(7, IPU_PORT_ADC_FEAMP)
+    
+    // spi header
+    spi.send_byte('0x20')// signature
+    spi.send_byte('0x16')
+    spi.send_byte('0xAA')
+    spi.send_byte(5)// payload type
+    spi.send_byte('0x04')// payload size
+    spi.send_byte('0x00')
+    spi.send_byte('0x01')
+    spi.send_byte(10)// header checksum
+    
+    // uint32: loop counter
+    
+    // uint16: width 
+    spi.send_byte('0x00')
+    spi.send_byte('0x01')
+    
+    // uint16: height
+    spi.send_byte('0x00')
+    spi.send_byte('0x01')
+    
+    // Set Block Size
+    _exp(0, IPU_PORT_ADDR) //was0
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    
+    // ADC Delay
+    _exp(8, IPU_PORT_ADC_DELAY) //For this algo, the critical factor is how well IN matches calibration (which is based on the other readout routine)
+    //Increasing speed destroys calibration at high end
+    _exp(1, IPU_PORT_RD)
+    _exp(0, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+    
+    // whole plane sampling loop
+    _mov(sy, 0)
+    #spi_rm_loop_row
+        _nop
+         _exp(7, IPU_PORT_ADC_FEAMP)
+        // row address
+        _exp(sy, IPU_PORT_ADDR) 
+        _exp(1, IPU_PORT_LR)
+        _exp(0, IPU_PORT_LR)
+        
+        // column address
+        _mov(sx, 0)
+        _exp(sx, IPU_PORT_ADDR) 
+         
+        _exp(1, IPU_PORT_LC)
+//        _exp(0, IPU_PORT_LC)
+         _exp(6, IPU_PORT_ADC_FEAMP)
+ 
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        
+        #spi_rm_loop_col
+            _nop
+            
+            _add(sx, 1)
+            
+            // sample and store in sw
+            _call(#_ipu_sw_sample_ana)
+           
+            // column address
+            
+            _exp(7 , IPU_PORT_ADC_FEAMP) //Set low gain
+            _exp(sx, IPU_PORT_ADDR)
+            _exp(6, IPU_PORT_ADC_FEAMP) //Set high gain
+            
+            // send result
+            spi.send_byte(sw)
+            
+            _cmp(sx,0)
+        _jump(nz, #spi_rm_loop_col)
+        _nop
+        
+        _add(sy, 1)
+    _jump(nz, #spi_rm_loop_row)
+    _nop
+    
+    _exp(1, IPU_PORT_SPI_FIFO_FLUSH)// trigger high when fifo > 0
+    _exp(0, 253)
+    // clocks back to normal (9MHz at 90MHz clk)
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+_ret
+
+//------------------------------------------------------------------------------
+
+#_ipu_sa_readout_64_rm_spi
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(0, IPU_PORT_SPI_FIFO_FLUSH)// trigger high when fifo > 256
+    _exp(1, 253)
+    
+    _exp(7, IPU_PORT_ADC_FEAMP)
+    
+    // spi header
+    spi.send_byte('0x20')// signature
+    spi.send_byte('0x16')
+    spi.send_byte('0xAA')
+    spi.send_byte('0x05')// payload type
+    spi.send_byte('0x04')// payload size
+    spi.send_byte('0x10')
+    spi.send_byte('0x00')
+    spi.send_byte('0x19')// header checksum
+    
+    // uint32: loop counter
+    
+    // uint16: width 
+    spi.send_byte('0x40')
+    spi.send_byte('0x00')
+    
+    // uint16: height
+    spi.send_byte('0x40')
+    spi.send_byte('0x00')
+    
+    // Set Block Size
+    _exp(0, IPU_PORT_ADDR) //was0
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    
+    // ADC Delay
+    _exp(8, IPU_PORT_ADC_DELAY) //For this algo, the critical factor is how well IN matches calibration (which is based on the other readout routine)
+    //Increasing speed destroys calibration at high end
+    _exp(1, IPU_PORT_RD)
+    _exp(0, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+    
+    // whole plane sampling loop
+    _mov(sy, 0)
+    #spi_rm_64_loop_row
+        _nop
+         _exp(7, IPU_PORT_ADC_FEAMP)
+        // row address
+        _exp(sy, IPU_PORT_ADDR) 
+        _exp(1, IPU_PORT_LR)
+        _exp(0, IPU_PORT_LR)
+        
+        // column address
+        _mov(sx, 0)
+        _exp(sx, IPU_PORT_ADDR) 
+         
+        _exp(1, IPU_PORT_LC)
+//        _exp(0, IPU_PORT_LC)
+         _exp(6, IPU_PORT_ADC_FEAMP)
+ 
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        
+        #spi_rm_64_loop_col
+            _nop
+            
+            _add(sx, 4)
+            
+            // sample and store in sw
+            _call(#_ipu_sw_sample_ana)
+           
+            // column address
+            
+            _exp(7 , IPU_PORT_ADC_FEAMP) //Set low gain
+            _exp(sx, IPU_PORT_ADDR)
+            _exp(6, IPU_PORT_ADC_FEAMP) //Set high gain
+            
+            // send result
+            spi.send_byte(sw)
+            
+            _cmp(sx,0)
+        _jump(nz, #spi_rm_64_loop_col)
+        _nop
+        
+        _add(sy, 4)
+    _jump(nz, #spi_rm_64_loop_row)
+    _nop
+    
+    _exp(1, IPU_PORT_SPI_FIFO_FLUSH)// trigger high when fifo > 0
+    _exp(0, 253)
+    // clocks back to normal (9MHz at 90MHz clk)
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+_ret

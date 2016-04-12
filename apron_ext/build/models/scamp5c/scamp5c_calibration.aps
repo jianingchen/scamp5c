@@ -5,6 +5,7 @@
 _exp(19, IPU_PORT_POWER) //power up Analog
 _nop
     _nop
+    _exp(7 , IPU_PORT_ADC_FEAMP) //Power up op-amps
     _exp(32, IPU_PORT_CLK_SWITCH)//really slow clock
     _nop
     _exp(19, IPU_PORT_POWER) //power up Analog
@@ -27,10 +28,7 @@ _nop
     _exp(252, IPU_PORT_POWER) //POwer up VDDA
     _exp(32, IPU_PORT_CLK_SWITCH)//really slow clock
     _nop
-    _call(#_ipu_st_delay)
-    _nop
-    _call(#_ipu_st_delay)
-    _nop
+
     
     _nop
 
@@ -57,12 +55,12 @@ _nop
 		_exp(16, IPU_PORT_DACS) //ADCrefhi
 		_exp(234, IPU_PORT_B)//ADCrefhi
 	_exp(17, IPU_PORT_DACS)//1VrefAmpA
-	_exp(71, IPU_PORT_B)//1VrefAmpA
+	_exp(71, IPU_PORT_B)//1VrefAmpA //was 71
 	_exp(18, IPU_PORT_DACS) //Secampoffset
-	_exp(102, IPU_PORT_B)//Secampoffset 105 first board! //102 and 248 first board
+	_exp(122, IPU_PORT_B)//Secampoffset 105 first board! //102 and 248 first board last 102
 	_exp(248, IPU_PORT_DACsLSBs) //Increase to increase A= ; out A return
 	_exp(19, IPU_PORT_DACS)//1VrefAMPB
-	_exp(71, IPU_PORT_B)//1VrefAMPB //was72
+	_exp(68, IPU_PORT_B)//1VrefAMPB //was72
 	_exp(0, IPU_PORT_DACsLSBs)
 	_exp(20, IPU_PORT_DACS) //ADCreflo
 	_exp(23, IPU_PORT_B)//ADCreflo
@@ -74,7 +72,10 @@ _nop
 	_exp(117, IPU_PORT_B)//empty
 	_exp(0, IPU_PORT_DACS) //set for ordinary portB commands
 //end set voltages
-
+	    _call(#_ipu_st_delay)
+    _nop
+    _call(#_ipu_st_delay)
+    _nop
 !macro_end
 
 !macro_def
@@ -83,16 +84,30 @@ _nop
 	_exp(8, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
 	_exp(0, IPU_PORT_RD)
 	_nop
-	all
-	_exp(106, IPU_PORT_B)
+	
+	 set('wrf')
+	 all
+	_mov(s6,102)// Start at 106
+	_exp(s6, IPU_PORT_B)
 	_exp(18, IPU_PORT_DACS) //Setting SecAmpOffset
-	_mov(s6,105)// Start at 106
+	_exp(s6, IPU_PORT_B)
+	_call(#_ipu_st_delay)
+	_call(#_ipu_st_delay)
+	_call(#_ipu_st_delay)
+	_call(#_ipu_st_delay)
+		_call(#_ipu_st_delay)
+	_call(#_ipu_st_delay)
+	_call(#_ipu_st_delay) //Delay insertion turns out to be somewhat critical...
+		_call(#_ipu_st_delay)
+	_call(#_ipu_st_delay)
+	_nop
+
 	 #CcycleMSBB
 	 _nop
 	 _mov(s5,240) //Start at 0. 240 is "zero" when you look at the 4 LSBs. A bug in hardware perhaps
 	 #CcycleLSBB
 	 _nop
-	 _exp(2,248)
+	 _exp(6,248)
 	 _exp(8, IPU_PORT_CLK_SWITCH) 
 	 _exp(0, IPU_PORT_RD)
 	_nop
@@ -107,6 +122,8 @@ _nop
 	set('SEL1' 'ana' ) 
  	_call(#Calibreadout)
 	 _nop
+	 
+	  _nop
 	_add(sw,131)//subtract 131 from ReadData Set at 131 since it appears to work.
 	_jump(c, #FoundCentre)//if a carry occurs it means 128 reached
 	_nop
@@ -118,8 +135,14 @@ _nop
 	  _nop
 	  #FoundCentre
 	  _nop
-	 _exp(23, IPU_PORT_DACS) //empty Adding this seems to make it work better (reason?)
-	 _exp(0, IPU_PORT_DACS) 
+	  
+	//_exp(18, IPU_PORT_DACS) //Setting SecAmpOffset
+//	_exp(62, IPU_PORT_B)
+	//	_exp(18, IPU_PORT_DACS) //Setting SecAmpOffset
+// 	_nop
+ 	 _exp(23, IPU_PORT_DACS) //empty Adding this seems to make it work better (reason?)
+ 	 _exp(0, IPU_PORT_DACS) 
+ 	 _nop
 !macro_end
 
 !macro_def
@@ -138,13 +161,13 @@ _nop
 	
 	// Set ADC Delay
 
-	_exp(3, IPU_PORT_ADC_DELAY)
+	_exp(8, IPU_PORT_ADC_DELAY)
 	_exp(63, IPU_PORT_ADDR) //use pixel at (63,63)
 	_exp(1, IPU_PORT_LR)
 	//_exp(0, IPU_PORT_LR)
 	_exp(1, IPU_PORT_LC)
 	//_exp(0, IPU_PORT_LC)
-	_exp(2, 248)
+	_exp(6, 248)
 
  	_exp(1,IPU_PORT_calib) //OK. Now we're calibrating
  	
@@ -223,82 +246,123 @@ _nop
 	 _nop
 !macro_end
 
-#Calibreadout
-//!macro_begin
-//This reads towards the  63x63 pixels in the same manner as a larger readout
 
-	_exp(255, IPU_PORT_CLK_SWITCH)
-	_nop
-	_exp(1, IPU_PORT_RD)
-		_nop
-//	nop
-	//set()
-	_exp(0, IPU_PORT_LR)
+#Calibreadout	
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+      _exp(1, IPU_PORT_RD)
+    _exp(7, IPU_PORT_ADC_FEAMP)
+ 
+    // image header packet
+  
+    
+    // Set Block Size
+//     _exp(255, IPU_PORT_ADDR) //was0
+//     _exp(1, IPU_PORT_LRX)
+//     _exp(0, IPU_PORT_LRX)
+//     _exp(1, IPU_PORT_LCX)
+//     _exp(0, IPU_PORT_LCX)
+    
+        _exp(0, IPU_PORT_ADDR) //was0
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    
+    // Set ADC Delay
 
-
-	// Set ADC Delay
-	//_imp(s8, 20)//8 looks good //was 5 on previous
-	_exp(3, IPU_PORT_ADC_DELAY) //1 seems good, slower looks worse. Go faster than 3 (which you can) and you get visible addressing noise (external wire)
-	_exp(3, 248) 
-	_exp(61, IPU_PORT_ADDR) 
-	_exp(1, IPU_PORT_LR)
-	//_exp(0, IPU_PORT_LR)
-	_mov(s1, 61) //was61
-
-	#loop_colB
-	_nop
-		// Set Column address
-		_exp(s1, IPU_PORT_ADDR) 
-		_exp(1, IPU_PORT_LC)
-		_exp(0, IPU_PORT_LC)
- 		_mov(s2,0)
- 		_exp(s2, IPU_PORT_ADDR) 
- 		_exp(1, IPU_PORT_LR)
- 		_exp(2, 248) //setup VGA --AorBOP Norm = 0 (8); EnB Norm  0 (4) ; EnA Norm = 2 (0) ;AorBIP Norm = 0 (1) (So Norm = 2; open cct = 1)
-
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			
-		
-			
-		#loop_rowB
-			_nop
-			_add(s2, 1)	
-			// Set Row address
-			
-			_call(#_ipu_sw_sample_ana)
-			//_exp(s9, IPU_PORT_ADDR)
-				_exp(s2, IPU_PORT_ADDR)
-				_exp(2, 248)
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			_nop
-			//ipu.sendbyte(s3)
-			_cmp(s2,63)
-			_jump(nz, #loop_rowB)
-			_nop
-				_exp(7, 248) //setup VGA --AorBOP Norm = 0 (8); EnB Norm  0 (4) ; EnA Norm = 2 (0) ;AorBIP Norm = 0 (1) (So Norm = 2; open cct = 1)
-			_add(s1, 1)
-			_cmp(s1,63)
-		_jump(nz, #loop_colB)
-	_nop
+    _exp(8, IPU_PORT_ADC_DELAY) //For this algo, the critical factor is how well IN matches calibration (which is based on the other readout routine)
+    //Increasing speed destroys calibration at high end
+  
+    _exp(63, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+    _exp(1, IPU_PORT_LC)
+    _exp(0, IPU_PORT_LC)
+    
+     // 255 dummy samples to smooth out acquisition
+//     _mov(su,0)
+//     #dummy22
+//         _nop
+//         _call(#_ipu_sw_sample_ana)
+//         _add(su, 1)
+//     _jump(nz, #dummy22)
+//     _nop
+    
+    // whole plane sampling loop
+    _mov(sy, 60)
+    #rm_loop_row2
+        _nop
+         _exp(7, IPU_PORT_ADC_FEAMP)
+        // row address
+        _exp(0, IPU_PORT_LC)
+        _exp(sy, IPU_PORT_ADDR) 
+        _exp(1, IPU_PORT_LR)
+        _exp(0, IPU_PORT_LR)
+        
+        // column address
+         _exp(sx, IPU_PORT_ADDR)
+          _exp(1, IPU_PORT_LC)
+        _mov(sx, 0)
+        _exp(sx, IPU_PORT_ADDR) 
+         
+       
+//        
+_nop
+         _exp(6, IPU_PORT_ADC_FEAMP)
+ 
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        _nop
+        
+        
+        #rm_loop_col2
+            _nop
+            
+            _add(sx, 1)
+            
+            // sample and store in sw
+            _call(#_ipu_sw_sample_ana)
+                      // column address
+           _exp(7 , IPU_PORT_ADC_FEAMP) //Set low gain
+            _exp(sx, IPU_PORT_ADDR)
+//             _exp(1, IPU_PORT_LC)
+//             _exp(0, IPU_PORT_LC)
+//_exp(0, IPU_PORT_RD)
+		//	_mov(sw, s9)
+            _exp(6, IPU_PORT_ADC_FEAMP) //Set high gain
+             //_exp(1, IPU_PORT_RD)
+             _nop
+             _nop
+             _nop //Three nops worked for boxes 0 and 2
+             _nop
+ //             _nop //Five for box 1
+//              _nop
+//              _nop
+//      
+         
+            _cmp(sx,63)
+        _jump(nz, #rm_loop_col2)
+        _nop
+        
+        _add(sy, 1)
+        _cmp(sy,63)
+    _jump(nz, #rm_loop_row2)
+    _nop	
+	
+	
 _ret

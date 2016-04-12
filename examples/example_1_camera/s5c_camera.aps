@@ -1,22 +1,33 @@
+//
+// Example Program: Simple Camera
+//
 
+//// Host Configuration
 apron.config_begin
-    sim.pix_source_webcam // use webcam as image source in simulation
-    host.template('scamp5c_host_template.txt')
+    // specify host template and bit file 
+    host.template('../scamp5c_host_template.txt')
     host.firmware('../ok_s5c_ipu.bit')
+    
+    // set frame rate for the scamp5c hardware
     host.set_frame_rate(25)
+    
+    // set image source when run as simulation
+    sim.pix_source_webcam
+    
+    // create two display window in the host UI, one for each of the image sent back
     window_1 = host.add_display('HalfRange')
     window_2 = host.add_display('FullRange')
 apron.config_end
 
+//// SCAMP-5c Program
 #start
-    ipu.wait_frame_trigger
+    // load the image captured in PIX to two register planes and reset PIX
+    rpix(B,C)
     
-    pe.rpix(B,C)
-    
+    // send areg plane B to "HalfRange" window in the host UI
     usb.aout(B,window_1)
     
-    pe.rpix // this keeps the exposure time to be one "usb.aout" (not essential)
-    
+    // send areg plane C to "FullRange" window in the host UI
     usb.aout(C,window_2)
     
 _jump(#start)

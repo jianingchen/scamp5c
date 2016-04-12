@@ -1,3 +1,6 @@
+//
+// Example Program: Analogue Region Sum
+//
 
 apron.config_begin
     sim.pix_source_webcam

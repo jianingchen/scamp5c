@@ -1,7 +1,10 @@
+//
+// Example Program: AREG Neighbour Accesss (Shifting Image)
+//
 
 apron.config_begin
     sim.pix_source_webcam
-    host.template('scamp5c_host_template.txt')
+    host.template('../scamp5c_host_template.txt')
     host.firmware('../ok_s5c_ipu.bit')
     host.set_frame_rate(25)
     slider_1 = host.add_slider('shift h', 0, 255, 16, 1, 1)
@@ -12,8 +15,6 @@ apron.config_end
 
 #start
 
-    ipu.wait_frame_trigger
-    
     rpix(B,C)
     
     usb.aout(C,window_1)
@@ -21,23 +22,25 @@ apron.config_end
     A = copy(C)
     
     s0 = usb.slider(slider_1) // will set the z-flag if s0 is zero
-    _jump(z, #end_loop_shift_h)
+    _cmp(s0,0)
+    _jump(z,#end_loop_shift_h)
     #begin_loop_shift_h
         
         A = pe.west(A)
         
-    _sub(s0, 1)
+    _sub(s0,1)
     _jump(nz,#begin_loop_shift_h)
     #end_loop_shift_h
     
     
     s0 = usb.slider(slider_2)
-    _jump(z, #end_loop_shift_v)
+    _cmp(s0,0)
+    _jump(z,#end_loop_shift_v)
     #begin_loop_shift_v
     
         A = pe.south(A)
         
-    _sub(s0, 1)
+    _sub(s0,1)
     _jump(nz,#begin_loop_shift_v)
     #end_loop_shift_v
     

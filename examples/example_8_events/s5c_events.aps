@@ -1,6 +1,11 @@
+//
+// Example Program: Events Scanning
+//
 
 apron.config_begin
-    host.template('scamp5c_host_template.txt')
+    sim.pix_source_webcam
+    host.set_frame_rate(50)
+    host.template('../scamp5c_host_template.txt')
     host.firmware('../ok_s5c_ipu.bit')
     window_1 = host.add_display('source')
     window_2 = host.add_display('result')
@@ -8,8 +13,6 @@ apron.config_begin
     slider_2 = host.add_slider('x', 0, 255, 40, 1, 1)
     slider_3 = host.add_slider('y', 0, 255, 30, 1, 1)
     data_1 = host.add_datasheet('coords',16,2,ROW_STREAM)
-    host.set_frame_rate(50)
-    sim.pix_source_webcam
 apron.config_end
 
 #start
@@ -36,7 +39,7 @@ apron.config_end
     _mov(s0,16)
     #scan_event
         
-        // locate a '1'
+        // locate a '1' in R5 DREG plane
         pro.locate_event(R5,s1,s2)
         
         // send the coordinates
