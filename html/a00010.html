@@ -151,25 +151,25 @@ Native PE Instructions</h2>
 <tr>
 <td><code>not</code> </td><td><code>"R1 = not(R2)"</code> </td><td>logical NOT for digital registers </td></tr>
 </table>
-<p>(*) Simulation support for <code>"load"</code> has not been finished yet, but it is supposed to be used when a native arthematic operation need to be used.</p>
+<p>(*) Simulation support for <code>"load"</code> has not been finished yet, but it is planned to be used when a native arthematic operation need to be used.</p>
 <h2><a class="anchor" id="pe_instructions_sec_4"></a>
 Analogue Saturation</h2>
 <p>Each of the analogue registers stores a signed value using current. When the value of an analogue register need to be read by any digital device (such as the PC host), it is digitized an 8-bit integer with range [-127,127] while maximum and minimum represent the min max value inherited from the sources of all values (<code>IN</code> and <code>PIX</code>). However, after arthmatic operations are applied, the value store in a analogue register can go beyond that range.</p>
 <p>For example, the following addition will result a value around 150 to be stored in <code>A:</code> </p><div class="fragment"><div class="line">B = pe.in(-70)</div>
 <div class="line">C = pe.in(-80)</div>
-<div class="line">A = B C</div>
+<div class="line">A = pe.add(B,C)</div>
 </div><!-- fragment --><p>However, when <code>A</code> is read out, the value will still be 127 as it is the maximum value the ADC can provide.</p>
 <p>The exact value stored internally can be checked by dividing the result of an addition: </p><div class="fragment"><div class="line">B = pe.in(-80)</div>
 <div class="line">C = pe.in(-70)</div>
-<div class="line">A = B C</div>
-<div class="line">D E = A</div>
+<div class="line">A = pe.add(B,C)</div>
+<div class="line">pe.div(A,D,E)</div>
 </div><!-- fragment --><p>After the above code, <code>'D'</code> and <code>E</code> will be roughly -75 which implies <code>A</code> holds a value around 150.</p>
 <p>Nevertheless, the internal value will start diminishing when it is too big. However, there is not a hard threshould.</p>
 <p>(TODO: soft saturation plot) </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 12 2016 14:02:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

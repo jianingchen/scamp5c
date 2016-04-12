@@ -99,10 +99,12 @@ Files</h2></td></tr>
 <p>Configuration of the simulation and the SCAMP-5 hosting environment. </p>
 <h1><a class="anchor" id="sec_host_sim_1"></a>
 Introduction</h1>
-<p>(TODO)</p>
+<p>In a SCAMP-5c source code, there are two sections: the host configuration section and the program. The host configuration section configures APRON to cooperate with the SCAMP-5c program. For example, setup a display window for each of the image readout in the program, or create sliders for user to input values to the system.</p>
+<p>To make any changes in the config section effective, APRON need to be restarted if it is running. In contrast, when the program is recompiled with only changes in the program seciton, the APRON will automatically reprogram the new ICW file.</p>
 <h1><a class="anchor" id="sec_host_sim_2"></a>
 Example Usage</h1>
-<div class="fragment"><div class="line">apron.config_begin</div>
+<div class="fragment"><div class="line"><span class="comment">// Host Configuration Section</span></div>
+<div class="line">apron.config_begin</div>
 <div class="line">    sim.pix_source_webcam()<span class="comment">// use webcam as image source when in simulation</span></div>
 <div class="line">    sim.use_error_model(2)<span class="comment">// specify what level of error the simulation will use</span></div>
 <div class="line">    host.template(<span class="stringliteral">&#39;scamp5c_host_template.txt&#39;</span>)<span class="comment">// specify host template file</span></div>
@@ -113,10 +115,18 @@ Example Usage</h1>
 <div class="line">    window_1 = host.add_display(<span class="stringliteral">&#39;Captured&#39;</span>)</div>
 <div class="line">    window_2 = host.add_display(<span class="stringliteral">&#39;Processed&#39;</span>)</div>
 <div class="line">apron.config_end</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// SCAMP-5c Program Section</span></div>
+<div class="line">...</div>
+<div class="line">    s0 = usb.slider(slider_1)<span class="comment">// s0 will get the value of the slider named &quot;parameter a&quot;</span></div>
+<div class="line">    s1 = usb.slider(slider_2)<span class="comment">// s0 will get the value of the slider named &quot;parameter b&quot;</span></div>
+<div class="line">    usb.aout(A,window_1)<span class="comment">// this image will be shown in the window named &quot;Captured&quot;</span></div>
+<div class="line">    usb.aout(B,window_2)<span class="comment">// this image will be shown in the window named &quot;Processed&quot;</span></div>
+<div class="line">...</div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 12 2016 14:02:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

@@ -144,7 +144,7 @@ Functions</h2></td></tr>
 <div class="image">
 <img src="module_async_propagation.png" alt="module_async_propagation.png"/>
 </div>
-<p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = P.flood_from_boundary(R2)" is invalid.</p>
+<p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = pro.flood_from_boundary(R2)" is invalid.</p>
 <p>Example Usage:</p>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R1 = pro.flood_from_boundary(R5)</div>
 </div><!-- fragment --> 
@@ -184,7 +184,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the flooded DREG plane</dd></dl>
 <p>Used DREG: R0, R1, R2, R3, R4, R12</p>
-<p>This process is similar to ::P_flood_from_boundary. The only difference is that the source of the flood are from the '1's in another DREG plane rather than the boundary.</p>
+<p>This process is similar to <a class="el" href="a00027.html#ad1cddbff61561dccf8b82ca528e5b70e" title="flooding a DREG plane with &#39;1&#39;s from the boundary ">pro_flood_from_boundary</a>. The only difference is that the source of the flood are from the '1's in another DREG plane rather than the boundary.</p>
 <div class="image">
 <img src="module_async_propagation2.png" alt="module_async_propagation2.png"/>
 </div>
@@ -195,7 +195,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;R5 = pro.flood_from_source(R8,R5)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;R5 = pro.flood_from_source(R8,R5)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;R5 = pro.flood_from_source(R8,R5)</div>
-</div><!-- fragment --><p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = P.flood_from_source(R2,R3)" is invalid.</p>
+</div><!-- fragment --><p>Note: the DREG that are used inside this macro cannot be used as the control register. For example, "R1 = pro.flood_from_source(R2,R3)" is invalid.</p>
 <p>Example Usage:</p>
 <p>Flooding R1 from coordinates (100,50): </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.set_pixel(R6,100,50)</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;R1 = pro.flood_from_source(R5,R6)</div>
@@ -344,7 +344,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 12 2016 14:02:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

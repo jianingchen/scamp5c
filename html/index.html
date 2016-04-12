@@ -116,13 +116,59 @@ File List</h1>
 </ul>
 <p><br />
  </p>
-<h1><a class="anchor" id="sec_startup"></a>
+<h1><a class="anchor" id="sec_getstart"></a>
 Getting Started</h1>
-<p>One can follow the steps in <a class="el" href="a00008.html">Development Environment Setup</a> to setup the development environment. </p>
+<h2><a class="anchor" id="sec_getstart_1"></a>
+1. Development Environment Setup</h2>
+<p>The SCAMP-5c system has its own programming language with a customized toolchain. The toolchain compiles source code into machine code (ICW file). A software called APRON is used to load the machine code into the system as well as host the system on PC through a GUI. Alternatively, a source code can be executed as a simulation in APRON directly. The source code is edited using Crimson Editor as it has the shortcut for the toolchain. The hardware implemention of SCAMP-5c is partially based on a FPGA development board from Opal-Kelly, so the coresspoonding driver is required.</p>
+<p>One can follow the steps in <a class="el" href="a00008.html">Development Environment Setup</a> to setup the development environment.</p>
+<p><a class="el" href="a00002.html">Development Environment Guide</a> introduces the development environment.</p>
+<h2><a class="anchor" id="sec_getstart_2"></a>
+2. The "Hello World!" Example</h2>
+<p>The following program simply makes the SCAMP-5c into a webcam, which sends every frame captured to the host PC without any significant image processing.</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;// Host Configuration Section</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;apron.config_begin</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    sim.pix_source_webcam</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    host.template(&#39;scamp5c_host_template.txt&#39;)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    host.firmware(&#39;ok_s5c_ipu.bit&#39;)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    host.set_frame_rate(25)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    window_1 = host.add_display(&#39;HalfRange&#39;)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    window_2 = host.add_display(&#39;FullRange&#39;)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;apron.config_end</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;// SCAMP-5c Program Section</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;#start</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    ipu.wait_frame_trigger</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    rpix(B,C)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    usb.aout(B,window_1)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    usb.aout(C,window_2)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;_jump(#start)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;apron.genereate_host</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;apron.compile_host</div>
+</div><!-- fragment --><p>To run this program, following these steps:</p><ol type="1">
+<li>copy the code and save in a text file with .aps extension.</li>
+<li>make a copy of "ok_s5c_ipu.bit" in "./examples" folder and put it alongside the aps file.</li>
+<li>make a copy of "scamp5c_host_template.txt" in "./examples" folder and put it alongside the aps file.</li>
+<li>open the aps file in Crimson Editor.</li>
+<li>compile the file using "Tools" -&gt; "SCAMP5-c Compile ICW" (or with hotkey Ctrl-3)</li>
+<li>launch the program in APRON "Tools" -&gt; "SCAMP5-c Host ICW" (or with hotkey Ctrl-4)</li>
+<li>in APRON, click "Run" in the toolbar.</li>
+</ol>
+<p>As indicated by the comment lines, there are two sections in the sourcecode: the host configuration and the scamp5c program. If modification has been done to the host configuration section, APRON need to be restarted. If only the program section has been changed, APRON will automatically update the program for the system when the compilation (Ctrl-3) is finished.</p>
+<p>Note, the location of the bit file and template file can be varied, as long as they are correctly located in line #5 and line #6 in the above code.</p>
+<h2><a class="anchor" id="sec_getstart_3"></a>
+3. More Examples and Documentation</h2>
+<p><a class="el" href="a00004.html">Example Guideline</a> introduces all of the examples provided in the repository. To learn the functions in the source code , it is recommanded to search the function name with '.' replaced by '_'. For example, to get an idea of what "usb.aout" is, search for "usb_aout". For those functions with no perfix (e.g. "rpix"), one should search for "pe_" + the function name (e.g. "pe_rpix"). </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 12 2016 14:02:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

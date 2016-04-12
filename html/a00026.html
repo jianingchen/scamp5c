@@ -428,12 +428,12 @@ Functions</h2></td></tr>
 <p>set an analogue register for all pe with a value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>a value with a range of [0,255]</td></tr>
+    <tr><td class="paramname">v</td><td>a value with a range of [-128,127]</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the analogue register to store the value</dd></dl>
-<p>The ranged is shifted by 127, so the actual value applied is (v - 127)</p>
+<p>The value used is an signed 8-bit integer. Thus, value warp will occur when overflow or underflow happens. For example, "in(128)" is essentially "in(-128)" and "in(-129)" is "in(127)".</p>
 <p>Example Usage:</p>
 <p>Filling register A with 50: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;A = pe.in(50)</div>
 </div><!-- fragment --><p>Filling register A with a value read from a slider on the host: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = usb.slider(my_slider_1)</div>
@@ -546,7 +546,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 12 2016 14:02:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

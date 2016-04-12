@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: User Guide for Apron UI</title>
+<title>SCAMP-5c Vision System: Development Environment Guide</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -81,13 +81,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">User Guide for Apron UI </div>  </div>
+<div class="title">Development Environment Guide </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"></div></div><!-- contents -->
+<div class="textblock"><h1><a class="anchor" id="dev_ui_sec_1"></a>
+Toolchain and Files</h1>
+<p>The workflow of a hardware compilation and hosting: </p><div class="image">
+<img src="drawing_toolchain_hardware.png" alt="drawing_toolchain_hardware.png"/>
+</div>
+<p>Explanation of files:</p><ul>
+<li>source file (.aps): the source code of a SCAMP-5c program for both simulation and hardware.</li>
+<li>host template (.txt): this contains a template of the APRON Runtime UI for hosting the hardware.</li>
+<li>bit file: the ipu of SCAMP-5c is implemented using a FPGA and the bit file is the configuration for the FPGA.</li>
+<li>icw file: the compiled code of a SCAMP-5c program that can be run on the hardware.</li>
+</ul>
+<p>The workflow of a simulation: </p><div class="image">
+<img src="drawing_toolchain_simulation.png" alt="drawing_toolchain_simulation.png"/>
+</div>
+<h1><a class="anchor" id="dev_ui_sec_2"></a>
+Source Code &amp; Editor</h1>
+<div class="image">
+<img src="doc_editor_ui.png" alt="doc_editor_ui.png"/>
+</div>
+<h1><a class="anchor" id="dev_ui_sec_3"></a>
+APRON Runtime UI</h1>
+<div class="image">
+<img src="doc_apron_ui.png" alt="doc_apron_ui.png"/>
+</div>
+ </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 11 2016 16:31:04 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 12 2016 14:02:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
