@@ -134,6 +134,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ad68fa867e21e5ecc4a60f44baa4aa1bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#ad68fa867e21e5ecc4a60f44baa4aa1bc">ipu_pixel_set</a> (<a class="el" href="a00012.html">dreg</a> b1, <a class="el" href="a00016.html">rint</a> x, <a class="el" href="a00016.html">rint</a> y)</td></tr>
 <tr class="memdesc:ad68fa867e21e5ecc4a60f44baa4aa1bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">set one pixel in a DREG plane  <a href="#ad68fa867e21e5ecc4a60f44baa4aa1bc">More...</a><br /></td></tr>
 <tr class="separator:ad68fa867e21e5ecc4a60f44baa4aa1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b45050f479fcf56fde68b6c543135f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#a7b45050f479fcf56fde68b6c543135f8">ipu_pixel_select</a> (<a class="el" href="a00012.html">dreg</a> b1, <a class="el" href="a00016.html">rint</a> x, <a class="el" href="a00016.html">rint</a> y, <a class="el" href="a00016.html">rint</a> mx, <a class="el" href="a00016.html">rint</a> my)</td></tr>
+<tr class="memdesc:a7b45050f479fcf56fde68b6c543135f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set all pixel a DREG plane of which their coordinates match the rules  <a href="#a7b45050f479fcf56fde68b6c543135f8">More...</a><br /></td></tr>
+<tr class="separator:a7b45050f479fcf56fde68b6c543135f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a025e51ee743e1ee759948408a4b4a20d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00015.html">reg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#a025e51ee743e1ee759948408a4b4a20d">ipu_global_sum</a> (<a class="el" href="a00011.html">areg</a> a, <a class="el" href="a00016.html">rint</a> k)</td></tr>
+<tr class="memdesc:a025e51ee743e1ee759948408a4b4a20d"><td class="mdescLeft">&#160;</td><td class="mdescRight">sum all pixels in a AREG plane, then sample  <a href="#a025e51ee743e1ee759948408a4b4a20d">More...</a><br /></td></tr>
+<tr class="separator:a025e51ee743e1ee759948408a4b4a20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae67c1f24e4bec58094a95fddb5282215"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#ae67c1f24e4bec58094a95fddb5282215">ipu_wait_frame_trigger</a> ()</td></tr>
 <tr class="memdesc:ae67c1f24e4bec58094a95fddb5282215"><td class="mdescLeft">&#160;</td><td class="mdescRight">wait until a frame trigger is detected  <a href="#ae67c1f24e4bec58094a95fddb5282215">More...</a><br /></td></tr>
 <tr class="separator:ae67c1f24e4bec58094a95fddb5282215"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -450,6 +456,107 @@ Functions</h2></td></tr>
 </div><!-- fragment --> 
 </div>
 </div>
+<a class="anchor" id="a7b45050f479fcf56fde68b6c543135f8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ipu_pixel_select </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00012.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>b1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>mx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>my</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set all pixel a DREG plane of which their coordinates match the rules </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b1</td><td>the DREG plane </td></tr>
+    <tr><td class="paramname">x</td><td>x coordinate match of the pixels </td></tr>
+    <tr><td class="paramname">y</td><td>y coordinate match of the pixels </td></tr>
+    <tr><td class="paramname">mx</td><td>x coordinate mask of the pixels </td></tr>
+    <tr><td class="paramname">my</td><td>y coordinate mask of the pixels</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Example Usage:</p>
+<p>For R5 DREG plane, make all pixel with x and y coordinates in in the format "xxxxx101" (binary form) to be 1: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.pixel_select(R5,5,5,248,248)</div>
+</div><!-- fragment --><p> Note:</p>
+<p>Binary form of 248 is 11111000, which is used as the coordinate mask.</p>
+<p>Binary form of 5 is 00000101. which is used as the matching part. </p>
+
+</div>
+</div>
+<a class="anchor" id="a025e51ee743e1ee759948408a4b4a20d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00015.html">reg</a> ipu_global_sum </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>k</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sum all pixels in a AREG plane, then sample </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>the AREG plane </td></tr>
+    <tr><td class="paramname">k</td><td>the ADC gain of sampling</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the sampling result</dd></dl>
+<p>The ADC gain value need to be determined through testing.</p>
+<p><a class="el" href="a00004.html#sec_example_guide_2_11">Example 11: Analogue Regional Summation</a> demonstrates how to sum only a specific region in a AREG plane.</p>
+<p>Example Usage:</p>
+<p>Sum all pixels in A with a ADC gain of 15, store the sampling result in s0: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;s0 = ipu.global_sum(A,15)</div>
+</div><!-- fragment --> 
+</div>
+</div>
 <a class="anchor" id="ae67c1f24e4bec58094a95fddb5282215"></a>
 <div class="memitem">
 <div class="memproto">
@@ -475,7 +582,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 12 2016 14:02:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 12 2016 15:23:14 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

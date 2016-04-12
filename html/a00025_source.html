@@ -132,23 +132,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<a class="code" href="a00025.html#ae67c1f24e4bec58094a95fddb5282215">ipu_wait_frame_trigger</a>();</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<a class="code" href="a00025.html#a7b45050f479fcf56fde68b6c543135f8">ipu_pixel_select</a>(<a class="code" href="a00012.html">dreg</a> b1,<a class="code" href="a00016.html">rint</a> x,<a class="code" href="a00016.html">rint</a> y,<a class="code" href="a00016.html">rint</a> mx,<a class="code" href="a00016.html">rint</a> my);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<a class="code" href="a00015.html">reg</a> <a class="code" href="a00025.html#a025e51ee743e1ee759948408a4b4a20d">ipu_global_sum</a>(<a class="code" href="a00011.html">areg</a> a,<a class="code" href="a00016.html">rint</a> k);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<a class="code" href="a00025.html#ae67c1f24e4bec58094a95fddb5282215">ipu_wait_frame_trigger</a>();</div>
 <div class="ttc" id="a00025_html_ad68fa867e21e5ecc4a60f44baa4aa1bc"><div class="ttname"><a href="a00025.html#ad68fa867e21e5ecc4a60f44baa4aa1bc">ipu_pixel_set</a></div><div class="ttdeci">ipu_pixel_set(dreg b1, rint x, rint y)</div><div class="ttdoc">set one pixel in a DREG plane </div></div>
 <div class="ttc" id="a00025_html_a944f12213c10024477282b210c7cb5f6"><div class="ttname"><a href="a00025.html#a944f12213c10024477282b210c7cb5f6">_jump</a></div><div class="ttdeci">_jump(label l)</div><div class="ttdoc">jump the program to a labeled position </div></div>
 <div class="ttc" id="a00015_html"><div class="ttname"><a href="a00015.html">reg</a></div><div class="ttdoc">operand of this type can only be an ipu register </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:37</div></div>
 <div class="ttc" id="a00025_html_afef8afae44aff0c51a93ddac62b98b10"><div class="ttname"><a href="a00025.html#afef8afae44aff0c51a93ddac62b98b10">_sub</a></div><div class="ttdeci">_sub(reg d, rint s)</div><div class="ttdoc">subtract two data ( d = d - s ) </div></div>
+<div class="ttc" id="a00025_html_a025e51ee743e1ee759948408a4b4a20d"><div class="ttname"><a href="a00025.html#a025e51ee743e1ee759948408a4b4a20d">ipu_global_sum</a></div><div class="ttdeci">reg ipu_global_sum(areg a, rint k)</div><div class="ttdoc">sum all pixels in a AREG plane, then sample </div></div>
 <div class="ttc" id="a00025_html_a5721bf5e4170fe44517c9098de608fc5"><div class="ttname"><a href="a00025.html#a5721bf5e4170fe44517c9098de608fc5">_mov</a></div><div class="ttdeci">_mov(reg d, rint s)</div><div class="ttdoc">move data in to a register </div></div>
 <div class="ttc" id="a00025_html_ae67c1f24e4bec58094a95fddb5282215"><div class="ttname"><a href="a00025.html#ae67c1f24e4bec58094a95fddb5282215">ipu_wait_frame_trigger</a></div><div class="ttdeci">ipu_wait_frame_trigger()</div><div class="ttdoc">wait until a frame trigger is detected </div></div>
 <div class="ttc" id="a00025_html_a5867c0226c70fa39b7ec08c9d6ed77b6"><div class="ttname"><a href="a00025.html#a5867c0226c70fa39b7ec08c9d6ed77b6">_or</a></div><div class="ttdeci">_or(reg d, rint s)</div><div class="ttdoc">bitwise OR operation </div></div>
 <div class="ttc" id="a00014_html"><div class="ttname"><a href="a00014.html">port</a></div><div class="ttdoc">operand of this type can only be a port address </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:51</div></div>
 <div class="ttc" id="a00012_html"><div class="ttname"><a href="a00012.html">dreg</a></div><div class="ttdoc">operand of this type can only be a digital register </div><div class="ttdef"><b>Definition:</b> pe_digital_macros.h:39</div></div>
 <div class="ttc" id="a00025_html_ae9cb62ec6beb1bcd0855e0b400168bab"><div class="ttname"><a href="a00025.html#ae9cb62ec6beb1bcd0855e0b400168bab">_and</a></div><div class="ttdeci">_and(reg d, rint s)</div><div class="ttdoc">bitwise AND operation </div></div>
+<div class="ttc" id="a00011_html"><div class="ttname"><a href="a00011.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_analog_macros.h:55</div></div>
+<div class="ttc" id="a00025_html_a7b45050f479fcf56fde68b6c543135f8"><div class="ttname"><a href="a00025.html#a7b45050f479fcf56fde68b6c543135f8">ipu_pixel_select</a></div><div class="ttdeci">ipu_pixel_select(dreg b1, rint x, rint y, rint mx, rint my)</div><div class="ttdoc">set all pixel a DREG plane of which their coordinates match the rules </div></div>
 <div class="ttc" id="a00016_html"><div class="ttname"><a href="a00016.html">rint</a></div><div class="ttdoc">operand of this type can be either an ipu register or a constant integer </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:44</div></div>
 <div class="ttc" id="a00025_html_aca71e2705bfbd01f3a7f8e0edbcd611c"><div class="ttname"><a href="a00025.html#aca71e2705bfbd01f3a7f8e0edbcd611c">_add</a></div><div class="ttdeci">_add(reg d, rint s)</div><div class="ttdoc">add two data ( d = d + s ) </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 12 2016 14:02:31 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 12 2016 15:23:14 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
