@@ -98,6 +98,9 @@
     _nop
     _nop
     
+    keep
+    set('SEL7')
+    
     ipu.set_clock_boost
     
     // wait for rising edge

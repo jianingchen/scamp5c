@@ -145,6 +145,7 @@ _ret
             
             // sample and store in sw
             _call(#_ipu_sw_sample_ana)
+            _nop
             
             // row address
             _exp(sy, IPU_PORT_ADDR)
@@ -259,6 +260,7 @@ _ret
             
             // sample and store in sw
             _call(#_ipu_sw_sample_ana)
+            _nop
            
             // column address
             _exp(7 , IPU_PORT_ADC_FEAMP) //Set low gain
@@ -441,6 +443,7 @@ _ret
             
             // sample and store in sw
             _call(#_ipu_sw_sample_ana)
+            _nop
            
             // column address
             
@@ -556,6 +559,7 @@ _ret
             
             // sample and store in sw
             _call(#_ipu_sw_sample_ana)
+            _nop
            
             // column address
             

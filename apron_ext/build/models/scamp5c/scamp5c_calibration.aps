@@ -2,6 +2,7 @@
 !macro_def
     ipu.analog_calibrate
 !macro_begin
+	_nop
 _exp(19, IPU_PORT_POWER) //power up Analog
 _nop
     _nop
@@ -81,6 +82,7 @@ _nop
 !macro_def
 	SetCentres //Given a command A = {nothing}, we want output to deliver value of 0. Adjusts voltage SecAmpOffset to achieve this
 !macro_begin
+_nop
 	_exp(8, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
 	_exp(0, IPU_PORT_RD)
 	_nop
@@ -92,13 +94,21 @@ _nop
 	_exp(18, IPU_PORT_DACS) //Setting SecAmpOffset
 	_exp(s6, IPU_PORT_B)
 	_call(#_ipu_st_delay)
+	_nop
 	_call(#_ipu_st_delay)
+	_nop
 	_call(#_ipu_st_delay)
+	_nop
 	_call(#_ipu_st_delay)
+	_nop
 		_call(#_ipu_st_delay)
-	_call(#_ipu_st_delay)
-	_call(#_ipu_st_delay) //Delay insertion turns out to be somewhat critical...
+	_nop
 		_call(#_ipu_st_delay)
+	_nop
+		_call(#_ipu_st_delay) //Delay insertion turns out to be somewhat critical...
+	_nop
+			_call(#_ipu_st_delay)
+	_nop
 	_call(#_ipu_st_delay)
 	_nop
 
@@ -124,7 +134,7 @@ _nop
 	 _nop
 	 
 	  _nop
-	_add(sw,131)//subtract 131 from ReadData Set at 131 since it appears to work.
+	_add(sw,132)//subtract 131 from ReadData Set at 131 since it appears to work.
 	_jump(c, #FoundCentre)//if a carry occurs it means 128 reached
 	_nop
 	 _add(s5,1)
@@ -148,10 +158,24 @@ _nop
 !macro_def
 	Calib_IN_Diff
 !macro_begin
-
-//Now starting the IN calibration routine	
-	_exp(8, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
 	_nop
+	_mov(s1, 8)  //returns clocks back to normal (9MHz at 90MHz clk)
+//Now starting the IN calibration routine	
+//Bit added for running at 10MHz
+_cmp(s1,8)
+_jump(z, #skipclocks)
+_exp(0,IPU_PORT_RISE_C4)
+_exp(10,IPU_PORT_FALL_C4)
+_exp(0,IPU_PORT_RISE_C1)
+_exp(6,IPU_PORT_FALL_C1)
+_exp(6,IPU_PORT_RISE_C2)
+_exp(10,IPU_PORT_FALL_C2) //6 looks okay!
+#skipclocks
+_nop
+//End of bit added for running at 10MHz		
+	_exp(s1, IPU_PORT_CLK_SWITCH)
+	_nop
+	_exp(0, IPU_PORT_DACS) 
 	all
 	 _exp(0, IPU_PORT_ADDR) 
 	_exp(1, IPU_PORT_LRX)
@@ -173,26 +197,32 @@ _nop
  	
  	//First find the IN corresponding to the 128 position so can get the calibration right
  	_mov(s6, 255)
- 	#Find128position
+ 	_exp(15, IPU_PORT_DACsLSBs)
+ 	#Findposition
  	_nop
+ 	_sub(s6, 1)
+ 	_exp(0, IPU_PORT_RD)
  	_exp(s6, IPU_PORT_B)
- 	_exp(0, IPU_PORT_RD) 
- 	A = IN
+ 	 F =
+ 	_nop
+ 	_nop
+ 	_nop
+ 	F = IN
  	keep //not really needed since clocks turned off afterwards
-	set( 'SEL1' 'ana' )
+	set( 'SEL7' 'ana' )
 	_call(#Calibreadout)
-	_exp(8, IPU_PORT_CLK_SWITCH)
+	_nop
+	_exp(s1, IPU_PORT_CLK_SWITCH)
  	_exp(0, IPU_PORT_RD) 
 	_nop
-	_sub(s6, 1)
 	_add(sw,128)//Add 128.... so will jump and repeat if not over 128.
-	_jump(nc,#Find128position)
+	_jump(nc,#Findposition)
 	_nop
-	_mov(s12, s6) //s12 = s6 
-	//So saved the 128 value in s12
+	_mov(s4, s6) //s4 = s6 
+	//So saved the 128 value in s4
 	//Now decrementing IN values from 255
 	_mov(s6, 255)
-	 _exp(s12, IPU_PORT_B)
+	 _exp(s4, IPU_PORT_B)
  	_mov(s9,0) //Zero will be first element of table to be filled
   	_call(#_ipu_st_delay)//a delay to allow the pre-filling of zero data into array
 	_nop
@@ -204,13 +234,15 @@ _nop
 	 #cycleLSBB
 	 _nop
 	 _exp(s5, IPU_PORT_DACsLSBs)
-// 	// _nop UNDELETE this nop if trying to go at 9MHz
-	 _exp(s12, IPU_PORT_B)// I resend 128 every time since want to keep transitions the same. 
-	set('sin')	
+// 	
+	 _exp(s4, IPU_PORT_B)// I resend 128 every time since want to keep transitions the same. 
+	 A F = //	
+	// set('sin')
+	// _nop //UNDELETE this nop if trying to go at 9MHz	
 	_nop //This nop is IMPORTANT. It matches the Set, Sin, import,set, A =IN of the IN macro. It gets timing the same - replaces the missing import that isnt needed here
 	F = IN
 	_exp(s6, IPU_PORT_B) //Now exporting the new DAC value
-	// _nop UNDELETE this nop if trying to go at 9MHz
+	// _nop //UNDELETE this nop if trying to go at 9MHz
 	 A =  F IN
 	 keep //not really needed since clocks turned off afterwards
 	set( 'SEL1' 'ana' )
@@ -229,9 +261,9 @@ _nop
 	_add(s9,1)//add 1 to s9 for the next mem to be filled
 	#nostoreB
 	_nop
-	_exp(8, IPU_PORT_CLK_SWITCH)
+	_exp(s1, IPU_PORT_CLK_SWITCH)
  	_exp(0, IPU_PORT_RD) //gotta take read lo turn ordinary clocks on
-	 _exp(s12, IPU_PORT_B) //Centres the IPU port B. Can only be done here since B value is IPU imported to store in calib file
+	 _exp(s4, IPU_PORT_B) //Centres the IPU port B. Can only be done here since B value is IPU imported to store in calib file
 	 _nop
 	 _sub(s5,2)//CAHNGE BACK TO 1 if get LSB working
 	 _cmp(s5,241)
@@ -247,7 +279,8 @@ _nop
 !macro_end
 
 
-#Calibreadout	
+#Calibreadout
+_nop	
     _exp(255, IPU_PORT_CLK_SWITCH)
     _nop
       _exp(1, IPU_PORT_RD)
@@ -338,6 +371,7 @@ _nop
             // sample and store in sw
             _call(#_ipu_sw_sample_ana)
                       // column address
+                      _nop
            _exp(7 , IPU_PORT_ADC_FEAMP) //Set low gain
             _exp(sx, IPU_PORT_ADDR)
 //             _exp(1, IPU_PORT_LC)
@@ -347,11 +381,15 @@ _nop
             _exp(6, IPU_PORT_ADC_FEAMP) //Set high gain
              //_exp(1, IPU_PORT_RD)
              _nop
-             _nop
+            _nop
              _nop //Three nops worked for boxes 0 and 2
              _nop
- //             _nop //Five for box 1
+     //        _nop //Five for box 1
 //              _nop
+//              _nop
+//                           _nop
+//              _nop
+//                           _nop
 //              _nop
 //      
          
