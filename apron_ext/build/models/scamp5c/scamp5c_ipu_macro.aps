@@ -119,6 +119,8 @@
     _nop
     
     ipu.set_clock_normal
+    _nop
+    _nop
     
 !macro_end
 
