@@ -134,9 +134,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ad68fa867e21e5ecc4a60f44baa4aa1bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#ad68fa867e21e5ecc4a60f44baa4aa1bc">ipu_pixel_set</a> (<a class="el" href="a00012.html">dreg</a> b1, <a class="el" href="a00016.html">rint</a> x, <a class="el" href="a00016.html">rint</a> y)</td></tr>
 <tr class="memdesc:ad68fa867e21e5ecc4a60f44baa4aa1bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">set one pixel in a DREG plane  <a href="#ad68fa867e21e5ecc4a60f44baa4aa1bc">More...</a><br /></td></tr>
 <tr class="separator:ad68fa867e21e5ecc4a60f44baa4aa1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b45050f479fcf56fde68b6c543135f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#a7b45050f479fcf56fde68b6c543135f8">ipu_pixel_select</a> (<a class="el" href="a00012.html">dreg</a> b1, <a class="el" href="a00016.html">rint</a> x, <a class="el" href="a00016.html">rint</a> y, <a class="el" href="a00016.html">rint</a> mx, <a class="el" href="a00016.html">rint</a> my)</td></tr>
-<tr class="memdesc:a7b45050f479fcf56fde68b6c543135f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set all pixel a DREG plane of which their coordinates match the rules  <a href="#a7b45050f479fcf56fde68b6c543135f8">More...</a><br /></td></tr>
-<tr class="separator:a7b45050f479fcf56fde68b6c543135f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d951e20a3f652c841c423dac3af25c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00012.html">dreg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#a8d951e20a3f652c841c423dac3af25c3">ipu_pixel_select</a> (<a class="el" href="a00016.html">rint</a> x, <a class="el" href="a00016.html">rint</a> y, <a class="el" href="a00016.html">rint</a> mx, <a class="el" href="a00016.html">rint</a> my)</td></tr>
+<tr class="memdesc:a8d951e20a3f652c841c423dac3af25c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">set all pixel a DREG plane of which their coordinates match the rules  <a href="#a8d951e20a3f652c841c423dac3af25c3">More...</a><br /></td></tr>
+<tr class="separator:a8d951e20a3f652c841c423dac3af25c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac56cc070f392ab2c9758f269ba5da3cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#ac56cc070f392ab2c9758f269ba5da3cc">ipu_pixel_filter</a> (<a class="el" href="a00012.html">dreg</a> b1, <a class="el" href="a00016.html">rint</a> x, <a class="el" href="a00016.html">rint</a> y, <a class="el" href="a00016.html">rint</a> mx, <a class="el" href="a00016.html">rint</a> my)</td></tr>
+<tr class="memdesc:ac56cc070f392ab2c9758f269ba5da3cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">similar to <a class="el" href="a00025.html#a8d951e20a3f652c841c423dac3af25c3" title="set all pixel a DREG plane of which their coordinates match the rules ">ipu_pixel_select</a>, but the result will be ANDed with the DREG  <a href="#ac56cc070f392ab2c9758f269ba5da3cc">More...</a><br /></td></tr>
+<tr class="separator:ac56cc070f392ab2c9758f269ba5da3cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a025e51ee743e1ee759948408a4b4a20d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00015.html">reg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html#a025e51ee743e1ee759948408a4b4a20d">ipu_global_sum</a> (<a class="el" href="a00011.html">areg</a> a, <a class="el" href="a00016.html">rint</a> k)</td></tr>
 <tr class="memdesc:a025e51ee743e1ee759948408a4b4a20d"><td class="mdescLeft">&#160;</td><td class="mdescRight">sum all pixels in a AREG plane, then sample  <a href="#a025e51ee743e1ee759948408a4b4a20d">More...</a><br /></td></tr>
 <tr class="separator:a025e51ee743e1ee759948408a4b4a20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -456,12 +459,67 @@ Functions</h2></td></tr>
 </div><!-- fragment --> 
 </div>
 </div>
-<a class="anchor" id="a7b45050f479fcf56fde68b6c543135f8"></a>
+<a class="anchor" id="a8d951e20a3f652c841c423dac3af25c3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ipu_pixel_select </td>
+          <td class="memname"><a class="el" href="a00012.html">dreg</a> ipu_pixel_select </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>mx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">rint</a>&#160;</td>
+          <td class="paramname"><em>my</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set all pixel a DREG plane of which their coordinates match the rules </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>x coordinate match of the pixels </td></tr>
+    <tr><td class="paramname">y</td><td>y coordinate match of the pixels </td></tr>
+    <tr><td class="paramname">mx</td><td>x coordinate mask of the pixels </td></tr>
+    <tr><td class="paramname">my</td><td>y coordinate mask of the pixels</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result in DREG plane</dd></dl>
+<p>Example Usage:</p>
+<p>For R5 DREG plane, make all pixel with x and y coordinates in in the format "xxxxx101" (binary form) to be 1: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R5 = ipu.pixel_select(5,5,248,248)</div>
+</div><!-- fragment --><p> Note:</p>
+<p>Binary form of 248 is 11111000, which is used as the coordinate mask.</p>
+<p>Binary form of 5 is 00000101. which is used as the matching part. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac56cc070f392ab2c9758f269ba5da3cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ipu_pixel_filter </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="a00012.html">dreg</a>&#160;</td>
           <td class="paramname"><em>b1</em>, </td>
@@ -498,10 +556,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>set all pixel a DREG plane of which their coordinates match the rules </p>
+<p>similar to <a class="el" href="a00025.html#a8d951e20a3f652c841c423dac3af25c3" title="set all pixel a DREG plane of which their coordinates match the rules ">ipu_pixel_select</a>, but the result will be ANDed with the DREG </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">b1</td><td>the DREG plane </td></tr>
+    <tr><td class="paramname">b1</td><td>the selection result will be ANDed with this DREG </td></tr>
     <tr><td class="paramname">x</td><td>x coordinate match of the pixels </td></tr>
     <tr><td class="paramname">y</td><td>y coordinate match of the pixels </td></tr>
     <tr><td class="paramname">mx</td><td>x coordinate mask of the pixels </td></tr>
@@ -509,12 +567,39 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>the result in DREG plane</dd></dl>
 <p>Example Usage:</p>
-<p>For R5 DREG plane, make all pixel with x and y coordinates in in the format "xxxxx101" (binary form) to be 1: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.pixel_select(R5,5,5,248,248)</div>
-</div><!-- fragment --><p> Note:</p>
-<p>Binary form of 248 is 11111000, which is used as the coordinate mask.</p>
-<p>Binary form of 5 is 00000101. which is used as the matching part. </p>
-
+<p>Make a rectangular with bottom left corner on (64,64) and top right corner (127,127) in R5: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R5 = 1 // becuase the result will be ANDed so the initial value should be 1</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ipu.pixel_filter(R5,0,0,191,191)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;ipu.pixel_filter(R5,128,128,127,127)</div>
+</div><!-- fragment --><p>Notice that it is very difficult to make up these parameters in mind. Instead, it is more feasible to try some combinations using a program like <a class="el" href="a00004.html#sec_example_guide_2_10">Example 10: DREG Selecting</a>.</p>
+<p>Another example:</p>
+<p>Compose a rectangular of size 128x128 in the center of R5 DREG plane: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;R5 = 0</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;R6 = 1</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;ipu.pixel_filter(R6,0,0,191,191)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;ipu.pixel_filter(R6,128,128,127,127)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;R7 = R5</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;R5 = or(R6,R7)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;R6 = 1</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;ipu.pixel_filter(R6,64,0,191,191)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;ipu.pixel_filter(R6,0,128,127,127)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;R7 = R5</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;R5 = or(R6,R7)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;R6 = 1</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;ipu.pixel_filter(R6,64,64,191,191)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;ipu.pixel_filter(R6,0,0,127,127)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;R7 = R5</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;R5 = or(R6,R7)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;R6 = 1</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;ipu.pixel_filter(R6,0,64,191,191)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;ipu.pixel_filter(R6,128,0,127,127)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;R7 = R5</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;R5 = or(R6,R7)</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a class="anchor" id="a025e51ee743e1ee759948408a4b4a20d"></a>
@@ -582,7 +667,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 12 2016 15:23:14 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 27 2016 17:09:33 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

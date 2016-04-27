@@ -129,7 +129,7 @@ Example 9: DREG Neighbour Access</h2>
 <p>Similar to <a class="el" href="a00004.html#sec_example_guide_2_4">Example 4: AREG Neighbour Access</a>, this example achieves shifting of a DREG plane using the digital version of the neighbour accessing capability.</p>
 <h2><a class="anchor" id="sec_example_guide_2_10"></a>
 Example 10: DREG Selecting</h2>
-<p>This example use <a class="el" href="a00025.html#a7b45050f479fcf56fde68b6c543135f8" title="set all pixel a DREG plane of which their coordinates match the rules ">ipu_pixel_select</a> to generate patterns in a DREG plane where the x-y coordinates of selected pixel meet a specific rule. Because the DREG plane can be used to flag a PE, making such patterns can be used to manually select a portion of PEs to operate.</p>
+<p>This example use <a class="el" href="a00025.html#a8d951e20a3f652c841c423dac3af25c3" title="set all pixel a DREG plane of which their coordinates match the rules ">ipu_pixel_select</a> to generate patterns in a DREG plane where the x-y coordinates of selected pixel meet a specific rule. Because the DREG plane can be used to flag a PE, making such patterns can be used to manually select a portion of PEs to operate.</p>
 <h2><a class="anchor" id="sec_example_guide_2_11"></a>
 Example 11: Analogue Regional Summation</h2>
 <p>This example sum the analogue register values in a region of an AREG plane. Note, the <a class="el" href="a00025.html#a025e51ee743e1ee759948408a4b4a20d" title="sum all pixels in a AREG plane, then sample ">ipu_global_sum</a> can only sum an entire AREG plane. To sum only a specific region, one first need to mask the PEs using the DREG selecting and shifting macros.</p>
@@ -139,7 +139,7 @@ Example 12: Simulation Using A Video or Image</h2>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 12 2016 15:23:14 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 27 2016 17:09:33 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

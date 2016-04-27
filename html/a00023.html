@@ -136,6 +136,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a5b620814431ac260d2e287f5adcc739b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00023.html#a5b620814431ac260d2e287f5adcc739b">host_add_display</a> (string text)</td></tr>
 <tr class="memdesc:a5b620814431ac260d2e287f5adcc739b"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a display window to the APRON UI  <a href="#a5b620814431ac260d2e287f5adcc739b">More...</a><br /></td></tr>
 <tr class="separator:a5b620814431ac260d2e287f5adcc739b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a283997b565c846fac5465023f0716dd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00023.html#a283997b565c846fac5465023f0716dd4">host_add_display</a> (string text, string palette)</td></tr>
+<tr class="memdesc:a283997b565c846fac5465023f0716dd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">similar to <a class="el" href="a00023.html#a5b620814431ac260d2e287f5adcc739b" title="add a display window to the APRON UI ">host_add_display</a> but with a specific palette name  <a href="#a283997b565c846fac5465023f0716dd4">More...</a><br /></td></tr>
+<tr class="separator:a283997b565c846fac5465023f0716dd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6624d82e3c8c59b0ddfa0156b58a2178"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00013.html">handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00023.html#a6624d82e3c8c59b0ddfa0156b58a2178">host_add_datasheet</a> (string text, int r, int c, enum d)</td></tr>
 <tr class="memdesc:a6624d82e3c8c59b0ddfa0156b58a2178"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a datasheet to the APRON host  <a href="#a6624d82e3c8c59b0ddfa0156b58a2178">More...</a><br /></td></tr>
 <tr class="separator:a6624d82e3c8c59b0ddfa0156b58a2178"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,7 +206,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>Note, this only affect the frame trigger. In a debug loop, the actual visible frame rate is dominated by the frame readout process as it takes much time. The following structure can be used to keep the exposure time to be (1/framerate):</p>
+<p>Note, this only affect the frame trigger. In a loop with frame readout macros ( <code>aout</code> and <code>dout</code>), the actual visible frame rate is much lower than the setting because the frame readout take a lot of time.</p>
+<p>The following structure can be used to keep the exposure time to be (1/framerate):</p>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;...</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;host.set_frame_rate(50)// 50 frames per sec</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;...</div>
@@ -324,6 +328,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a283997b565c846fac5465023f0716dd4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00013.html">handle</a> host_add_display </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>palette</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>similar to <a class="el" href="a00023.html#a5b620814431ac260d2e287f5adcc739b" title="add a display window to the APRON UI ">host_add_display</a> but with a specific palette name </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>name of the display </td></tr>
+    <tr><td class="paramname">palette</td><td>name of the palette</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>handle of the display window </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a6624d82e3c8c59b0ddfa0156b58a2178"></a>
 <div class="memitem">
 <div class="memproto">
@@ -424,7 +464,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 12 2016 15:23:14 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 27 2016 17:09:33 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
