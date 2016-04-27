@@ -143,59 +143,42 @@
 !macro_def
     ipu.pixel_set($r1,$r2,$r3)
 !macro_begin
-    _exp(255, IPU_PORT_CLK_SWITCH) //FAST
-    _exp($r3, IPU_PORT_ADDR)
-    _exp(1, IPU_PORT_LR)
-    _exp(0, IPU_PORT_LR)
-    _mov(su,255)
-    _sub(su,$r2)
-    _exp(su, IPU_PORT_ADDR)
-    _exp(1, IPU_PORT_LC)
-    _exp(0, IPU_PORT_LC)
-    _exp(0, IPU_PORT_ADDR) 
-    _exp(1, IPU_PORT_LCX)
-    _exp(0, IPU_PORT_LCX)
-    _exp(1, IPU_PORT_LRX)
-    _exp(0, IPU_PORT_LRX)
-    _exp(0, IPU_PORT_RD) //clocks on
-    _exp(4, IPU_PORT_CLK_SWITCH) //9Mhz
-    _exp(6, IPU_PORT_RISE_C2)
-    _exp(5, IPU_PORT_FALL_C1)
-    //set('lfl' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
-    set('LR2' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
-    _exp(8, IPU_PORT_CLK_SWITCH)
-    R1 = $r1
-    $r1 = load(R1,R2)
+    _mov(sx,$r2)
+    _mov(sy,$r3)
+    _call(#_ipu_sa_pixel_set)
+    _nop
+    R1 = R0
+    $r1 = load(R0,R1)
 !macro_end
 
 
 
 !macro_def
-    ipu.pixel_select($r1,$r2,$r3,$r4,$r5)
+    $r1 = ipu.pixel_select($r2,$r3,$r4,$r5)
 !macro_begin
-    _exp(255, IPU_PORT_CLK_SWITCH) //FAST
-    
-    _exp($r3, IPU_PORT_ADDR)//y
-    _exp(1, IPU_PORT_LR)
-    _exp(0, IPU_PORT_LR)
-    _exp($r2, IPU_PORT_ADDR)//x
-    _exp(1, IPU_PORT_LC)
-    _exp(0, IPU_PORT_LC)
-    
-    _exp($r4, IPU_PORT_ADDR)//248 enables 1/32th pixels to be readout.252 is 1/16th
-    _exp(1, IPU_PORT_LCX)
-    _exp(0, IPU_PORT_LCX)
-    _exp($r5, IPU_PORT_ADDR)//248 enables 1/32th pixels to be readout.252 is 1/16th
-    _exp(1, IPU_PORT_LRX)
-    _exp(0, IPU_PORT_LRX)
-    
-    _exp(0, IPU_PORT_RD) //clocks on
-    _exp(4, IPU_PORT_CLK_SWITCH) //9Mhz
-    _exp(6, IPU_PORT_RISE_C2)
-    _exp(5, IPU_PORT_FALL_C1)
-    set('LR2' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
-    _exp(8, IPU_PORT_CLK_SWITCH)
-    $r1 = load(R2)
+    _mov(sy,$r3)
+    _mov(sx,$r2)
+    _mov(su,$r4)
+    _mov(sv,$r5)
+    _call(#_ipu_sa_pixel_select)
+    _nop
+    $r1 = load(R0)
+!macro_end
+
+
+
+!macro_def
+    ipu.pixel_filter($r1,$r2,$r3,$r4,$r5)
+!macro_begin
+    _mov(sy,$r3)
+    _mov(sx,$r2)
+    _mov(su,$r4)
+    _mov(sv,$r5)
+    _call(#_ipu_sa_pixel_select)
+    _nop
+    R1 = $r1
+    R2 = R0
+    $r1 = and(R1,R2)
 !macro_end
 
 

@@ -156,6 +156,22 @@
 
 //
 !macro_def
+    usb.aout_sp($p1,$p2)
+!macro_begin
+    $p2 = s5c_sim_adc($p1)
+    sim.show($p2)
+!macro_end
+
+//
+!macro_def
+    usb.dout_sp($p1,$p2)
+!macro_begin
+    s5c_sim_mov($p2,$p1)
+    sim.show($p2)
+!macro_end
+
+//
+!macro_def
     usb.aout($p1,$p2)
 !macro_begin
     $p2 = s5c_sim_adc($p1)

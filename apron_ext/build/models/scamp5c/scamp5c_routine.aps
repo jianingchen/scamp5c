@@ -59,6 +59,64 @@ _ret
 
 //------------------------------------------------------------------------------
 
+#_ipu_sa_pixel_set
+
+    _exp(255, IPU_PORT_CLK_SWITCH) //FAST
+    
+    _exp(sy, IPU_PORT_ADDR)
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+    _mov(su, 255)
+    _sub(su, sx)
+    _exp(su, IPU_PORT_ADDR)
+    _exp(1, IPU_PORT_LC)
+    _exp(0, IPU_PORT_LC)
+    _exp(0, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_RD) //clocks on
+    _exp(4, IPU_PORT_CLK_SWITCH) //9Mhz
+    _exp(6, IPU_PORT_RISE_C2)
+    _exp(5, IPU_PORT_FALL_C1)
+    set('lfl' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    
+_ret
+
+//------------------------------------------------------------------------------
+
+#_ipu_sa_pixel_select
+    
+    _exp(255, IPU_PORT_CLK_SWITCH) //FAST
+    
+    _exp(sy, IPU_PORT_ADDR)//y
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+    _exp(sx, IPU_PORT_ADDR)//x
+    _exp(1, IPU_PORT_LC)
+    _exp(0, IPU_PORT_LC)
+    
+    _exp(su, IPU_PORT_ADDR)//
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    _exp(sv, IPU_PORT_ADDR)//
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    
+    _exp(0, IPU_PORT_RD) //clocks on
+    _exp(4, IPU_PORT_CLK_SWITCH) //9Mhz
+    _exp(6, IPU_PORT_RISE_C2)
+    _exp(5, IPU_PORT_FALL_C1)
+    set('lfl' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    
+_ret
+
+//------------------------------------------------------------------------------
+
 !if(USE_CALL_READOUT_256_COL_MAJOR, ==, 1)
 
 // There are many ways of messing with this algo to try and improve the frame rate and
