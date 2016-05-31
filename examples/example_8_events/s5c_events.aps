@@ -18,7 +18,7 @@ apron.config_end
 #start
     
     ipu.wait_frame_trigger
-    pe.rpix(B,C)
+    rpix(B,C)
     
     R5 = 0
     R6 = 0
@@ -32,7 +32,7 @@ apron.config_end
     ipu.pixel_set(R5,200,100)
     ipu.pixel_set(R5,128,128)
     ipu.pixel_set(R5,100,200)
-    B = pe.d2a(R5)
+    usb.dout(R5,window_1)
     
     // events read out
     usb.stream_begin(data_1)
@@ -62,8 +62,7 @@ apron.config_end
     /// Note: this macro won't change R5 whereas the program above changed R5. 
     //usb.scan_events(data_1,R5,16)// scan and send all coordinates
     
-    usb.dout(R5,window_2)// because R5 may not survive one "usb.aout", so we send R5 first
-    usb.aout(B,window_1)
+    usb.dout(R5,window_2)
     
     _jump(#start)
     

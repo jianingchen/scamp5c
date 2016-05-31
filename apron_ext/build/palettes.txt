@@ -40,29 +40,7 @@
             blue = 255
         }
 
-        range_min = -127.000000
-        range_max = 127.000000
-    }
-
-    >scamp5c_aout
-    {
-        >node
-        {
-            index = 0
-            red = 0
-            green = 0
-            blue = 0
-        }
-
-        >node
-        {
-            index = 255
-            red = 255
-            green = 255
-            blue = 255
-        }
-
-        range_min = -127.000000
+        range_min = -128.000000
         range_max = 127.000000
     }
 
@@ -96,6 +74,28 @@
         range_max = 1.000000
     }
 
+    >scamp5c_grey
+    {
+        >node
+        {
+            index = 0
+            red = 0
+            green = 0
+            blue = 0
+        }
+
+        >node
+        {
+            index = 255
+            red = 255
+            green = 255
+            blue = 255
+        }
+
+        range_min = 0
+        range_max = 255.000000
+    }
+
     >Raw
     {
         >node
@@ -118,7 +118,7 @@
         range_max = 255.000000
     }
 
-    >Neuron
+    >Flame
     {
         >node
         {
@@ -130,14 +130,84 @@
 
         >node
         {
+            index = 77
+            red = 255
+            green = 0
+            blue = 0
+        }
+
+        >node
+        {
+            index = 227
+            red = 255
+            green = 255
+            blue = 0
+        }
+
+        >node
+        {
             index = 255
             red = 255
             green = 255
             blue = 255
         }
 
-        range_min = 0.000000
-        range_max = 1.000000
+        range_min = -128.000000
+        range_max = 127.000000
+    }
+
+    >Spectrum
+    {
+        >node
+        {
+            index = 0
+            red = 0
+            green = 0
+            blue = 255
+        }
+
+        >node
+        {
+            index = 51
+            red = 0
+            green = 255
+            blue = 255
+        }
+
+        >node
+        {
+            index = 102
+            red = 0
+            green = 255
+            blue = 0
+        }
+
+        >node
+        {
+            index = 153
+            red = 255
+            green = 255
+            blue = 0
+        }
+
+        >node
+        {
+            index = 204
+            red = 255
+            green = 0
+            blue = 0
+        }
+
+        >node
+        {
+            index = 255
+            red = 255
+            green = 0
+            blue = 255
+        }
+	
+        range_min = -128.000000
+        range_max = 127.000000
     }
 
 }

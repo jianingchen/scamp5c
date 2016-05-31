@@ -22,8 +22,7 @@ apron.config_end
     s3 = usb.slider(slider_3)
     s4 = usb.slider(slider_4)
     
-    R5 = 0
-    ipu.pixel_select(R5,s1,s2,s3,s4)
+    R5 = ipu.pixel_select(s1,s2,s3,s4)
     
     usb.dout(R5,window_1)
     

@@ -1,0 +1,79 @@
+>palettes
+{
+
+    >scamp5c_analog
+    {
+        >node
+        {
+            index = 0
+            red = 0
+            green = 0
+            blue = 0
+        }
+
+        >node
+        {
+            index = 255
+            red = 255
+            green = 255
+            blue = 255
+        }
+
+        range_min = -128.000000
+        range_max = 127.000000
+    }
+
+    >scamp5c_digital
+    {
+        >node
+        {
+            index = 0
+            red = 0
+            green = 0
+            blue = 0
+        }
+
+        >node
+        {
+            index = 127
+            red = 255
+            green = 255
+            blue = 255
+        }
+
+        >node
+        {
+            index = 255
+            red = 255
+            green = 255
+            blue = 255
+        }
+
+        range_min = 0.000000
+        range_max = 1.000000
+    }
+
+    >scamp5c_grey
+    {
+        >node
+        {
+            index = 0
+            red = 0
+            green = 0
+            blue = 0
+        }
+
+        >node
+        {
+            index = 255
+            red = 255
+            green = 255
+            blue = 255
+        }
+
+        range_min = 0
+        range_max = 255.000000
+    }
+
+}
+

@@ -13,6 +13,17 @@
     respix
 !macro_end
 
+// reset pix to min level and save its value
+!macro_def
+    pe.rpix($r1)
+!macro_begin
+    respix
+    respix
+    nop
+    F = PIX
+    $r1 = F
+!macro_end
+
 // $r1 will be a half-toned image, $r2 will be a full range image
 !macro_def
     pe.rpix($r1,$r2)
@@ -23,6 +34,16 @@
     nop
     $r2 = load($r1 F PIX)
     $r1 = load(F PIX)
+!macro_end
+
+//
+!macro_def
+    pe.cpix($r1,$r2,$r3)
+!macro_begin
+    $r1 = PIX
+    F = PIX
+    $r2 = load($r1 F $r3)
+    $r1 = F
 !macro_end
 
 //
@@ -209,6 +230,33 @@
     $r2 = not(R0) //re-instating R$r2
 !macro_end
 
+// clear first DREG if second DREG is 1
+!macro_def
+    pe.clr_if($r1,$r2)
+!macro_begin
+    R0 = $r1
+    $r1 = not(R0)
+    R0 = or($r1,$r2)
+    $r1 = not(R0)
+!macro_end
+
+//
+!macro_def
+    pe.refresh($r1)
+!macro_begin
+    R0 = $r1
+    $r1 = R0
+!macro_end
+
+// check if first DREG is 0 and second DREG is 1
+!macro_def
+    $out = pe.pattern_0_1($r1,$r2)
+!macro_begin
+    $out = not($r2)
+    R0 = or($r1,$out)
+    $out = not(R0)
+!macro_end
+
 // 
 !macro_def
     $r1 = pe.a2d($r2)
@@ -232,9 +280,23 @@
 
 //
 !macro_def
+    rpix($r1)
+!macro_begin
+    pe.rpix($r1)
+!macro_end
+
+//
+!macro_def
     rpix
 !macro_begin
     pe.rpix
+!macro_end
+
+//
+!macro_def
+    cpix($r1,$r2,$r3)
+!macro_begin
+    pe.cpix($r1,$r2,$r3)
 !macro_end
 
 //

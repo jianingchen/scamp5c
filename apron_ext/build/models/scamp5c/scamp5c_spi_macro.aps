@@ -1,0 +1,701 @@
+//
+// IPU SPI Macros
+//
+// Aliased IPU registers:
+// su -- s15
+// sv -- s14
+// sw -- s13
+// sx -- s12
+// sy -- s11
+// sz -- s10
+// 
+// These macros assume the above ipu registers, R0, R1 and F to be volatile.
+// 
+//------------------------------------------------------------------------------
+
+
+!define(SPI_SIGNATURE_BYTE_0, 0x20)
+!define(SPI_SIGNATURE_BYTE_1, 0x16)
+!define(SPI_SIGNATURE_BYTE_2, 0xAA)
+!define(SPI_PACKET_TYPE_NO_PAYLOAD, 0)
+!define(SPI_PACKET_TYPE_CONST_SIZE, 1)
+!define(SPI_PACKET_TYPE_OPEN_SIZE, 2)
+!define(SPI_PACKET_TYPE_STANDARD_LOOPC, 3)
+!define(SPI_PACKET_TYPE_STANDARD_EVENTS, 4)
+!define(SPI_PACKET_TYPE_STANDARD_AOUT, 5)
+!define(SPI_PACKET_TYPE_STANDARD_DOUT, 6)
+
+!define(SPI_PACKET_TYPE_CONTROL_COMMAND, 0xCC)
+
+!define(SPI_FIFO_SPACE_128, 1)
+!define(SPI_FIFO_SPACE_256, 2)
+!define(SPI_FIFO_SPACE_384, 3)
+!define(SPI_FIFO_SPACE_512, 4)
+!define(SPI_FIFO_SPACE_640, 5)
+!define(SPI_FIFO_SPACE_768, 6)
+!define(SPI_FIFO_SPACE_896, 7)
+
+!define(SPI_RX_0, 160)
+!define(SPI_RX_1, 161)
+!define(SPI_RX_2, 162)
+!define(SPI_RX_3, 163)
+!define(SPI_RX_4, 164)
+!define(SPI_RX_5, 165)
+!define(SPI_RX_6, 166)
+!define(SPI_RX_7, 167)
+
+
+// 
+!macro_def
+    spi.reset
+!macro_begin
+    _exp(4,253)
+    _exp(0,253)
+!macro_end
+
+// 
+!macro_def
+    spi.get_fifo_space($p)
+!macro_begin
+    _imp($p,IPU_PORT_SPI_FIFO_SPACE)
+!macro_end
+
+// 
+!macro_def
+    spi.begin
+!macro_begin
+    _exp(1, 253)
+!macro_end
+
+// 
+!macro_def
+    spi.end
+!macro_begin
+    _exp(1, 246)
+    _exp(0, 246)
+    _nop
+    _exp(0, 253)
+!macro_end
+
+// 
+!macro_def
+    spi.wait_fifo
+!macro_begin
+    :#wait_spi_fifo
+    _imp(su, IPU_PORT_SPI_USB_FLAGS)
+    _and(su, 4)
+    _jump(nz,:#wait_spi_fifo)
+!macro_end
+
+// 
+!macro_def
+    spi.send_byte($p1)
+!macro_begin
+    _exp($p1,IPU_PORT_NO_IPU_DO)
+!macro_end
+
+// 
+!macro_def
+    $p = spi.port($e)
+!macro_begin
+    _imp($p,$e)
+!macro_end
+
+// 
+!macro_def
+    spi.send_header($e,$p0)
+!macro_begin
+    spi.send_header($e,$p0,0,0)
+!macro_end
+
+// 
+!macro_def
+    spi.send_header($e,$p0,$p1)
+!macro_begin
+    spi.send_header($e,$p0,$p1,0)
+!macro_end
+
+// 
+!macro_def
+    spi.send_header($e,$p0,$p1,$p2)
+!macro_begin
+    _mov(sv,$e)
+    _add(sv,$p0)
+    _add(sv,$p1)
+    _add(sv,$p2)
+    spi.send_byte(SPI_SIGNATURE_BYTE_0)
+    spi.send_byte(SPI_SIGNATURE_BYTE_1)
+    spi.send_byte(SPI_SIGNATURE_BYTE_2)
+    spi.send_byte($e)// packet type
+    spi.send_byte($p0)// payload size
+    spi.send_byte($p1)
+    spi.send_byte($p2)
+    spi.send_byte(sv)// header checksum
+!macro_end
+
+
+//------------------------------------------------------------------------------
+
+
+!macro_def
+    spi.send_loop_counter
+!macro_begin
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    // spi header
+    spi.send_byte(SPI_SIGNATURE_BYTE_0)
+    spi.send_byte(SPI_SIGNATURE_BYTE_1)
+    spi.send_byte(SPI_SIGNATURE_BYTE_2)
+    spi.send_byte(SPI_PACKET_TYPE_STANDARD_LOOPC)// 3
+    spi.send_byte(4)// payload size
+    spi.send_byte(0)
+    spi.send_byte(0)
+    spi.send_byte(7)// header checksum
+    
+    // uint32 payload: loop counter
+    _imp(sv,IPU_PORT_LOOPC_0)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_1)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_2)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_3)
+    spi.send_byte(sv)
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+!macro_end
+
+
+
+!macro_def
+    spi.aout($r1)
+!macro_begin
+
+    _exp(2, IPU_PORT_ADC_FEAMP)
+    keep
+    set_sel_ana($r1)
+    _nop
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(7, IPU_PORT_ADC_FEAMP)
+    
+    // spi header
+    spi.send_byte(SPI_SIGNATURE_BYTE_0)
+    spi.send_byte(SPI_SIGNATURE_BYTE_1)
+    spi.send_byte(SPI_SIGNATURE_BYTE_2)
+    spi.send_byte(SPI_PACKET_TYPE_STANDARD_AOUT)// 5
+    spi.send_byte(0x08)// payload size
+    spi.send_byte(0x00)
+    spi.send_byte(0x01)
+    spi.send_byte(0x0E)// header checksum
+    
+    // uint32 payload: loop counter
+    _imp(sv,IPU_PORT_LOOPC_0)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_1)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_2)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_3)
+    spi.send_byte(sv)
+    
+    // uint16: width 
+    spi.send_byte(0x00)
+    spi.send_byte(0x01)
+    
+    // uint16: height
+    spi.send_byte(0x00)
+    spi.send_byte(0x01)
+
+    _exp(1, 246)
+    _exp(0, 246)
+    _nop
+    
+    _mov(sv,1)
+    _call(#_ipu_sa_readout_rm_spi)
+    _nop
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
+    _nop
+    
+!macro_end
+
+
+
+!macro_def
+    spi.aout64($r1)
+!macro_begin
+
+    _exp(2, IPU_PORT_ADC_FEAMP)
+    keep
+    set_sel_ana($r1)
+    _nop
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(7, IPU_PORT_ADC_FEAMP)
+    
+    // spi header
+    spi.send_byte(SPI_SIGNATURE_BYTE_0)
+    spi.send_byte(SPI_SIGNATURE_BYTE_1)
+    spi.send_byte(SPI_SIGNATURE_BYTE_2)
+    spi.send_byte(SPI_PACKET_TYPE_STANDARD_AOUT)// 5
+    spi.send_byte(0x08)// payload size
+    spi.send_byte(0x10)
+    spi.send_byte(0x00)
+    spi.send_byte(0x1D)// header checksum
+    
+    // uint32: loop counter
+    _imp(sv,IPU_PORT_LOOPC_0)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_1)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_2)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_3)
+    spi.send_byte(sv)
+    
+    // uint16: width 
+    spi.send_byte(0x40)
+    spi.send_byte(0x00)
+    
+    // uint16: height
+    spi.send_byte(0x40)
+    spi.send_byte(0x00)
+    
+    _exp(1, 246)
+    _exp(0, 246)
+    _nop
+    
+    _mov(sv,4)
+    _call(#_ipu_sa_readout_rm_spi)
+    _nop
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
+    _nop
+    
+!macro_end
+
+
+
+!macro_def
+    spi.dout($r1)
+!macro_begin
+    
+    all
+    where($r1)
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    _exp(0, IPU_PORT_B)
+    keep
+    set('pgdb' 'dig8' 'pgdbobus' 'sin') //get the command required sent whenever I turn clocks on
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    //_nop
+    _exp(0, IPU_PORT_RD) //turn on clocks
+    
+    // spi header
+    spi.send_byte(SPI_SIGNATURE_BYTE_0)
+    spi.send_byte(SPI_SIGNATURE_BYTE_1)
+    spi.send_byte(SPI_SIGNATURE_BYTE_2)
+    spi.send_byte(SPI_PACKET_TYPE_STANDARD_DOUT)// 6
+    spi.send_byte(0x08)// payload size
+    spi.send_byte(0x20)
+    spi.send_byte(0x00)
+    spi.send_byte(0x2E)// header checksum
+    
+    // uint32 payload: loop counter
+    _imp(sv,IPU_PORT_LOOPC_0)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_1)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_2)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_3)
+    spi.send_byte(sv)
+    
+    // uint16: width 
+    spi.send_byte(0x00)
+    spi.send_byte(0x01)
+    
+    // uint16: height
+    spi.send_byte(0x00)
+    spi.send_byte(0x01)
+
+    _exp(1, 246)
+    _exp(0, 246)
+    _nop
+    
+    _call(#_ipu_spi_dout)
+    _nop
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
+    _nop
+    
+!macro_end
+
+
+
+!macro_def
+    spi.scan_events($r1,$p0)
+!macro_begin
+    spi.scan_events($r1,$p0,0)
+!macro_end
+
+
+
+!macro_def
+    spi.scan_events($r1,$p0,$p1)
+!macro_begin
+
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(1, IPU_PORT_RD)
+    _nop
+    
+    // calculate payload size
+//     make_load_uint16($i,sv,sw)
+    _mov(sv,$p0)
+    _mov(sw,$p1)
+    _add(sv,$p0)
+    _addc(sw,$p1)
+    _add(sv,8)// loop counter + coords count
+    _addc(sw,0)
+    
+    // calculate checksum
+    _mov(sz,SPI_PACKET_TYPE_STANDARD_EVENTS)
+    _add(sz,sv)
+    _add(sz,sw)
+    
+    // spi header
+    spi.send_byte(SPI_SIGNATURE_BYTE_0)
+    spi.send_byte(SPI_SIGNATURE_BYTE_1)
+    spi.send_byte(SPI_SIGNATURE_BYTE_2)
+    spi.send_byte(SPI_PACKET_TYPE_STANDARD_EVENTS)
+    spi.send_byte(sv)// payload size
+    spi.send_byte(sw)
+    spi.send_byte(0)
+    spi.send_byte(sz)// header checksum
+    
+    // uint32: loop counter
+    _imp(sv,IPU_PORT_LOOPC_0)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_1)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_2)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_3)
+    spi.send_byte(sv)
+    
+    // uint16: event dimension
+    spi.send_byte(0x02)
+    spi.send_byte(0x00)
+    
+    // uint16: event count
+    spi.send_byte($p0)
+    spi.send_byte($p1)
+    
+    // do the scanning
+    
+    _exp(255, IPU_PORT_ADDR) //search all rows
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    _exp(1, IPU_PORT_LC) //leave latch up on col
+    _exp(0, IPU_PORT_LC)
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(0, IPU_PORT_RD)
+    _nop
+    nop
+    nop
+    nop
+    nop
+    _exp(4, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
+    _nop
+    
+    R0 = $r1
+    R3 = 0
+    
+    //
+//     make_load_uint16($i,sv,sw)
+    _mov(sw,$p1)
+    _mov(sv,$p0)
+    :#scanning_loop_begin
+        _nop
+        _sub(sv,1)
+        _subc(sw,0)
+        _jump(c,:#scanning_loop_end)
+        _nop
+    
+        //Remove a pixel that has already been output (none on first run)
+        set('LR4' 'nbit' 'plrb' 'rfl' ) //R4 = not(R5)
+        set('lfl' 'RR4' 'RR3' 'nbit' 'plrb' )//R5 = not( R4 OR R3)
+        
+        R2 = $r1
+        $r1 = R2
+        
+        all
+        where(R0)
+        
+        _exp(2,IPU_PORT_FALL_C1)
+        _exp(7,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+        _exp(8,IPU_PORT_FALL_C2)    
+        
+        _exp(4, IPU_PORT_CLK_SWITCH)
+        _nop
+        
+        set( 'pgdb' 'pgdbobus' 'col_out' ) //output first live column (all rows active)
+        keep
+        set( 'col_out' )  
+        _imp(sx,234) //Get data from Dig port
+        
+        _exp(4,IPU_PORT_CLK_SWITCH) // dreg operation clock
+        _nop
+        R2 = $r1
+        $r1 = R2
+        
+        _exp(sx, IPU_PORT_ADDR) //Specifies which column searched (that is, the column just found above). 
+        _exp(1, IPU_PORT_LC)
+        _exp(0, IPU_PORT_LC)
+        
+        set( 'pgdb' 'row_out' )
+        keep
+        set( 'row_out' )
+        _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
+        
+         //send coordinates
+        _mov(su,255)
+        _sub(su,sx)
+        spi.send_byte(su)
+        spi.send_byte(sy)
+
+        
+        //remove the pixel just found from image
+        _exp(sy, IPU_PORT_ADDR)
+        _exp(1, IPU_PORT_LR)
+        _exp(0, IPU_PORT_LR)
+        _exp(0, IPU_PORT_ADDR) //Just specify one row
+        _exp(1, IPU_PORT_LRX)
+        _exp(0, IPU_PORT_LRX)
+        
+        _exp(4, IPU_PORT_CLK_SWITCH) // dreg operation clock
+        _nop
+        set('LR3' 'wr' 'bitmode' 'bit' 'plrb' )
+        
+        //search all rows again to look for next pixel
+        _exp(255, IPU_PORT_ADDR) 
+        _exp(1, IPU_PORT_LRX)
+        _exp(0, IPU_PORT_LRX)
+        
+        _jump(:#scanning_loop_begin)
+        _nop
+    :#scanning_loop_end
+    _nop
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(1,IPU_PORT_FALL_C1)
+    _exp(5,IPU_PORT_FALL_C1)
+    _exp(6,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+    _exp(9,IPU_PORT_FALL_C2)
+    
+    all
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+!macro_end
+
+
+//------------------------------------------------------------------------------
+
+// 
+// !macro_def
+//     spi.scan_events_x4($r1,$p1)
+// !macro_begin
+// 
+//     _exp(255, IPU_PORT_CLK_SWITCH)
+//     _nop
+//     _exp(1, 253)
+//     
+//     // calculate size
+//     _mov(su,$p1)
+//     _add(su,$p1)
+//     _mov(sx,4)// loop counter size
+//     _mov(sy,0)
+//     _add(sx,su)
+//     _addc(sy,0)
+//     _add(sx,su)
+//     _addc(sy,0)
+//     _add(sx,su)
+//     _addc(sy,0)
+//     _add(sx,su)
+//     _addc(sy,0)
+//     
+//     // calculate checksum
+//     _mov(sz,1)
+//     _add(sz,sx)
+//     _add(sz,sy)
+//     
+//     // spi header
+//     spi.send_byte('0x20')// signature
+//     spi.send_byte('0x16')
+//     spi.send_byte('0xAA')
+//     spi.send_byte('0x01')// payload type
+//     spi.send_byte(sx)// payload size
+//     spi.send_byte(sy)
+//     spi.send_byte(0)
+//     spi.send_byte(sz)// header checksum
+// 
+//     
+//     // uint32 payload
+//     _imp(sv,IPU_PORT_LOOPC_0)
+//     spi.send_byte(sv)
+//     _imp(sv,IPU_PORT_LOOPC_1)
+//     spi.send_byte(sv)
+//     _imp(sv,IPU_PORT_LOOPC_2)
+//     spi.send_byte(sv)
+//     _imp(sv,IPU_PORT_LOOPC_3)
+//     spi.send_byte(sv)
+//     
+// 
+//     // do the scanning
+//     _exp(8, IPU_PORT_CLK_SWITCH)
+//     _nop
+//     _exp(0, IPU_PORT_RD)
+//     _nop
+//     nop
+//     nop
+//     nop
+//     nop
+//     _exp(4, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
+//     _nop
+//     
+//     R0 = $r1
+//     R3 = 0
+//     
+//     _exp(255, IPU_PORT_ADDR) //search all rows
+//     _exp(1, IPU_PORT_LRX)
+//     _exp(0, IPU_PORT_LRX)
+//     _exp(0, IPU_PORT_ADDR) 
+//     _exp(1, IPU_PORT_LCX)
+//     _exp(0, IPU_PORT_LCX)
+//     _exp(1, IPU_PORT_LC) //leave latch up on col
+//     _exp(0, IPU_PORT_LC)
+//     
+//     // su must be given a value outside this macro
+//     _mov(sw,4)
+//     #scanning_loop_w
+//         _nop
+//         
+//         _mov(sz,$p1)
+//         #scanning_loop_z //returns "events" from R5. All coords of pixels in R5
+//         _nop
+//         
+//             //Remove a pixel that has already been output (none on first run)
+//             set('LR4' 'nbit' 'plrb' 'rfl' ) //R7 = not(R5)
+//             set('lfl' 'RR4' 'RR3' 'nbit' 'plrb' )//R5 = not( R4 OR R3)
+//             
+//             R2 = $r1
+//             $r1 = R2
+//             
+//             all
+//             where(R0)
+//             
+//             _exp(2,IPU_PORT_FALL_C1)
+//             _exp(7,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+//             _exp(8,IPU_PORT_FALL_C2)    
+//             
+//             _exp(4, IPU_PORT_CLK_SWITCH)
+//             _nop
+//             
+//             set( 'pgdb' 'pgdbobus' 'col_out' ) //output first live column (all rows active)
+//             keep
+//             set( 'col_out' )  
+//             _imp(sx,234) //Get data from Dig port
+//             
+//             _exp(4,IPU_PORT_CLK_SWITCH) // dreg operation clock
+//             _nop
+//             R2 = $r1
+//             $r1 = R2
+//             
+//             _exp(sx, IPU_PORT_ADDR) //Specifies which column searched (that is, the column just found above). 
+//             _exp(1, IPU_PORT_LC)
+//             _exp(0, IPU_PORT_LC)
+//             
+//             set( 'pgdb' 'row_out' )
+//             keep
+//             set( 'row_out' )
+//             _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
+//             
+//              //send coordinate to USB
+//             _mov(sv,255)
+//             _sub(sv,sx)
+//             spi.send_byte(sv)
+//             spi.send_byte(sy)
+//             
+//             //remove the pixel just found from image
+//             _exp(sy, IPU_PORT_ADDR)
+//             _exp(1, IPU_PORT_LR)
+//             _exp(0, IPU_PORT_LR)
+//             _exp(0, IPU_PORT_ADDR) //Just specify one row
+//             _exp(1, IPU_PORT_LRX)
+//             _exp(0, IPU_PORT_LRX)
+//             
+//             _exp(4, IPU_PORT_CLK_SWITCH) // dreg operation clock
+//             _nop
+//             set('LR3' 'wr' 'bitmode' 'bit' 'plrb' )
+//             
+//             //search all rows again to look for next pixel
+//             _exp(255, IPU_PORT_ADDR) 
+//             _exp(1, IPU_PORT_LRX)
+//             _exp(0, IPU_PORT_LRX)
+//                 
+//             _sub(sz,1)
+//         _jump(nz,#scanning_loop_z)
+//         _nop
+// 
+//         _sub(sw,1)
+//     _jump(nz,#scanning_loop_w)
+//     _nop
+// 
+//     _exp(1, 246)// set DataReady pin high
+//     _exp(0, 246)
+//     
+//     _exp(8, IPU_PORT_CLK_SWITCH)
+//     _nop
+//     _exp(1,IPU_PORT_FALL_C1)
+//     _exp(5,IPU_PORT_FALL_C1)
+//     _exp(6,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+//     _exp(9,IPU_PORT_FALL_C2)
+//     
+//     all
+//     
+//     _nop
+//     _nop
+//     _nop
+//     _nop
+//     
+//     // reset
+//     _nop
+//     _exp(0, 253)
+//     
+//     _exp(8, IPU_PORT_CLK_SWITCH)
+//     _nop
+//     
+// !macro_end

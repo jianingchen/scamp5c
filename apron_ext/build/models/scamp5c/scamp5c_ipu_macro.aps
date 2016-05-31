@@ -10,7 +10,7 @@
 //------------------------------------------------------------------------------
 
 
-
+//
 !macro_def
     ipu.reset_loop_counter
 !macro_begin
@@ -21,6 +21,7 @@
 !macro_end
 
 
+//
 !macro_def
     ipu.inc_loop_counter
 !macro_begin
@@ -45,48 +46,42 @@
 !macro_end
 
 
+//
 !macro_def
-    ipu.sat_addu($p1,$p2)
+    ipu.delay_1ms
 !macro_begin
-    _add($p1,$p2)
-    _jump(nc,:#end)
-    _mov($p1,255)
-    :#end
-    _clrc
+    _mov(su,20)// gives about 1 ms
+    _call(#_ipu_su_delay_50us)
+    _nop
 !macro_end
 
 
-
+//
 !macro_def
-    ipu.sat_adds($p1,$p2)
+    ipu.delay_2ms
 !macro_begin
-    
+    _mov(su,40)
+    _call(#_ipu_su_delay_50us)
+    _nop
 !macro_end
 
 
-
+//
 !macro_def
-    ipu.set_clock_boost
+    ipu.delay_5ms
 !macro_begin
-    _exp(255, IPU_PORT_CLK_SWITCH)
-    _exp(1, IPU_PORT_RD)
+    _mov(su,100)
+    _call(#_ipu_su_delay_50us)
+    _nop
 !macro_end
 
 
-
+//
 !macro_def
-    ipu.set_clock_normal
+    ipu.delay_500us
 !macro_begin
-    _exp(8, IPU_PORT_CLK_SWITCH)
-    _exp(0, IPU_PORT_RD)
-!macro_end
-
-
-
-!macro_def
-    ipu.apply_clock_dreg
-!macro_begin
-    _exp(4, IPU_PORT_CLK_SWITCH)
+    _mov(su,10)
+    _call(#_ipu_su_delay_50us)
     _nop
 !macro_end
 
@@ -98,10 +93,12 @@
     _nop
     _nop
     
+    _exp(0, IPU_PORT_B)
     keep
-    set('SEL7')
+    set('sin')
     
-    ipu.set_clock_boost
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _exp(1, IPU_PORT_RD)
     
     // wait for rising edge
     :#frame_trig1
@@ -118,14 +115,17 @@
     _jump(z,:#frame_trig2)
     _nop
     
-    ipu.set_clock_normal
-    _nop
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
     _nop
     
 !macro_end
 
 
+//------------------------------------------------------------------------------
 
+
+//
 !macro_def
     ipu.send_byte($p1)
 !macro_begin
@@ -139,20 +139,21 @@
 !macro_end
 
 
-
+//
 !macro_def
     ipu.pixel_set($r1,$r2,$r3)
 !macro_begin
+    _nop
     _mov(sx,$r2)
     _mov(sy,$r3)
     _call(#_ipu_sa_pixel_set)
     _nop
-    R1 = R0
-    $r1 = load(R0,R1)
+    R1 = $r1
+    $r1 = load(R0 R1)
 !macro_end
 
 
-
+//
 !macro_def
     $r1 = ipu.pixel_select($r2,$r3,$r4,$r5)
 !macro_begin
@@ -166,7 +167,7 @@
 !macro_end
 
 
-
+//
 !macro_def
     ipu.pixel_filter($r1,$r2,$r3,$r4,$r5)
 !macro_begin
@@ -182,7 +183,7 @@
 !macro_end
 
 
-
+//
 !macro_def
     $r1 = ipu.global_sum($r2,$r3)
 !macro_begin
@@ -212,6 +213,80 @@
     _exp(0, IPU_PORT_RD)
     _nop
     _mov($r1,sw)
+!macro_end
+
+
+//
+!macro_def 
+    $r1 = ipu.full_global_sum($r2)
+!macro_begin
+    keep
+    set_sel_ana($r2)
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    _mov(su,0)
+    _mov(sz,0)
+     _exp(15, IPU_PORT_ADC_FEAMP)
+    
+    // Set Block Size
+    _exp(31 , IPU_PORT_ADDR) //for a 32 x32 block of pixels (1024 pixels total)
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    
+    // Set ADC Delay
+
+    _exp(16, IPU_PORT_ADC_DELAY) //For this algo, the critical factor is how well IN matches calibration (which is based on the other readout routine)
+    //Increasing speed destroys calibration at high end
+    _exp(1, IPU_PORT_RD)
+    _exp(0, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+     _mov(sy, 0)
+    :#rm_loop_row_low
+        _nop
+        _exp(sy, IPU_PORT_ADDR) 
+        _exp(1, IPU_PORT_LR)
+        _exp(0, IPU_PORT_LR)
+         // column address
+        _mov(sx, 234)
+        _exp(sx, IPU_PORT_ADDR) 
+         _exp(1, IPU_PORT_LC)
+
+        :#rm_loop_col_low
+            _nop          
+            _sub(sx, 32)           
+            // sample and store in sw
+            _call(#_ipu_sw_sample_ana)
+            _nop
+            _exp(sx, IPU_PORT_ADDR)       
+            _add(su, sw) //Add to IPU accumulator
+            _addc(sz,0)        //Add carrys to second accumulator
+            _cmp(sx,234)
+        _jump(nz, :#rm_loop_col_low)
+        _nop
+        
+            
+        _add(sy, 32)
+    _jump(nz, :#rm_loop_row_low)
+    _nop
+    //sz has the 6 MSBs and sv the 8 LSBs so shift first byte left 2 positions, 2nd byte right 6 positions and OR together
+    //ignore the 6 LSBs
+        _shr(sv,sz)
+        _shr(sz,sv)
+        _shl(sv,su)
+        _shl(su,sv)
+        _shl(sv,su)
+        _shl(su,sv)
+        _shl(sv,su)
+        _shl(su,sv)
+        _or(sz,su)
+    _mov($r1,sz)
+   // clocks back to normal (9MHz at 90MHz clk)
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
+
 !macro_end
 
 
@@ -245,4 +320,30 @@
     _imp(su,13)
     _exp(su,IPU_PORT_FRAME_CNT_B2)
 !macro_end
+
+
+// !macro_def
+//     ipu.set_clock_boost
+// !macro_begin
+//     _exp(255, IPU_PORT_CLK_SWITCH)
+//     _exp(1, IPU_PORT_RD)
+// !macro_end
+// 
+// 
+// 
+// !macro_def
+//     ipu.set_clock_normal
+// !macro_begin
+//     _exp(8, IPU_PORT_CLK_SWITCH)
+//     _exp(0, IPU_PORT_RD)
+// !macro_end
+//
+//
+//
+// !macro_def
+//     ipu.apply_clock_dreg
+// !macro_begin
+//     _exp(4, IPU_PORT_CLK_SWITCH)
+//     _nop
+// !macro_end
 

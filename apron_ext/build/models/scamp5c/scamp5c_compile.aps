@@ -10,8 +10,11 @@
 !generate_icw_file
 !max_addr(2000)
 
-!define(USE_CALL_READOUT_256_COL_MAJOR, 0)
-!define(USE_CALL_READOUT_256_ROW_MAJOR, 1)
+!define(USE_CALL_USB_AOUT_256_COL_MAJOR, 0)
+!define(USE_CALL_USB_AOUT_256_ROW_MAJOR, 1)
+!define(USE_CALL_USB_DOUT_256_ROW_MAJOR, 1)
+!define(USE_CALL_SPI_AOUT_ROW_MAJOR, 1)
+!define(USE_CALL_SPI_DOUT_ROW_MAJOR, 1)
 
 //------------------------------------------------------------------------------
 

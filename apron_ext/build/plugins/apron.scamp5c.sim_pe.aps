@@ -247,6 +247,16 @@
     $r2 = not(R0) //re-instating R$r2
 !macro_end
 
+// clear first DREG if second DREG is 1
+!macro_def
+    pe.clr_if($r1,$r2)
+!macro_begin
+    s5c_sim_mov(R0,$r1)
+    $r1 = not(R0)
+    R0 = or($r1,$r2)
+    $r1 = not(R0)
+!macro_end
+
 //
 !macro_def
     $r1 = pe.d2a($r2)

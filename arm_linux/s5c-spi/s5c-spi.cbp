@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="s5c-spi" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Host">
+				<Option output="s5c_host" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DebugHost/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Debug API">
+				<Option output="s5c_demo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DebugAPI/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Debug Class">
+				<Option output="s5c" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DebugClass/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="s5c-spi" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++11" />
+			<Add option="-Wall" />
+			<Add option="-pthread" />
+		</Compiler>
+		<Linker>
+			<Add option="-pthread" />
+			<Add option="-lpthread" />
+		</Linker>
+		<Unit filename="Scamp5cHost.cpp">
+			<Option target="Debug Host" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="Scamp5cHost.hpp">
+			<Option target="Debug Host" />
+		</Unit>
+		<Unit filename="debug_api.cpp">
+			<Option target="Debug API" />
+		</Unit>
+		<Unit filename="debug_class.cpp">
+			<Option target="Debug Class" />
+		</Unit>
+		<Unit filename="debug_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="debug_functions.h" />
+		<Unit filename="debug_host.cpp">
+			<Option target="Debug Host" />
+		</Unit>
+		<Unit filename="jcStopwatch.cpp" />
+		<Unit filename="jcStopwatch.hpp" />
+		<Unit filename="oxu4_gpio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="oxu4_gpio.h" />
+		<Unit filename="scamp5c_spi.hpp" />
+		<Unit filename="scamp5c_spi_0.cpp" />
+		<Unit filename="scamp5c_spi_1.cpp" />
+		<Unit filename="scamp5c_spi_versions.cpp" />
+		<Unit filename="scamp5c_spi_versions.hpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

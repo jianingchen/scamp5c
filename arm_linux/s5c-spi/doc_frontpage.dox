@@ -1,0 +1,28 @@
+/**
+
+\mainpage SCAMP-5c SPI Interface
+
+
+
+\n 
+\section sec_intro Introduction
+
+The SCAMP-5c vision unit is connected to the flight computer (Odroid XU4) via 
+a SPI bus. 
+
+
+
+\n 
+\section sec_files File List
+
+- s5c-spi --- the interface library
+- examples --- contains the examples. 
+
+
+
+
+
+
+
+
+**/

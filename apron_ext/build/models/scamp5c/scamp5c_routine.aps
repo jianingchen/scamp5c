@@ -42,6 +42,31 @@ _ret
 
 //------------------------------------------------------------------------------
 
+#_ipu_su_delay_50us
+_nop
+    _exp(0, IPU_PORT_B)
+    keep
+    set('sin')
+    _exp(32, IPU_PORT_CLK_SWITCH)// slow clocks so dont have to count too high
+    _exp(1, IPU_PORT_RD)
+    #delay_u
+    _nop
+        _mov(sv, 9)
+        #delay_v
+        _nop
+        _sub(sv, 1)
+        _jump(nz,#delay_v)
+        _nop
+    _sub(su, 1)
+    _jump(nz,#delay_u)
+    _nop
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(0, IPU_PORT_RD)
+_ret
+_nop
+
+//------------------------------------------------------------------------------
+
 #_ipu_sw_sample_ana
     
     _exp(1, IPU_PORT_ADC_START_SAMPLE)
@@ -60,9 +85,10 @@ _ret
 //------------------------------------------------------------------------------
 
 #_ipu_sa_pixel_set
-
-    _exp(255, IPU_PORT_CLK_SWITCH) //FAST
+    _nop
     
+    _exp(1, IPU_PORT_RD) //clocks off
+    _exp(255, IPU_PORT_CLK_SWITCH) //FAST
     _exp(sy, IPU_PORT_ADDR)
     _exp(1, IPU_PORT_LR)
     _exp(0, IPU_PORT_LR)
@@ -76,19 +102,22 @@ _ret
     _exp(0, IPU_PORT_LCX)
     _exp(1, IPU_PORT_LRX)
     _exp(0, IPU_PORT_LRX)
-    _exp(0, IPU_PORT_RD) //clocks on
     _exp(4, IPU_PORT_CLK_SWITCH) //9Mhz
-    _exp(6, IPU_PORT_RISE_C2)
-    _exp(5, IPU_PORT_FALL_C1)
+    _exp(0, IPU_PORT_RD) //clocks on
     set('lfl' 'wr' 'bitmode' 'bit' 'plrb')//write to the pixel
-    
+    _exp(1, IPU_PORT_RD)
+    _exp(255, IPU_PORT_CLK_SWITCH)
     _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(0, IPU_PORT_RD)
     
 _ret
+_nop
 
 //------------------------------------------------------------------------------
 
 #_ipu_sa_pixel_select
+    _nop
     
     _exp(255, IPU_PORT_CLK_SWITCH) //FAST
     
@@ -114,10 +143,11 @@ _ret
     _exp(8, IPU_PORT_CLK_SWITCH)
     
 _ret
+_nop
 
 //------------------------------------------------------------------------------
 
-!if(USE_CALL_READOUT_256_COL_MAJOR, ==, 1)
+!if(USE_CALL_USB_AOUT_256_COL_MAJOR, ==, 1)
 
 // There are many ways of messing with this algo to try and improve the frame rate and
 // to remove striping during readout etc. e.g.
@@ -232,7 +262,7 @@ _ret
 
 //------------------------------------------------------------------------------
 
-!if(USE_CALL_READOUT_256_ROW_MAJOR, ==, 1)
+!if(USE_CALL_USB_AOUT_256_ROW_MAJOR, ==, 1)
 
 //This readout algo looks better than the Row version since less streaking is visible from other pixels. However, there does appear to be a shift of pixel value if run at high speed.
 //Add a square block of significant different intensity to see streaking effect that this algo avoids.
@@ -350,12 +380,17 @@ _ret
 
 //------------------------------------------------------------------------------
 
+!if(USE_CALL_USB_DOUT_256_ROW_MAJOR, ==, 1)
+
 #_digitalread
     _exp(255, IPU_PORT_CLK_SWITCH)
     _exp(8, IPU_PORT_CLK_SWITCH)
     _nop
+    
+    _exp(0, IPU_PORT_B)
     keep
     set('pgdb' 'dig8' 'pgdbobus' 'sin') //get the command required sent whenever I turn clocks on
+    
     _exp(255, IPU_PORT_CLK_SWITCH)
     //_nop
     _exp(0, IPU_PORT_RD) //turn on clocks
@@ -412,36 +447,13 @@ _ret
     _exp(0, IPU_PORT_RD)
 _ret
 
+!endif
+
 //------------------------------------------------------------------------------
 
-#_ipu_sa_readout_256_rm_spi
-    
-    _exp(255, IPU_PORT_CLK_SWITCH)
-    _nop
-    _exp(0, IPU_PORT_SPI_FIFO_FLUSH)// trigger high when fifo > 256
-    _exp(1, 253)
-    
-    _exp(7, IPU_PORT_ADC_FEAMP)
-    
-    // spi header
-    spi.send_byte('0x20')// signature
-    spi.send_byte('0x16')
-    spi.send_byte('0xAA')
-    spi.send_byte(5)// payload type
-    spi.send_byte('0x04')// payload size
-    spi.send_byte('0x00')
-    spi.send_byte('0x01')
-    spi.send_byte(10)// header checksum
-    
-    // uint32: loop counter
-    
-    // uint16: width 
-    spi.send_byte('0x00')
-    spi.send_byte('0x01')
-    
-    // uint16: height
-    spi.send_byte('0x00')
-    spi.send_byte('0x01')
+!if(USE_CALL_SPI_AOUT_ROW_MAJOR, ==, 1)
+
+#_ipu_sa_readout_rm_spi
     
     // Set Block Size
     _exp(0, IPU_PORT_ADDR) //was0
@@ -460,9 +472,10 @@ _ret
     
     // whole plane sampling loop
     _mov(sy, 0)
-    #spi_rm_loop_row
+    #spi_rm_sz_loop_row
         _nop
-         _exp(7, IPU_PORT_ADC_FEAMP)
+        
+        _exp(7, IPU_PORT_ADC_FEAMP)
         // row address
         _exp(sy, IPU_PORT_ADDR) 
         _exp(1, IPU_PORT_LR)
@@ -474,7 +487,7 @@ _ret
          
         _exp(1, IPU_PORT_LC)
 //        _exp(0, IPU_PORT_LC)
-         _exp(6, IPU_PORT_ADC_FEAMP)
+        _exp(6, IPU_PORT_ADC_FEAMP)
  
         _nop
         _nop
@@ -494,10 +507,10 @@ _ret
         _nop
         _nop
         
-        #spi_rm_loop_col
+        #spi_rm_sz_loop_col
             _nop
             
-            _add(sx, 1)
+            _add(sx, sv)
             
             // sample and store in sw
             _call(#_ipu_sw_sample_ana)
@@ -510,136 +523,70 @@ _ret
             _exp(6, IPU_PORT_ADC_FEAMP) //Set high gain
             
             // send result
+            spi.wait_fifo
             spi.send_byte(sw)
             
             _cmp(sx,0)
-        _jump(nz, #spi_rm_loop_col)
+        _jump(nz, #spi_rm_sz_loop_col)
+        _nop
+        
+        _add(sy, sv)
+    _jump(nz, #spi_rm_sz_loop_row)
+    _nop
+    
+_ret
+
+!endif
+
+//------------------------------------------------------------------------------
+
+!if(USE_CALL_SPI_DOUT_ROW_MAJOR, ==, 1)
+
+#_ipu_spi_dout
+    // Set Block Size
+    _exp(0, IPU_PORT_ADDR) 
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(7, IPU_PORT_ADDR) //note that 8 bits are returned at a time
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    
+    _mov(sy, 0)
+    //_exp(sy, IPU_PORT_ADDR) 
+    #_ipu_spi_dout_loop_y
+        _nop
+        
+        // Set Column address
+        _exp(sy, IPU_PORT_ADDR)
+        _exp(1, IPU_PORT_LR)
+        _exp(0, IPU_PORT_LR)
+        _mov(sx,0)
+        _exp(1, IPU_PORT_LC)
+        
+        #_ipu_spi_dout_loop_x
+        _nop
+            // Set Row address
+            _exp(sx, IPU_PORT_ADDR) 
+            _exp(4, IPU_PORT_CLK_SWITCH) //sensible speed for VC commands
+            _exp(1, IPU_PORT_RD) //sends the VC command "kept" at start of macro
+            _exp(255, IPU_PORT_CLK_SWITCH) //high speed for read and send
+            _imp(sw, 234)
+            _exp(0, IPU_PORT_RD)
+            
+            // send result
+            spi.wait_fifo
+            spi.send_byte(sw)
+            
+            _add(sx, 8) //increment by 8
+        _jump(nz, #_ipu_spi_dout_loop_x)
         _nop
         
         _add(sy, 1)
-    _jump(nz, #spi_rm_loop_row)
-    _nop
+    _jump(nz, #_ipu_spi_dout_loop_y)
+    _nop 
     
-    _exp(1, IPU_PORT_SPI_FIFO_FLUSH)// trigger high when fifo > 0
-    _exp(0, 253)
-    // clocks back to normal (9MHz at 90MHz clk)
-    _exp(8, IPU_PORT_CLK_SWITCH)
-    _nop
+    _exp(0, IPU_PORT_LC) //return LC low
     
 _ret
 
-//------------------------------------------------------------------------------
-
-#_ipu_sa_readout_64_rm_spi
-    
-    _exp(255, IPU_PORT_CLK_SWITCH)
-    _nop
-    _exp(0, IPU_PORT_SPI_FIFO_FLUSH)// trigger high when fifo > 256
-    _exp(1, 253)
-    
-    _exp(7, IPU_PORT_ADC_FEAMP)
-    
-    // spi header
-    spi.send_byte('0x20')// signature
-    spi.send_byte('0x16')
-    spi.send_byte('0xAA')
-    spi.send_byte('0x05')// payload type
-    spi.send_byte('0x04')// payload size
-    spi.send_byte('0x10')
-    spi.send_byte('0x00')
-    spi.send_byte('0x19')// header checksum
-    
-    // uint32: loop counter
-    
-    // uint16: width 
-    spi.send_byte('0x40')
-    spi.send_byte('0x00')
-    
-    // uint16: height
-    spi.send_byte('0x40')
-    spi.send_byte('0x00')
-    
-    // Set Block Size
-    _exp(0, IPU_PORT_ADDR) //was0
-    _exp(1, IPU_PORT_LRX)
-    _exp(0, IPU_PORT_LRX)
-    _exp(1, IPU_PORT_LCX)
-    _exp(0, IPU_PORT_LCX)
-    
-    // ADC Delay
-    _exp(8, IPU_PORT_ADC_DELAY) //For this algo, the critical factor is how well IN matches calibration (which is based on the other readout routine)
-    //Increasing speed destroys calibration at high end
-    _exp(1, IPU_PORT_RD)
-    _exp(0, IPU_PORT_ADDR) 
-    _exp(1, IPU_PORT_LR)
-    _exp(0, IPU_PORT_LR)
-    
-    // whole plane sampling loop
-    _mov(sy, 0)
-    #spi_rm_64_loop_row
-        _nop
-         _exp(7, IPU_PORT_ADC_FEAMP)
-        // row address
-        _exp(sy, IPU_PORT_ADDR) 
-        _exp(1, IPU_PORT_LR)
-        _exp(0, IPU_PORT_LR)
-        
-        // column address
-        _mov(sx, 0)
-        _exp(sx, IPU_PORT_ADDR) 
-         
-        _exp(1, IPU_PORT_LC)
-//        _exp(0, IPU_PORT_LC)
-         _exp(6, IPU_PORT_ADC_FEAMP)
- 
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        _nop
-        
-        #spi_rm_64_loop_col
-            _nop
-            
-            _add(sx, 4)
-            
-            // sample and store in sw
-            _call(#_ipu_sw_sample_ana)
-            _nop
-           
-            // column address
-            
-            _exp(7 , IPU_PORT_ADC_FEAMP) //Set low gain
-            _exp(sx, IPU_PORT_ADDR)
-            _exp(6, IPU_PORT_ADC_FEAMP) //Set high gain
-            
-            // send result
-            spi.send_byte(sw)
-            
-            _cmp(sx,0)
-        _jump(nz, #spi_rm_64_loop_col)
-        _nop
-        
-        _add(sy, 4)
-    _jump(nz, #spi_rm_64_loop_row)
-    _nop
-    
-    _exp(1, IPU_PORT_SPI_FIFO_FLUSH)// trigger high when fifo > 0
-    _exp(0, 253)
-    // clocks back to normal (9MHz at 90MHz clk)
-    _exp(8, IPU_PORT_CLK_SWITCH)
-    _nop
-    
-_ret
+!endif
