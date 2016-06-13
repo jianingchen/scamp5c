@@ -101,8 +101,14 @@ void Scamp5cApp::host_callback_events(){
 void Scamp5cApp::host_callback_target(){
     uint8_t *p = s5cHost->GetData();
 
-    update_target = true;
+    TargetX0 = p[0];
+    TargetY0 = p[1];
+    TargetX1 = p[2];
+    TargetY1 = p[3];
 
+    //printf("{ %d, %d, %d, %d }\n",p[0],p[1],p[2],p[3]);
+
+    update_target = true;
     update_frame_state(S5C_SPI_TARGET);
 }
 

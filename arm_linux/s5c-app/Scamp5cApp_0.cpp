@@ -178,10 +178,10 @@ void Scamp5cApp::Initialize(){
     EventsCount = 0;
     update_events = false;
 
-    TargetCoords[0][0] = 0;
-    TargetCoords[0][1] = 0;
-    TargetCoords[1][0] = 0;
-    TargetCoords[1][1] = 0;
+    TargetX0 = 0;
+    TargetY0 = 0;
+    TargetX1 = 0;
+    TargetY1 = 0;
     update_target = false;
 
     last_packet_type = -1;

@@ -41,7 +41,10 @@ public:
     uint32_t EventsCount;
 
     bool update_target;
-    uint8_t TargetCoords[2][2];
+    uint8_t TargetX0;
+    uint8_t TargetY0;
+    uint8_t TargetX1;
+    uint8_t TargetY1;
 
     int SliderValue[8];
     int SliderMin[8];
@@ -83,6 +86,9 @@ protected:
     float events_vertices[COORDINATES_BUFFER_DIM*4][2];
     uint16_t events_indices[COORDINATES_BUFFER_DIM*8];
 
+    float target_vertices[4][2];
+    uint16_t target_indices[4];
+
     void host_callback_loopc(void);
     void host_callback_aout(void);
     void host_callback_dout(void);
@@ -94,6 +100,7 @@ protected:
     void draw_aout();
     void draw_dout();
     void draw_events();
+    void draw_target();
 
     void setup_gui();
 };

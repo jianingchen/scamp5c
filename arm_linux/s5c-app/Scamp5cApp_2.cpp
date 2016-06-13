@@ -54,6 +54,34 @@ void Scamp5cApp::update_graphic_resources(){
         update_events = false;
     }
 
+    if(update_target){
+            float x0 = TargetX0 - 128;
+            float y0 = 128 - TargetY0;
+            float x1 = TargetX1 - 128;
+            float y1 = 128 - TargetY1;
+
+        target_vertices[0][0] = x0;
+        target_vertices[0][1] = y1;
+        target_vertices[1][0] = x1;
+        target_vertices[1][1] = y1;
+        target_vertices[2][0] = x1;
+        target_vertices[2][1] = y0;
+        target_vertices[3][0] = x0;
+        target_vertices[3][1] = y0;
+//        target_vertices[0][0] = x0;
+//        target_vertices[0][1] = y0;
+//        target_vertices[1][0] = x1;
+//        target_vertices[1][1] = y1;
+
+        target_indices[0] = 0;
+        target_indices[1] = 1;
+        target_indices[2] = 2;
+        target_indices[3] = 3;
+
+
+        update_target = false;
+    }
+
     if(update_aout){
         AnalogReadoutTexture->DeleteTexture2D();
         AnalogReadoutTexture->LoadTexture2D(GL_NEAREST,GL_CLAMP_TO_EDGE);
@@ -122,6 +150,23 @@ void Scamp5cApp::draw_events(){
     #else
     glDrawElements(GL_POINTS,EventsCount,GL_UNSIGNED_SHORT,events_indices);
     #endif
+
+    glDisableVertexAttribArray(SimpleShader->loc_position);
+
+}
+
+void Scamp5cApp::draw_target(){
+
+    SimpleShader->LoadColor(0.0,1.0,0.0,1.0);
+
+    BlankTexture->glBind(GL_TEXTURE_2D);
+
+    glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,target_vertices);
+
+    glEnableVertexAttribArray(SimpleShader->loc_position);
+
+    glDrawElements(GL_LINE_LOOP,4,GL_UNSIGNED_SHORT,target_indices);
+    //glDrawElements(GL_POINTS,2,GL_UNSIGNED_SHORT,target_indices);
 
     glDisableVertexAttribArray(SimpleShader->loc_position);
 
@@ -200,6 +245,14 @@ void Scamp5cApp::Draw(){
 
     draw_events();
 
+    // draw target
+    esMatrixLoadIdentity(&modelview);
+    esTranslate(&modelview,128,0.75*H,0.0);
+    esMatrixMultiply(&M,&modelview,&projection);
+    SimpleShader->LoadMatrix(&M.m[0][0]);
+
+    draw_target();
+
     // draw GUI
     esMatrixLoadIdentity(&modelview);
     esMatrixMultiply(&M,&modelview,&projection);
@@ -244,7 +297,7 @@ void Scamp5cApp::Draw(){
     y += FontTexture->GetLineSpace();
     FontTexture->glRenderText(print_buffer,x,y);
 
-    sprintf(print_buffer,"X: %d",EventsCount);
+    sprintf(print_buffer,"{ %d, %d, %d, %d }",TargetX0,TargetY0,TargetX1,TargetY1);
     y += FontTexture->GetLineSpace();
     FontTexture->glRenderText(print_buffer,x,y);
 

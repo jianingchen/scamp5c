@@ -20,8 +20,9 @@ void EventsReadoutCallback(Scamp5cHost *host){
 }
 
 void TargetReadoutCallback(Scamp5cHost *host){
+    uint8_t *data = host->GetData();
     printf("[ %d, %f ] ",host->GetPacketCount(),host->GetPacketRate());
-    printf("standard packet: target { %d, %d }.\n",0,0);
+    printf("standard packet: target { %d, %d } { %d, %d }.\n",data[0],data[1],data[2],data[3]);
 }
 
 void FrameReadoutCallback(Scamp5cHost *host){

@@ -24,6 +24,7 @@
 !define(SPI_PACKET_TYPE_STANDARD_EVENTS, 4)
 !define(SPI_PACKET_TYPE_STANDARD_AOUT, 5)
 !define(SPI_PACKET_TYPE_STANDARD_DOUT, 6)
+!define(SPI_PACKET_TYPE_STANDARD_TARGET, 7)
 
 !define(SPI_PACKET_TYPE_CONTROL_COMMAND, 0xCC)
 
@@ -443,8 +444,8 @@
         _nop
     
         //Remove a pixel that has already been output (none on first run)
-        set('LR4' 'nbit' 'plrb' 'rfl' ) //R4 = not(R5)
-        set('lfl' 'RR4' 'RR3' 'nbit' 'plrb' )//R5 = not( R4 OR R3)
+        set('LR4' 'nbit' 'plrb' 'rfl' ) //R4 = not(R0)
+        set('lfl' 'RR4' 'RR3' 'nbit' 'plrb' )//R0 = not( R4 OR R3)
         
         R2 = $r1
         $r1 = R2
@@ -506,6 +507,135 @@
         _nop
     :#scanning_loop_end
     _nop
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(1,IPU_PORT_FALL_C1)
+    _exp(5,IPU_PORT_FALL_C1)
+    _exp(6,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+    _exp(9,IPU_PORT_FALL_C2)
+    
+    all
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+!macro_end
+
+
+!macro_def
+    spi.scan_target($r1)
+!macro_begin
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    // spi header
+    spi.send_byte(SPI_SIGNATURE_BYTE_0)
+    spi.send_byte(SPI_SIGNATURE_BYTE_1)
+    spi.send_byte(SPI_SIGNATURE_BYTE_2)
+    spi.send_byte(SPI_PACKET_TYPE_STANDARD_TARGET)// 7
+    spi.send_byte(8)// payload size
+    spi.send_byte(0)
+    spi.send_byte(0)
+    spi.send_byte(15)// header checksum
+    
+    // uint32 payload: loop counter
+    _imp(sv,IPU_PORT_LOOPC_0)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_1)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_2)
+    spi.send_byte(sv)
+    _imp(sv,IPU_PORT_LOOPC_3)
+    spi.send_byte(sv)
+    
+    // do the scanning
+    
+    _exp(255, IPU_PORT_ADDR) //search all rows
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(255, IPU_PORT_ADDR) //search all col
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    
+    _exp(0, IPU_PORT_ADDR)
+    _exp(1, IPU_PORT_LC)
+    _exp(0, IPU_PORT_LC)
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(0, IPU_PORT_RD)
+    _nop
+    nop
+    nop
+    nop
+    nop
+    _exp(4, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
+    _nop
+    
+    R0 = $r1
+
+    all
+    where(R0)
+    
+    _exp(2,IPU_PORT_FALL_C1)
+    _exp(7,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+    _exp(8,IPU_PORT_FALL_C2)    
+    
+    _exp(4, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    set( 'pgdb' 'pgdbobus' 'col_out' 'dir' ) //output first live column (all rows active)
+    keep
+    set( 'col_out' 'dir' )
+    _imp(sx,234) //Get data from Dig port
+    
+    _exp(4,IPU_PORT_CLK_SWITCH) // dreg operation clock
+    _nop
+    
+    
+    set( 'pgdb' 'row_out' )
+    keep
+    set( 'row_out' )
+    _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
+    
+     //send coordinates
+    _mov(su,255)
+    _sub(su,sx)
+    spi.send_byte(su)
+    spi.send_byte(sy)
+
+    
+    _exp(2,IPU_PORT_FALL_C1)
+    _exp(7,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+    _exp(8,IPU_PORT_FALL_C2)    
+    
+    _exp(4, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    set( 'pgdb' 'pgdbobus' 'col_out' ) //output last live column (all rows active)
+    keep
+    set( 'col_out' )  
+    _imp(sx,234) //Get data from Dig port
+    
+    _exp(4,IPU_PORT_CLK_SWITCH) // dreg operation clock
+    _nop
+    
+    
+    set( 'pgdb' 'row_out' 'dir' )
+    keep
+    set( 'row_out' 'dir' )
+    _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
+    
+     //send coordinates
+    _mov(su,255)
+    _sub(su,sx)
+    spi.send_byte(su)
+    spi.send_byte(sy)
+    
     
     _exp(8, IPU_PORT_CLK_SWITCH)
     _nop

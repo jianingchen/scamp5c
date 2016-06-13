@@ -185,14 +185,14 @@ void Scamp5cHost::process_std_aout(scamp5c_spi::packet*Packet){
 void Scamp5cHost::process_std_target(scamp5c_spi::packet*Packet){
     uint8_t *Payload = Packet->GetPayload();
     auto *meta = (std_target_meta*)Payload;
-    uint8_t *data = Payload + sizeof(std_events_meta);
+    uint8_t *data = Payload + sizeof(std_target_meta);
 
     update_loop_counter(meta->loop_counter);
 
     data_type = S5C_SPI_TARGET;
     data_dim_r = 2;
     data_dim_c = 2;
-    data_ptr = Payload + sizeof(std_events_meta);
+    data_ptr = Payload + sizeof(std_target_meta);
     if(standard_output_callback[S5C_SPI_TARGET] != NULL){
         standard_output_callback[S5C_SPI_TARGET](this);
     }
@@ -255,12 +255,11 @@ void Scamp5cHost::Process(){
             process_std_events(original_packet);
             break;
 
-        case PACKET_TYPE_STANDARD_AOUT256:
-        case PACKET_TYPE_STANDARD_AOUT64:
+        case PACKET_TYPE_STANDARD_AOUT:
             process_std_aout(original_packet);
             break;
 
-        case PACKET_TYPE_STANDARD_DOUT256:
+        case PACKET_TYPE_STANDARD_DOUT:
             process_std_dout(original_packet);
             break;
 
