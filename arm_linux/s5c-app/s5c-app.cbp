@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="s5c-app" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="esUtil/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="./s5c-app_dbg" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="./s5c-app" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++11" />
+			<Add option="-Wall" />
+			<Add option="-DUSE_OPENGL_ES" />
+			<Add directory="../s5c-spi" />
+		</Compiler>
+		<Linker>
+			<Add option="-pthread" />
+			<Add option="-lGLESv2" />
+			<Add option="-lEGL" />
+			<Add option="-lm" />
+			<Add option="-lX11" />
+			<Add library="../s5c-spi/libs5c-spi.a" />
+		</Linker>
+		<Unit filename="Scamp5cApp.hpp" />
+		<Unit filename="Scamp5cApp_0.cpp" />
+		<Unit filename="Scamp5cApp_1.cpp" />
+		<Unit filename="Scamp5cApp_2.cpp" />
+		<Unit filename="Scamp5cApp_main.cpp" />
+		<Unit filename="eglShader.cpp" />
+		<Unit filename="eglShader.hpp" />
+		<Unit filename="esShader.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="esUtil/" />
+		</Unit>
+		<Unit filename="esShapes.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="esUtil/" />
+		</Unit>
+		<Unit filename="esTransform.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="esUtil/" />
+		</Unit>
+		<Unit filename="esUtil.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="esUtil/" />
+		</Unit>
+		<Unit filename="esUtil.h">
+			<Option virtualFolder="esUtil/" />
+		</Unit>
+		<Unit filename="goGUI.cpp" />
+		<Unit filename="goGUI.hpp" />
+		<Unit filename="goGUI_Button.cpp" />
+		<Unit filename="goGUI_Slider.cpp" />
+		<Unit filename="goTexture.cpp" />
+		<Unit filename="goTexture.hpp" />
+		<Unit filename="goTextureFont.cpp" />
+		<Unit filename="goTextureFont.hpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
