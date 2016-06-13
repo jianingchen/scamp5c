@@ -56,7 +56,6 @@ int Scamp5cHost::save_bmp24(const char*Filename,uint32_t Width,uint32_t Height,c
 
 Scamp5cHost::Scamp5cHost(){
     Scamp5spi = NULL;
-    external_spi_class = true;
     original_packet = NULL;
     data_type = 0;
     data_dim_r = 1;
@@ -75,11 +74,8 @@ Scamp5cHost::~Scamp5cHost(){
 
 //------------------------------------------------------------------------------
 
-void Scamp5cHost::SetSpiClass(scamp5c_spi_ht *spi_class){
-    if(Scamp5spi==NULL){
-        Scamp5spi = spi_class;
-        external_spi_class = true;
-    }
+void Scamp5cHost::SetupSpi(scamp5c_spi_ht *spi_class){
+    Scamp5spi = spi_class;
 }
 
 scamp5c_spi_ht *Scamp5cHost::GetSpiClass(void){
@@ -88,14 +84,9 @@ scamp5c_spi_ht *Scamp5cHost::GetSpiClass(void){
 
 void Scamp5cHost::Open(){
 
-    oxu4_gpio_open();
-
     if(Scamp5spi==NULL){
-        Scamp5spi = new scamp5c_spi_ht;
-        external_spi_class = false;
+        exit(-1);
     }
-
-    Scamp5spi->setup_gpio();
 
     Scamp5spi->OpenSPI(DEV_SPI,2500000);
     Scamp5spi->StartThreads();
@@ -109,25 +100,16 @@ void Scamp5cHost::Open(){
 }
 
 void Scamp5cHost::Close(){
-
     Scamp5spi->EndThreads();
     Scamp5spi->CloseSPI();
-
-    if(external_spi_class==false){
-        external_spi_class = true;
-        delete Scamp5spi;
-    }
-    Scamp5spi = NULL;
-
-    oxu4_gpio_close();
 }
 
-void Scamp5cHost::RegisterStandardOutputCallback(int type,void (*function_pointer)(void)){
-    standard_output_callback[type] = function_pointer;
+void Scamp5cHost::RegisterStandardOutputCallback(int type,std::function<void(Scamp5cHost*)> func){
+    standard_output_callback[type] = func;
 }
 
-void Scamp5cHost::RegisterGenericPacketCallback(void (*function_pointer)(void)){
-    generic_packet_callback = function_pointer;
+void Scamp5cHost::RegisterGenericPacketCallback(std::function<void(Scamp5cHost*)> func){
+    generic_packet_callback = func;
 }
 
 void Scamp5cHost::update_loop_counter(uint32_t new_lc){
@@ -161,8 +143,8 @@ void Scamp5cHost::process_std_loopc(scamp5c_spi::packet*Packet){
     data_dim_c = 4;
     data_ptr = Payload;
 
-    if(standard_output_callback[S5C_SPI_LOOPC]){
-        standard_output_callback[S5C_SPI_LOOPC]();
+    if(standard_output_callback[S5C_SPI_LOOPC] != NULL){
+        standard_output_callback[S5C_SPI_LOOPC](this);
     }
 
 }
@@ -178,8 +160,8 @@ void Scamp5cHost::process_std_events(scamp5c_spi::packet*Packet){
     data_dim_r = meta->event_count;
     data_dim_c = meta->event_dimension;
     data_ptr = Payload + sizeof(std_events_meta);
-    if(standard_output_callback[S5C_SPI_EVENTS]){
-        standard_output_callback[S5C_SPI_EVENTS]();
+    if(standard_output_callback[S5C_SPI_EVENTS] != NULL){
+        standard_output_callback[S5C_SPI_EVENTS](this);
     }
 
 }
@@ -194,8 +176,25 @@ void Scamp5cHost::process_std_aout(scamp5c_spi::packet*Packet){
     data_dim_r = meta->height;
     data_dim_c = meta->width;
     data_ptr = Payload + sizeof(std_aout_meta);
-    if(standard_output_callback[S5C_SPI_AOUT]){
-        standard_output_callback[S5C_SPI_AOUT]();
+    if(standard_output_callback[S5C_SPI_AOUT] != NULL){
+        standard_output_callback[S5C_SPI_AOUT](this);
+    }
+
+}
+
+void Scamp5cHost::process_std_target(scamp5c_spi::packet*Packet){
+    uint8_t *Payload = Packet->GetPayload();
+    auto *meta = (std_target_meta*)Payload;
+    uint8_t *data = Payload + sizeof(std_events_meta);
+
+    update_loop_counter(meta->loop_counter);
+
+    data_type = S5C_SPI_TARGET;
+    data_dim_r = 2;
+    data_dim_c = 2;
+    data_ptr = Payload + sizeof(std_events_meta);
+    if(standard_output_callback[S5C_SPI_TARGET] != NULL){
+        standard_output_callback[S5C_SPI_TARGET](this);
     }
 
 }
@@ -226,8 +225,8 @@ void Scamp5cHost::process_std_dout(scamp5c_spi::packet*Packet){
 
     data_ptr = data_buffer;
 
-    if(standard_output_callback[S5C_SPI_DOUT]){
-        standard_output_callback[S5C_SPI_DOUT]();
+    if(standard_output_callback[S5C_SPI_DOUT] != NULL){
+        standard_output_callback[S5C_SPI_DOUT](this);
     }
 
 }
@@ -265,10 +264,14 @@ void Scamp5cHost::Process(){
             process_std_dout(original_packet);
             break;
 
+        case PACKET_TYPE_STANDARD_TARGET:
+            process_std_target(original_packet);
+            break;
+
         case PACKET_TYPE_CONST_SIZE:
         case PACKET_TYPE_NO_PAYLOAD:
             if(generic_packet_callback){
-                generic_packet_callback();
+                generic_packet_callback(this);
             }
             break;
 

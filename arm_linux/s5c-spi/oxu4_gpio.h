@@ -87,6 +87,10 @@ extern volatile uint32_t* GPA2CON;
 extern volatile uint32_t* GPA2DAT;
 extern volatile uint32_t* GPA2PUD;
 
+extern volatile uint32_t* GPB3CON;
+extern volatile uint32_t* GPB3DAT;
+extern volatile uint32_t* GPB3PUD;
+
 #define SET_BIT(v,n)  (v) |= (1<<(n))
 #define CLR_BIT(v,n)  (v) &= ~(1<<(n))
 #define GET_BIT(v,n)  (((v)&(1<<(n))>>n))

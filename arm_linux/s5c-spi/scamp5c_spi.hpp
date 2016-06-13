@@ -35,11 +35,6 @@
 #define PACKET_TYPE_NO_PAYLOAD     0
 #define PACKET_TYPE_CONST_SIZE     1
 #define PACKET_TYPE_OPEN_SIZE      2
-#define PACKET_TYPE_STANDARD_LOOPC		3
-#define PACKET_TYPE_STANDARD_EVENTS     4
-#define PACKET_TYPE_STANDARD_AOUT256    5
-#define PACKET_TYPE_STANDARD_DOUT256    6
-#define PACKET_TYPE_STANDARD_AOUT64     7
 
 /*!
     \brief the object-oriented interface of the spi bus

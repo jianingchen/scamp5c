@@ -1,14 +1,39 @@
+/*!
+
+\defgroup SCAMP5C_SPI_HOST SPI Host Class
+
+\brief provide a level api to process the standard output packet (e.g. aout, dout and events scanning)
+
+*/
+
+/*!
+
+\file
+\ingroup SCAMP5C_SPI_HOST
+
+\author Jianing Chen
+
+*/
 
 #ifndef SCAMP5C_SPI_HOST_HPP
 #define SCAMP5C_SPI_HOST_HPP
 
 #include "scamp5c_spi_versions.hpp"
 #include "jcStopwatch.hpp"
+#include <functional>
+
+#define PACKET_TYPE_STANDARD_LOOPC		3
+#define PACKET_TYPE_STANDARD_EVENTS     4
+#define PACKET_TYPE_STANDARD_AOUT256    5
+#define PACKET_TYPE_STANDARD_DOUT256    6
+#define PACKET_TYPE_STANDARD_AOUT64     7
+#define PACKET_TYPE_STANDARD_TARGET     8
 
 #define S5C_SPI_LOOPC    0
 #define S5C_SPI_EVENTS   1
 #define S5C_SPI_AOUT     2
 #define S5C_SPI_DOUT     3
+#define S5C_SPI_TARGET   4
 
 class Scamp5cHost{
 
@@ -23,11 +48,11 @@ public:
 
     void Process();
 
-    void SetSpiClass(scamp5c_spi_ht *spi_class);
+    void SetupSpi(scamp5c_spi_ht *spi_class);
     scamp5c_spi_ht *GetSpiClass(void);
 
-    void RegisterStandardOutputCallback(int type,void (*function_pointer)(void));
-    void RegisterGenericPacketCallback(void (*function_pointer)(void));
+    void RegisterStandardOutputCallback(int type,std::function<void(Scamp5cHost*)> func);
+    void RegisterGenericPacketCallback(std::function<void(Scamp5cHost*)> func);
 
     int SaveFrameBMP(const char*filepath);
 
@@ -42,6 +67,9 @@ public:
     inline uint32_t GetLoopCounter(){
         return loop_counter;
     }
+    inline uint32_t GetLoopCounterError(){
+        return loop_counter_error;
+    }
 
     inline uint32_t GetFrameWidth(){
         return data_dim_c;
@@ -50,10 +78,10 @@ public:
         return data_dim_r;
     }
 
-    inline uint32_t GetEventDimension(){
+    inline uint32_t GetCoordinatesDimension(){
         return data_dim_c;
     }
-    inline uint32_t GetEventCount(){
+    inline uint32_t GetCoordinatesCount(){
         return data_dim_r;
     }
 
@@ -77,7 +105,6 @@ public:
 protected:
 
     scamp5c_spi_ht *Scamp5spi;
-    bool external_spi_class;
     jcStopwatch PacketStopwatch;
     double packet_rate;
     uint32_t packet_count;
@@ -90,8 +117,8 @@ protected:
     uint32_t loop_counter;
     int loop_counter_error;
 
-    void (*standard_output_callback[8])(void);
-    void (*generic_packet_callback)(void);
+    std::function<void(Scamp5cHost*)> standard_output_callback[8];
+    std::function<void(Scamp5cHost*)> generic_packet_callback;
 
     struct std_loopc_meta{
         uint32_t loop_counter;
@@ -110,6 +137,9 @@ protected:
         uint32_t loop_counter;
         uint16_t width;
         uint16_t height;
+    };
+    struct std_target_meta{
+        uint32_t loop_counter;
     };
 
     inline uint8_t&data(size_t r,size_t c){
@@ -132,6 +162,7 @@ protected:
     void process_std_events(scamp5c_spi::packet *pkt);
     void process_std_aout(scamp5c_spi::packet *pkt);
     void process_std_dout(scamp5c_spi::packet *pkt);
+    void process_std_target(scamp5c_spi::packet *pkt);
 
     static int save_bmp24(const char*filename,uint32_t width,uint32_t height,const uint8_t*data);
 

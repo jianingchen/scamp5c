@@ -84,6 +84,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="oxu4_gpio.h" />
+		<Unit filename="scamp5c_oxu4.cpp" />
+		<Unit filename="scamp5c_oxu4.hpp" />
 		<Unit filename="scamp5c_spi.hpp" />
 		<Unit filename="scamp5c_spi_0.cpp" />
 		<Unit filename="scamp5c_spi_1.cpp" />

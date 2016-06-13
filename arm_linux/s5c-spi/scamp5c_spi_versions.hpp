@@ -19,7 +19,7 @@
 #define SCAMP5C_SPI_VERSIONS_HPP
 
 #include "scamp5c_spi.hpp"
-#include "oxu4_gpio.h"
+#include "scamp5c_oxu4.hpp"
 
 
 
@@ -27,19 +27,6 @@
     \brief this interface uses the data-ready pin to trigger transfers.
 */
 class scamp5c_spi_ht:public scamp5c_spi{
-
-
-protected:
-
-    int trigger_state;
-
-    virtual bool get_hw_trigger(){
-        return (*GPX1DAT&(1<<3)) != 0;
-    }
-
-    virtual bool spi_transfer_trigger(){
-        return get_hw_trigger();
-    }
 
 
 public:
@@ -52,26 +39,25 @@ public:
         }
     }
 
-    static void setup_gpio(){
-        uint32_t *p;
-        uint16_t *w;
-
-        // data ready pin
-        p = (uint32_t*)GPX1CON;
-        *p = 0;// default = input
-
-        w = (uint16_t*)GPX1PUD;
-        *w |= GPIO_PUD_ENABLE_PU<<(0*2);
-        *w |= GPIO_PUD_ENABLE_PU<<(1*2);
-        *w |= GPIO_PUD_ENABLE_PU<<(2*2);
-        *w |= GPIO_PUD_ENABLE_PU<<(3*2);
-        *w |= GPIO_PUD_ENABLE_PU<<(4*2);
-        *w |= GPIO_PUD_ENABLE_PU<<(5*2);
-        *w |= GPIO_PUD_ENABLE_PU<<(6*2);
-        *w |= GPIO_PUD_ENABLE_PU<<(7*2);
+    void SetupGpio(scamp5c_oxu4_gpio *p){
+        oxu4_gpio = p;
+        oxu4_gpio->configure_gpio();
     }
 
+
+protected:
+    scamp5c_oxu4_gpio *oxu4_gpio;
+    int trigger_state;
+
     virtual size_t transfer_callback();
+
+    virtual bool get_hw_trigger(){
+        return oxu4_gpio->get_spi_data_ready();
+    }
+
+    virtual bool spi_transfer_trigger(){
+        return get_hw_trigger();
+    }
 
 
 };

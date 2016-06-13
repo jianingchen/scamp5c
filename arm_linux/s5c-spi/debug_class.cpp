@@ -13,7 +13,7 @@ extern volatile uint8_t* MEM_BASE_GPX;
 extern volatile uint8_t* MEM_BASE_GPA;
 extern volatile uint8_t* MEM_BASE_GPB;
 
-uint32_t TransferSize = 1000;
+uint32_t TransferSize = 800;
 
 
 class scamp5c_spi_test:public scamp5c_spi{
@@ -104,14 +104,14 @@ protected:
         }
 
         led_timer -= led_timer>0;
+        if(led_timer>0){
+            SET_BIT(*GPX1DAT,6);// turn on
+        }else{
+            CLR_BIT(*GPX1DAT,6);// turn off
+        }
 
         //SET_BIT(*GPX2DAT,5);// turn on
         /*
-        if(led_timer>0){
-            SET_BIT(*GPX2DAT,7);// turn on
-        }else{
-            CLR_BIT(*GPX2DAT,7);// turn off
-        }
 
         if(d1<130){
             CLR_BIT(*GPX2DAT,5);
@@ -171,19 +171,54 @@ int main(int argc,char*argv[]){
     *w |= GPIO_PUD_ENABLE_PU<<(5*2);
     *w |= GPIO_PUD_ENABLE_PU<<(6*2);
     *w |= GPIO_PUD_ENABLE_PU<<(7*2);
+*/
 
-    // GPX2 contain output pins
+    // GPX3
+    p = (uint32_t*)GPX3CON;
+    *p |= 1<<(1*4);
+    w = (uint16_t*)GPX3PUD;
+    *w = 0;
+    *GPX3DAT = 0b00000000;
+
+    // GPX2
     p = (uint32_t*)GPX2CON;
+    *p |= 1<<(1*4);
+    *p |= 1<<(4*4);
     *p |= 1<<(5*4);
     *p |= 1<<(6*4);
     *p |= 1<<(7*4);
     w = (uint16_t*)GPX2PUD;
     *w = 0;
-    *GPX2DAT = 0b11100000;
+    *GPX2DAT = 0b00000000;
+
+    // GPX1
+    p = (uint32_t*)GPX1CON;
+    *p |= 1<<(2*4);
+    *p |= 1<<(5*4);
+    *p |= 1<<(6*4);
+    *p |= 1<<(7*4);
+    w = (uint16_t*)GPX1PUD;
+    *w = 0;
+    *GPX1DAT = 0b00000000;
+
+    // GPA0
+    p = (uint32_t*)GPA0CON;
+    *p |= 1<<(2*4);
+    *p |= 1<<(3*4);
+    w = (uint16_t*)GPA0PUD;
+    *w = 0;
+    *GPA0DAT = 0b00000000;
+
+    // GPB3
+    p = (uint32_t*)GPB3CON;
+    *p |= 1<<(2*4);
+    *p |= 1<<(3*4);
+    w = (uint16_t*)GPB3PUD;
+    *w = 0;
+    *GPB3DAT = 0b00000000;
 
     printf("GPX1CON: %s\n",BIN_FORM_32(0[(uint32_t*)GPX1CON]));
     printf("GPX2CON: %s\n",BIN_FORM_32(0[(uint32_t*)GPX2CON]));
-*/
 
     Box = new scamp5c_spi_test;
 
