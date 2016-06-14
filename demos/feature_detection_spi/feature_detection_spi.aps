@@ -1,0 +1,221 @@
+
+apron.config_begin
+    host.template('scamp5c_host_template.txt')
+    //host.firmware('../ipu_ok_eagi_itfc_16_may.bit')
+    host.set_frame_rate(100)
+    window_1 = host.add_display('Captured')
+    window_2 = host.add_display('Processed')
+    slider_0 = host.add_slider('threshold', 0, 100, 45, 1, 1)
+//     host.record_display(window_2,'snapshots/dout_',50)
+apron.config_end
+
+
+//--------------------------------
+
+
+ipu.reset_loop_counter
+spi.reset
+
+_jump(#start)
+_nop
+
+!include('Lib_FAST16.aps')
+
+
+//--------------------------------
+
+
+#image_processing_take_C_return_R5
+    _nop
+
+    R12 = 0
+    R11 = 0
+    R10 = 0
+    
+    //--------
+    // dark foreground bright background
+    
+    s0 = usb.slider(slider_0)
+    E = in(s0)
+    A = add(C,E)
+    _call(#algorithm_FAST16_R9)
+    _nop
+    
+    R10 = R9
+    
+    //--------
+    // bright foreground dark background
+    
+    E = neg(C)
+    C = copy(E)
+    
+    s0 = usb.slider(slider_0)
+    E = in(s0)
+    A = add(C,E)
+    _call(#algorithm_FAST16_R9)
+    _nop
+    
+    R5 = or(R9,R10)
+    
+    E = neg(C)
+    C = copy(E)
+    
+    //--------
+    
+_ret
+
+
+//--------------------------------
+
+
+#start
+
+    // exposure stage 1 (long)
+    ipu.wait_frame_trigger
+    rpix(A,C)
+    
+    B = in(-128)
+    
+    _call(#image_processing_take_C_return_R5)
+    _nop
+    where(R5)
+        B = in(127)
+    all
+    
+    // exposure stage 2 (short)
+    rpix
+    ipu.delay_1ms
+    rpix(A,C)
+    
+    _call(#image_processing_take_C_return_R5)
+    _nop
+    where(R5)
+        B = in(127)
+    all
+    
+//     usb.aout(C,window_1)//  >>>>>>>>
+    
+    // recover R5 from B
+    where(B)
+    R5 = FLAG
+    all
+    
+    _call(#algorithm_erosion_R5)
+    _nop
+    
+    // output of feature detection result
+//     usb.dout(R5,window_2)//  >>>>>>>>
+    pe.refresh(R5)
+    
+    
+    // Event Scanning
+    //-----------------------------------------------------------
+    
+    ipu.inc_loop_counter
+    
+    // check if fifo space is more than 768 bytes (the packet size is 652)
+    spi.get_fifo_space(s0)
+    _sub(s0,SPI_FIFO_SPACE_768)
+    _jump(c,#skip_spi)
+    
+    // scan and send all coordinates
+    spi.begin
+    
+    spi.scan_events(R5,350)
+    
+    spi.end
+    
+    #skip_spi
+    _nop
+
+_jump(#start)
+
+apron.genereate_host
+apron.compile_host
+
+
+//     make_load_uint16(300,s0,s1)
+//     spi.scan_events(R5,s0,s1)
+//     spi.scan_events(R5,200)
+    
+//     _exp(255, IPU_PORT_CLK_SWITCH)
+//     _nop
+//     _exp(1, 253)
+//     
+//     
+//     // spi header
+//     spi.send_byte_fast('0x20')// signature
+//     spi.send_byte_fast('0x16')
+//     spi.send_byte_fast('0xAA')
+//     spi.send_byte_fast('0x01')// payload type
+//     spi.send_byte_fast('0x2C')// payload size
+//     spi.send_byte_fast('0x03')
+//     spi.send_byte_fast('0x00')
+//     spi.send_byte_fast('0x30')// header checksum
+//     
+//     // uint32 payload
+//     _imp(s0,IPU_PORT_LOOPC_0)
+//     spi.send_byte_fast(s0)
+//     _imp(s0,IPU_PORT_LOOPC_1)
+//     spi.send_byte_fast(s0)
+//     _imp(s0,IPU_PORT_LOOPC_2)
+//     spi.send_byte_fast(s0)
+//     _imp(s0,IPU_PORT_LOOPC_3)
+//     spi.send_byte_fast(s0)
+//     
+//     //---------------------------
+//     
+//     _mov(s1,0)
+//     _mov(s2,0)
+//     _mov(s3,10)
+//     #scan_event_L0
+//         _nop
+//     
+//         _mov(s4,40)
+//         #scan_event_L1
+//             _nop
+//             
+//             // locate a '1' in R5 DREG plane
+//             pro.locate_event(R5,s1,s2)
+//     
+//             // remove the found '1' from the DREG plane
+//             R7 = 0
+//             ipu.pixel_set(R7,s1,s2)
+//             pe.clr_if(R5,R7)
+//             
+//             // send the coordinates
+//             _exp(1, IPU_PORT_RD)
+//             _exp(255, IPU_PORT_CLK_SWITCH)
+//             _nop
+//             
+//             spi.send_byte_fast(s1)
+//             spi.send_byte_fast(s2)
+//             
+//             _mov(s0,s3)
+//             _add(s0,100)
+//             spi.send_byte_fast(s0)
+//             
+//             _mov(s0,s4)
+//             _add(s0,100)
+//             spi.send_byte_fast(s0)
+//             
+//             _exp(8, IPU_PORT_CLK_SWITCH)
+//             _nop
+//             _exp(0, IPU_PORT_RD)
+//             
+//             _sub(s4,1)
+//         _jump(nz,#scan_event_L1)
+//         _nop
+//         
+//         _sub(s3,1)
+//     _jump(nz,#scan_event_L0)
+//     _nop
+//     
+//     _exp(1, 246)   //Port 246
+//     _exp(0, 246)
+//     _nop
+//     _exp(0, 253)
+//     
+//     _exp(8, IPU_PORT_CLK_SWITCH)
+//     _nop
+    

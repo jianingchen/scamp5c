@@ -154,20 +154,9 @@ public:
             return (holding_value - domain_start)/domain_extent;
         }
 
-        inline void SetValue(double v){
-            update_value(v);
-            holding_value = running_value;
-        }
-        inline void SetValueUniform(double u){
-            update_value_uniform(u);
-            holding_value = running_value;
-        }
-        inline void SetDomain(double min_value,double max_value){
-            double u = GetValueUniform();
-            domain_start = min_value;
-            domain_extent = max_value - min_value;
-            SetValueUniform(u);
-        }
+        void SetValue(double v,bool do_update_action = false);
+        void SetValueUniform(double u,bool do_update_action = false);
+        void SetDomain(double min_value,double max_value);
 
     protected:
 

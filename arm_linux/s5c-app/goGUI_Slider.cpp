@@ -112,6 +112,33 @@ void goGUI::Slider::event_callback(pad*p,int x,int y,event_type e){
 
 }
 
+void goGUI::Slider::SetDomain(double min_value,double max_value){
+    double u = GetValueUniform();
+    domain_start = min_value;
+    domain_extent = max_value - min_value;
+    SetValueUniform(u);
+}
+
+void goGUI::Slider::SetValue(double v,bool do_update_action){
+    update_value(v);
+    holding_value = running_value;
+    if(do_update_action){
+        if(action_update!=NULL){
+            action_update(this,0,0);
+        }
+    }
+}
+
+void goGUI::Slider::SetValueUniform(double u,bool do_update_action){
+    update_value_uniform(u);
+    holding_value = running_value;
+    if(do_update_action){
+        if(action_update!=NULL){
+            action_update(this,0,0);
+        }
+    }
+}
+
 void goGUI::Slider::RegisterActionOnUpdate(std::function<void(Slider*,int,int)> action){
     action_update = action;
 }

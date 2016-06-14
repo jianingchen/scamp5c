@@ -1,0 +1,283 @@
+
+// Used AREG: A, C, E
+// Used DREG: all apart from R10
+
+
+//--------------------------------
+
+// ring counter:
+// R:_1_2_3_4_5_6_7_8
+// 0: 0 0 0 0 0 0 0 0
+// 1: 1 0 0 0 0 0 0 0
+// 2: 1 1 0 0 0 0 0 0
+// 3: 1 1 1 0 0 0 0 0
+// 4: 1 1 1 1 0 0 0 0
+// 5: 1 1 1 1 1 0 0 0
+// 6: 1 1 1 1 1 1 0 0
+// 7: 1 1 1 1 1 1 1 0
+// 8: 1 1 1 1 1 1 1 1
+// 9: 0 1 1 1 1 1 1 1
+//10: 0 0 1 1 1 1 1 1
+//11: 0 0 0 1 1 1 1 1
+//12: 0 0 0 0 1 1 1 1
+//13: 0 0 0 0 0 1 1 1
+//14: 0 0 0 0 0 0 1 1
+//15: 0 0 0 0 0 0 0 1
+
+#test_E
+    _nop
+    
+    sub(E,A)// E = E - A
+    where(E)
+    
+    // use clock for DREG operation
+    _exp(4,IPU_PORT_CLK_SWITCH)
+    _exp(6,IPU_PORT_FALL_C1)
+    _exp(7,IPU_PORT_RISE_C2)
+    _exp(9,IPU_PORT_FALL_C2)
+
+    // ring counter increment
+    R0 = not(R8)
+    R8 = R7
+    R7 = R6
+    R6 = R5
+    R5 = R4
+    R4 = R3
+    R3 = R2
+    R2 = R1
+    R1 = R0
+    
+    // ring counter reset on !FLAG
+    R11 = not(FLAG)
+    pe.clr_if(R8,R11)
+    pe.clr_if(R7,R11)
+    pe.clr_if(R6,R11)
+    pe.clr_if(R5,R11)
+    pe.clr_if(R4,R11)
+    pe.clr_if(R3,R11)
+    pe.clr_if(R2,R11)
+    pe.clr_if(R1,R11)
+    
+    // check if count >= 10
+    R11 = pe.pattern_0_1(R2,R3)
+    R0 = 1
+    R12 = R9
+    R9 = or(R11,R12)
+    
+    // reset clock
+    _exp(8,IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    all
+    
+_ret
+
+
+//--------------------------------
+// modified sampling pattern:
+// 5 6 1 2 3
+// 4       4
+// 3   x   5
+// 2       6
+// 1 0 9 8 7
+#algorithm_FAST16_R9
+    _nop
+    
+    R9 = 0
+    R8 = 0
+    R7 = 0
+    R6 = 0
+    R5 = 0
+    R4 = 0
+    R3 = 0
+    R2 = 0
+    R1 = 0
+    R0 = 1
+    
+    _mov(sz,2)
+    #iteration_16
+        
+        // 1
+        E = north(C)
+        E = north(E)
+        _call(#test_E)
+        _nop
+        
+        // 2
+        E = north(C)
+        E = north(E)
+        E = east(E)
+        _call(#test_E)
+        _nop
+        
+        // 3
+        E = north(C)
+        E = north(E)
+        E = east(E)
+        E = east(E)
+        _call(#test_E)
+        _nop
+        
+        // 4
+        E = north(C)
+        E = east(E)
+        E = east(E)
+        _call(#test_E)
+        _nop
+        
+        // 5
+        E = east(C)
+        E = east(E)
+        _call(#test_E)
+        _nop
+        
+        // 6
+        E = east(C)
+        E = east(E)
+        E = south(E)
+        _call(#test_E)
+        _nop
+        
+        // 7
+        E = east(C)
+        E = east(E)
+        E = south(E)
+        E = south(E)
+        _call(#test_E)
+        _nop
+        
+        // 8
+        E = east(C)
+        E = south(E)
+        E = south(E)
+        _call(#test_E)
+        _nop
+        
+        // 9
+        E = south(C)
+        E = south(E)
+        _call(#test_E)
+        _nop
+        
+        // 10
+        E = south(C)
+        E = south(E)
+        E = west(E)
+        _call(#test_E)
+        _nop
+        
+        // 11
+        E = south(C)
+        E = south(E)
+        E = west(E)
+        E = west(E)
+        _call(#test_E)
+        _nop
+        
+        // 12
+        E = south(C)
+        E = west(E)
+        E = west(E)
+        _call(#test_E)
+        _nop
+        
+        // 13
+        E = west(C)
+        E = west(E)
+        _call(#test_E)
+        _nop
+        
+        // 14
+        E = west(C)
+        E = west(E)
+        E = north(E)
+        _call(#test_E)
+        _nop
+        
+        // 15
+        E = west(C)
+        E = west(E)
+        E = north(E)
+        E = north(E)
+        _call(#test_E)
+        _nop
+        
+        // 16
+        E = west(C)
+        E = north(E)
+        E = north(E)
+        _call(#test_E)
+        _nop
+        
+    _sub(sz,1)
+    _jump(nz,#iteration_16)
+    
+_ret
+
+
+//--------------------------------
+#algorithm_erosion_R5
+_nop
+
+    R6 = 0
+    R7 = 0
+    R8 = 0
+    
+    R6 = pro.digital_news(R5,'north')
+    pe.refresh(R5)
+    R7 = pro.digital_news(R5,'south')
+    R8 = pe.pattern_0_1(R7,R6)
+    pe.clr_if(R5,R8)
+    
+    R6 = pro.digital_news(R5,'north')
+    R6 = pro.digital_news(R6,'east')
+    pe.refresh(R5)
+    R7 = pro.digital_news(R5,'south')
+    R7 = pro.digital_news(R7,'west')
+    R8 = pe.pattern_0_1(R7,R6)
+    pe.clr_if(R5,R8)
+    
+    R6 = pro.digital_news(R5,'east')
+    pe.refresh(R5)
+    R7 = pro.digital_news(R5,'west')
+    R8 = pe.pattern_0_1(R7,R6)
+    pe.clr_if(R5,R8)
+    
+    R6 = pro.digital_news(R5,'east')
+    R6 = pro.digital_news(R6,'south')
+    pe.refresh(R5)
+    R7 = pro.digital_news(R5,'west')
+    R7 = pro.digital_news(R7,'north')
+    R8 = pe.pattern_0_1(R7,R6)
+    pe.clr_if(R5,R8)
+    
+    R6 = pro.digital_news(R5,'south')
+    pe.refresh(R5)
+    R7 = pro.digital_news(R5,'north')
+    R8 = pe.pattern_0_1(R7,R6)
+    pe.clr_if(R5,R8)
+    
+    R6 = pro.digital_news(R5,'south')
+    R6 = pro.digital_news(R6,'west')
+    pe.refresh(R5)
+    R7 = pro.digital_news(R5,'north')
+    R7 = pro.digital_news(R7,'east')
+    R8 = pe.pattern_0_1(R7,R6)
+    pe.clr_if(R5,R8)
+    
+    R6 = pro.digital_news(R5,'west')
+    pe.refresh(R5)
+    R7 = pro.digital_news(R5,'east')
+    R8 = pe.pattern_0_1(R7,R6)
+    pe.clr_if(R5,R8)
+    
+    R6 = pro.digital_news(R5,'west')
+    R6 = pro.digital_news(R6,'north')
+    pe.refresh(R5)
+    R7 = pro.digital_news(R5,'east')
+    R7 = pro.digital_news(R7,'south')
+    R8 = pe.pattern_0_1(R7,R6)
+    pe.clr_if(R5,R8)
+    
+_ret
+

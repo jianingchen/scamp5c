@@ -273,6 +273,7 @@ void Scamp5cHost::Process(){
         case PACKET_TYPE_CONST_SIZE:
         case PACKET_TYPE_NO_PAYLOAD:
             if(generic_packet_callback){
+                data_ptr = Packet->GetPayload();
                 generic_packet_callback(this);
             }
             break;

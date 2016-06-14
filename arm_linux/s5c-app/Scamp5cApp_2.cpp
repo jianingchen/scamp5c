@@ -104,7 +104,7 @@ void Scamp5cApp::draw_events(){
         update_events = false;
     }
 
-    SimpleShader->LoadColor(0.0,1.0,0.0,1.0);
+    SimpleShader->LoadColor(0.0,1.0,0.5,1.0);
 
     BlankTexture->glBind(GL_TEXTURE_2D);
 

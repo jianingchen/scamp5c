@@ -120,5 +120,7 @@ void Scamp5cApp::host_callback_target(){
 }
 
 void Scamp5cApp::host_callback_generic(){
+    uint8_t *p = s5cHost->GetData();
 
+    printf("generic packet: { %d, %d, %d, %d, ... }\n",p[0],p[1],p[2],p[3]);
 }

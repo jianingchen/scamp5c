@@ -77,16 +77,6 @@ void Scamp5cApp::Initialize(){
     FontTexture->SetVertexAttribLoc(SimpleShader->loc_position,SimpleShader->loc_texcoord);
 
 
-    /** GUI **/
-
-    Quit = false;
-
-    GUI = new goGUI;
-    GUI->CreateResources();
-    GUI->eglProgram = SimpleShader;
-
-    setup_gui();
-
     /** Scamp5c SPI Link **/
 
     // spi host
@@ -188,9 +178,27 @@ void Scamp5cApp::Initialize(){
 
     s5cHost->Open();
 
+
+    /** GUI **/
+
+    Quit = false;
+
+    GUI = new goGUI;
+    GUI->CreateResources();
+    GUI->eglProgram = SimpleShader;
+
+    setup_gui();
+
 }
 
 void Scamp5cApp::Terminate(){
+
+
+    /** GUI **/
+
+    GUI->DeleteResources();
+    delete GUI;
+
 
     /** SPI Host **/
 
@@ -212,17 +220,7 @@ void Scamp5cApp::Terminate(){
     delete s5cGPIO;
 
 
-    /** GUI **/
-
-    GUI->DeleteResources();
-    delete GUI;
-
-
     /** Graphics **/
-
-    s5cHost->Close();
-    delete s5cHost;
-    delete s5cSPI;
 
     FontTexture->DeleteTexture2D();
     FontTexture->DeleteBitmap();
@@ -323,23 +321,23 @@ void Scamp5cApp::setup_gui(){
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_0");
     GUI->LastCreatedSlider()->SetDomain(-128,127);
-    GUI->LastCreatedSlider()->SetValue(32);
     GUI->LastCreatedSlider()->IntegerValue = true;
     GUI->LastCreatedSlider()->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
-        s5cSPI->ipu_port_forward[0] = (uint8_t)slider->GetValue();
+        s5cSPI->ipu_port_forward[0] = (uint8_t)int(slider->GetValue());
     });
+    GUI->LastCreatedSlider()->SetValue(32,true);
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_1");
     GUI->LastCreatedSlider()->SetDomain(1,4);
-    GUI->LastCreatedSlider()->SetValue(2);
     GUI->LastCreatedSlider()->IntegerValue = true;
     GUI->LastCreatedSlider()->UpdateOnRelease = true;
     GUI->LastCreatedSlider()->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
-        s5cSPI->ipu_port_forward[1] = (uint8_t)slider->GetValue();
+        s5cSPI->ipu_port_forward[1] = (uint8_t)int(slider->GetValue());
     });
+    GUI->LastCreatedSlider()->SetValue(2,true);
 
 
     Y -= 60;

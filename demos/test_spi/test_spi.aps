@@ -1,0 +1,91 @@
+
+apron.config_begin
+    sim.pix_source_webcam
+    host.set_frame_rate(60)
+    host.template('scamp5c_host_template.txt')
+    //host.firmware('../ipu_ok_eagi_itfc_16_may.bit')
+    window_1 = host.add_display('cap')
+apron.config_end
+
+ipu.reset_loop_counter
+
+spi.reset
+
+#start
+    ipu.wait_frame_trigger
+    rpix
+    
+    ipu.wait_frame_trigger
+    rpix(B,C)
+    
+    R5 = 0
+    
+    ipu.inc_loop_counter
+    
+    spi.get_fifo_space(s0)
+    _sub(s0,SPI_FIFO_SPACE_768)
+    _jump(c,#start)
+    _nop
+    
+//     s0 = spi.port(SPI_RX_0)
+//     s1 = spi.port(SPI_RX_1)
+//     s2 = spi.port(SPI_RX_2)
+//     s3 = spi.port(SPI_RX_3)
+//     spi.begin
+//     spi.send_header(SPI_PACKET_TYPE_CONST_SIZE,4)
+//     spi.send_byte(s0)
+//     spi.send_byte(s1)
+//     spi.send_byte(s2)
+//     spi.send_byte(s3)
+//     spi.end
+    
+    
+    s0 = spi.port(SPI_RX_1)
+    _cmp(s0,2)
+    _jump(z,#aout)
+    _nop
+    
+    _cmp(s0,3)
+    _jump(z,#dout)
+    _nop
+    
+    _cmp(s0,4)
+    _jump(z,#analog_in)
+    _nop
+    
+    
+    #aout
+    _nop
+    spi.begin
+    spi.aout64(C)
+    spi.end
+    _jump(#start)
+    _nop
+    
+    
+    #dout
+    _nop
+    where(C)
+    R5 = FLAG
+    all
+    spi.begin
+    spi.dout(R5)
+    spi.end
+    _jump(#start)
+    _nop
+    
+    
+    #analog_in
+    _nop
+    s0 = spi.port(SPI_RX_0)
+    E = in(s0)
+    spi.begin
+    spi.aout64(E)
+    spi.end
+    _jump(#start)
+    _nop
+    
+    _jump(#start)
+    
+apron.genereate_host
+apron.compile_host
