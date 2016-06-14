@@ -12,6 +12,17 @@ class Scamp5cApp{
 
 public:
     static const size_t COORDINATES_BUFFER_DIM = 1024;
+    static const size_t TARGET_TRAIL_POINTS = 100;
+
+    struct point{
+        uint8_t x;
+        uint8_t y;
+    };
+    struct target{
+        point top_left;
+        point bottom_right;
+    };
+
 
     scamp5c_oxu4_gpio *s5cGPIO;
     scamp5c_spi_ht *s5cSPI;
@@ -41,10 +52,8 @@ public:
     uint32_t EventsCount;
 
     bool update_target;
-    uint8_t TargetX0;
-    uint8_t TargetY0;
-    uint8_t TargetX1;
-    uint8_t TargetY1;
+    std::list<target*> target_trail;
+    uint32_t TrailCount;
 
     int SliderValue[8];
     int SliderMin[8];
@@ -88,6 +97,10 @@ protected:
 
     float target_vertices[4][2];
     uint16_t target_indices[4];
+    float target_trail_vertices[TARGET_TRAIL_POINTS][2];
+    uint16_t target_trail_indices[TARGET_TRAIL_POINTS];
+
+    void reset_host();
 
     void host_callback_loopc(void);
     void host_callback_aout(void);
@@ -95,8 +108,9 @@ protected:
     void host_callback_events(void);
     void host_callback_target(void);
     void host_callback_generic(void);
+
     void update_frame_state(int packet_type);
-    void update_graphic_resources();
+
     void draw_aout();
     void draw_dout();
     void draw_events();

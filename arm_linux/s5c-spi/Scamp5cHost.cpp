@@ -97,9 +97,12 @@ void Scamp5cHost::Open(){
     packet_count = 0;
     loop_counter_error = -1;
 
+    Scamp5spi->GetGpioClass()->set_led_4_rgb(0,1,0);
+
 }
 
 void Scamp5cHost::Close(){
+    Scamp5spi->GetGpioClass()->set_led_4_rgb(0,0,0);
     Scamp5spi->EndThreads();
     Scamp5spi->CloseSPI();
 }

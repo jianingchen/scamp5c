@@ -142,9 +142,9 @@ void Scamp5cApp::Initialize(){
                 *p++ = 42;
                 *p++ = 42;
             }else{
-                *p++ = 128;
-                *p++ = 128;
-                *p++ = 128;
+                *p++ = 8;
+                *p++ = 8;
+                *p++ = 8;
             }
         }
     }
@@ -178,10 +178,7 @@ void Scamp5cApp::Initialize(){
     EventsCount = 0;
     update_events = false;
 
-    TargetX0 = 0;
-    TargetY0 = 0;
-    TargetX1 = 0;
-    TargetY1 = 0;
+    TrailCount = 0;
     update_target = false;
 
     last_packet_type = -1;
@@ -247,6 +244,57 @@ void Scamp5cApp::Terminate(){
 
 }
 
+void Scamp5cApp::reset_host(){
+    int X,Y;
+
+    AnalogReadoutTexture->DeleteTexture2D();
+    for(Y=0;Y<64;Y++){
+        for(X=0;X<64;X++){
+            uint8_t *p = AnalogReadoutTexture->Pixel(X,Y);
+            if((X&16)^(Y&16)){
+                *p++ = 42;
+                *p++ = 42;
+                *p++ = 42;
+            }else{
+                *p++ = 8;
+                *p++ = 8;
+                *p++ = 8;
+            }
+        }
+    }
+    AnalogReadoutTexture->LoadTexture2D(GL_NEAREST,GL_CLAMP_TO_EDGE);
+    update_aout = false;
+
+    DigitalReadoutTexture->DeleteTexture2D();
+    for(Y=0;Y<256;Y++){
+        for(X=0;X<256;X++){
+            uint8_t *p = DigitalReadoutTexture->Pixel(X,Y);
+            if((X&16)^(Y&16)){
+                *p++ = 42;
+                *p++ = 42;
+                *p++ = 42;
+            }else{
+                *p++ = 8;
+                *p++ = 8;
+                *p++ = 8;
+            }
+        }
+    }
+    DigitalReadoutTexture->LoadTexture2D(GL_NEAREST,GL_CLAMP_TO_EDGE);
+    update_aout = false;
+
+    CoordinatesCount = 0;
+    for(int i=0;i<COORDINATES_BUFFER_DIM;i++){
+        Coordinates[i][0] = 0;
+        Coordinates[i][1] = 0;
+    }
+    EventsCount = 0;
+    update_events = false;
+
+    TrailCount = 0;
+    update_target = false;
+}
+
 void Scamp5cApp::setup_gui(){
     int W = window_w;
     int H = window_h;
@@ -259,6 +307,15 @@ void Scamp5cApp::setup_gui(){
     [this](goGUI::Button *button,int x,int y){
         this->Quit = true;
     });
+
+    Y += 60;
+    GUI->CreateButton(X,Y,220,40,"Reset");
+    GUI->LastCreatedButton()->RegisterActionOnRelease(
+    [this](goGUI::Button *button,int x,int y){
+        reset_host();
+    });
+
+
 
     X = W - 240;
     Y = H;

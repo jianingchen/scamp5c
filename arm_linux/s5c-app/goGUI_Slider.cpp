@@ -46,6 +46,9 @@ void goGUI::Slider::event_callback(pad*p,int x,int y,event_type e){
             if(action_update!=NULL){
                 action_update(this,x,y);
             }
+            this->event_callback(domain,x,y,MOUSE_CURSOR_LEAVE);
+            this->event_callback(handle,x,y,MOUSE_CURSOR_ENTER);
+//            this->event_callback(handle,x,y,PRESS_MAIN);
         }
         break;
 

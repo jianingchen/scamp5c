@@ -19,7 +19,57 @@ uint16_t Scamp5cApp::square_indices[6] = { 0, 1, 2, 2, 3, 0 };
 
 //------------------------------------------------------------------------------
 
-void Scamp5cApp::update_graphic_resources(){
+void Scamp5cApp::draw_aout(){
+
+    if(update_aout){
+        AnalogReadoutTexture->DeleteTexture2D();
+        AnalogReadoutTexture->LoadTexture2D(GL_NEAREST,GL_CLAMP_TO_EDGE);
+        update_aout = false;
+    }
+
+    SimpleShader->LoadColor(1.0,1.0,1.0,1.0);
+
+    glVertexAttribPointer(SimpleShader->loc_position,3,GL_FLOAT,GL_FALSE,0,square_vertices);
+    glVertexAttribPointer(SimpleShader->loc_texcoord,2,GL_FLOAT,GL_FALSE,0,square_texcoords);
+
+    glEnableVertexAttribArray(SimpleShader->loc_position);
+    glEnableVertexAttribArray(SimpleShader->loc_texcoord);
+
+    glActiveTexture(GL_TEXTURE0);
+    AnalogReadoutTexture->glBind(GL_TEXTURE_2D);
+
+    glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_SHORT,square_indices);
+    glDisableVertexAttribArray(SimpleShader->loc_position);
+    glDisableVertexAttribArray(SimpleShader->loc_texcoord);
+
+}
+
+void Scamp5cApp::draw_dout(){
+
+    if(update_dout){
+        DigitalReadoutTexture->DeleteTexture2D();
+        DigitalReadoutTexture->LoadTexture2D();
+        update_dout = false;
+    }
+
+    SimpleShader->LoadColor(1.0,1.0,1.0,1.0);
+
+    glVertexAttribPointer(SimpleShader->loc_position,3,GL_FLOAT,GL_FALSE,0,square_vertices);
+    glVertexAttribPointer(SimpleShader->loc_texcoord,2,GL_FLOAT,GL_FALSE,0,square_texcoords);
+
+    glEnableVertexAttribArray(SimpleShader->loc_position);
+    glEnableVertexAttribArray(SimpleShader->loc_texcoord);
+
+    glActiveTexture(GL_TEXTURE0);
+    DigitalReadoutTexture->glBind(GL_TEXTURE_2D);
+
+    glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_SHORT,square_indices);
+    glDisableVertexAttribArray(SimpleShader->loc_position);
+    glDisableVertexAttribArray(SimpleShader->loc_texcoord);
+
+}
+
+void Scamp5cApp::draw_events(){
 
     if(update_events){
         float *v = (float*)events_vertices;
@@ -54,88 +104,6 @@ void Scamp5cApp::update_graphic_resources(){
         update_events = false;
     }
 
-    if(update_target){
-            float x0 = TargetX0 - 128;
-            float y0 = 128 - TargetY0;
-            float x1 = TargetX1 - 128;
-            float y1 = 128 - TargetY1;
-
-        target_vertices[0][0] = x0;
-        target_vertices[0][1] = y1;
-        target_vertices[1][0] = x1;
-        target_vertices[1][1] = y1;
-        target_vertices[2][0] = x1;
-        target_vertices[2][1] = y0;
-        target_vertices[3][0] = x0;
-        target_vertices[3][1] = y0;
-//        target_vertices[0][0] = x0;
-//        target_vertices[0][1] = y0;
-//        target_vertices[1][0] = x1;
-//        target_vertices[1][1] = y1;
-
-        target_indices[0] = 0;
-        target_indices[1] = 1;
-        target_indices[2] = 2;
-        target_indices[3] = 3;
-
-
-        update_target = false;
-    }
-
-    if(update_aout){
-        AnalogReadoutTexture->DeleteTexture2D();
-        AnalogReadoutTexture->LoadTexture2D(GL_NEAREST,GL_CLAMP_TO_EDGE);
-        update_aout = false;
-    }
-
-    if(update_dout){
-        DigitalReadoutTexture->DeleteTexture2D();
-        DigitalReadoutTexture->LoadTexture2D();
-        update_dout = false;
-    }
-
-}
-
-void Scamp5cApp::draw_aout(){
-
-    SimpleShader->LoadColor(1.0,1.0,1.0,1.0);
-
-    glVertexAttribPointer(SimpleShader->loc_position,3,GL_FLOAT,GL_FALSE,0,square_vertices);
-    glVertexAttribPointer(SimpleShader->loc_texcoord,2,GL_FLOAT,GL_FALSE,0,square_texcoords);
-
-    glEnableVertexAttribArray(SimpleShader->loc_position);
-    glEnableVertexAttribArray(SimpleShader->loc_texcoord);
-
-    glActiveTexture(GL_TEXTURE0);
-    AnalogReadoutTexture->glBind(GL_TEXTURE_2D);
-
-    glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_SHORT,square_indices);
-    glDisableVertexAttribArray(SimpleShader->loc_position);
-    glDisableVertexAttribArray(SimpleShader->loc_texcoord);
-
-}
-
-void Scamp5cApp::draw_dout(){
-
-    SimpleShader->LoadColor(1.0,1.0,1.0,1.0);
-
-    glVertexAttribPointer(SimpleShader->loc_position,3,GL_FLOAT,GL_FALSE,0,square_vertices);
-    glVertexAttribPointer(SimpleShader->loc_texcoord,2,GL_FLOAT,GL_FALSE,0,square_texcoords);
-
-    glEnableVertexAttribArray(SimpleShader->loc_position);
-    glEnableVertexAttribArray(SimpleShader->loc_texcoord);
-
-    glActiveTexture(GL_TEXTURE0);
-    DigitalReadoutTexture->glBind(GL_TEXTURE_2D);
-
-    glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_SHORT,square_indices);
-    glDisableVertexAttribArray(SimpleShader->loc_position);
-    glDisableVertexAttribArray(SimpleShader->loc_texcoord);
-
-}
-
-void Scamp5cApp::draw_events(){
-
     SimpleShader->LoadColor(0.0,1.0,0.0,1.0);
 
     BlankTexture->glBind(GL_TEXTURE_2D);
@@ -156,17 +124,61 @@ void Scamp5cApp::draw_events(){
 }
 
 void Scamp5cApp::draw_target(){
+    int i;
+
+    if(update_target){
+        TrailCount = 0;
+
+        if(target_trail.size()>0){
+            auto a = target_trail.back();
+            float x0 = a->top_left.x - 128;
+            float y0 = 128 - a->top_left.y;
+            float x1 = a->bottom_right.x - 128;
+            float y1 = 128 - a->bottom_right.y;
+
+            target_vertices[0][0] = x0;
+            target_vertices[0][1] = y1;
+            target_vertices[1][0] = x1;
+            target_vertices[1][1] = y1;
+            target_vertices[2][0] = x1;
+            target_vertices[2][1] = y0;
+            target_vertices[3][0] = x0;
+            target_vertices[3][1] = y0;
+
+            target_indices[0] = 0;
+            target_indices[1] = 1;
+            target_indices[2] = 2;
+            target_indices[3] = 3;
+        }
+
+        i = 0;
+        for(auto &p: target_trail){
+            float x0 = p->top_left.x - 128;
+            float y0 = 128 - p->top_left.y;
+            float x1 = p->bottom_right.x - 128;
+            float y1 = 128 - p->bottom_right.y;
+            target_trail_vertices[i][0] = 0.5*(x0 + x1);
+            target_trail_vertices[i][1] = 0.5*(y0 + y1);
+            target_trail_indices[i] = i;
+            i++;
+            TrailCount++;
+        }
+
+        update_target = false;
+    }
 
     SimpleShader->LoadColor(0.0,1.0,0.0,1.0);
 
     BlankTexture->glBind(GL_TEXTURE_2D);
 
-    glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,target_vertices);
 
     glEnableVertexAttribArray(SimpleShader->loc_position);
 
+    glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,target_vertices);
     glDrawElements(GL_LINE_LOOP,4,GL_UNSIGNED_SHORT,target_indices);
-    //glDrawElements(GL_POINTS,2,GL_UNSIGNED_SHORT,target_indices);
+
+    glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,target_trail_vertices);
+    glDrawElements(GL_LINE_STRIP,TrailCount,GL_UNSIGNED_SHORT,target_trail_indices);
 
     glDisableVertexAttribArray(SimpleShader->loc_position);
 
@@ -216,9 +228,6 @@ void Scamp5cApp::Draw(){
     glDisableVertexAttribArray(SimpleShader->loc_texcoord);
 
 
-    //
-    update_graphic_resources();
-
     // draw aout
     esMatrixLoadIdentity(&modelview);
     esTranslate(&modelview,128,0.75*H,0.0);
@@ -238,20 +247,24 @@ void Scamp5cApp::Draw(){
     draw_dout();
 
     // draw events
-    esMatrixLoadIdentity(&modelview);
-    esTranslate(&modelview,128,0.75*H,0.0);
-    esMatrixMultiply(&M,&modelview,&projection);
-    SimpleShader->LoadMatrix(&M.m[0][0]);
+    if(EventsCount>0){
+        esMatrixLoadIdentity(&modelview);
+        esTranslate(&modelview,128,0.75*H,0.0);
+        esMatrixMultiply(&M,&modelview,&projection);
+        SimpleShader->LoadMatrix(&M.m[0][0]);
 
-    draw_events();
+        draw_events();
+    }
 
     // draw target
-    esMatrixLoadIdentity(&modelview);
-    esTranslate(&modelview,128,0.75*H,0.0);
-    esMatrixMultiply(&M,&modelview,&projection);
-    SimpleShader->LoadMatrix(&M.m[0][0]);
+    if(target_trail.size()>0){
+        esMatrixLoadIdentity(&modelview);
+        esTranslate(&modelview,128,0.75*H,0.0);
+        esMatrixMultiply(&M,&modelview,&projection);
+        SimpleShader->LoadMatrix(&M.m[0][0]);
 
-    draw_target();
+        draw_target();
+    }
 
     // draw GUI
     esMatrixLoadIdentity(&modelview);
@@ -297,7 +310,7 @@ void Scamp5cApp::Draw(){
     y += FontTexture->GetLineSpace();
     FontTexture->glRenderText(print_buffer,x,y);
 
-    sprintf(print_buffer,"{ %d, %d, %d, %d }",TargetX0,TargetY0,TargetX1,TargetY1);
+    sprintf(print_buffer,"{ %d, %d, %d, %d }",EventsCount,TrailCount,0,0);
     y += FontTexture->GetLineSpace();
     FontTexture->glRenderText(print_buffer,x,y);
 

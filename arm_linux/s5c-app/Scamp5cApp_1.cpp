@@ -101,10 +101,17 @@ void Scamp5cApp::host_callback_events(){
 void Scamp5cApp::host_callback_target(){
     uint8_t *p = s5cHost->GetData();
 
-    TargetX0 = p[0];
-    TargetY0 = p[1];
-    TargetX1 = p[2];
-    TargetY1 = p[3];
+    if(target_trail.size()>=TARGET_TRAIL_POINTS){
+        delete target_trail.front();
+        target_trail.pop_front();
+    }
+
+    auto a = new target;
+    a->top_left.x = p[0];
+    a->top_left.y = p[1];
+    a->bottom_right.x = p[2];
+    a->bottom_right.y = p[3];
+    target_trail.push_back(a);
 
     //printf("{ %d, %d, %d, %d }\n",p[0],p[1],p[2],p[3]);
 

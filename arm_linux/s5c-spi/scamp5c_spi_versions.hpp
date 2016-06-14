@@ -44,6 +44,10 @@ public:
         oxu4_gpio->configure_gpio();
     }
 
+    inline scamp5c_oxu4_gpio* GetGpioClass(){
+        return oxu4_gpio;
+    }
+
 
 protected:
     scamp5c_oxu4_gpio *oxu4_gpio;

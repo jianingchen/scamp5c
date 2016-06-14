@@ -53,7 +53,23 @@ public:
     }
 
     inline void set_led_4_rgb(int r,int g,int b){
+        if(r){
+            SET_BIT(*GPX2DAT,1);
+        }else{
+            CLR_BIT(*GPX2DAT,1);
+        }
 
+        if(g){
+            SET_BIT(*GPX1DAT,7);
+        }else{
+            CLR_BIT(*GPX1DAT,7);
+        }
+
+        if(b){
+            SET_BIT(*GPX3DAT,1);
+        }else{
+            CLR_BIT(*GPX3DAT,1);
+        }
     }
 
 
