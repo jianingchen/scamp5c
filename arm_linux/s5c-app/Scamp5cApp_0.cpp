@@ -95,11 +95,6 @@ void Scamp5cApp::Initialize(){
         this->host_callback_loopc();
     });
 
-    s5cHost->RegisterStandardOutputCallback(S5C_SPI_EVENTS,
-    [this](Scamp5cHost*host){
-        this->host_callback_events();
-    });
-
     s5cHost->RegisterStandardOutputCallback(S5C_SPI_AOUT,
     [this](Scamp5cHost*host){
         this->host_callback_aout();
@@ -113,6 +108,16 @@ void Scamp5cApp::Initialize(){
     s5cHost->RegisterStandardOutputCallback(S5C_SPI_TARGET,
     [this](Scamp5cHost*host){
         this->host_callback_target();
+    });
+
+    s5cHost->RegisterStandardOutputCallback(S5C_SPI_EVENTS,
+    [this](Scamp5cHost*host){
+        this->host_callback_events();
+    });
+
+    s5cHost->RegisterStandardOutputCallback(S5C_SPI_APPINFO,
+    [this](Scamp5cHost*host){
+        this->host_callback_appinfo();
     });
 
     s5cHost->RegisterGenericPacketCallback(
@@ -189,6 +194,8 @@ void Scamp5cApp::Initialize(){
 
     setup_gui();
 
+    gui_configured = false;
+
 }
 
 void Scamp5cApp::Terminate(){
@@ -242,7 +249,7 @@ void Scamp5cApp::Terminate(){
 
 }
 
-void Scamp5cApp::reset_host(){
+void Scamp5cApp::reset_display(){
     int X,Y;
 
     AnalogReadoutTexture->DeleteTexture2D();
@@ -310,7 +317,7 @@ void Scamp5cApp::setup_gui(){
     GUI->CreateButton(X,Y,220,40,"Reset");
     GUI->LastCreatedButton()->RegisterActionOnRelease(
     [this](goGUI::Button *button,int x,int y){
-        reset_host();
+        reset_display();
     });
 
 
@@ -342,14 +349,42 @@ void Scamp5cApp::setup_gui(){
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_2");
+    GUI->LastCreatedSlider()->SetDomain(0,100);
+    GUI->LastCreatedSlider()->IntegerValue = true;
+    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    [this](goGUI::Slider *slider,int x,int y){
+        s5cSPI->ipu_port_forward[2] = (uint8_t)int(slider->GetValue());
+    });
+    GUI->LastCreatedSlider()->SetValue(50,true);
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_3");
+    GUI->LastCreatedSlider()->SetDomain(0,100);
+    GUI->LastCreatedSlider()->IntegerValue = true;
+    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    [this](goGUI::Slider *slider,int x,int y){
+        s5cSPI->ipu_port_forward[3] = (uint8_t)int(slider->GetValue());
+    });
+    GUI->LastCreatedSlider()->SetValue(50,true);
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_4");
+    GUI->LastCreatedSlider()->SetDomain(0,100);
+    GUI->LastCreatedSlider()->IntegerValue = true;
+    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    [this](goGUI::Slider *slider,int x,int y){
+        s5cSPI->ipu_port_forward[4] = (uint8_t)int(slider->GetValue());
+    });
+    GUI->LastCreatedSlider()->SetValue(50,true);
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_5");
+    GUI->LastCreatedSlider()->SetDomain(0,100);
+    GUI->LastCreatedSlider()->IntegerValue = true;
+    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    [this](goGUI::Slider *slider,int x,int y){
+        s5cSPI->ipu_port_forward[5] = (uint8_t)int(slider->GetValue());
+    });
+    GUI->LastCreatedSlider()->SetValue(50,true);
 
 }

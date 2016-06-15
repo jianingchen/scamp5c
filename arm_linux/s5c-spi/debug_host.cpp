@@ -54,7 +54,13 @@ void DigitalReadoutCallback(Scamp5cHost *host){
 void GenericPacketCallback(Scamp5cHost *host){
     uint8_t *payload = host->GetPacket()->GetPayload();
     printf("[ %d, %f ] ",host->GetPacketCount(),host->GetPacketRate());
-    printf("generic packet: { %d, %d, %d, %d, %d ... }.\n",payload[0],payload[1],payload[2],payload[3],payload[4]);
+    printf("generic packet: { %d, %d, %d, %d ... }.\n",payload[0],payload[1],payload[2],payload[3]);
+}
+
+void AppInfoCallback(Scamp5cHost *host){
+    uint8_t *payload = host->GetPacket()->GetPayload();
+    printf("[ %d, %f ] ",host->GetPacketCount(),host->GetPacketRate());
+    printf("app info: { %d, %d, %d, %d ... }.\n",payload[0],payload[1],payload[2],payload[3]);
 }
 
 void ConsoleIO(){
@@ -87,10 +93,11 @@ int main(int argc,char*argv[]){
     s5cHost->SetupSpi(s5cSPI);
 
     s5cHost->RegisterStandardOutputCallback(S5C_SPI_LOOPC,LoopCounterCallback);
-    s5cHost->RegisterStandardOutputCallback(S5C_SPI_EVENTS,EventsReadoutCallback);
     s5cHost->RegisterStandardOutputCallback(S5C_SPI_AOUT,FrameReadoutCallback);
     s5cHost->RegisterStandardOutputCallback(S5C_SPI_DOUT,DigitalReadoutCallback);
     s5cHost->RegisterStandardOutputCallback(S5C_SPI_TARGET,TargetReadoutCallback);
+    s5cHost->RegisterStandardOutputCallback(S5C_SPI_EVENTS,EventsReadoutCallback);
+    s5cHost->RegisterStandardOutputCallback(S5C_SPI_APPINFO,AppInfoCallback);
     s5cHost->RegisterGenericPacketCallback(GenericPacketCallback);
 
     s5cHost->Open();

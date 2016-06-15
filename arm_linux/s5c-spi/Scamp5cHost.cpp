@@ -93,8 +93,8 @@ void Scamp5cHost::Open(){
 
     PacketStopwatch.Reset();
 
-    packet_rate = 50.0;
-    packet_count = 0;
+    host_packet_rate = 50.0;
+    host_packet_count = 0;
     loop_counter_error = -1;
 
     Scamp5spi->GetGpioClass()->set_led_4_rgb(0,1,0);
@@ -115,6 +115,8 @@ void Scamp5cHost::RegisterGenericPacketCallback(std::function<void(Scamp5cHost*)
     generic_packet_callback = func;
 }
 
+//------------------------------------------------------------------------------
+
 void Scamp5cHost::update_loop_counter(uint32_t new_lc){
     if(loop_counter_error < 0){
         loop_counter_error = 0;
@@ -132,7 +134,7 @@ void Scamp5cHost::update_loop_counter(uint32_t new_lc){
 void Scamp5cHost::update_packet_rate(uint32_t n){
     double dt = PacketStopwatch.GetElapsedSeconds();
     PacketStopwatch.Reset();
-    packet_rate = packet_rate*0.98 + 0.02*(double(n)/dt);
+    host_packet_rate = host_packet_rate*0.98 + 0.02*(double(n)/dt);
 }
 
 void Scamp5cHost::process_std_loopc(scamp5c_spi::packet*Packet){
@@ -146,25 +148,8 @@ void Scamp5cHost::process_std_loopc(scamp5c_spi::packet*Packet){
     data_dim_c = 4;
     data_ptr = Payload;
 
-    if(standard_output_callback[S5C_SPI_LOOPC] != NULL){
-        standard_output_callback[S5C_SPI_LOOPC](this);
-    }
-
-}
-
-void Scamp5cHost::process_std_events(scamp5c_spi::packet*Packet){
-    uint8_t *Payload = Packet->GetPayload();
-    auto *meta = (std_events_meta*)Payload;
-    uint8_t *data = Payload + sizeof(std_events_meta);
-
-    update_loop_counter(meta->loop_counter);
-
-    data_type = S5C_SPI_EVENTS;
-    data_dim_r = meta->event_count;
-    data_dim_c = meta->event_dimension;
-    data_ptr = Payload + sizeof(std_events_meta);
-    if(standard_output_callback[S5C_SPI_EVENTS] != NULL){
-        standard_output_callback[S5C_SPI_EVENTS](this);
+    if(standard_output_callback[data_type] != NULL){
+        standard_output_callback[data_type](this);
     }
 
 }
@@ -179,25 +164,8 @@ void Scamp5cHost::process_std_aout(scamp5c_spi::packet*Packet){
     data_dim_r = meta->height;
     data_dim_c = meta->width;
     data_ptr = Payload + sizeof(std_aout_meta);
-    if(standard_output_callback[S5C_SPI_AOUT] != NULL){
-        standard_output_callback[S5C_SPI_AOUT](this);
-    }
-
-}
-
-void Scamp5cHost::process_std_target(scamp5c_spi::packet*Packet){
-    uint8_t *Payload = Packet->GetPayload();
-    auto *meta = (std_target_meta*)Payload;
-    uint8_t *data = Payload + sizeof(std_target_meta);
-
-    update_loop_counter(meta->loop_counter);
-
-    data_type = S5C_SPI_TARGET;
-    data_dim_r = 2;
-    data_dim_c = 2;
-    data_ptr = Payload + sizeof(std_target_meta);
-    if(standard_output_callback[S5C_SPI_TARGET] != NULL){
-        standard_output_callback[S5C_SPI_TARGET](this);
+    if(standard_output_callback[data_type] != NULL){
+        standard_output_callback[data_type](this);
     }
 
 }
@@ -228,11 +196,58 @@ void Scamp5cHost::process_std_dout(scamp5c_spi::packet*Packet){
 
     data_ptr = data_buffer;
 
-    if(standard_output_callback[S5C_SPI_DOUT] != NULL){
-        standard_output_callback[S5C_SPI_DOUT](this);
+    if(standard_output_callback[data_type] != NULL){
+        standard_output_callback[data_type](this);
     }
 
 }
+
+void Scamp5cHost::process_std_events(scamp5c_spi::packet*Packet){
+    uint8_t *Payload = Packet->GetPayload();
+    auto *meta = (std_events_meta*)Payload;
+
+    update_loop_counter(meta->loop_counter);
+
+    data_type = S5C_SPI_EVENTS;
+    data_dim_r = meta->event_count;
+    data_dim_c = meta->event_dimension;
+    data_ptr = Payload + sizeof(std_events_meta);
+    if(standard_output_callback[data_type] != NULL){
+        standard_output_callback[data_type](this);
+    }
+
+}
+
+void Scamp5cHost::process_std_target(scamp5c_spi::packet*Packet){
+    uint8_t *Payload = Packet->GetPayload();
+    auto *meta = (std_target_meta*)Payload;
+
+    update_loop_counter(meta->loop_counter);
+
+    data_type = S5C_SPI_TARGET;
+    data_dim_r = 2;
+    data_dim_c = 2;
+    data_ptr = Payload + sizeof(std_target_meta);
+    if(standard_output_callback[data_type] != NULL){
+        standard_output_callback[data_type](this);
+    }
+
+}
+
+void Scamp5cHost::process_std_appinfo(scamp5c_spi::packet*Packet){
+    uint8_t *Payload = Packet->GetPayload();
+
+    data_type = S5C_SPI_APPINFO;
+    data_dim_r = 8;
+    data_dim_c = 4;
+    data_ptr = Payload;
+    if(standard_output_callback[data_type] != NULL){
+        standard_output_callback[data_type](this);
+    }
+
+}
+
+//------------------------------------------------------------------------------
 
 void Scamp5cHost::Process(){
     uint32_t n;
@@ -243,35 +258,39 @@ void Scamp5cHost::Process(){
         scamp5c_spi::packet *Packet = Scamp5spi->PopPacketFromQueue();
 
         n++;
-        packet_count++;
+        host_packet_count++;
 
         original_packet = Packet;
         data_ptr = data_buffer;
 
         switch(Packet->GetType()){
 
-        case PACKET_TYPE_STANDARD_LOOPC:
+        case SPI_PACKET_TYPE_STANDARD_LOOPC:
             process_std_loopc(original_packet);
             break;
 
-        case PACKET_TYPE_STANDARD_EVENTS:
-            process_std_events(original_packet);
-            break;
-
-        case PACKET_TYPE_STANDARD_AOUT:
+        case SPI_PACKET_TYPE_STANDARD_AOUT:
             process_std_aout(original_packet);
             break;
 
-        case PACKET_TYPE_STANDARD_DOUT:
+        case SPI_PACKET_TYPE_STANDARD_DOUT:
             process_std_dout(original_packet);
             break;
 
-        case PACKET_TYPE_STANDARD_TARGET:
+        case SPI_PACKET_TYPE_STANDARD_TARGET:
             process_std_target(original_packet);
             break;
 
-        case PACKET_TYPE_CONST_SIZE:
-        case PACKET_TYPE_NO_PAYLOAD:
+        case SPI_PACKET_TYPE_STANDARD_EVENTS:
+            process_std_events(original_packet);
+            break;
+
+        case SPI_PACKET_TYPE_STANDARD_APPINFO:
+            process_std_appinfo(original_packet);
+            break;
+
+        case SPI_PACKET_TYPE_CONST_SIZE:
+        case SPI_PACKET_TYPE_NO_PAYLOAD:
             if(generic_packet_callback){
                 data_ptr = Packet->GetPayload();
                 generic_packet_callback(this);
@@ -288,6 +307,13 @@ void Scamp5cHost::Process(){
         update_packet_rate(n);
     }
 
+}
+
+void Scamp5cHost::ResetCounters(){
+    host_packet_count = 0;
+    host_packet_rate = 50.0;
+    loop_counter = 0;
+    loop_counter_error = 0;
 }
 
 int Scamp5cHost::SaveFrameBMP(const char*filepath){

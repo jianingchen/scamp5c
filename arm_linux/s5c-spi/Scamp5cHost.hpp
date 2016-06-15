@@ -22,17 +22,19 @@
 #include "jcStopwatch.hpp"
 #include <functional>
 
-#define PACKET_TYPE_STANDARD_LOOPC		3
-#define PACKET_TYPE_STANDARD_EVENTS     4
-#define PACKET_TYPE_STANDARD_AOUT       5
-#define PACKET_TYPE_STANDARD_DOUT       6
-#define PACKET_TYPE_STANDARD_TARGET     7
+#define SPI_PACKET_TYPE_STANDARD_LOOPC		4
+#define SPI_PACKET_TYPE_STANDARD_AOUT       5
+#define SPI_PACKET_TYPE_STANDARD_DOUT       6
+#define SPI_PACKET_TYPE_STANDARD_TARGET     7
+#define SPI_PACKET_TYPE_STANDARD_EVENTS     8
+#define SPI_PACKET_TYPE_STANDARD_APPINFO    10
 
 #define S5C_SPI_LOOPC    0
-#define S5C_SPI_EVENTS   1
-#define S5C_SPI_AOUT     2
-#define S5C_SPI_DOUT     3
-#define S5C_SPI_TARGET   4
+#define S5C_SPI_AOUT     1
+#define S5C_SPI_DOUT     2
+#define S5C_SPI_TARGET   3
+#define S5C_SPI_EVENTS   4
+#define S5C_SPI_APPINFO  5
 
 class Scamp5cHost{
 
@@ -54,13 +56,14 @@ public:
     void RegisterGenericPacketCallback(std::function<void(Scamp5cHost*)> func);
 
     int SaveFrameBMP(const char*filepath);
+    void ResetCounters();
 
 
     inline uint32_t GetPacketCount(){
-        return packet_count;
+        return host_packet_count;
     }
     inline double GetPacketRate(){
-        return packet_rate;
+        return host_packet_rate;
     }
 
     inline uint32_t GetLoopCounter(){
@@ -105,8 +108,8 @@ protected:
 
     scamp5c_spi_ht *Scamp5spi;
     jcStopwatch PacketStopwatch;
-    double packet_rate;
-    uint32_t packet_count;
+    double host_packet_rate;
+    uint32_t host_packet_count;
     scamp5c_spi::packet *original_packet;
     int data_type;
     uint16_t data_dim_r;
@@ -158,10 +161,11 @@ protected:
     void update_packet_rate(uint32_t n);
 
     void process_std_loopc(scamp5c_spi::packet *pkt);
-    void process_std_events(scamp5c_spi::packet *pkt);
     void process_std_aout(scamp5c_spi::packet *pkt);
     void process_std_dout(scamp5c_spi::packet *pkt);
     void process_std_target(scamp5c_spi::packet *pkt);
+    void process_std_events(scamp5c_spi::packet *pkt);
+    void process_std_appinfo(scamp5c_spi::packet *pkt);
 
     static int save_bmp24(const char*filename,uint32_t width,uint32_t height,const uint8_t*data);
 

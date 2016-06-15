@@ -169,7 +169,10 @@ void scamp5c_spi::spi_packet_thread(){
                         header_counter++;
                         header_callback(offset,header);
 
-                        if(header->packet_type==PACKET_TYPE_NO_PAYLOAD){
+                        if(header->packet_type==SPI_PACKET_TYPE_NO_PAYLOAD){
+                            payload_size = 0;
+                        }else
+                        if(header->packet_type==SPI_PACKET_TYPE_COMMAND){
                             payload_size = 0;
                         }else{
                             payload_size = header->payload_size;
@@ -205,7 +208,11 @@ void scamp5c_spi::spi_packet_thread(){
                 if(packet_length >= packet_size){
                     // packet ok
                     packet_counter++;
-                    packet_callback(offset);
+                    if(header->packet_type==SPI_PACKET_TYPE_COMMAND){
+                        command_callback(packet_buffer[4],packet_buffer[5],packet_buffer[6]);
+                    }else{
+                        packet_callback(offset);
+                    }
                     pkt = get_packet_buffer();
                     packet_length = 0;
                     state_jump = 1;
@@ -230,7 +237,10 @@ void scamp5c_spi::queue_packet_buffer(){
     p->size = packet_length;
     p->data = (uint8_t*)realloc(packet_buffer,p->size);
     p->header_ptr = (packet_header*)p->data;
-    if(p->header_ptr->packet_type==PACKET_TYPE_NO_PAYLOAD){
+    if(p->header_ptr->packet_type==SPI_PACKET_TYPE_NO_PAYLOAD){
+        p->payload_ptr = (uint8_t*)&(p->header_ptr->payload_size);
+    }else
+    if(p->header_ptr->packet_type==SPI_PACKET_TYPE_COMMAND){
         p->payload_ptr = (uint8_t*)&(p->header_ptr->payload_size);
     }else{
         p->payload_ptr = p->data + PACKET_HEADER_LENGTH;
@@ -270,6 +280,10 @@ void scamp5c_spi::header_callback(size_t rx_offset,packet_header*header){
 
 void scamp5c_spi::packet_callback(size_t rx_offset){
     queue_packet_buffer();
+}
+
+void scamp5c_spi::command_callback(uint8_t command,uint8_t a,uint8_t b){
+
 }
 
 void scamp5c_spi::rtc_sleep_usec(uint32_t u_sec){

@@ -91,13 +91,13 @@ void ProcessEvents(){
 int main(){
     uint64_t T;
 
-    printf("OpenGL ES\n");
+    printf("SCAMP-5c SPI Host Application (OpenGL ES)\n");
 
     esContext = (ESContext*)malloc(sizeof(ESContext));
 
     esInitContext(esContext);
 
-    esCreateWindow(esContext,"OpenGL ES",DEFAULT_WINDOW_W,DEFAULT_WINDOW_H,ES_WINDOW_RGB|ES_WINDOW_DEPTH);
+    esCreateWindow(esContext,"SCAMP-5c SPI Host Application",DEFAULT_WINDOW_W,DEFAULT_WINDOW_H,ES_WINDOW_RGB|ES_WINDOW_DEPTH);
 
 //    XAllowEvents(x_display,AsyncBoth,CurrentTime);
 //    XGrabPointer(x_display,DefaultRootWindow(x_display),1,

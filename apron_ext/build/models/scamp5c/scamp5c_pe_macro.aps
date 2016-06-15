@@ -118,7 +118,18 @@
     // under testing
 !macro_end
 
+//A destructive division macro. $r3 = $r3/2 under testing
+!macro_def
+    pe.d_div($r1,$r2,$r3) 
+!macro_begin
+    $r2 $r3 = $r1
+    F = load($r1 $r3)
+    $r1 = load(F $r2)
+    $r2 $r3 = $r1
+    $r1 = $r3
+!macro_end
 
+//
 !macro_def
     $r1 = pe.in($v)
 !macro_begin

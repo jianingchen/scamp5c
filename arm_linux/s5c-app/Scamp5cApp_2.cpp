@@ -291,11 +291,11 @@ void Scamp5cApp::Draw(){
     SimpleShader->LoadColor(1,1,1,1);
     x = 4;
 
-    y = H - FontTexture->GetLineSpace() - 4;
-    FontTexture->glRenderText("SCAMP-5c Host App",x,y);
+//    y = H - FontTexture->GetLineSpace() - 4;
+//    FontTexture->glRenderText("SCAMP-5c Host App",x,y);
 
-    sprintf(print_buffer,"FPS: %.2f",1.0/FrameTime);
-    y -= FontTexture->GetLineSpace();
+    sprintf(print_buffer,"Window FPS: %.2f",1.0/FrameTime);
+    y = H - FontTexture->GetLineSpace() - 4;
     FontTexture->glRenderText(print_buffer,x,y);
 
     sprintf(print_buffer,"S: %d, H: %d",s5cSPI->GetSignatureCounter(),s5cSPI->GetHeaderCounter());

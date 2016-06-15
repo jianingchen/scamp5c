@@ -1,5 +1,44 @@
 
 #include "Scamp5cApp.hpp"
+#include <cstring>
+
+const char* Scamp5cApp::gui_name_strings[32] = {
+    "undefined",
+    "unknown",
+    "switch",
+    "mode",
+    "threshold a",
+    "threshold b",
+    "threshold c",
+    "threshold d",
+// 8
+    "x",
+    "y",
+    "x_shift",
+    "y_shift",
+    "x_mask",
+    "y_mask",
+    "x_match",
+    "y_match",
+// 16
+    "input_0",
+    "input_1",
+    "input_2",
+    "input_3",
+    "iteration_i",
+    "iteration_j",
+    "iteration_k",
+    "iteration_l",
+// 24
+    "e",
+    "f",
+    "g",
+    "h",
+    "t",
+    "u",
+    "v",
+    "w",
+};
 
 void Scamp5cApp::Process(){
     s5cHost->Process();
@@ -119,8 +158,66 @@ void Scamp5cApp::host_callback_target(){
     update_frame_state(S5C_SPI_TARGET);
 }
 
+void Scamp5cApp::host_callback_appinfo(){
+    uint8_t *p = s5cHost->GetData();
+
+    printf("app info: { %d, %d, %d, %d, ... }\n",p[0],p[1],p[2],p[3]);
+
+    memcpy(&gui_configuration,p,sizeof(gui_configuration));
+
+    printf("gui configuration:\n",p[0],p[1],p[2],p[3]);
+    for(int i=0;i<8;i++){
+        printf("slider %d: ",i);
+        printf("{ %d, ",gui_configuration.slider[i].domain_min);
+        printf("%d, ",gui_configuration.slider[i].domain_max);
+        printf("%d, ",gui_configuration.slider[i].default_value);
+        printf("%d, ",gui_configuration.slider[i].b_latched);
+        printf("%d, ",gui_configuration.slider[i].b_signed);
+        printf("%d, ",gui_configuration.slider[i].b_name_index);
+        printf("%d }\n",gui_configuration.slider[i].b_disabled);
+    }
+
+    reset_display();
+    configure_gui();
+    s5cHost->ResetCounters();
+
+}
+
 void Scamp5cApp::host_callback_generic(){
     uint8_t *p = s5cHost->GetData();
 
     printf("generic packet: { %d, %d, %d, %d, ... }\n",p[0],p[1],p[2],p[3]);
+}
+
+void Scamp5cApp::configure_gui(){
+    int i = 0;
+    for(auto&p:GUI->SliderList){
+        if(gui_configuration.slider[i].b_disabled){
+            p->text = "n/a";
+            p->text_length = p->text.size();
+        }else{
+            p->text = gui_name_strings[gui_configuration.slider[i].b_name_index];
+            p->text_length = p->text.size();
+            p->IntegerValue = true;
+            p->UpdateOnRelease = gui_configuration.slider[i].b_latched;
+            if(gui_configuration.slider[i].b_signed){
+                int8_t a = gui_configuration.slider[i].domain_min;
+                int8_t b = gui_configuration.slider[i].domain_max;
+                int8_t v = gui_configuration.slider[i].default_value;
+                p->SetDomain(a,b);
+                p->SetValue(v,true);
+            }else{
+                uint8_t a = gui_configuration.slider[i].domain_min;
+                uint8_t b = gui_configuration.slider[i].domain_max;
+                uint8_t v = gui_configuration.slider[i].default_value;
+                p->SetDomain(a,b);
+                p->SetValue(v,true);
+            }
+        }
+        i++;
+        if(i>=8){
+            break;
+        }
+    }
+    gui_configured = true;
 }

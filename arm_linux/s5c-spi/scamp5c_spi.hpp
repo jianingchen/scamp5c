@@ -32,9 +32,10 @@
 #define REPORT_ERROR(v) report_error(__func__,__LINE__,v)
 #define REPORT_WARNING(str) report_warning(__func__,__LINE__,str)
 
-#define PACKET_TYPE_NO_PAYLOAD     0
-#define PACKET_TYPE_CONST_SIZE     1
-#define PACKET_TYPE_OPEN_SIZE      2
+#define SPI_PACKET_TYPE_NO_PAYLOAD     0
+#define SPI_PACKET_TYPE_CONST_SIZE     1
+#define SPI_PACKET_TYPE_OPEN_SIZE      2
+#define SPI_PACKET_TYPE_COMMAND        3
 
 /*!
     \brief the object-oriented interface of the spi bus
@@ -278,13 +279,18 @@ protected:
     // function called once a transfer is finished, must return rx_buf offset
     virtual size_t transfer_callback();
 
+    // verify the header and wipe the checksum byte
     virtual bool check_header(uint8_t*p);
 
     // function called once a header is acquired
     virtual void header_callback(size_t rx_offset,packet_header*p);
 
+    // function called once a command is acquired
+    virtual void command_callback(uint8_t command,uint8_t a,uint8_t b);
+
     // function called once a packet is acquired
     virtual void packet_callback(size_t rx_offset);
+
 
     inline uint8_t*get_rx_buffer(){
         return rx_buf_back;

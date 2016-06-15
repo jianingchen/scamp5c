@@ -17,16 +17,18 @@
 !define(SPI_SIGNATURE_BYTE_0, 0x20)
 !define(SPI_SIGNATURE_BYTE_1, 0x16)
 !define(SPI_SIGNATURE_BYTE_2, 0xAA)
+
 !define(SPI_PACKET_TYPE_NO_PAYLOAD, 0)
 !define(SPI_PACKET_TYPE_CONST_SIZE, 1)
 !define(SPI_PACKET_TYPE_OPEN_SIZE, 2)
-!define(SPI_PACKET_TYPE_STANDARD_LOOPC, 3)
-!define(SPI_PACKET_TYPE_STANDARD_EVENTS, 4)
+!define(SPI_PACKET_TYPE_COMMAND, 3)
+!define(SPI_PACKET_TYPE_STANDARD_LOOPC, 4)
 !define(SPI_PACKET_TYPE_STANDARD_AOUT, 5)
 !define(SPI_PACKET_TYPE_STANDARD_DOUT, 6)
 !define(SPI_PACKET_TYPE_STANDARD_TARGET, 7)
+!define(SPI_PACKET_TYPE_STANDARD_EVENTS, 8)
+!define(SPI_PACKET_TYPE_STANDARD_APPINFO, 10)
 
-!define(SPI_PACKET_TYPE_CONTROL_COMMAND, 0xCC)
 
 !define(SPI_FIFO_SPACE_128, 1)
 !define(SPI_FIFO_SPACE_256, 2)
@@ -44,6 +46,42 @@
 !define(SPI_RX_5, 165)
 !define(SPI_RX_6, 166)
 !define(SPI_RX_7, 167)
+
+!define(SPI_APP_TEXT_UNDEFINED, 0)
+!define(SPI_APP_TEXT_UNKNOWN, 1)
+!define(SPI_APP_TEXT_SWITCH, 2)
+!define(SPI_APP_TEXT_MODE, 3)
+!define(SPI_APP_TEXT_THRESHOLD_A, 4)
+!define(SPI_APP_TEXT_THRESHOLD_B, 5)
+!define(SPI_APP_TEXT_THRESHOLD_C, 6)
+!define(SPI_APP_TEXT_THRESHOLD_D, 7)
+
+!define(SPI_APP_TEXT_X, 8)
+!define(SPI_APP_TEXT_Y, 9)
+!define(SPI_APP_TEXT_X_SHIFT, 10)
+!define(SPI_APP_TEXT_Y_SHIFT, 11)
+!define(SPI_APP_TEXT_X_MASK, 12)
+!define(SPI_APP_TEXT_Y_MASK, 13)
+!define(SPI_APP_TEXT_X_MATCH, 14)
+!define(SPI_APP_TEXT_Y_MATCH, 15)
+
+!define(SPI_APP_TEXT_INPUT_0, 16)
+!define(SPI_APP_TEXT_INPUT_1, 17)
+!define(SPI_APP_TEXT_INPUT_2, 18)
+!define(SPI_APP_TEXT_INPUT_3, 19)
+!define(SPI_APP_TEXT_ITERATION_I, 20)
+!define(SPI_APP_TEXT_ITERATION_J, 21)
+!define(SPI_APP_TEXT_ITERATION_K, 22)
+!define(SPI_APP_TEXT_ITERATION_L, 23)
+
+!define(SPI_APP_TEXT_E, 24)
+!define(SPI_APP_TEXT_F, 25)
+!define(SPI_APP_TEXT_G, 26)
+!define(SPI_APP_TEXT_H, 27)
+!define(SPI_APP_TEXT_T, 28)
+!define(SPI_APP_TEXT_U, 29)
+!define(SPI_APP_TEXT_V, 30)
+!define(SPI_APP_TEXT_W, 31)
 
 
 // 
@@ -76,6 +114,14 @@
     _exp(0, 246)
     _nop
     _exp(0, 253)
+!macro_end
+
+// 
+!macro_def
+    spi.data_ready
+!macro_begin
+    _exp(1, 246)
+    _exp(0, 246)
 !macro_end
 
 // 
@@ -149,11 +195,11 @@
     spi.send_byte(SPI_SIGNATURE_BYTE_0)
     spi.send_byte(SPI_SIGNATURE_BYTE_1)
     spi.send_byte(SPI_SIGNATURE_BYTE_2)
-    spi.send_byte(SPI_PACKET_TYPE_STANDARD_LOOPC)// 3
+    spi.send_byte(SPI_PACKET_TYPE_STANDARD_LOOPC)// 4
     spi.send_byte(4)// payload size
     spi.send_byte(0)
     spi.send_byte(0)
-    spi.send_byte(7)// header checksum
+    spi.send_byte(8)// header checksum
     
     // uint32 payload: loop counter
     _imp(sv,IPU_PORT_LOOPC_0)
@@ -170,6 +216,8 @@
     
 !macro_end
 
+
+//------------------------------------------------------------------------------
 
 
 !macro_def
@@ -228,6 +276,8 @@
 !macro_end
 
 
+//------------------------------------------------------------------------------
+
 
 !macro_def
     spi.aout64($r1)
@@ -285,15 +335,21 @@
 !macro_end
 
 
+//------------------------------------------------------------------------------
+
 
 !macro_def
     spi.dout($r1)
 !macro_begin
-    
+    _exp(6,IPU_PORT_FALL_C1) //THESE CLOCK CHANGES are here since THE critical item appears to be WHERE rather than the rest of the readout algo
+	_exp(7,IPU_PORT_RISE_C2) 
+	_exp(9,IPU_PORT_FALL_C2) 
+	
+
     all
     where($r1)
     
-    _exp(255, IPU_PORT_CLK_SWITCH)
+  //  _exp(255, IPU_PORT_CLK_SWITCH)
     _exp(8, IPU_PORT_CLK_SWITCH)
     _nop
     
@@ -341,11 +397,16 @@
     _nop
     
     _exp(8, IPU_PORT_CLK_SWITCH)
+    _exp(4,IPU_PORT_FALL_C1)
+	_exp(5,IPU_PORT_RISE_C2) 
+	_exp(9,IPU_PORT_FALL_C2) 
     _exp(0, IPU_PORT_RD)
     _nop
     
 !macro_end
 
+
+//------------------------------------------------------------------------------
 
 
 !macro_def
@@ -523,6 +584,9 @@
 !macro_end
 
 
+//------------------------------------------------------------------------------
+
+
 !macro_def
     spi.scan_target($r1)
 !macro_begin
@@ -650,182 +714,3 @@
     _nop
     
 !macro_end
-
-
-//------------------------------------------------------------------------------
-
-// 
-// !macro_def
-//     spi.scan_events_x4($r1,$p1)
-// !macro_begin
-// 
-//     _exp(255, IPU_PORT_CLK_SWITCH)
-//     _nop
-//     _exp(1, 253)
-//     
-//     // calculate size
-//     _mov(su,$p1)
-//     _add(su,$p1)
-//     _mov(sx,4)// loop counter size
-//     _mov(sy,0)
-//     _add(sx,su)
-//     _addc(sy,0)
-//     _add(sx,su)
-//     _addc(sy,0)
-//     _add(sx,su)
-//     _addc(sy,0)
-//     _add(sx,su)
-//     _addc(sy,0)
-//     
-//     // calculate checksum
-//     _mov(sz,1)
-//     _add(sz,sx)
-//     _add(sz,sy)
-//     
-//     // spi header
-//     spi.send_byte('0x20')// signature
-//     spi.send_byte('0x16')
-//     spi.send_byte('0xAA')
-//     spi.send_byte('0x01')// payload type
-//     spi.send_byte(sx)// payload size
-//     spi.send_byte(sy)
-//     spi.send_byte(0)
-//     spi.send_byte(sz)// header checksum
-// 
-//     
-//     // uint32 payload
-//     _imp(sv,IPU_PORT_LOOPC_0)
-//     spi.send_byte(sv)
-//     _imp(sv,IPU_PORT_LOOPC_1)
-//     spi.send_byte(sv)
-//     _imp(sv,IPU_PORT_LOOPC_2)
-//     spi.send_byte(sv)
-//     _imp(sv,IPU_PORT_LOOPC_3)
-//     spi.send_byte(sv)
-//     
-// 
-//     // do the scanning
-//     _exp(8, IPU_PORT_CLK_SWITCH)
-//     _nop
-//     _exp(0, IPU_PORT_RD)
-//     _nop
-//     nop
-//     nop
-//     nop
-//     nop
-//     _exp(4, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
-//     _nop
-//     
-//     R0 = $r1
-//     R3 = 0
-//     
-//     _exp(255, IPU_PORT_ADDR) //search all rows
-//     _exp(1, IPU_PORT_LRX)
-//     _exp(0, IPU_PORT_LRX)
-//     _exp(0, IPU_PORT_ADDR) 
-//     _exp(1, IPU_PORT_LCX)
-//     _exp(0, IPU_PORT_LCX)
-//     _exp(1, IPU_PORT_LC) //leave latch up on col
-//     _exp(0, IPU_PORT_LC)
-//     
-//     // su must be given a value outside this macro
-//     _mov(sw,4)
-//     #scanning_loop_w
-//         _nop
-//         
-//         _mov(sz,$p1)
-//         #scanning_loop_z //returns "events" from R5. All coords of pixels in R5
-//         _nop
-//         
-//             //Remove a pixel that has already been output (none on first run)
-//             set('LR4' 'nbit' 'plrb' 'rfl' ) //R7 = not(R5)
-//             set('lfl' 'RR4' 'RR3' 'nbit' 'plrb' )//R5 = not( R4 OR R3)
-//             
-//             R2 = $r1
-//             $r1 = R2
-//             
-//             all
-//             where(R0)
-//             
-//             _exp(2,IPU_PORT_FALL_C1)
-//             _exp(7,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
-//             _exp(8,IPU_PORT_FALL_C2)    
-//             
-//             _exp(4, IPU_PORT_CLK_SWITCH)
-//             _nop
-//             
-//             set( 'pgdb' 'pgdbobus' 'col_out' ) //output first live column (all rows active)
-//             keep
-//             set( 'col_out' )  
-//             _imp(sx,234) //Get data from Dig port
-//             
-//             _exp(4,IPU_PORT_CLK_SWITCH) // dreg operation clock
-//             _nop
-//             R2 = $r1
-//             $r1 = R2
-//             
-//             _exp(sx, IPU_PORT_ADDR) //Specifies which column searched (that is, the column just found above). 
-//             _exp(1, IPU_PORT_LC)
-//             _exp(0, IPU_PORT_LC)
-//             
-//             set( 'pgdb' 'row_out' )
-//             keep
-//             set( 'row_out' )
-//             _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
-//             
-//              //send coordinate to USB
-//             _mov(sv,255)
-//             _sub(sv,sx)
-//             spi.send_byte(sv)
-//             spi.send_byte(sy)
-//             
-//             //remove the pixel just found from image
-//             _exp(sy, IPU_PORT_ADDR)
-//             _exp(1, IPU_PORT_LR)
-//             _exp(0, IPU_PORT_LR)
-//             _exp(0, IPU_PORT_ADDR) //Just specify one row
-//             _exp(1, IPU_PORT_LRX)
-//             _exp(0, IPU_PORT_LRX)
-//             
-//             _exp(4, IPU_PORT_CLK_SWITCH) // dreg operation clock
-//             _nop
-//             set('LR3' 'wr' 'bitmode' 'bit' 'plrb' )
-//             
-//             //search all rows again to look for next pixel
-//             _exp(255, IPU_PORT_ADDR) 
-//             _exp(1, IPU_PORT_LRX)
-//             _exp(0, IPU_PORT_LRX)
-//                 
-//             _sub(sz,1)
-//         _jump(nz,#scanning_loop_z)
-//         _nop
-// 
-//         _sub(sw,1)
-//     _jump(nz,#scanning_loop_w)
-//     _nop
-// 
-//     _exp(1, 246)// set DataReady pin high
-//     _exp(0, 246)
-//     
-//     _exp(8, IPU_PORT_CLK_SWITCH)
-//     _nop
-//     _exp(1,IPU_PORT_FALL_C1)
-//     _exp(5,IPU_PORT_FALL_C1)
-//     _exp(6,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
-//     _exp(9,IPU_PORT_FALL_C2)
-//     
-//     all
-//     
-//     _nop
-//     _nop
-//     _nop
-//     _nop
-//     
-//     // reset
-//     _nop
-//     _exp(0, 253)
-//     
-//     _exp(8, IPU_PORT_CLK_SWITCH)
-//     _nop
-//     
-// !macro_end
