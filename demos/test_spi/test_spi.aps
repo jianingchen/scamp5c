@@ -3,8 +3,10 @@ apron.config_begin
     sim.pix_source_webcam
     host.set_frame_rate(60)
     host.template('scamp5c_host_template.txt')
-    //host.firmware('../ipu_ok_eagi_itfc_16_may.bit')
     window_1 = host.add_display('cap')
+    slider_1 = host.add_slider('threshold', -120, 120, 32, SPI_APP_TEXT_THRESHOLD_A, 0)
+    slider_2 = host.add_slider('switch', 1, 4, 2, SPI_APP_TEXT_SWITCH, 1)
+    slider_3 = host.add_slider('iteration', 0, 20, 10, SPI_APP_TEXT_ITERATION_I)
 apron.config_end
 
 ipu.reset_loop_counter
@@ -27,6 +29,7 @@ spi.reset
     _jump(c,#start)
     _nop
     
+// generic packet
 //     s0 = spi.port(SPI_RX_0)
 //     s1 = spi.port(SPI_RX_1)
 //     s2 = spi.port(SPI_RX_2)
