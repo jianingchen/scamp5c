@@ -168,12 +168,12 @@ void Scamp5cApp::host_callback_appinfo(){
     printf("gui configuration:\n",p[0],p[1],p[2],p[3]);
     for(int i=0;i<8;i++){
         printf("slider %d: ",i);
-        printf("{ %d, ",gui_configuration.slider[i].domain_min);
+        printf("{ %d, ",gui_configuration.slider[i].name_index);
+        printf("%d, ",gui_configuration.slider[i].domain_min);
         printf("%d, ",gui_configuration.slider[i].domain_max);
         printf("%d, ",gui_configuration.slider[i].default_value);
         printf("%d, ",gui_configuration.slider[i].b_latched);
         printf("%d, ",gui_configuration.slider[i].b_signed);
-        printf("%d, ",gui_configuration.slider[i].b_name_index);
         printf("%d }\n",gui_configuration.slider[i].b_disabled);
     }
 
@@ -196,7 +196,7 @@ void Scamp5cApp::configure_gui(){
             p->text = "n/a";
             p->text_length = p->text.size();
         }else{
-            p->text = gui_name_strings[gui_configuration.slider[i].b_name_index];
+            p->text = gui_name_strings[gui_configuration.slider[i].name_index];
             p->text_length = p->text.size();
             p->IntegerValue = true;
             p->UpdateOnRelease = gui_configuration.slider[i].b_latched;

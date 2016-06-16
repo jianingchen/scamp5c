@@ -47,42 +47,6 @@
 !define(SPI_RX_6, 166)
 !define(SPI_RX_7, 167)
 
-!define(SPI_APP_TEXT_UNDEFINED, 0)
-!define(SPI_APP_TEXT_UNKNOWN, 1)
-!define(SPI_APP_TEXT_SWITCH, 2)
-!define(SPI_APP_TEXT_MODE, 3)
-!define(SPI_APP_TEXT_THRESHOLD_A, 4)
-!define(SPI_APP_TEXT_THRESHOLD_B, 5)
-!define(SPI_APP_TEXT_THRESHOLD_C, 6)
-!define(SPI_APP_TEXT_THRESHOLD_D, 7)
-
-!define(SPI_APP_TEXT_X, 8)
-!define(SPI_APP_TEXT_Y, 9)
-!define(SPI_APP_TEXT_X_SHIFT, 10)
-!define(SPI_APP_TEXT_Y_SHIFT, 11)
-!define(SPI_APP_TEXT_X_MASK, 12)
-!define(SPI_APP_TEXT_Y_MASK, 13)
-!define(SPI_APP_TEXT_X_MATCH, 14)
-!define(SPI_APP_TEXT_Y_MATCH, 15)
-
-!define(SPI_APP_TEXT_INPUT_0, 16)
-!define(SPI_APP_TEXT_INPUT_1, 17)
-!define(SPI_APP_TEXT_INPUT_2, 18)
-!define(SPI_APP_TEXT_INPUT_3, 19)
-!define(SPI_APP_TEXT_ITERATION_I, 20)
-!define(SPI_APP_TEXT_ITERATION_J, 21)
-!define(SPI_APP_TEXT_ITERATION_K, 22)
-!define(SPI_APP_TEXT_ITERATION_L, 23)
-
-!define(SPI_APP_TEXT_E, 24)
-!define(SPI_APP_TEXT_F, 25)
-!define(SPI_APP_TEXT_G, 26)
-!define(SPI_APP_TEXT_H, 27)
-!define(SPI_APP_TEXT_T, 28)
-!define(SPI_APP_TEXT_U, 29)
-!define(SPI_APP_TEXT_V, 30)
-!define(SPI_APP_TEXT_W, 31)
-
 
 // 
 !macro_def
@@ -122,6 +86,18 @@
 !macro_begin
     _exp(1, 246)
     _exp(0, 246)
+!macro_end
+
+// 
+!macro_def
+    spi.wait_fifo_space($e)
+!macro_begin
+    :#wait_fifo_space
+    _nop
+    spi.get_fifo_space(su)
+    _sub(su,$e)
+    _jump(c,:#wait_fifo_space)
+    _nop
 !macro_end
 
 // 
@@ -342,9 +318,9 @@
     spi.dout($r1)
 !macro_begin
     _exp(6,IPU_PORT_FALL_C1) //THESE CLOCK CHANGES are here since THE critical item appears to be WHERE rather than the rest of the readout algo
-	_exp(7,IPU_PORT_RISE_C2) 
-	_exp(9,IPU_PORT_FALL_C2) 
-	
+    _exp(7,IPU_PORT_RISE_C2) 
+    _exp(9,IPU_PORT_FALL_C2) 
+    
 
     all
     where($r1)
@@ -398,8 +374,8 @@
     
     _exp(8, IPU_PORT_CLK_SWITCH)
     _exp(4,IPU_PORT_FALL_C1)
-	_exp(5,IPU_PORT_RISE_C2) 
-	_exp(9,IPU_PORT_FALL_C2) 
+    _exp(5,IPU_PORT_RISE_C2) 
+    _exp(9,IPU_PORT_FALL_C2) 
     _exp(0, IPU_PORT_RD)
     _nop
     

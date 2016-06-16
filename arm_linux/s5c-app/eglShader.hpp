@@ -1,4 +1,11 @@
+/*
 
+-lGLESv2
+-lEGL
+
+/usr/lib/arm-linux-gnueabihf/mali-egl/libmali.so
+
+*/
 #ifndef EGL_SHADER_HPP
 #define EGL_SHADER_HPP
 

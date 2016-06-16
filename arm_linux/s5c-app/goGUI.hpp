@@ -98,20 +98,23 @@ public:
         Button(){
             is_hovering = false;
             is_holding = false;
-            value = 0;
+            press_count = 0;
         }
 
         void RegisterActionOnPress(std::function<void(Button*,int,int)>);
         void RegisterActionOnRelease(std::function<void(Button*,int,int)>);
 
-        inline int GetValue(){
-            return value;
+        inline uint32_t GetPressCount(){
+            return press_count;
+        }
+        inline bool IsHolding(){
+            return is_holding;
         }
 
     protected:
 
         pad *frame;
-        int value;
+        uint32_t press_count;
         bool is_hovering;
         bool is_holding;
         std::function<void(Button*,int,int)> action_press;
@@ -266,14 +269,14 @@ protected:
     float va_position[4][3];
     float va_texcoords[4][2];
 
+    pad* search_pad(int x,int y);
+
     virtual void set_draw_color(float r,float g,float b,float a = 1.0f);
     virtual void set_draw_color(const float*rgba4fv);
     virtual void set_draw_texture(goTexture*texture);
     virtual void draw_line(float x0,float y0,float x1,float y1);
     virtual void draw_rect_outline(float x,float y,float w,float h);
     virtual void draw_rect_filled(float x,float y,float w,float h);
-
-    pad* search_pad(int x,int y);
 
 };
 

@@ -1,23 +1,4 @@
 
-!sim_core('cores/core_scamp5b_mod.dll')
-
-!operator(=, load)
-!operator(+, _invalid_operator )
-!operator(-, _invalid_operator )
-!operator(*, _invalid_operator )
-!operator(/, _invalid_operator )
-
-!generate_icw_file
-!max_addr(2000)
-
-!define(USE_CALL_USB_AOUT_256_COL_MAJOR, 0)
-!define(USE_CALL_USB_AOUT_256_ROW_MAJOR, 1)
-!define(USE_CALL_USB_DOUT_256_ROW_MAJOR, 1)
-!define(USE_CALL_SPI_AOUT_ROW_MAJOR, 1)
-!define(USE_CALL_SPI_DOUT_ROW_MAJOR, 1)
-
-//------------------------------------------------------------------------------
-
 !include('scamp5c/scamp5c_pe_def.aps')
 !include('scamp5c/scamp5c_pe_macro.aps')
 
@@ -33,7 +14,7 @@
 
 //------------------------------------------------------------------------------
 
-_jump(#program_init)
+_jump(#program_entry)
 
 //------------------------------------------------------------------------------
 
@@ -41,7 +22,7 @@ _jump(#program_init)
 
 //------------------------------------------------------------------------------
 
-#program_init
+#program_entry
 
 // Some magic!
 _nop

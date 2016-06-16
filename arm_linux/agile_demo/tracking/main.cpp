@@ -43,7 +43,7 @@ int main(int argc,char*argv[]){
     auto s5cSPI = new scamp5c_spi_ht;
     auto s5cHost = new Scamp5cHost;
 
-    s5cSPI->SetTransferSize(1200);
+    s5cSPI->SetTransferSize(100);
     s5cSPI->SetupGpio(s5cGPIO);
 
     s5cHost->SetupSpi(s5cSPI);

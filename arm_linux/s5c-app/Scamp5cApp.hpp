@@ -28,12 +28,13 @@ public:
     };
 
     struct slider_form{
+        uint8_t name_index;
         uint8_t domain_min;
         uint8_t domain_max;
         uint8_t default_value;
         uint8_t b_latched:1;
         uint8_t b_signed:1;
-        uint8_t b_name_index:5;
+        uint8_t b_unused:5;
         uint8_t b_disabled:1;
     };
 

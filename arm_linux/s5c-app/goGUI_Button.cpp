@@ -11,7 +11,7 @@ void goGUI::Button::event_callback(pad*p,int x,int y,event_type e){
 
     case PRESS_MAIN:
         is_holding = true;
-        value = 1;
+        press_count++;
         if(action_press!=NULL){
             action_press(this,x,y);
         }
@@ -19,7 +19,6 @@ void goGUI::Button::event_callback(pad*p,int x,int y,event_type e){
 
     case RELEASE_MAIN:
         is_holding = false;
-        value = 0;
         if(action_release!=NULL){
             action_release(this,x,y);
         }
@@ -32,7 +31,6 @@ void goGUI::Button::event_callback(pad*p,int x,int y,event_type e){
     case MOUSE_CURSOR_LEAVE:
         is_hovering = false;
         is_holding = false;
-        value = 0;
         break;
 
     default:

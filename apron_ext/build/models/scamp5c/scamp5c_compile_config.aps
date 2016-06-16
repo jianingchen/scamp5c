@@ -1,0 +1,53 @@
+
+!sim_core('cores/core_scamp5b_mod.dll')
+
+!operator(=, load)
+!operator(+, _invalid_operator )
+!operator(-, _invalid_operator )
+!operator(*, _invalid_operator )
+!operator(/, _invalid_operator )
+
+!generate_icw_file
+!max_addr(2000)
+
+!define(SPI_APP_TEXT_NOT_AVAILABLE, 0)
+!define(SPI_APP_TEXT_UNDEFINED, 1)
+!define(SPI_APP_TEXT_SWITCH, 2)
+!define(SPI_APP_TEXT_MODE, 3)
+!define(SPI_APP_TEXT_THRESHOLD_A, 4)
+!define(SPI_APP_TEXT_THRESHOLD_B, 5)
+!define(SPI_APP_TEXT_THRESHOLD_C, 6)
+!define(SPI_APP_TEXT_THRESHOLD_D, 7)
+
+!define(SPI_APP_TEXT_X, 8)
+!define(SPI_APP_TEXT_Y, 9)
+!define(SPI_APP_TEXT_X_SHIFT, 10)
+!define(SPI_APP_TEXT_Y_SHIFT, 11)
+!define(SPI_APP_TEXT_X_MASK, 12)
+!define(SPI_APP_TEXT_Y_MASK, 13)
+!define(SPI_APP_TEXT_X_MATCH, 14)
+!define(SPI_APP_TEXT_Y_MATCH, 15)
+
+!define(SPI_APP_TEXT_INPUT_0, 16)
+!define(SPI_APP_TEXT_INPUT_1, 17)
+!define(SPI_APP_TEXT_INPUT_2, 18)
+!define(SPI_APP_TEXT_INPUT_3, 19)
+!define(SPI_APP_TEXT_ITERATION_I, 20)
+!define(SPI_APP_TEXT_ITERATION_J, 21)
+!define(SPI_APP_TEXT_ITERATION_K, 22)
+!define(SPI_APP_TEXT_ITERATION_L, 23)
+
+!define(SPI_APP_TEXT_E, 24)
+!define(SPI_APP_TEXT_F, 25)
+!define(SPI_APP_TEXT_G, 26)
+!define(SPI_APP_TEXT_H, 27)
+!define(SPI_APP_TEXT_T, 28)
+!define(SPI_APP_TEXT_U, 29)
+!define(SPI_APP_TEXT_V, 30)
+!define(SPI_APP_TEXT_W, 31)
+
+!define(USE_CALL_USB_AOUT_256_COL_MAJOR, 0)
+!define(USE_CALL_USB_AOUT_256_ROW_MAJOR, 1)
+!define(USE_CALL_USB_DOUT_256_ROW_MAJOR, 1)
+!define(USE_CALL_SPI_AOUT_ROW_MAJOR, 1)
+!define(USE_CALL_SPI_DOUT_ROW_MAJOR, 1)

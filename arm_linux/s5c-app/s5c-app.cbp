@@ -37,11 +37,10 @@
 		</Compiler>
 		<Linker>
 			<Add option="-pthread" />
-			<Add option="-lGLESv2" />
-			<Add option="-lEGL" />
 			<Add option="-lm" />
 			<Add option="-lX11" />
 			<Add library="../s5c-spi/libs5c-spi.a" />
+			<Add library="/usr/lib/arm-linux-gnueabihf/mali-egl/libmali.so" />
 		</Linker>
 		<Unit filename="Scamp5cApp.hpp" />
 		<Unit filename="Scamp5cApp_0.cpp" />
