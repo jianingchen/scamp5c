@@ -83,8 +83,9 @@ void Scamp5cApp::Initialize(){
 
     s5cGPIO = new scamp5c_oxu4_gpio;
 
-    s5cSPI = new scamp5c_spi_ht;
-    s5cSPI->SetTransferSize(800);
+//    s5cSPI = new scamp5c_spi_ht;
+//    s5cSPI->SetTransferSize(800);
+    s5cSPI = new scamp5c_spi_vts;
     s5cSPI->SetupGpio(s5cGPIO);
 
     s5cHost = new Scamp5cHost;
