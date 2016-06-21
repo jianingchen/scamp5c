@@ -2,9 +2,9 @@ var indexSectionsWithContent =
 {
   0: "_adehiprsu",
   1: "adhpr",
-  2: "hip",
+  2: "hipsu",
   3: "_ahipsu",
-  4: "hip",
+  4: "hipsu",
   5: "deips"
 };
 

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: Host and Simulation Functions</title>
+<title>SCAMP-5c Vision System: spi_macros.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -45,7 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -64,7 +64,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div><!-- top -->
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>Globals</span></a></li>
+    </ul>
+  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,54 +84,403 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#files">Files</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Host and Simulation Functions</div>  </div>
+<div class="title">spi_macros.h File Reference<div class="ingroups"><a class="el" href="a00036.html">SPI Macros</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Configuration of the simulation and the SCAMP-5 hosting environment.  
-<a href="#details">More...</a></p>
+<p><a href="a00029_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:a00023"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00023.html">host_and_sim.h</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4fed04409aefa08d7475f60e8c79be3b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a4fed04409aefa08d7475f60e8c79be3b">spi_reset</a> (void)</td></tr>
+<tr class="memdesc:a4fed04409aefa08d7475f60e8c79be3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset/initialize the spi interface  <a href="#a4fed04409aefa08d7475f60e8c79be3b">More...</a><br /></td></tr>
+<tr class="separator:a4fed04409aefa08d7475f60e8c79be3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9827c9b956efa500e8ac8a4e1dc44ece"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9827c9b956efa500e8ac8a4e1dc44ece"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a9827c9b956efa500e8ac8a4e1dc44ece">spi_begin</a> (void)</td></tr>
+<tr class="memdesc:a9827c9b956efa500e8ac8a4e1dc44ece"><td class="mdescLeft">&#160;</td><td class="mdescRight">activate the spi interface <br /></td></tr>
+<tr class="separator:a9827c9b956efa500e8ac8a4e1dc44ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c2442f32044c2da1394dadd3cfd01a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5c2442f32044c2da1394dadd3cfd01a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#ab5c2442f32044c2da1394dadd3cfd01a">spi_end</a> (void)</td></tr>
+<tr class="memdesc:ab5c2442f32044c2da1394dadd3cfd01a"><td class="mdescLeft">&#160;</td><td class="mdescRight">deactivate the spi interface <br /></td></tr>
+<tr class="separator:ab5c2442f32044c2da1394dadd3cfd01a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabcacbdf166730db4993ff4e022e731d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#aabcacbdf166730db4993ff4e022e731d">spi_get_fifo_space</a> (<a class="el" href="a00017.html">reg</a> s)</td></tr>
+<tr class="memdesc:aabcacbdf166730db4993ff4e022e731d"><td class="mdescLeft">&#160;</td><td class="mdescRight">get status index of the least number of space in fifo  <a href="#aabcacbdf166730db4993ff4e022e731d">More...</a><br /></td></tr>
+<tr class="separator:aabcacbdf166730db4993ff4e022e731d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6b23fce82119f94efb87dd973dafbf9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00017.html">reg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#ac6b23fce82119f94efb87dd973dafbf9">spi_port</a> (rint e)</td></tr>
+<tr class="memdesc:ac6b23fce82119f94efb87dd973dafbf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get a value from the SPI input port  <a href="#ac6b23fce82119f94efb87dd973dafbf9">More...</a><br /></td></tr>
+<tr class="separator:ac6b23fce82119f94efb87dd973dafbf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa2821911e40165dfa2fea1b6a710818"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa2821911e40165dfa2fea1b6a710818"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#afa2821911e40165dfa2fea1b6a710818">spi_send_loop_counter</a> ()</td></tr>
+<tr class="memdesc:afa2821911e40165dfa2fea1b6a710818"><td class="mdescLeft">&#160;</td><td class="mdescRight">send the loop counter as a standard packet (packet size: 12 bytes) <br /></td></tr>
+<tr class="separator:afa2821911e40165dfa2fea1b6a710818"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52d11a419fa963a5ac7dd5744100d4d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a52d11a419fa963a5ac7dd5744100d4d2">spi_aout</a> (<a class="el" href="a00011.html">areg</a> r)</td></tr>
+<tr class="memdesc:a52d11a419fa963a5ac7dd5744100d4d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">send an AREG plane as a standard packet (packet size: 65552 bytes)  <a href="#a52d11a419fa963a5ac7dd5744100d4d2">More...</a><br /></td></tr>
+<tr class="separator:a52d11a419fa963a5ac7dd5744100d4d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f83003c556b77e86d5a8eff9619a4b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a2f83003c556b77e86d5a8eff9619a4b6">spi_aout64</a> (<a class="el" href="a00011.html">areg</a> r)</td></tr>
+<tr class="memdesc:a2f83003c556b77e86d5a8eff9619a4b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">send a 64x64 subsample of an AREG plane as a standard packet (packet size: 4120 bytes)  <a href="#a2f83003c556b77e86d5a8eff9619a4b6">More...</a><br /></td></tr>
+<tr class="separator:a2f83003c556b77e86d5a8eff9619a4b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ace6beb3edee53030714b8ca5c53f71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a4ace6beb3edee53030714b8ca5c53f71">spi_dout</a> (<a class="el" href="a00012.html">dreg</a> r)</td></tr>
+<tr class="memdesc:a4ace6beb3edee53030714b8ca5c53f71"><td class="mdescLeft">&#160;</td><td class="mdescRight">send a DREG plane as a standard packet (packet size: 8208 bytes)  <a href="#a4ace6beb3edee53030714b8ca5c53f71">More...</a><br /></td></tr>
+<tr class="separator:a4ace6beb3edee53030714b8ca5c53f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45bba1f7b155df173f9e73c47f6d4ae0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a45bba1f7b155df173f9e73c47f6d4ae0">spi_scan_events</a> (<a class="el" href="a00012.html">dreg</a> r, <a class="el" href="a00016.html">r_int16</a> n)</td></tr>
+<tr class="memdesc:a45bba1f7b155df173f9e73c47f6d4ae0"><td class="mdescLeft">&#160;</td><td class="mdescRight">scan and send the coordinates of <code>n</code> points in a DREG plane (packet size: 16 + 2*n bytes)  <a href="#a45bba1f7b155df173f9e73c47f6d4ae0">More...</a><br /></td></tr>
+<tr class="separator:a45bba1f7b155df173f9e73c47f6d4ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7dce2b513bc6c7613318b662c46e343"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#ae7dce2b513bc6c7613318b662c46e343">spi_scan_target</a> (<a class="el" href="a00012.html">dreg</a> r)</td></tr>
+<tr class="memdesc:ae7dce2b513bc6c7613318b662c46e343"><td class="mdescLeft">&#160;</td><td class="mdescRight">scan and send the coordinates of the bounding box of '1's in a DREG plane (packet size: 16 bytes)  <a href="#ae7dce2b513bc6c7613318b662c46e343">More...</a><br /></td></tr>
+<tr class="separator:ae7dce2b513bc6c7613318b662c46e343"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61a3067f1c9accdfbc2c23f361a0851e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a61a3067f1c9accdfbc2c23f361a0851e">spi_send_header</a> (<a class="el" href="a00016.html">r_int16</a> w)</td></tr>
+<tr class="memdesc:a61a3067f1c9accdfbc2c23f361a0851e"><td class="mdescLeft">&#160;</td><td class="mdescRight">send a spi header, which containing the payload size. The size of the header itself is always 8 bytes.  <a href="#a61a3067f1c9accdfbc2c23f361a0851e">More...</a><br /></td></tr>
+<tr class="separator:a61a3067f1c9accdfbc2c23f361a0851e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01587f8e18134c76576632036a97a05c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#a01587f8e18134c76576632036a97a05c">spi_send_byte</a> (<a class="el" href="a00015.html">r_int</a> v)</td></tr>
+<tr class="memdesc:a01587f8e18134c76576632036a97a05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">send a value  <a href="#a01587f8e18134c76576632036a97a05c">More...</a><br /></td></tr>
+<tr class="separator:a01587f8e18134c76576632036a97a05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb9e3c90b1bb662ed6c4ff758244d2b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html#aeb9e3c90b1bb662ed6c4ff758244d2b6">spi_set_transfer_size</a> (<a class="el" href="a00016.html">r_int16</a> w)</td></tr>
+<tr class="memdesc:aeb9e3c90b1bb662ed6c4ff758244d2b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">change the transfer size, which is the number of bytes in a single transfer burst  <a href="#aeb9e3c90b1bb662ed6c4ff758244d2b6">More...</a><br /></td></tr>
+<tr class="separator:aeb9e3c90b1bb662ed6c4ff758244d2b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Configuration of the simulation and the SCAMP-5 hosting environment. </p>
-<h1><a class="anchor" id="sec_host_sim_1"></a>
-Introduction</h1>
-<p>In a SCAMP-5c source code, there are two sections: the host configuration section and the program. The host configuration section configures APRON to cooperate with the SCAMP-5c program. For example, setup a display window for each of the image readout in the program, or create sliders for user to input values to the system.</p>
-<p>To make any changes in the config section effective, APRON need to be restarted if it is running. In contrast, when the program is recompiled with only changes in the program seciton, the APRON will automatically reprogram the new ICW file.</p>
-<h1><a class="anchor" id="sec_host_sim_2"></a>
-Example Usage</h1>
-<div class="fragment"><div class="line"><span class="comment">// Host Configuration Section</span></div>
-<div class="line">apron.config_begin</div>
-<div class="line">    sim.pix_source_webcam()<span class="comment">// use webcam as image source when in simulation</span></div>
-<div class="line">    sim.use_error_model(2)<span class="comment">// specify what level of error the simulation will use</span></div>
-<div class="line">    host.template(<span class="stringliteral">&#39;scamp5c_host_template.txt&#39;</span>)<span class="comment">// specify host template file</span></div>
-<div class="line">    host.firmware(<span class="stringliteral">&#39;ok_s5c_ipu.bit&#39;</span>)<span class="comment">// specify the bit file to use</span></div>
-<div class="line">    host.set_frame_rate(50)<span class="comment">// set frame trigger</span></div>
-<div class="line">    slider_1 = host.add_slider(<span class="stringliteral">&#39;parameter a&#39;</span>, 0, 255, 127, 1, 1)</div>
-<div class="line">    slider_2 = host.add_slider(<span class="stringliteral">&#39;parameter b&#39;</span>, 0, 255, 3, 1, 1)</div>
-<div class="line">    window_1 = host.add_display(<span class="stringliteral">&#39;Captured&#39;</span>)</div>
-<div class="line">    window_2 = host.add_display(<span class="stringliteral">&#39;Processed&#39;</span>)</div>
-<div class="line">apron.config_end</div>
-<div class="line"></div>
-<div class="line"><span class="comment">// SCAMP-5c Program Section</span></div>
-<div class="line">...</div>
-<div class="line">    s0 = usb.slider(slider_1)<span class="comment">// s0 will get the value of the slider named &quot;parameter a&quot;</span></div>
-<div class="line">    s1 = usb.slider(slider_2)<span class="comment">// s0 will get the value of the slider named &quot;parameter b&quot;</span></div>
-<div class="line">    usb.aout(A,window_1)<span class="comment">// this image will be shown in the window named &quot;Captured&quot;</span></div>
-<div class="line">    usb.aout(B,window_2)<span class="comment">// this image will be shown in the window named &quot;Processed&quot;</span></div>
-<div class="line">...</div>
-</div><!-- fragment --> </div><!-- contents -->
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a4fed04409aefa08d7475f60e8c79be3b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_reset </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>reset/initialize the spi interface </p>
+<p>This macro is usually used once before the beginning of the program.</p>
+<p>Example Usage:</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.reset_loop_counter</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;// initialize spi interface</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;spi_reset</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;// main frame loop</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;#start</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    ipu.wait_frame_trigger</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    rpix(B,C)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    ...</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;_jump(#start)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="aabcacbdf166730db4993ff4e022e731d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_get_fifo_space </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00017.html">reg</a>&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get status index of the least number of space in fifo </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">s</td><td>the ipu register to store the index</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This macro is mostly used to gurantee that the fifo has enough space to buffer the in-out speed mismatch in spi communication.</p>
+<p>The absolute safe way to achieve this is the make sure the fifo space is bigger than the size of all packets used in a frame iteration. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac6b23fce82119f94efb87dd973dafbf9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00017.html">reg</a> spi_port </td>
+          <td>(</td>
+          <td class="paramtype">rint&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get a value from the SPI input port </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">e</td><td>SPI input port option</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the value presented in the port</dd></dl>
+<p>When a transfer occurs, the first 8 bytes received in the income data are stored in the SPI input ports. The valid options for the input port is <code>SPI_RX_0</code> to <code>SPI_RX_7</code> .</p>
+<p>Notice that, since SPI transfers are triggered by upwards communcation, there must be upwards communications inside the frame loop to enable downwards communication. It nothing in particular is needed to be sent from SCAMP-5 to the host, one can simply send the loop counter just to ensure downwards communication is processed.</p>
+<p>Example Usage:</p>
+<p>The follow code use a value from SPI input port to threshold a image </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;...</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;s0 = spi.port(SPI_RX_0)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;E = in(s0)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;D = sub(C,E)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;where(D)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;R5 = FLAG</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;all</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;spi.begin</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;spi.dout(R5)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;spi.end</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;...</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a class="anchor" id="a52d11a419fa963a5ac7dd5744100d4d2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_aout </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>send an AREG plane as a standard packet (packet size: 65552 bytes) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>the AREG plane to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a2f83003c556b77e86d5a8eff9619a4b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_aout64 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00011.html">areg</a>&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>send a 64x64 subsample of an AREG plane as a standard packet (packet size: 4120 bytes) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>the AREG plane to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a4ace6beb3edee53030714b8ca5c53f71"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_dout </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00012.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>send a DREG plane as a standard packet (packet size: 8208 bytes) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>the DREG plane to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a45bba1f7b155df173f9e73c47f6d4ae0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_scan_events </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00012.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00016.html">r_int16</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>scan and send the coordinates of <code>n</code> points in a DREG plane (packet size: 16 + 2*n bytes) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>the DREG plane to be scanned </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>maximum number of points, can be a value between [0,65535] </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae7dce2b513bc6c7613318b662c46e343"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_scan_target </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00012.html">dreg</a>&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>scan and send the coordinates of the bounding box of '1's in a DREG plane (packet size: 16 bytes) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>the DREG plane to be scanned </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a61a3067f1c9accdfbc2c23f361a0851e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_send_header </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00016.html">r_int16</a>&#160;</td>
+          <td class="paramname"><em>w</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>send a spi header, which containing the payload size. The size of the header itself is always 8 bytes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">w</td><td>size of the payload </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a01587f8e18134c76576632036a97a05c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_send_byte </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00015.html">r_int</a>&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>send a value </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>value to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aeb9e3c90b1bb662ed6c4ff758244d2b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spi_set_transfer_size </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00016.html">r_int16</a>&#160;</td>
+          <td class="paramname"><em>w</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>change the transfer size, which is the number of bytes in a single transfer burst </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">w</td><td>number of bytes in a single transfer burst, between [16,4096]</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This macro provide the optional setting of the transfer size, which may be used to optimize the spi communication for better bandwith or latency.</p>
+<p>To increase the bandwith for large packet, such as event scanning or frame readout, it is better to change the transfer size to be a little bigger than the packet size. By doing that, the number of gaps between multiple transfers can be reduced. For example, if the algorithm only transfer 300 events in each frame loop, it will be optimal that the transfer size is (300*2 + 16). For packet that are bigger than the maximum transfer size of 4096 bytes, one can use a value of which the integer times is just bigger than the packet size. For example, one can use 2800 as transfer size for <a class="el" href="a00029.html#a4ace6beb3edee53030714b8ca5c53f71" title="send a DREG plane as a standard packet (packet size: 8208 bytes) ">spi_dout</a>.</p>
+<p>Since a packet will only be issued after a transfer is finished, it also helps to reduce the latency if the transfer size is not much bigger than the packet size. For example, if the algorithm only transfer a packet of size 16 bytes in each frame iteration, changing transfer size to be 16 or 20 can give a minimized latency.</p>
+<p>Example Usage: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.reset_loop_counter</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;spi.reset</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;spi.set_transfer_size(640)// one transfer can send 640 bytes</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;#start</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    ipu.wait_frame_trigger</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    rpix(B,C)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    //// image processing algorithm</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    ...</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    //// spi communication</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    // check if fifo space is more than 640 bytes (the packet size is 616)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    spi.get_fifo_space(s0)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    _sub(s0,SPI_FIFO_SPACE_640)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    _jump(c,#start)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    // scan and send upto 300 events in R5</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    spi.begin</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    spi.scan_events(R5,300)// packet size: 616</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    spi.end</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;_jump(#start)</div>
+</div><!-- fragment --> 
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 27 2016 17:09:33 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 21 2016 18:47:08 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

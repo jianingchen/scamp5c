@@ -8,7 +8,7 @@ var searchData=
   ['pe_5fdigital_5fmacros_2eh',['pe_digital_macros.h',['../a00028.html',1,'']]],
   ['pe_5fdiv',['pe_div',['../a00026.html#a8d8e370388dbfb9039e9565b21693182',1,'pe_analog_macros.h']]],
   ['pe_5feast',['pe_east',['../a00026.html#ac429ad6f1c601a1e00d3c526498dded9',1,'pe_analog_macros.h']]],
-  ['pe_5fin',['pe_in',['../a00026.html#aae3f4deac8df988d04b25f6b5ea7bc38',1,'pe_analog_macros.h']]],
+  ['pe_5fin',['pe_in',['../a00026.html#aa22e9612cdda37c407f8ddfcd65cdd9b',1,'pe_analog_macros.h']]],
   ['pe_5fmov',['pe_mov',['../a00026.html#aa60315c9299dae42140e3dd63de10115',1,'pe_analog_macros.h']]],
   ['pe_5fnand',['pe_nand',['../a00028.html#a9b1979cbbd317f4a460946d96e214b40',1,'pe_digital_macros.h']]],
   ['pe_5fneg',['pe_neg',['../a00026.html#a38f8418c46d18aa29ffe7fc8fa123daf',1,'pe_analog_macros.h']]],
@@ -25,8 +25,8 @@ var searchData=
   ['pro_5fflood_5ffrom_5fboundary',['pro_flood_from_boundary',['../a00027.html#ad1cddbff61561dccf8b82ca528e5b70e',1,'pe_async_processing.h']]],
   ['pro_5fflood_5ffrom_5fsource',['pro_flood_from_source',['../a00027.html#a0ff7e44c2c40cea28d6dc83bd24c0e54',1,'pe_async_processing.h']]],
   ['pro_5flocate_5fevent',['pro_locate_event',['../a00027.html#aa0725e6c260489087d9e5af43db76846',1,'pe_async_processing.h']]],
-  ['pe_20analogue_20operation_20macros',['PE Analogue Operation Macros',['../a00032.html',1,'']]],
-  ['pe_20asynchronous_20processing',['PE Asynchronous Processing',['../a00033.html',1,'']]],
-  ['pe_20digital_20operation_20macros',['PE Digital Operation Macros',['../a00034.html',1,'']]],
+  ['pe_20analogue_20operation_20macros',['PE Analogue Operation Macros',['../a00033.html',1,'']]],
+  ['pe_20asynchronous_20processing',['PE Asynchronous Processing',['../a00034.html',1,'']]],
+  ['pe_20digital_20operation_20macros',['PE Digital Operation Macros',['../a00035.html',1,'']]],
   ['pe_20instructions_20and_20programming_20outline',['PE Instructions and Programming Outline',['../a00010.html',1,'']]]
 ];

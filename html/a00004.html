@@ -98,8 +98,8 @@ Example 1: Simple Camera</h2>
 <p>This program simply capture the image from the photo transistor and send it back to the PC host. It uses the macro <a class="el" href="a00026.html#af279536c1942f9029b5681c8d474e7bd" title="read the image from PIX in to AREGs, and reset PIX ">pe_rpix</a> to capture both the image in both full-range format and half-range format.</p>
 <h2><a class="anchor" id="sec_example_guide_2_2"></a>
 Example 2: Thresholding</h2>
-<p>This program applies a thresholding process to the image, which yield a boolean image. This demonstates the use of <code>where</code> and some basic AREG arithmetics using the macros in <a class="el" href="a00032.html">PE Analogue Operation Macros</a>. This particular example, the boolean image is stored using AREG but DREG can also be used. The threshold applied is read from the PC host. The user can dynamically modify this threshold by moving a slider in the APRON GUI.</p>
-<p>In this program, the exposure time is stablized by a double frame trigger mechanism (see <a class="el" href="a00025.html#ae67c1f24e4bec58094a95fddb5282215" title="wait until a frame trigger is detected ">ipu_wait_frame_trigger</a>), which is often used when the frame loop contains one or more usb image readout (e.g. <a class="el" href="a00024.html#a6185368d95142035f24ec36d535b3e11" title="sample and output an entire 256x256 AREG plane ">usb_aout</a>) and the frame time is thus overwhelmed by these communciations.</p>
+<p>This program applies a thresholding process to the image, which yield a boolean image. This demonstates the use of <code>where</code> and some basic AREG arithmetics using the macros in <a class="el" href="a00033.html">PE Analogue Operation Macros</a>. This particular example, the boolean image is stored using AREG but DREG can also be used. The threshold applied is read from the PC host. The user can dynamically modify this threshold by moving a slider in the APRON GUI.</p>
+<p>In this program, the exposure time is stablized by a double frame trigger mechanism (see <a class="el" href="a00025.html#ae67c1f24e4bec58094a95fddb5282215" title="wait until a frame trigger is detected ">ipu_wait_frame_trigger</a>), which is often used when the frame loop contains one or more usb image readout (e.g. <a class="el" href="a00030.html#a6185368d95142035f24ec36d535b3e11" title="sample and output an entire 256x256 AREG plane ">usb_aout</a>) and the frame time is thus overwhelmed by these communciations.</p>
 <h2><a class="anchor" id="sec_example_guide_2_3"></a>
 Example 3: Motion Detection</h2>
 <p>This program subtract a just-captured image with the previous image, which yields the difference between the two images of different times. In observation, the result image only shows the pixels that are moving in the scene.</p>
@@ -118,7 +118,7 @@ Example 7: Aysnchronous Diffusion</h2>
 <h2><a class="anchor" id="sec_example_guide_2_8"></a>
 Example 8: Events Scanning</h2>
 <p>This example uses a few functionalities in combination to demonstrate the events scanning capbility:</p><ol type="1">
-<li>A few '1' pixels are manually drawn on a DREG plane (using <a class="el" href="a00025.html#ad68fa867e21e5ecc4a60f44baa4aa1bc" title="set one pixel in a DREG plane ">ipu_pixel_set</a>) which is originally all '0's.</li>
+<li>A few '1' pixels are manually drawn on a DREG plane (using <a class="el" href="a00025.html#a830922aa8bd253a29d1f796e870ccf9f" title="set one pixel in a DREG plane ">ipu_pixel_set</a>) which is originally all '0's.</li>
 <li>The macro <a class="el" href="a00027.html#aa0725e6c260489087d9e5af43db76846" title="locate a &#39;1&#39; in a DREG plane, starting from bottom right ">pro_locate_event</a> is used to find the coordinates of one of these pixels.</li>
 <li>The coordinates is sent to PC using a usb data stream.</li>
 <li>The found pixel is then erased using digital masking operations.</li>
@@ -129,17 +129,17 @@ Example 9: DREG Neighbour Access</h2>
 <p>Similar to <a class="el" href="a00004.html#sec_example_guide_2_4">Example 4: AREG Neighbour Access</a>, this example achieves shifting of a DREG plane using the digital version of the neighbour accessing capability.</p>
 <h2><a class="anchor" id="sec_example_guide_2_10"></a>
 Example 10: DREG Selecting</h2>
-<p>This example use <a class="el" href="a00025.html#a8d951e20a3f652c841c423dac3af25c3" title="set all pixel a DREG plane of which their coordinates match the rules ">ipu_pixel_select</a> to generate patterns in a DREG plane where the x-y coordinates of selected pixel meet a specific rule. Because the DREG plane can be used to flag a PE, making such patterns can be used to manually select a portion of PEs to operate.</p>
+<p>This example use <a class="el" href="a00025.html#ae7f4fe7c859009db5412a1f769539dab" title="set all pixel a DREG plane of which their coordinates match the rules ">ipu_pixel_select</a> to generate patterns in a DREG plane where the x-y coordinates of selected pixel meet a specific rule. Because the DREG plane can be used to flag a PE, making such patterns can be used to manually select a portion of PEs to operate.</p>
 <h2><a class="anchor" id="sec_example_guide_2_11"></a>
 Example 11: Analogue Regional Summation</h2>
-<p>This example sum the analogue register values in a region of an AREG plane. Note, the <a class="el" href="a00025.html#a025e51ee743e1ee759948408a4b4a20d" title="sum all pixels in a AREG plane, then sample ">ipu_global_sum</a> can only sum an entire AREG plane. To sum only a specific region, one first need to mask the PEs using the DREG selecting and shifting macros.</p>
+<p>This example sum the analogue register values in a region of an AREG plane. Note, the <a class="el" href="a00025.html#ab077411ddcb7a72c8a04a94409f52791" title="sum all pixels in a AREG plane, then sample ">ipu_global_sum</a> can only sum an entire AREG plane. To sum only a specific region, one first need to mask the PEs using the DREG selecting and shifting macros.</p>
 <h2><a class="anchor" id="sec_example_guide_2_12"></a>
 Example 12: Simulation Using A Video or Image</h2>
 <p>When this example is executed as simulation, it uses a video as the image source so no webcam nor SCAMP-5c is required. This maybe also useful when the image processing algorithm need to be applied on a scenario that is only replayable through a video. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 27 2016 17:09:33 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 21 2016 18:47:08 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

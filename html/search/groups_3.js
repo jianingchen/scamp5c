@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pe_20macros',['PE Macros',['../a00031.html',1,'']]]
+  ['spi_20macros',['SPI Macros',['../a00036.html',1,'']]]
 ];

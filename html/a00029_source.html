@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: pe_analog_macros.h Source File</title>
+<title>SCAMP-5c Vision System: spi_macros.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,83 +87,76 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">pe_analog_macros.h</div>  </div>
+<div class="title">spi_macros.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a href="a00029.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a00013.html">   36</a></span>&#160;<span class="keyword">class </span><a class="code" href="a00013.html">areg</a>{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">//------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<a class="code" href="a00029.html#a56fafa1a1ef99a1b063f843680c11ff7">F_rpix</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<a class="code" href="a00029.html#a56fafa1a1ef99a1b063f843680c11ff7">F_rpix</a>(<a class="code" href="a00013.html">areg</a> a1,<a class="code" href="a00013.html">areg</a> a2);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#a65f32d26dcc0ec3b1e0d36bf640f864c">F_mov</a>(<a class="code" href="a00013.html">areg</a> a1);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<a class="code" href="a00029.html#a4fed04409aefa08d7475f60e8c79be3b">spi_reset</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<a class="code" href="a00029.html#a9827c9b956efa500e8ac8a4e1dc44ece">spi_begin</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<a class="code" href="a00029.html#ab5c2442f32044c2da1394dadd3cfd01a">spi_end</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#a710e6cc82629b382ae0e1d56d0bb0728">F_add</a>(<a class="code" href="a00013.html">areg</a> a1,<a class="code" href="a00013.html">areg</a> a2);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#ab470f9361c60681bcc191fbb1b689c92">F_sub</a>(<a class="code" href="a00013.html">areg</a> a1,<a class="code" href="a00013.html">areg</a> a2);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#a58f90acd47320b46c7c58fc47bcb2662">F_neg</a>(<a class="code" href="a00013.html">areg</a> a1);</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#a3d48ea13aec9b954e72e1278e5c8d4ff">F_abs</a>(<a class="code" href="a00013.html">areg</a> a1);</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<a class="code" href="a00029.html#a5563d04b8a9fefd392e7469cb8a3b6e8">F_div</a>(<a class="code" href="a00013.html">areg</a> a1,<a class="code" href="a00013.html">areg</a> a2,<a class="code" href="a00013.html">areg</a> a3);</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#af4b265f9fc332d2884107a3261bc438e">F_in</a>(<a class="code" href="a00018.html">rint</a> v);</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#a6a8919dabc02a581685b4e8a052a3426">F_north</a>(<a class="code" href="a00013.html">areg</a> a1);</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<a class="code" href="a00029.html#aabcacbdf166730db4993ff4e022e731d">spi_get_fifo_space</a>(<a class="code" href="a00017.html">reg</a> s);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<a class="code" href="a00017.html">reg</a> <a class="code" href="a00029.html#ac6b23fce82119f94efb87dd973dafbf9">spi_port</a>(rint e);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<a class="code" href="a00029.html#afa2821911e40165dfa2fea1b6a710818">spi_send_loop_counter</a>();</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<a class="code" href="a00029.html#a52d11a419fa963a5ac7dd5744100d4d2">spi_aout</a>(<a class="code" href="a00011.html">areg</a> r);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<a class="code" href="a00029.html#a2f83003c556b77e86d5a8eff9619a4b6">spi_aout64</a>(<a class="code" href="a00011.html">areg</a> r);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<a class="code" href="a00029.html#a4ace6beb3edee53030714b8ca5c53f71">spi_dout</a>(<a class="code" href="a00012.html">dreg</a> r);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<a class="code" href="a00029.html#a45bba1f7b155df173f9e73c47f6d4ae0">spi_scan_events</a>(<a class="code" href="a00012.html">dreg</a> r,<a class="code" href="a00016.html">r_int16</a> n);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<a class="code" href="a00029.html#ae7dce2b513bc6c7613318b662c46e343">spi_scan_target</a>(<a class="code" href="a00012.html">dreg</a> r);</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<a class="code" href="a00029.html#a61a3067f1c9accdfbc2c23f361a0851e">spi_send_header</a>(<a class="code" href="a00016.html">r_int16</a> w);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<a class="code" href="a00029.html#a01587f8e18134c76576632036a97a05c">spi_send_byte</a>(<a class="code" href="a00015.html">r_int</a> v);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#aab5a6101fb11d0fb1473db882c9c52c4">F_east</a>(<a class="code" href="a00013.html">areg</a> a1);</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#a3689a02c337542b70192376ae8ea8bab">F_west</a>(<a class="code" href="a00013.html">areg</a> a1);</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<a class="code" href="a00013.html">areg</a> <a class="code" href="a00029.html#a69d52996428303621eceb0bc7585b3eb">F_south</a>(<a class="code" href="a00013.html">areg</a> a1);</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;</div>
-<div class="ttc" id="a00029_html_a58f90acd47320b46c7c58fc47bcb2662"><div class="ttname"><a href="a00029.html#a58f90acd47320b46c7c58fc47bcb2662">F_neg</a></div><div class="ttdeci">areg F_neg(areg a1)</div><div class="ttdoc">invert the polarity of AREG and copy to another AREG </div></div>
-<div class="ttc" id="a00029_html_af4b265f9fc332d2884107a3261bc438e"><div class="ttname"><a href="a00029.html#af4b265f9fc332d2884107a3261bc438e">F_in</a></div><div class="ttdeci">areg F_in(rint v)</div><div class="ttdoc">set an analogue register for all pe with a value </div></div>
-<div class="ttc" id="a00029_html_a3689a02c337542b70192376ae8ea8bab"><div class="ttname"><a href="a00029.html#a3689a02c337542b70192376ae8ea8bab">F_west</a></div><div class="ttdeci">areg F_west(areg a1)</div><div class="ttdoc">copy the AREG of the west neighbouring PE </div></div>
-<div class="ttc" id="a00029_html_a69d52996428303621eceb0bc7585b3eb"><div class="ttname"><a href="a00029.html#a69d52996428303621eceb0bc7585b3eb">F_south</a></div><div class="ttdeci">areg F_south(areg a1)</div><div class="ttdoc">copy the AREG of the south neighbouring PE </div></div>
-<div class="ttc" id="a00018_html"><div class="ttname"><a href="a00018.html">rint</a></div><div class="ttdoc">operand of this type can be either an ipu register or a constant integer </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:44</div></div>
-<div class="ttc" id="a00029_html_a6a8919dabc02a581685b4e8a052a3426"><div class="ttname"><a href="a00029.html#a6a8919dabc02a581685b4e8a052a3426">F_north</a></div><div class="ttdeci">areg F_north(areg a1)</div><div class="ttdoc">copy the AREG of the north neighbouring PE </div></div>
-<div class="ttc" id="a00029_html_a5563d04b8a9fefd392e7469cb8a3b6e8"><div class="ttname"><a href="a00029.html#a5563d04b8a9fefd392e7469cb8a3b6e8">F_div</a></div><div class="ttdeci">F_div(areg a1, areg a2, areg a3)</div><div class="ttdoc">divide (by half) an AREG into two AREGs </div></div>
-<div class="ttc" id="a00029_html_a710e6cc82629b382ae0e1d56d0bb0728"><div class="ttname"><a href="a00029.html#a710e6cc82629b382ae0e1d56d0bb0728">F_add</a></div><div class="ttdeci">areg F_add(areg a1, areg a2)</div><div class="ttdoc">add two AREGs </div></div>
-<div class="ttc" id="a00013_html"><div class="ttname"><a href="a00013.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_analog_macros.h:36</div></div>
-<div class="ttc" id="a00029_html_a56fafa1a1ef99a1b063f843680c11ff7"><div class="ttname"><a href="a00029.html#a56fafa1a1ef99a1b063f843680c11ff7">F_rpix</a></div><div class="ttdeci">F_rpix()</div><div class="ttdoc">reset PIX (the photodiode) </div></div>
-<div class="ttc" id="a00029_html_ab470f9361c60681bcc191fbb1b689c92"><div class="ttname"><a href="a00029.html#ab470f9361c60681bcc191fbb1b689c92">F_sub</a></div><div class="ttdeci">areg F_sub(areg a1, areg a2)</div><div class="ttdoc">subtract two AREGs </div></div>
-<div class="ttc" id="a00029_html_a3d48ea13aec9b954e72e1278e5c8d4ff"><div class="ttname"><a href="a00029.html#a3d48ea13aec9b954e72e1278e5c8d4ff">F_abs</a></div><div class="ttdeci">areg F_abs(areg a1)</div><div class="ttdoc">take the absolute value of an AREG and copy to another AREG </div></div>
-<div class="ttc" id="a00029_html_aab5a6101fb11d0fb1473db882c9c52c4"><div class="ttname"><a href="a00029.html#aab5a6101fb11d0fb1473db882c9c52c4">F_east</a></div><div class="ttdeci">areg F_east(areg a1)</div><div class="ttdoc">copy the AREG of the east neighbouring PE </div></div>
-<div class="ttc" id="a00029_html_a65f32d26dcc0ec3b1e0d36bf640f864c"><div class="ttname"><a href="a00029.html#a65f32d26dcc0ec3b1e0d36bf640f864c">F_mov</a></div><div class="ttdeci">areg F_mov(areg a1)</div><div class="ttdoc">make a copy of an AREG </div></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<a class="code" href="a00029.html#aeb9e3c90b1bb662ed6c4ff758244d2b6">spi_set_transfer_size</a>(<a class="code" href="a00016.html">r_int16</a> w);</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;</div>
+<div class="ttc" id="a00029_html_ab5c2442f32044c2da1394dadd3cfd01a"><div class="ttname"><a href="a00029.html#ab5c2442f32044c2da1394dadd3cfd01a">spi_end</a></div><div class="ttdeci">spi_end(void)</div><div class="ttdoc">deactivate the spi interface </div></div>
+<div class="ttc" id="a00029_html_aabcacbdf166730db4993ff4e022e731d"><div class="ttname"><a href="a00029.html#aabcacbdf166730db4993ff4e022e731d">spi_get_fifo_space</a></div><div class="ttdeci">spi_get_fifo_space(reg s)</div><div class="ttdoc">get status index of the least number of space in fifo </div></div>
+<div class="ttc" id="a00015_html"><div class="ttname"><a href="a00015.html">r_int</a></div><div class="ttdoc">operand of this type can be either an ipu register or a constant integer of range [0...</div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:51</div></div>
+<div class="ttc" id="a00029_html_a52d11a419fa963a5ac7dd5744100d4d2"><div class="ttname"><a href="a00029.html#a52d11a419fa963a5ac7dd5744100d4d2">spi_aout</a></div><div class="ttdeci">spi_aout(areg r)</div><div class="ttdoc">send an AREG plane as a standard packet (packet size: 65552 bytes) </div></div>
+<div class="ttc" id="a00029_html_a45bba1f7b155df173f9e73c47f6d4ae0"><div class="ttname"><a href="a00029.html#a45bba1f7b155df173f9e73c47f6d4ae0">spi_scan_events</a></div><div class="ttdeci">spi_scan_events(dreg r, r_int16 n)</div><div class="ttdoc">scan and send the coordinates of n points in a DREG plane (packet size: 16 + 2*n bytes) ...</div></div>
+<div class="ttc" id="a00029_html_afa2821911e40165dfa2fea1b6a710818"><div class="ttname"><a href="a00029.html#afa2821911e40165dfa2fea1b6a710818">spi_send_loop_counter</a></div><div class="ttdeci">spi_send_loop_counter()</div><div class="ttdoc">send the loop counter as a standard packet (packet size: 12 bytes) </div></div>
+<div class="ttc" id="a00029_html_a61a3067f1c9accdfbc2c23f361a0851e"><div class="ttname"><a href="a00029.html#a61a3067f1c9accdfbc2c23f361a0851e">spi_send_header</a></div><div class="ttdeci">spi_send_header(r_int16 w)</div><div class="ttdoc">send a spi header, which containing the payload size. The size of the header itself is always 8 bytes...</div></div>
+<div class="ttc" id="a00012_html"><div class="ttname"><a href="a00012.html">dreg</a></div><div class="ttdoc">operand of this type can only be a digital register </div><div class="ttdef"><b>Definition:</b> pe_digital_macros.h:39</div></div>
+<div class="ttc" id="a00017_html"><div class="ttname"><a href="a00017.html">reg</a></div><div class="ttdoc">operand of this type can only be an ipu register </div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:44</div></div>
+<div class="ttc" id="a00029_html_ac6b23fce82119f94efb87dd973dafbf9"><div class="ttname"><a href="a00029.html#ac6b23fce82119f94efb87dd973dafbf9">spi_port</a></div><div class="ttdeci">reg spi_port(rint e)</div><div class="ttdoc">get a value from the SPI input port </div></div>
+<div class="ttc" id="a00011_html"><div class="ttname"><a href="a00011.html">areg</a></div><div class="ttdoc">operand of this type can only be an analogue register </div><div class="ttdef"><b>Definition:</b> pe_analog_macros.h:55</div></div>
+<div class="ttc" id="a00029_html_aeb9e3c90b1bb662ed6c4ff758244d2b6"><div class="ttname"><a href="a00029.html#aeb9e3c90b1bb662ed6c4ff758244d2b6">spi_set_transfer_size</a></div><div class="ttdeci">spi_set_transfer_size(r_int16 w)</div><div class="ttdoc">change the transfer size, which is the number of bytes in a single transfer burst ...</div></div>
+<div class="ttc" id="a00029_html_a4fed04409aefa08d7475f60e8c79be3b"><div class="ttname"><a href="a00029.html#a4fed04409aefa08d7475f60e8c79be3b">spi_reset</a></div><div class="ttdeci">spi_reset(void)</div><div class="ttdoc">reset/initialize the spi interface </div></div>
+<div class="ttc" id="a00029_html_a01587f8e18134c76576632036a97a05c"><div class="ttname"><a href="a00029.html#a01587f8e18134c76576632036a97a05c">spi_send_byte</a></div><div class="ttdeci">spi_send_byte(r_int v)</div><div class="ttdoc">send a value </div></div>
+<div class="ttc" id="a00029_html_a4ace6beb3edee53030714b8ca5c53f71"><div class="ttname"><a href="a00029.html#a4ace6beb3edee53030714b8ca5c53f71">spi_dout</a></div><div class="ttdeci">spi_dout(dreg r)</div><div class="ttdoc">send a DREG plane as a standard packet (packet size: 8208 bytes) </div></div>
+<div class="ttc" id="a00016_html"><div class="ttname"><a href="a00016.html">r_int16</a></div><div class="ttdoc">similar to r_int, but it can be assigned with a constant integer of range [0,65535] ...</div><div class="ttdef"><b>Definition:</b> ipu_instructions.h:58</div></div>
+<div class="ttc" id="a00029_html_ae7dce2b513bc6c7613318b662c46e343"><div class="ttname"><a href="a00029.html#ae7dce2b513bc6c7613318b662c46e343">spi_scan_target</a></div><div class="ttdeci">spi_scan_target(dreg r)</div><div class="ttdoc">scan and send the coordinates of the bounding box of &#39;1&#39;s in a DREG plane (packet size: 16 bytes) ...</div></div>
+<div class="ttc" id="a00029_html_a9827c9b956efa500e8ac8a4e1dc44ece"><div class="ttname"><a href="a00029.html#a9827c9b956efa500e8ac8a4e1dc44ece">spi_begin</a></div><div class="ttdeci">spi_begin(void)</div><div class="ttdoc">activate the spi interface </div></div>
+<div class="ttc" id="a00029_html_a2f83003c556b77e86d5a8eff9619a4b6"><div class="ttname"><a href="a00029.html#a2f83003c556b77e86d5a8eff9619a4b6">spi_aout64</a></div><div class="ttdeci">spi_aout64(areg r)</div><div class="ttdoc">send a 64x64 subsample of an AREG plane as a standard packet (packet size: 4120 bytes) ...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 2 2016 14:56:42 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 21 2016 18:47:08 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

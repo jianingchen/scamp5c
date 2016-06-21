@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c Vision System: PE Analogue Operation Macros</title>
+<title>SCAMP-5c Vision System: IPU Instructions and Macros</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,59 +83,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#files">Files</a>  </div>
   <div class="headertitle">
-<div class="title">PE Analogue Operation Macros</div>  </div>
+<div class="title">IPU Instructions and Macros</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>provide a relatively care-free version of the basic PE analogue operations  
+<p>IPU Instructions and Macros.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
 Files</h2></td></tr>
-<tr class="memitem:a00026"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html">pe_analog_macros.h</a></td></tr>
+<tr class="memitem:a00025"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00025.html">ipu_instructions.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>provide a relatively care-free version of the basic PE analogue operations </p>
-<h1><a class="anchor" id="pe_ana_macro_sec_1"></a>
+<p>IPU Instructions and Macros. </p>
+<h1><a class="anchor" id="sec_ipu_1_1"></a>
 Introduction</h1>
-<p>Most of these macro provide a relatively carefree version of the PE operations. That is, they produce less error and handle the analogue polarity issue. For example, <code>"A = pe.copy(B)"</code> execute an idealized copy operation, with polarity of the image preserved and the offset error reduced.</p>
-<p>Note, in these macros, the result AREG cannot be same as any of the source AREGs. For example, <code>"A = pe.add(A,B)"</code> is invalid.</p>
-<h1><a class="anchor" id="pe_ana_macro_sec_2"></a>
-Alternative Names</h1>
-<p>Some of these macros can be used without the "pe." prefix.</p>
-<table class="doxtable">
-<tr>
-<th>Macro Name </th><th>Alternative Name  </th></tr>
-<tr>
-<td><code>pe.rpix</code> </td><td><code>rpix</code> </td></tr>
-<tr>
-<td><code>pe.copy</code> </td><td><code>copy</code> </td></tr>
-<tr>
-<td><code>pe.add</code> </td><td><code>add</code> </td></tr>
-<tr>
-<td><code>pe.sub</code> </td><td><code>sub</code> </td></tr>
-<tr>
-<td><code>pe.div</code> </td><td><code>div</code> </td></tr>
-<tr>
-<td><code>pe.abs</code> </td><td><code>abs</code> </td></tr>
-<tr>
-<td><code>pe.neg</code> </td><td><code>neg</code> </td></tr>
-<tr>
-<td><code>pe.in</code> </td><td><code>in</code> </td></tr>
-<tr>
-<td><code>pe.north</code> </td><td><code>north</code> </td></tr>
-<tr>
-<td><code>pe.east</code> </td><td><code>east</code> </td></tr>
-<tr>
-<td><code>pe.west</code> </td><td><code>west</code> </td></tr>
-<tr>
-<td><code>pe.south</code> </td><td><code>south</code> </td></tr>
-</table>
+<p>The ipu has 16 8-bit general purpose registers (s0 - s15) and two flag bits (C and Z).</p>
+<p>Among the registers, s10 to s15 are reserved for the macros.</p>
+<p>Flag C will be set after an arthematic instruction that has overflow or underflow. Flag C will be cleared after an arthematic instruction that operates within a valid range.</p>
+<p>Flag Z will be set after an instruction produces a result that is 0. Flag Z will be cleared after an instruction produces a result that is not 0. For the case of <code>_mov</code>, Flag Z will be set if the value to be moved is equal to the original value in the destination register.</p>
+<h1><a class="anchor" id="sec_ipu_1_2"></a>
+Branching</h1>
+<h1><a class="anchor" id="sec_ipu_1_3"></a>
+Functions</h1>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 27 2016 17:09:33 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 21 2016 18:47:08 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
