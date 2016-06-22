@@ -83,6 +83,7 @@ public:
     void Initialize();
     void Terminate();
 
+    void KeyboardInput(int key_code,int arg);
     void Process();
     void Draw();
 

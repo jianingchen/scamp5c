@@ -126,21 +126,7 @@
 
 // 
 !macro_def
-    spi.send_header($e,$p0)
-!macro_begin
-    spi.send_header($e,$p0,0,0)
-!macro_end
-
-// 
-!macro_def
-    spi.send_header($e,$p0,$p1)
-!macro_begin
-    spi.send_header($e,$p0,$p1,0)
-!macro_end
-
-// 
-!macro_def
-    spi.send_header($e,$p0,$p1,$p2)
+    spi.send_header_bytes($e,$p0,$p1,$p2)
 !macro_begin
     _mov(sv,$e)
     _add(sv,$p0)
@@ -154,6 +140,47 @@
     spi.send_byte($p1)
     spi.send_byte($p2)
     spi.send_byte(sv)// header checksum
+!macro_end
+
+// 
+!macro_def
+    spi.send_header($p0)
+!macro_begin
+    spi.send_header_bytes(SPI_PACKET_TYPE_CONST_SIZE,$p0,0,0)
+!macro_end
+
+// 
+!macro_def
+    spi.send_header($p0,$p1)
+!macro_begin
+    spi.send_header_bytes(SPI_PACKET_TYPE_CONST_SIZE,$p0,$p1,0)
+!macro_end
+
+
+//------------------------------------------------------------------------------
+
+
+!macro_def
+    spi.set_transfer_size($p0,$p1)
+!macro_begin
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    spi.begin
+    spi.send_header_bytes(SPI_PACKET_TYPE_COMMAND,0x02,$p0,$p1)
+    spi.end
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+!macro_end
+
+
+!macro_def
+    spi.set_transfer_size($p0)
+!macro_begin
+    spi.set_transfer_size($p0,0)
 !macro_end
 
 

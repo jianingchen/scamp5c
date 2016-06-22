@@ -86,6 +86,16 @@
 !macro_end
 
 
+//
+!macro_def
+    ipu.delay_50us_x($p)
+!macro_begin
+    _mov(su,$p)
+    _call(#_ipu_su_delay_50us)
+    _nop
+!macro_end
+
+
 
 !macro_def
     ipu.wait_frame_trigger

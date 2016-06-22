@@ -3,9 +3,41 @@
 #include <functional>
 #include <cstring>
 
+void goGUI::item_base::Enable(){
+    is_enabled = true;
+    if(is_visible){
+        for(auto&p:pad_list){
+            p->is_active = true;
+        }
+    }
+}
+
+void goGUI::item_base::Disable(){
+    is_enabled = false;
+    for(auto&p:pad_list){
+        p->is_active = false;
+    }
+}
+
+void goGUI::item_base::Show(){
+    is_visible = true;
+    if(is_enabled){
+        for(auto&p:pad_list){
+            p->is_active = true;
+        }
+    }
+}
+
+void goGUI::item_base::Hide(){
+    is_visible = false;
+    for(auto&p:pad_list){
+        p->is_active = false;
+    }
+}
+
 goGUI::pad* goGUI::search_pad(int x,int y){
     for(auto &p:pad_list){
-        if(p->is_inside(x,y)){
+        if(p->is_hit(x,y)){
             return p;
         }
     }
@@ -124,6 +156,24 @@ void goGUI::DeleteResources(){
 }
 
 //------------------------------------------------------------------------------
+
+void goGUI::Draw(){
+
+    DrawingBegin();
+
+    for(auto &button:ButtonList){
+        if(button->is_visible){
+            DrawButton(button);
+        }
+    }
+    for(auto &slider:SliderList){
+        if(slider->is_visible){
+            DrawSlider(slider);
+        }
+    }
+
+    DrawingEnd();
+}
 
 #ifdef USE_OPENGL_ES
 

@@ -283,7 +283,16 @@ void scamp5c_spi::packet_callback(size_t rx_offset){
 }
 
 void scamp5c_spi::command_callback(uint8_t command,uint8_t a,uint8_t b){
-
+    if(command==0x02){
+        union{
+            uint16_t word;
+            uint8_t byte[2];
+        }data;
+        data.byte[0] = a;
+        data.byte[1] = b;
+        SetTransferSize(data.word);
+        printf("command 0x%2.2X: set transfer size, %d\n",command,data.word);
+    }
 }
 
 void scamp5c_spi::rtc_sleep_usec(uint32_t u_sec){

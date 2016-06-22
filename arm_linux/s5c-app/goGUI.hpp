@@ -34,22 +34,24 @@ public:
         int size_y;
         int global_x;
         int global_y;
-        double depth;
+        int depth;
+        bool is_active;
 
         pad(){
             size_x = 0;
             size_y = 0;
             global_x = 0;
             global_y = 0;
-            depth = 1.0;
+            depth = 1;
+            is_active = true;
         }
 
-        inline bool is_inside(int x,int y){
+        inline bool is_hit(int x,int y){
             if(x < global_x) return false;
             if(y < global_y) return false;
             if(x >= global_x + size_x) return false;
             if(y >= global_y + size_y) return false;
-            return true;
+            return is_active;
         }
 
     };
@@ -61,27 +63,33 @@ public:
     public:
 
         goGUI *master;
-        int global_x;
-        int global_y;
-        int width;
-        int height;
         std::string text;
         size_t text_length;
-        void *attached_data;
-        bool enabled;
 
         item_base(){
             global_x = 0;
             global_y = 0;
             width = 1;
             height = 1;
-            attached_data = NULL;
-            enabled = true;
+            is_visible = true;
+            is_enabled = true;
         }
         virtual ~item_base(){
         }
 
+        virtual void Enable();
+        virtual void Disable();
+        virtual void Show();
+        virtual void Hide();
+
     protected:
+        int global_x;
+        int global_y;
+        int width;
+        int height;
+        std::list<pad*> pad_list;
+        bool is_visible;
+        bool is_enabled;
 
         virtual void event_callback(pad*p,int x,int y,event_type e){};
 
@@ -131,8 +139,8 @@ public:
 
     public:
 
-        bool IntegerValue;
-        bool UpdateOnRelease;
+        bool IsInteger;
+        bool IsLatched;
 
         Slider(){
             is_holding_on_handle = false;
@@ -144,8 +152,8 @@ public:
             domain_start = 0.0;
             domain_extent = 1.0;
             drag_x = 0;
-            IntegerValue = false;
-            UpdateOnRelease = false;
+            IsInteger = false;
+            IsLatched = false;
         }
 
         void RegisterActionOnUpdate(std::function<void(Slider*,int,int)> action);
@@ -207,6 +215,7 @@ public:
 
     virtual void CreateResources();
     virtual void DeleteResources();
+    virtual void Draw();
 
     virtual void DrawingBegin();
     virtual void DrawingEnd();

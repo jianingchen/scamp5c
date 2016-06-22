@@ -1,32 +1,41 @@
+//
+//
+// This alogrithm take a picture with a very short exposure time to capture 
+// only bright light spot in the view. Then it scan the bounding box of the 
+// bright spot and send the data to spi host. 
+//
+//
+//------------------------------------------------------------------------------
+
 
 apron.config_begin
     sim.pix_source_webcam
     host.set_frame_rate(600)
-    host.template('scamp5c_host_template.txt')
-    host.firmware('ipu_ok_eagi_itfc_16_may.bit')
-    window_1 = host.add_display('cap')
-    slider_1 = host.add_slider('threshold', -120, 120, 30, 1, 1)
 apron.config_end
+
+
+//------------------------------------------------------------------------------
+
 
 ipu.reset_loop_counter
 
 spi.reset
+
+// spi packet for target is 16 bytes, so a smaller transfer size is better
+spi.set_transfer_size(20)
 
 #start
     _nop
 
     ipu.wait_frame_trigger
     
+    // take a picture with exposure time of 1/2000 sec
     rpix
-    ipu.delay_500us
+    ipu.delay_50us_x(10)// 500 us
     rpix(B,C)
     
-//     _mov(su,10)
-//     _call(#_ipu_su_delay_50us)
-//     _nop
-    
-    s0 = usb.slider(slider_1)
-    E = in(s0)
+    // apply a threshold to get a binary result
+    E = in(30)
     D = sub(C,E)
     where(D)
     R5 = FLAG
@@ -34,17 +43,24 @@ spi.reset
     
     ipu.inc_loop_counter
     
+    // The following condition ensures that the fifo has at least 512 bytes of space left.
+    // Otherwise it will skip the spi communication for this frame iteration.
     spi.get_fifo_space(s0)
-    _sub(s0,SPI_FIFO_SPACE_768)
+    _sub(s0,SPI_FIFO_SPACE_128)
     _jump(c,#start)
     _nop
     
+    // Scan the bounding box of any blobs in R5 and send the coordinates through spi.
     spi.begin
     spi.scan_target(R5)
     spi.end
     
-    _jump(#start)
-    _nop
+_jump(#start)
+_nop
     
+
+//------------------------------------------------------------------------------
+
+
 apron.genereate_host
 apron.compile_host

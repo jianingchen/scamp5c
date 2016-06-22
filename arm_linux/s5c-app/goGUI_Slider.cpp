@@ -6,7 +6,7 @@
 //------------------------------------------------------------------------------
 
 double goGUI::Slider::update_value(double v){
-    if(IntegerValue){
+    if(IsInteger){
         v = std::floor(v + 0.5);
     }
     v = std::max(v,domain_start);
@@ -18,8 +18,8 @@ double goGUI::Slider::update_value(double v){
 }
 
 double goGUI::Slider::update_value_uniform(double u){
-    double v = u*domain_extent + domain_start;
-    if(IntegerValue){
+    double v = domain_start + u*domain_extent;
+    if(IsInteger){
         v = std::floor(v + 0.5);
     }
     v = std::max(v,domain_start);
@@ -89,6 +89,7 @@ void goGUI::Slider::event_callback(pad*p,int x,int y,event_type e){
         if(is_holding_on_handle){
             int dx = x - drag_x;
             drag_x = x;
+            /*
             handle->global_x += dx;
             if(handle->global_x + 0.5*handle->size_x > global_x + width){
                 handle->global_x = global_x + width - 0.5*handle->size_x;
@@ -96,8 +97,9 @@ void goGUI::Slider::event_callback(pad*p,int x,int y,event_type e){
             if(handle->global_x + 0.5*handle->size_x < global_x){
                 handle->global_x = global_x - 0.5*handle->size_x;
             }
+            */
             update_value_uniform(double(x - domain->global_x)/double(domain->size_x));
-            if(!UpdateOnRelease){
+            if(!IsLatched){
                 holding_value = running_value;
                 if(action_update!=NULL){
                     action_update(this,x,y);
@@ -160,6 +162,7 @@ goGUI::Slider* goGUI::CreateSlider(int x,int y,int w,int h,const char* text){
     SliderList.push_back(slider);
 
     slider->handle = p = new pad;
+    slider->pad_list.push_back(p);
     p->size_x = 9;
     p->size_y = 16;
     p->global_x = x + slider->GetValueUniform()*w - 0.5*p->size_x;
@@ -168,6 +171,7 @@ goGUI::Slider* goGUI::CreateSlider(int x,int y,int w,int h,const char* text){
     pad_list.push_back(p);
 
     slider->domain = p = new pad;
+    slider->pad_list.push_back(p);
     p->size_x = w;
     p->size_y = 10;
     p->global_x = x;
@@ -176,6 +180,7 @@ goGUI::Slider* goGUI::CreateSlider(int x,int y,int w,int h,const char* text){
     pad_list.push_back(p);
 
     slider->frame = p = new pad;
+    slider->pad_list.push_back(p);
     p->size_x = w;
     p->size_y = h;
     p->global_x = x;
@@ -273,14 +278,14 @@ void goGUI::DrawSlider(Slider*slider){
     set_draw_color(color_text);
     x = slider->global_x + font_texture->GetCharSpace();
     y = slider->global_y + slider->height - font_texture->GetLineSpace() - 4;
-    if(slider->UpdateOnRelease and slider->is_holding_on_handle){
-        if(slider->IntegerValue){
+    if(slider->IsLatched and slider->is_holding_on_handle){
+        if(slider->IsInteger){
             snprintf(text_buffer,64,"%s: %d -> %d",slider->text.c_str(),(int)slider->holding_value,(int)slider->running_value);
         }else{
             snprintf(text_buffer,64,"%s: %.2f -> %.2f",slider->text.c_str(),slider->holding_value,slider->running_value);
         }
     }else{
-        if(slider->IntegerValue){
+        if(slider->IsInteger){
             snprintf(text_buffer,64,"%s: %d",slider->text.c_str(),(int)slider->holding_value);
         }else{
             snprintf(text_buffer,64,"%s: %.2f",slider->text.c_str(),slider->holding_value);

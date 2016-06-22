@@ -177,6 +177,10 @@ void Scamp5cApp::host_callback_appinfo(){
         printf("%d }\n",gui_configuration.slider[i].b_disabled);
     }
 
+    for(int i=0;i<8;i++){
+        s5cSPI->ipu_port_forward[i] = 0;
+    }
+
     reset_display();
     configure_gui();
     s5cHost->ResetCounters();
@@ -195,11 +199,13 @@ void Scamp5cApp::configure_gui(){
         if(gui_configuration.slider[i].b_disabled){
             p->text = "n/a";
             p->text_length = p->text.size();
+            p->Disable();
+            p->Hide();
         }else{
             p->text = gui_name_strings[gui_configuration.slider[i].name_index];
             p->text_length = p->text.size();
-            p->IntegerValue = true;
-            p->UpdateOnRelease = gui_configuration.slider[i].b_latched;
+            p->IsInteger = true;
+            p->IsLatched = gui_configuration.slider[i].b_latched;
             if(gui_configuration.slider[i].b_signed){
                 int8_t a = gui_configuration.slider[i].domain_min;
                 int8_t b = gui_configuration.slider[i].domain_max;
@@ -213,6 +219,8 @@ void Scamp5cApp::configure_gui(){
                 p->SetDomain(a,b);
                 p->SetValue(v,true);
             }
+            p->Enable();
+            p->Show();
         }
         i++;
         if(i>=8){

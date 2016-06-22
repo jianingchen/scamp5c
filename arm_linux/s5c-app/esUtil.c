@@ -32,7 +32,7 @@
 #include  <X11/Xutil.h>
 
 // X11 related local variables
-Display *x_display = NULL;
+static Display *x_display = NULL;
 
 ///
 // CreateEGLContext()

@@ -85,8 +85,12 @@ void Scamp5cApp::Initialize(){
 
     //s5cSPI = new scamp5c_spi_vts;
     s5cSPI = new scamp5c_spi_ht;
-    s5cSPI->SetTransferSize(500);
+    s5cSPI->SetTransferSize(400);
     s5cSPI->SetupGpio(s5cGPIO);
+
+    for(int i=0;i<8;i++){
+        s5cSPI->ipu_port_forward[i] = 0;
+    }
 
     s5cHost = new Scamp5cHost;
     s5cHost->SetupSpi(s5cSPI);
@@ -328,64 +332,87 @@ void Scamp5cApp::setup_gui(){
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_0");
-    GUI->LastCreatedSlider()->SetDomain(-128,127);
-    GUI->LastCreatedSlider()->IntegerValue = true;
+    GUI->LastCreatedSlider()->SetDomain(-100,100);
+    GUI->LastCreatedSlider()->IsInteger = true;
     GUI->LastCreatedSlider()->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[0] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(32,true);
+    GUI->LastCreatedSlider()->SetValue(0,true);
+    GUI->LastCreatedSlider()->Disable();
+    GUI->LastCreatedSlider()->Hide();
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_1");
-    GUI->LastCreatedSlider()->SetDomain(1,4);
-    GUI->LastCreatedSlider()->IntegerValue = true;
-    GUI->LastCreatedSlider()->UpdateOnRelease = true;
+    GUI->LastCreatedSlider()->SetDomain(-100,100);
+    GUI->LastCreatedSlider()->IsInteger = true;
     GUI->LastCreatedSlider()->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[1] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(2,true);
+    GUI->LastCreatedSlider()->SetValue(0,true);
+    GUI->LastCreatedSlider()->Disable();
+    GUI->LastCreatedSlider()->Hide();
 
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_2");
-    GUI->LastCreatedSlider()->SetDomain(0,100);
-    GUI->LastCreatedSlider()->IntegerValue = true;
+    GUI->LastCreatedSlider()->SetDomain(-100,100);
+    GUI->LastCreatedSlider()->IsInteger = true;
     GUI->LastCreatedSlider()->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[2] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(50,true);
+    GUI->LastCreatedSlider()->SetValue(0,true);
+    GUI->LastCreatedSlider()->Disable();
+    GUI->LastCreatedSlider()->Hide();
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_3");
-    GUI->LastCreatedSlider()->SetDomain(0,100);
-    GUI->LastCreatedSlider()->IntegerValue = true;
+    GUI->LastCreatedSlider()->SetDomain(-100,100);
+    GUI->LastCreatedSlider()->IsInteger = true;
     GUI->LastCreatedSlider()->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[3] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(50,true);
+    GUI->LastCreatedSlider()->SetValue(0,true);
+    GUI->LastCreatedSlider()->Disable();
+    GUI->LastCreatedSlider()->Hide();
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_4");
-    GUI->LastCreatedSlider()->SetDomain(0,100);
-    GUI->LastCreatedSlider()->IntegerValue = true;
+    GUI->LastCreatedSlider()->SetDomain(-100,100);
+    GUI->LastCreatedSlider()->IsInteger = true;
     GUI->LastCreatedSlider()->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[4] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(50,true);
+    GUI->LastCreatedSlider()->SetValue(0,true);
+    GUI->LastCreatedSlider()->Disable();
+    GUI->LastCreatedSlider()->Hide();
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_5");
-    GUI->LastCreatedSlider()->SetDomain(0,100);
-    GUI->LastCreatedSlider()->IntegerValue = true;
+    GUI->LastCreatedSlider()->SetDomain(-100,100);
+    GUI->LastCreatedSlider()->IsInteger = true;
     GUI->LastCreatedSlider()->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[5] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(50,true);
+    GUI->LastCreatedSlider()->SetValue(0,true);
+    GUI->LastCreatedSlider()->Disable();
+    GUI->LastCreatedSlider()->Hide();
+
+}
+
+void Scamp5cApp::KeyboardInput(int key_code,int arg){
+
+    switch(key_code){
+
+    case 'q':
+        Quit = true;
+        break;
+
+    }
 
 }

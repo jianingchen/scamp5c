@@ -271,17 +271,7 @@ void Scamp5cApp::Draw(){
     esMatrixMultiply(&M,&modelview,&projection);
     SimpleShader->LoadMatrix(&M.m[0][0]);
 
-    GUI->DrawingBegin();
-
-    for(auto &button:GUI->ButtonList){
-        GUI->DrawButton(button);
-    }
-    for(auto &slider:GUI->SliderList){
-        GUI->DrawSlider(slider);
-    }
-
-    GUI->DrawingEnd();
-
+    GUI->Draw();
 
     // draw floating text
     esMatrixLoadIdentity(&modelview);
@@ -294,7 +284,7 @@ void Scamp5cApp::Draw(){
 //    y = H - FontTexture->GetLineSpace() - 4;
 //    FontTexture->glRenderText("SCAMP-5c Host App",x,y);
 
-    sprintf(print_buffer,"Window FPS: %.2f",1.0/FrameTime);
+    sprintf(print_buffer,"FPS: %.2f",1.0/FrameTime);
     y = H - FontTexture->GetLineSpace() - 4;
     FontTexture->glRenderText(print_buffer,x,y);
 
@@ -302,7 +292,7 @@ void Scamp5cApp::Draw(){
     y = 4;
     FontTexture->glRenderText(print_buffer,x,y);
 
-    sprintf(print_buffer,"P: %d, R: %f",s5cHost->GetPacketCount(),s5cHost->GetPacketRate());
+    sprintf(print_buffer,"P: %d, R: %.2f",s5cHost->GetPacketCount(),s5cHost->GetPacketRate());
     y += FontTexture->GetLineSpace();
     FontTexture->glRenderText(print_buffer,x,y);
 
@@ -310,7 +300,11 @@ void Scamp5cApp::Draw(){
     y += FontTexture->GetLineSpace();
     FontTexture->glRenderText(print_buffer,x,y);
 
-    sprintf(print_buffer,"{ %d, %d, %d, %d }",EventsCount,TrailCount,0,0);
+    sprintf(print_buffer,"Transfer Size: %d",s5cSPI->GetTransferSize());
+    y += FontTexture->GetLineSpace();
+    FontTexture->glRenderText(print_buffer,x,y);
+
+    sprintf(print_buffer,"Events: %d, Target: %d",EventsCount,TrailCount);
     y += FontTexture->GetLineSpace();
     FontTexture->glRenderText(print_buffer,x,y);
 

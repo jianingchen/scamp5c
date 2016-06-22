@@ -28,7 +28,7 @@
 extern "C" {
 #endif
 
-   
+
 ///
 //  Macros
 //
@@ -39,9 +39,9 @@ extern "C" {
 /// esCreateWindow flag - RGB color buffer
 #define ES_WINDOW_RGB           0
 /// esCreateWindow flag - ALPHA color buffer
-#define ES_WINDOW_ALPHA         1 
+#define ES_WINDOW_ALPHA         1
 /// esCreateWindow flag - depth buffer
-#define ES_WINDOW_DEPTH         2 
+#define ES_WINDOW_DEPTH         2
 /// esCreateWindow flag - stencil buffer
 #define ES_WINDOW_STENCIL       4
 /// esCreateWindow flat - multi-sample buffer
@@ -80,13 +80,13 @@ typedef struct _escontext
 
    /// EGL display
    EGLDisplay  eglDisplay;
-      
+
    /// EGL context
    EGLContext  eglContext;
 
    /// EGL surface
    EGLSurface  eglSurface;
-   
+
 
    /// Callbacks
    void (ESCALLBACK *drawFunc) ( struct _escontext * );
@@ -112,7 +112,7 @@ void ESUTIL_API esInitContext ( ESContext *esContext );
 /// \param title Name for title bar of window
 /// \param width Width in pixels of window to create
 /// \param height Height in pixels of window to create
-/// \param flags Bitfield for the window creation flags 
+/// \param flags Bitfield for the window creation flags
 ///         ES_WINDOW_RGB     - specifies that the color buffer should have R,G,B channels
 ///         ES_WINDOW_ALPHA   - specifies that the color buffer should have alpha
 ///         ES_WINDOW_DEPTH   - specifies that a depth buffer should be created
@@ -146,11 +146,11 @@ void ESUTIL_API esRegisterUpdateFunc ( ESContext *esContext, void (ESCALLBACK *u
 /// \param esContext Application context
 /// \param keyFunc Key callback function for application processing of keyboard input
 //
-void ESUTIL_API esRegisterKeyFunc ( ESContext *esContext, 
+void ESUTIL_API esRegisterKeyFunc ( ESContext *esContext,
                                     void (ESCALLBACK *drawFunc) ( ESContext*, unsigned char, int, int ) );
 //
 /// \brief Log a message to the debug output for the platform
-/// \param formatStr Format string for error log.  
+/// \param formatStr Format string for error log.
 //
 void ESUTIL_API esLogMessage ( const char *formatStr, ... );
 
@@ -175,7 +175,7 @@ GLuint ESUTIL_API esLoadProgram ( const char *vertShaderSrc, const char *fragSha
 
 
 //
-/// \brief Generates geometry for a sphere.  Allocates memory for the vertex data and stores 
+/// \brief Generates geometry for a sphere.  Allocates memory for the vertex data and stores
 ///        the results in the arrays.  Generate index list for a TRIANGLE_STRIP
 /// \param numSlices The number of slices in the sphere
 /// \param vertices If not NULL, will contain array of float3 positions
@@ -185,11 +185,11 @@ GLuint ESUTIL_API esLoadProgram ( const char *vertShaderSrc, const char *fragSha
 /// \return The number of indices required for rendering the buffers (the number of indices stored in the indices array
 ///         if it is not NULL ) as a GL_TRIANGLE_STRIP
 //
-int ESUTIL_API esGenSphere ( int numSlices, float radius, GLfloat **vertices, GLfloat **normals, 
+int ESUTIL_API esGenSphere ( int numSlices, float radius, GLfloat **vertices, GLfloat **normals,
                              GLfloat **texCoords, GLuint **indices );
 
 //
-/// \brief Generates geometry for a cube.  Allocates memory for the vertex data and stores 
+/// \brief Generates geometry for a cube.  Allocates memory for the vertex data and stores
 ///        the results in the arrays.  Generate index list for a TRIANGLES
 /// \param scale The size of the cube, use 1.0 for a unit cube.
 /// \param vertices If not NULL, will contain array of float3 positions
@@ -199,7 +199,7 @@ int ESUTIL_API esGenSphere ( int numSlices, float radius, GLfloat **vertices, GL
 /// \return The number of indices required for rendering the buffers (the number of indices stored in the indices array
 ///         if it is not NULL ) as a GL_TRIANGLES
 //
-int ESUTIL_API esGenCube ( float scale, GLfloat **vertices, GLfloat **normals, 
+int ESUTIL_API esGenCube ( float scale, GLfloat **vertices, GLfloat **normals,
                            GLfloat **texCoords, GLuint **indices );
 
 //
@@ -207,7 +207,7 @@ int ESUTIL_API esGenCube ( float scale, GLfloat **vertices, GLfloat **normals,
 /// \param fileName Name of the file on disk
 /// \param width Width of loaded image in pixels
 /// \param height Height of loaded image in pixels
-///  \return Pointer to loaded image.  NULL on failure. 
+///  \return Pointer to loaded image.  NULL on failure.
 //
 char* ESUTIL_API esLoadTGA ( char *fileName, int *width, int *height );
 
@@ -270,13 +270,11 @@ void ESUTIL_API esOrtho(ESMatrix *result, float left, float right, float bottom,
 void ESUTIL_API esMatrixMultiply(ESMatrix *result, ESMatrix *srcA, ESMatrix *srcB);
 
 //
-//// \brief return an indentity matrix 
+//// \brief return an indentity matrix
 //// \param result returns identity matrix
 //
 void ESUTIL_API esMatrixLoadIdentity(ESMatrix *result);
 
-
-extern Display *x_display;
 
 #ifdef __cplusplus
 }

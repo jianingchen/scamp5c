@@ -63,13 +63,13 @@ goGUI::Button* goGUI::CreateButton(int x,int y,int w,int h,const char* text){
 
     ButtonList.push_back(button);
 
-    p = new pad;
+    button->frame = p = new pad;
+    button->pad_list.push_back(p);
     p->size_x = w;
     p->size_y = h;
     p->global_x = x;
     p->global_y = y;
 
-    button->frame = p;
     pad_map[p] = button;
     pad_list.push_back(p);
 

@@ -1,48 +1,51 @@
+//
+//
+// This alogrithm has include three working mode, which can be used to test 
+// the spi hosting environment. The second slider can be used to change the 
+// working mode from the SPI Host App.
+//
+//
+//------------------------------------------------------------------------------
+
 
 apron.config_begin
     sim.pix_source_webcam
     host.set_frame_rate(60)
     host.template('scamp5c_host_template.txt')
+    host.firmware('../ipu_ok_eagi_itfc_16_may.bit')
     window_1 = host.add_display('cap')
     slider_1 = host.add_slider('threshold', -120, 120, 32, SPI_APP_TEXT_THRESHOLD_A, 0)
     slider_2 = host.add_slider('switch', 1, 4, 2, SPI_APP_TEXT_SWITCH, 1)
     slider_3 = host.add_slider('iteration', 0, 20, 10, SPI_APP_TEXT_ITERATION_I)
 apron.config_end
 
+
+//------------------------------------------------------------------------------
+
+
 ipu.reset_loop_counter
 
 spi.reset
 
+spi.set_transfer_size(600)
+
 #start
+
     ipu.wait_frame_trigger
     rpix
     
     ipu.wait_frame_trigger
     rpix(B,C)
     
-    R5 = 0
-    
     ipu.inc_loop_counter
     
     spi.get_fifo_space(s0)
-    _sub(s0,SPI_FIFO_SPACE_768)
+    _sub(s0,SPI_FIFO_SPACE_640)
     _jump(c,#start)
     _nop
     
-// generic packet
-//     s0 = spi.port(SPI_RX_0)
-//     s1 = spi.port(SPI_RX_1)
-//     s2 = spi.port(SPI_RX_2)
-//     s3 = spi.port(SPI_RX_3)
-//     spi.begin
-//     spi.send_header(SPI_PACKET_TYPE_CONST_SIZE,4)
-//     spi.send_byte(s0)
-//     spi.send_byte(s1)
-//     spi.send_byte(s2)
-//     spi.send_byte(s3)
-//     spi.end
     
-    
+    // switch
     s0 = spi.port(SPI_RX_1)
     _cmp(s0,2)
     _jump(z,#aout)
@@ -57,6 +60,7 @@ spi.reset
     _nop
     
     
+    // case 2: analog register readout
     #aout
     _nop
     spi.begin
@@ -66,9 +70,13 @@ spi.reset
     _nop
     
     
+    // case 3: digital register readout
     #dout
     _nop
-    where(C)
+    s0 = spi.port(SPI_RX_0)
+    E = in(s0)
+    D = sub(C,E)
+    where(D)
     R5 = FLAG
     all
     spi.begin
@@ -78,6 +86,7 @@ spi.reset
     _nop
     
     
+    // case 4: readback in
     #analog_in
     _nop
     s0 = spi.port(SPI_RX_0)
@@ -87,8 +96,13 @@ spi.reset
     spi.end
     _jump(#start)
     _nop
-    
-    _jump(#start)
-    
+
+_jump(#start)
+_nop
+
+
+//------------------------------------------------------------------------------
+
+
 apron.genereate_host
 apron.compile_host

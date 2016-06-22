@@ -382,7 +382,21 @@ SOUTH = 4
 !macro_def
     $r0 = host.add_slider($r2,$r3,$r4,$r5,$r6,$r7)
 !macro_begin
-    $r0 = sim.slider.add($r2,$r3,$r4,$r5,$r6,$r7)
+    $r0 = sim.slider.add($r2,$r3,$r4,$r5,1,1)
+!macro_end
+
+//
+!macro_def
+    $r0 = host.add_slider($r2,$r3,$r4,$r5,$r6)
+!macro_begin
+    $r0 = sim.slider.add($r2,$r3,$r4,$r5,1,1)
+!macro_end
+
+//
+!macro_def
+    $r0 = host.add_slider($r2,$r3,$r4,$r5)
+!macro_begin
+    $r0 = sim.slider.add($r2,$r3,$r4,$r5,1,1)
 !macro_end
 
 //
