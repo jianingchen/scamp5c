@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -92,7 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
 Files</h2></td></tr>
-<tr class="memitem:a00029"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html">spi_macros.h</a></td></tr>
+<tr class="memitem:a00031"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00031.html">spi_macros.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -102,7 +103,7 @@ Introduction</h1>
 <p>SCAMP-5c has a SPI interface and can work as a SPI slave, which is used to communicate with Odroid XU4. The SPI bus is configured to be working at 2.5 Mhz.</p>
 <h1><a class="anchor" id="s5c_spi_macro_sec_2"></a>
 Basic Concept</h1>
-<p>(TODO) For details about the SPI Host, see <a href="http://jianingchen.github.io/scamp5c/arm_linux/">http://jianingchen.github.io/scamp5c/arm_linux/</a></p>
+<p>For details about the SPI Host, see <a href="http://jianingchen.github.io/scamp5c/arm_linux/">http://jianingchen.github.io/scamp5c/arm_linux/</a></p>
 <h1><a class="anchor" id="s5c_spi_macro_sec_3"></a>
 SPI Upwards Communication</h1>
 <h2><a class="anchor" id="s5c_spi_macro_sec_3_1"></a>
@@ -120,10 +121,10 @@ Send Standard Packet</h2>
 <div class="line">    spi.aout64(C)</div>
 <div class="line">    spi.end</div>
 <div class="line">    </div>
-<div class="line"><a class="code" href="a00025.html#a944f12213c10024477282b210c7cb5f6">_jump</a>(<span class="preprocessor">#start)</span></div>
+<div class="line"><a class="code" href="a00027.html#a944f12213c10024477282b210c7cb5f6">_jump</a>(<span class="preprocessor">#start)</span></div>
 </div><!-- fragment --><h2><a class="anchor" id="s5c_spi_macro_sec_3_2"></a>
 Send Packet with Arbitrary Data</h2>
-<p>If some data packet with highly customized data format is needed, one can compose a generic data packet by sending a header first (use <a class="el" href="a00029.html#a61a3067f1c9accdfbc2c23f361a0851e" title="send a spi header, which containing the payload size. The size of the header itself is always 8 bytes...">spi_send_header</a>) followed by the payload bytes.</p>
+<p>If some data packet with highly customized data format is needed, one can compose a generic data packet by sending a header first (use <a class="el" href="a00031.html#a61a3067f1c9accdfbc2c23f361a0851e" title="send a spi header, which containing the payload size. The size of the header itself is always 8 bytes...">spi_send_header</a>) followed by the payload bytes.</p>
 <p>The following code segment uses a generic data packet to send back 6 bytes of user data back to the host: </p><div class="fragment"><div class="line">...</div>
 <div class="line"></div>
 <div class="line">spi.begin</div>
@@ -142,49 +143,18 @@ Send Packet with Arbitrary Data</h2>
 <div class="line">spi.end</div>
 <div class="line"></div>
 <div class="line">...</div>
-</div><!-- fragment --><p>See also <a class="el" href="a00004.html#sec_example_guide_2_13">Example 13: SPI Communication</a> for a complete example.</p>
+</div><!-- fragment --><p>See also <a class="el" href="a00006.html#sec_example_guide_2_13">Example 13: SPI Communication</a> for a complete example.</p>
 <h1><a class="anchor" id="s5c_spi_macro_sec_4"></a>
 SPI Downwards Communication</h1>
-<p>When a transfer occurs, the first 8 bytes received at MOSI are stored in the SPI input ports. These value can be read using <a class="el" href="a00029.html#ac6b23fce82119f94efb87dd973dafbf9" title="get a value from the SPI input port ">spi_port</a> with a given input port number (SPI_RX_0 ~ SPI_RX_7).</p>
-<p>Note: since SPI transfers are triggered by upwards communcation, there must be upwards communications inside the frame loop to enable downwards communication. It nothing in particular is needed to be sent from SCAMP-5 to the host, one can simply send the loop counter (use <a class="el" href="a00029.html#afa2821911e40165dfa2fea1b6a710818" title="send the loop counter as a standard packet (packet size: 12 bytes) ">spi_send_loop_counter</a>) just to ensure downwards communication is processed.</p>
+<p>When a transfer occurs, the first 8 bytes received at MOSI are stored in the SPI input ports. These value can be read using ::spi_port.</p>
+<p>Note: since SPI transfers are triggered by upwards communcation, there must be upwards communications inside the frame loop to enable downwards communication. It nothing in particular is needed to be sent from SCAMP-5 to the host, one can simply send the loop counter (use <a class="el" href="a00031.html#afa2821911e40165dfa2fea1b6a710818" title="send the loop counter as a standard packet (packet size: 12 bytes) ">spi_send_loop_counter</a>) just to ensure downwards communication is processed.</p>
 <h1><a class="anchor" id="s5c_spi_macro_sec_5"></a>
 Configure SPI Host App GUI</h1>
-<p>To create sliders in SPI Host App, one can add two more arguments in <a class="el" href="a00024.html#a2e8b9a0e75a9a2a800b3c0596278dd19" title="host_add_slider with two extra arguments to enable the slider to be created in SPI Host App ...">host_add_slider</a>. The first added argument choose a name for the slider from a list of available options, the second argument control whether the value is latched.</p>
-<p>When a slider is enabled for the host app, its value will be sent to the spi input port in order. Thus, first slider in the app is sent to SPI_RX_0 while the second one is SPI_RX_1.</p>
-<h1><a class="anchor" id="s5c_spi_macro_sec_6"></a>
-Optimizing Transfer Size</h1>
-<p>By using <a class="el" href="a00029.html#aeb9e3c90b1bb662ed6c4ff758244d2b6" title="change the transfer size, which is the number of bytes in a single transfer burst ...">spi_set_transfer_size</a>, transfer size of the spi interface can be modified from the SCAMP-5 side. This can be used to optimize the spi communication for the running algorithm in particular.</p>
-<p>To increase the bandwith for large packet, such as event scanning or frame readout, it is better to change the transfer size to be a little bigger than the packet size. By doing that, the number of gaps between multiple transfers can be reduced. For example, if the algorithm only transfer 300 events in each frame loop, it will be optimal that the transfer size is (300*2 + 16). For packet that are bigger than the maximum transfer size of 4096 bytes, one can use a value of which the integer times is just bigger than the packet size. For example, one can use 2800 as transfer size for <a class="el" href="a00029.html#a4ace6beb3edee53030714b8ca5c53f71" title="send a DREG plane as a standard packet (packet size: 8208 bytes) ">spi_dout</a>.</p>
-<p>Since a packet will only be issued after a transfer is finished, it also helps to reduce the latency if the transfer size is not much bigger than the packet size. For example, if the algorithm only transfer a packet of size 16 bytes in each frame iteration, changing transfer size to be 16 or 20 can give a minimized latency.</p>
-<p>For example: </p><div class="fragment"><div class="line">ipu.reset_loop_counter</div>
-<div class="line"></div>
-<div class="line">spi.reset</div>
-<div class="line">spi.set_transfer_size(640)<span class="comment">// one transfer can send 640 bytes</span></div>
-<div class="line"></div>
-<div class="line"><span class="preprocessor">#start</span></div>
-<div class="line">    </div>
-<div class="line">    ipu.wait_frame_trigger</div>
-<div class="line">    rpix(B,C)</div>
-<div class="line">    </div>
-<div class="line">    </div>
-<div class="line">    ...</div>
-<div class="line">    </div>
-<div class="line">    </div>
-<div class="line">    <span class="comment">// check if fifo space is more than 640 bytes (the packet size is 616)</span></div>
-<div class="line">    spi.get_fifo_space(s0)</div>
-<div class="line">    <a class="code" href="a00025.html#a6adc7c10e621c431e26bea8bfc6f80dd">_sub</a>(s0,SPI_FIFO_SPACE_640)</div>
-<div class="line">    <a class="code" href="a00025.html#a944f12213c10024477282b210c7cb5f6">_jump</a>(c,<span class="preprocessor">#start)</span></div>
-<div class="line">    </div>
-<div class="line">    <span class="comment">// scan and send upto 300 events in R5</span></div>
-<div class="line">    spi.begin</div>
-<div class="line">    spi.scan_events(R5,300)<span class="comment">// packet size: 616</span></div>
-<div class="line">    spi.end</div>
-<div class="line">    </div>
-<div class="line"><a class="code" href="a00025.html#a944f12213c10024477282b210c7cb5f6">_jump</a>(#start)</div>
-</div><!-- fragment --> </div><!-- contents -->
+<p>(TODO) </p>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 23 2016 17:39:17 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 23 2016 15:01:36 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

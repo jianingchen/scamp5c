@@ -227,9 +227,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the value presented in the port</dd></dl>
-<p>When a transfer occurs, the first 8 bytes received in the income data are stored in the SPI input ports. The valid options for the input port is <code>SPI_RX_0</code> to <code>SPI_RX_7</code> .</p>
-<p>Notice that, since SPI transfers are triggered by upwards communcation, there must be upwards communications inside the frame loop to enable downwards communication. It nothing in particular is needed to be sent from SCAMP-5 to the host, one can simply send the loop counter just to ensure downwards communication is processed.</p>
-<p>Example Usage:</p>
+<p>The valid options for the input port is <code>SPI_RX_0</code> to <code>SPI_RX_7</code> .</p>
+<p>See <a class="el" href="a00036.html#s5c_spi_macro_sec_4">SPI Downwards Communication</a> for some extra notes on receving data from host.</p>
+<p><b>Example</b> </p>
 <p>The follow code use a value from SPI input port to threshold a image </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;...</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;s0 = spi.port(SPI_RX_0)</div>
@@ -446,41 +446,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>This macro provide the optional setting of the transfer size, which may be used to optimize the spi communication for better bandwith or latency.</p>
-<p>To increase the bandwith for large packet, such as event scanning or frame readout, it is better to change the transfer size to be a little bigger than the packet size. By doing that, the number of gaps between multiple transfers can be reduced. For example, if the algorithm only transfer 300 events in each frame loop, it will be optimal that the transfer size is (300*2 + 16). For packet that are bigger than the maximum transfer size of 4096 bytes, one can use a value of which the integer times is just bigger than the packet size. For example, one can use 2800 as transfer size for <a class="el" href="a00029.html#a4ace6beb3edee53030714b8ca5c53f71" title="send a DREG plane as a standard packet (packet size: 8208 bytes) ">spi_dout</a>.</p>
-<p>Since a packet will only be issued after a transfer is finished, it also helps to reduce the latency if the transfer size is not much bigger than the packet size. For example, if the algorithm only transfer a packet of size 16 bytes in each frame iteration, changing transfer size to be 16 or 20 can give a minimized latency.</p>
-<p>Example Usage: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ipu.reset_loop_counter</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;spi.reset</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;spi.set_transfer_size(640)// one transfer can send 640 bytes</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;#start</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    ipu.wait_frame_trigger</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    rpix(B,C)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    //// image processing algorithm</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    ...</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    //// spi communication</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    // check if fifo space is more than 640 bytes (the packet size is 616)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    spi.get_fifo_space(s0)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    _sub(s0,SPI_FIFO_SPACE_640)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    _jump(c,#start)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    // scan and send upto 300 events in R5</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    spi.begin</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    spi.scan_events(R5,300)// packet size: 616</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    spi.end</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;_jump(#start)</div>
-</div><!-- fragment --> 
+<p>For more details about setting transfer size, see <a class="el" href="a00036.html#s5c_spi_macro_sec_6">Optimizing Transfer Size</a>. </p>
+
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 21 2016 18:47:08 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 23 2016 17:39:16 for SCAMP-5c Vision System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
