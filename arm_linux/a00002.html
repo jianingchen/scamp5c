@@ -100,7 +100,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>this interface uses the data-ready pin to trigger transfers.  
  <a href="a00002.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00011_source.html">scamp5c_spi_versions.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00012_source.html">scamp5c_spi_versions.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for scamp5c_spi_ht:</div>
 <div class="dyncontent">
@@ -134,6 +134,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a0000
 <tr class="memitem:a8a6da7cea09fe19b8ba35ce5385371c0 inherit pub_methods_a00001"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00001.html#a8a6da7cea09fe19b8ba35ce5385371c0">EndThreads</a> ()</td></tr>
 <tr class="memdesc:a8a6da7cea09fe19b8ba35ce5385371c0 inherit pub_methods_a00001"><td class="mdescLeft">&#160;</td><td class="mdescRight">stop the interface and close all threads created in the background  <a href="#a8a6da7cea09fe19b8ba35ce5385371c0">More...</a><br /></td></tr>
 <tr class="separator:a8a6da7cea09fe19b8ba35ce5385371c0 inherit pub_methods_a00001"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9fb26dc19a556e8bec9254b623ac3cd inherit pub_methods_a00001"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00001.html#ad9fb26dc19a556e8bec9254b623ac3cd">SetTransferSize</a> (uint32_t s)</td></tr>
+<tr class="memdesc:ad9fb26dc19a556e8bec9254b623ac3cd inherit pub_methods_a00001"><td class="mdescLeft">&#160;</td><td class="mdescRight">change the transfer size  <a href="#ad9fb26dc19a556e8bec9254b623ac3cd">More...</a><br /></td></tr>
+<tr class="separator:ad9fb26dc19a556e8bec9254b623ac3cd inherit pub_methods_a00001"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab12577ff7a8facbf0d387d86f07970eb inherit pub_methods_a00001"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab12577ff7a8facbf0d387d86f07970eb"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransferSize</b> ()</td></tr>
+<tr class="separator:ab12577ff7a8facbf0d387d86f07970eb inherit pub_methods_a00001"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33e916a57e80d2792ea3674d96bf43ff inherit pub_methods_a00001"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a33e916a57e80d2792ea3674d96bf43ff"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetAllCounters</b> ()</td></tr>
 <tr class="separator:a33e916a57e80d2792ea3674d96bf43ff inherit pub_methods_a00001"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,9 +161,6 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetHeaderCounter<
 <tr class="memitem:af273b85c501e7a00cc3e512000081f33 inherit pub_methods_a00001"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af273b85c501e7a00cc3e512000081f33"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetPacketCounter</b> ()</td></tr>
 <tr class="separator:af273b85c501e7a00cc3e512000081f33 inherit pub_methods_a00001"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9fb26dc19a556e8bec9254b623ac3cd inherit pub_methods_a00001"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9fb26dc19a556e8bec9254b623ac3cd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetTransferSize</b> (uint32_t s)</td></tr>
-<tr class="separator:ad9fb26dc19a556e8bec9254b623ac3cd inherit pub_methods_a00001"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07b1f658247c934c8618f86ccb52d4c7 inherit pub_methods_a00001"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07b1f658247c934c8618f86ccb52d4c7"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00001.html#a07b1f658247c934c8618f86ccb52d4c7">GetPacketQueueLength</a> ()</td></tr>
 <tr class="memdesc:a07b1f658247c934c8618f86ccb52d4c7 inherit pub_methods_a00001"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of packet in the packet queue <br /></td></tr>
@@ -349,12 +352,12 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>report_warning
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>this interface uses the data-ready pin to trigger transfers. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="a00011_source.html">scamp5c_spi_versions.hpp</a></li>
+<li><a class="el" href="a00012_source.html">scamp5c_spi_versions.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 22 2016 13:28:18 for SCAMP-5c SPI Interface by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 24 2016 18:02:29 for SCAMP-5c SPI Interface by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

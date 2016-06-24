@@ -1,9 +1,9 @@
 var indexSectionsWithContent =
 {
-  0: "cdegops",
+  0: "cdegoprs",
   1: "s",
   2: "s",
-  3: "cdegops",
+  3: "cdegoprs",
   4: "s",
   5: "s"
 };

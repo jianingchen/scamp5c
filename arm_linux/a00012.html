@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c SPI Interface: Scamp5cHost.hpp File Reference</title>
+<title>SCAMP-5c SPI Interface: scamp5c_spi_versions.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,62 +85,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Data Structures</a>  </div>
   <div class="headertitle">
-<div class="title">Scamp5cHost.hpp File Reference<div class="ingroups"><a class="el" href="a00015.html">SPI Host Class</a></div></div>  </div>
+<div class="title">scamp5c_spi_versions.hpp File Reference<div class="ingroups"><a class="el" href="a00015.html">SPI API Derived Classes</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00011_source.html">scamp5c_spi_versions.hpp</a>&quot;</code><br />
-<code>#include &quot;jcStopwatch.hpp&quot;</code><br />
-<code>#include &lt;functional&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00011_source.html">scamp5c_spi.hpp</a>&quot;</code><br />
+<code>#include &quot;scamp5c_oxu4.hpp&quot;</code><br />
 </div>
 <p><a href="a00012_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a4f77cf01d18694d3c78f4e65f50a8839"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f77cf01d18694d3c78f4e65f50a8839"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_STANDARD_LOOPC</b>&#160;&#160;&#160;4</td></tr>
-<tr class="separator:a4f77cf01d18694d3c78f4e65f50a8839"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51e51cc031e9adbdb8bc5bb7d7184ad3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a51e51cc031e9adbdb8bc5bb7d7184ad3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_STANDARD_AOUT</b>&#160;&#160;&#160;5</td></tr>
-<tr class="separator:a51e51cc031e9adbdb8bc5bb7d7184ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a109eb4d08098defec52b85c36fc553fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a109eb4d08098defec52b85c36fc553fb"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_STANDARD_DOUT</b>&#160;&#160;&#160;6</td></tr>
-<tr class="separator:a109eb4d08098defec52b85c36fc553fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d79d4e9ce024a041df2188448c09579"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d79d4e9ce024a041df2188448c09579"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_STANDARD_TARGET</b>&#160;&#160;&#160;7</td></tr>
-<tr class="separator:a5d79d4e9ce024a041df2188448c09579"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f8ca84be5e8e3ceb72424f4d9a68e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5f8ca84be5e8e3ceb72424f4d9a68e8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_STANDARD_EVENTS</b>&#160;&#160;&#160;8</td></tr>
-<tr class="separator:ab5f8ca84be5e8e3ceb72424f4d9a68e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a086bb7d176aa640cc66f45835632df47"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a086bb7d176aa640cc66f45835632df47"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_STANDARD_APPINFO</b>&#160;&#160;&#160;10</td></tr>
-<tr class="separator:a086bb7d176aa640cc66f45835632df47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8ed446243b3cc251a3dbf1d9bce4e65"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af8ed446243b3cc251a3dbf1d9bce4e65"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>S5C_SPI_LOOPC</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:af8ed446243b3cc251a3dbf1d9bce4e65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77051d11e5feca812f0096d4388636de"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a77051d11e5feca812f0096d4388636de"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>S5C_SPI_AOUT</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a77051d11e5feca812f0096d4388636de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17ee61486fb64b04d39a73bda35f4680"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a17ee61486fb64b04d39a73bda35f4680"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>S5C_SPI_DOUT</b>&#160;&#160;&#160;2</td></tr>
-<tr class="separator:a17ee61486fb64b04d39a73bda35f4680"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41da0b0e174a4c5aa026b770af228bda"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a41da0b0e174a4c5aa026b770af228bda"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>S5C_SPI_TARGET</b>&#160;&#160;&#160;3</td></tr>
-<tr class="separator:a41da0b0e174a4c5aa026b770af228bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4c2ff94c310cb43dade166ac78d5d8e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4c2ff94c310cb43dade166ac78d5d8e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>S5C_SPI_EVENTS</b>&#160;&#160;&#160;4</td></tr>
-<tr class="separator:ad4c2ff94c310cb43dade166ac78d5d8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8017950c83b12aeb782000741dfeca3b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8017950c83b12aeb782000741dfeca3b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>S5C_SPI_APPINFO</b>&#160;&#160;&#160;5</td></tr>
-<tr class="separator:a8017950c83b12aeb782000741dfeca3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html">scamp5c_spi_ht</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">this interface uses the data-ready pin to trigger transfers.  <a href="a00002.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html">scamp5c_spi_vts</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">this interface will dynamically change the transfer size to adapt payload size.  <a href="a00003.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 22 2016 13:28:17 for SCAMP-5c SPI Interface by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 24 2016 18:02:28 for SCAMP-5c SPI Interface by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
