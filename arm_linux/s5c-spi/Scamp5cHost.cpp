@@ -93,6 +93,7 @@ void Scamp5cHost::Open(){
 
     PacketStopwatch.Reset();
 
+    host_packet_rate_e = 0.015;
     host_packet_rate = 50.0;
     host_packet_count = 0;
     loop_counter_error = -1;
@@ -115,6 +116,10 @@ void Scamp5cHost::RegisterGenericPacketCallback(std::function<void(Scamp5cHost*)
     generic_packet_callback = func;
 }
 
+void Scamp5cHost::RegisterErrorCallback(std::function<void(Scamp5cHost*)> func){
+    error_callback = func;
+}
+
 //------------------------------------------------------------------------------
 
 void Scamp5cHost::update_loop_counter(uint32_t new_lc){
@@ -134,7 +139,7 @@ void Scamp5cHost::update_loop_counter(uint32_t new_lc){
 void Scamp5cHost::update_packet_rate(uint32_t n){
     double dt = PacketStopwatch.GetElapsedSeconds();
     PacketStopwatch.Reset();
-    host_packet_rate = host_packet_rate*0.98 + 0.02*(double(n)/dt);
+    host_packet_rate = host_packet_rate*(1.0 - host_packet_rate_e) + host_packet_rate_e*(double(n)/dt);
 }
 
 void Scamp5cHost::process_std_loopc(scamp5c_spi::packet*Packet){
@@ -157,8 +162,16 @@ void Scamp5cHost::process_std_loopc(scamp5c_spi::packet*Packet){
 void Scamp5cHost::process_std_aout(scamp5c_spi::packet*Packet){
     uint8_t *Payload = Packet->GetPayload();
     auto *meta = (std_aout_meta*)Payload;
+    size_t size_check = meta->height*meta->width + sizeof(std_aout_meta);
 
     update_loop_counter(meta->loop_counter);
+
+    if(size_check > Packet->GetPayloadSize()){
+        if(error_callback != NULL){
+            error_callback(this);
+        }
+        return;
+    }
 
     data_type = S5C_SPI_AOUT;
     data_dim_r = meta->height;
@@ -173,14 +186,21 @@ void Scamp5cHost::process_std_aout(scamp5c_spi::packet*Packet){
 void Scamp5cHost::process_std_dout(scamp5c_spi::packet*Packet){
     uint8_t *Payload = Packet->GetPayload();
     auto *meta = (std_dout_meta*)Payload;
-    uint8_t *data = Payload + sizeof(std_dout_meta);
+    size_t size_check = meta->height*meta->width/8 + sizeof(std_dout_meta);
 
     update_loop_counter(meta->loop_counter);
 
-    data_type = S5C_SPI_DOUT;
+    if(size_check > Packet->GetPayloadSize()){
+        if(error_callback != NULL){
+            error_callback(this);
+        }
+        return;
+    }
 
     // decode dout image
 
+    uint8_t *data = Payload + sizeof(std_dout_meta);
+    data_type = S5C_SPI_DOUT;
     format_data_buffer(meta->height,meta->width);
 
     uint8_t *p = data_buffer;
@@ -205,8 +225,16 @@ void Scamp5cHost::process_std_dout(scamp5c_spi::packet*Packet){
 void Scamp5cHost::process_std_events(scamp5c_spi::packet*Packet){
     uint8_t *Payload = Packet->GetPayload();
     auto *meta = (std_events_meta*)Payload;
+    size_t size_check = meta->event_count*meta->event_dimension + sizeof(std_events_meta);
 
     update_loop_counter(meta->loop_counter);
+
+    if(size_check > Packet->GetPayloadSize()){
+        if(error_callback != NULL){
+            error_callback(this);
+        }
+        return;
+    }
 
     data_type = S5C_SPI_EVENTS;
     data_dim_r = meta->event_count;
@@ -293,6 +321,8 @@ void Scamp5cHost::Process(){
         case SPI_PACKET_TYPE_NO_PAYLOAD:
             if(generic_packet_callback){
                 data_ptr = Packet->GetPayload();
+                data_dim_r = Packet->GetPayloadSize();
+                data_dim_c = 1;
                 generic_packet_callback(this);
             }
             break;
@@ -341,25 +371,3 @@ int Scamp5cHost::SaveFrameBMP(const char*filepath){
 
     return r;
 }
-        /*
-        d = 0[(uint32_t*)Payload];
-        if(LoopCounter < 1){
-            LoopCounter = d;
-        }else
-        if(d <= LoopCounter){
-            LoopCounter = d;
-            LostFrames = 0;
-        }else{
-            LostFrames += d - LoopCounter - 1;
-            LoopCounter = d;
-        }
-
-        d = 1[(uint32_t*)Payload];
-        CoordinatesCounts = std::min(d,uint32_t(COORDINATES_BUFFER_DIM));
-
-        p = Payload + 2*sizeof(uint32_t);
-        for(int i=0;i<CoordinatesCounts;i++){
-            Coordinates[i][0] = *p++;
-            Coordinates[i][1] = *p++;
-        }
-        */

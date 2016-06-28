@@ -9,7 +9,6 @@
 
 
 apron.config_begin
-    host.template('scamp5c_host_template.txt')
     host.set_frame_rate(100)
     window_1 = host.add_display('Captured')
     window_2 = host.add_display('Processed')
@@ -26,6 +25,8 @@ ipu.reset_loop_counter
 spi.reset
 
 spi.set_transfer_size(768)
+
+ipu.delay_50us_x(250)
 
 _jump(#start)
 _nop

@@ -12,6 +12,8 @@ class Scamp5cApp{
 
 public:
     static const size_t COORDINATES_BUFFER_DIM = 1024;
+    static const size_t MAX_EVENTS_FRAMES = 20;
+    static const size_t MAX_EVENTS_PER_FRAME = 1024;
     static const size_t TARGET_TRAIL_POINTS = 100;
 
     #pragma pack(push)
@@ -60,6 +62,7 @@ public:
     goTextureFont *FontTexture;
     goTexture *CheckboardTexture;
     goTexture *BlankTexture;
+    char TextBoard[256];
 
     // standard packet data
     bool update_aout;
@@ -117,6 +120,37 @@ protected:
     int update_packet_type;
     bool new_frame_loop;
 
+    class events_frame{
+
+    public:
+        float *vertices;
+        uint16_t *indices;
+        size_t number;
+        size_t cap;
+
+        events_frame(size_t max_n_events){
+            cap = max_n_events;
+            vertices = new float[cap*2];
+            indices = new uint16_t[cap];
+            number = 0;
+        }
+        ~events_frame(){
+            delete[] indices;
+            delete[] vertices;
+        }
+
+        inline void add_event(float x,float y){
+            if(number < cap){
+                vertices[number*2] = x;
+                vertices[number*2 + 1] = y;
+                indices[number] = number;
+                number++;
+            }
+        };
+    };
+
+    std::list<events_frame*> events_frame_list;
+
     float events_vertices[COORDINATES_BUFFER_DIM*4][2];
     uint16_t events_indices[COORDINATES_BUFFER_DIM*8];
 
@@ -128,6 +162,7 @@ protected:
     void reset_display();
     void configure_gui();
 
+    void host_callback_error(void);
     void host_callback_loopc(void);
     void host_callback_aout(void);
     void host_callback_dout(void);

@@ -92,6 +92,8 @@
 !macro_def
     spi.wait_fifo_space($e)
 !macro_begin
+    _exp(1, 246)
+    _exp(0, 246)
     :#wait_fifo_space
     _nop
     spi.get_fifo_space(su)

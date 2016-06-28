@@ -93,15 +93,15 @@
     host_dout($h)
     all
     _exp(6,IPU_PORT_FALL_C1) //THESE CLOCK CHANGES are here since THE critical item appears to be WHERE rather than the rest of the readout algo
-	_exp(7,IPU_PORT_RISE_C2) 
-	_exp(9,IPU_PORT_FALL_C2) 
-	_nop 
+    _exp(7,IPU_PORT_RISE_C2) 
+    _exp(9,IPU_PORT_FALL_C2) 
+    _nop 
     where($r1)
-    _call(#_digitalread)
+    _call(#_ipu_sa_dout_usb)
     _nop
     _exp(4,IPU_PORT_FALL_C1)
-	_exp(5,IPU_PORT_RISE_C2) 
-	_exp(9,IPU_PORT_FALL_C2) 
+    _exp(5,IPU_PORT_RISE_C2) 
+    _exp(9,IPU_PORT_FALL_C2) 
 !macro_end
 
 

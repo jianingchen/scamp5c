@@ -143,6 +143,22 @@ public:
     */
     int EndThreads();
 
+    /*!
+        \brief change the transfer size
+        
+        The transfer size can be changed from both the host and the SCAMP, so the transfer size 
+        may not always be the one set using this function. 
+    */
+    inline void SetTransferSize(uint32_t s){
+        s = std::min(s,SPI_TRANSFER_SIZE_MAX);
+        s = std::max(s,SPI_TRANSFER_SIZE_MIN);
+        set_transfer_size(s);
+    }
+    
+    inline uint32_t GetTransferSize(){
+        return transfer_size_back;
+    }
+    
     void ResetAllCounters();
 
     inline uint32_t GetTriggerCounter(){
@@ -164,11 +180,6 @@ public:
         return packet_counter;
     }
 
-    inline void SetTransferSize(uint32_t s){
-        s = std::min(s,SPI_TRANSFER_SIZE_MAX);
-        s = std::max(s,SPI_TRANSFER_SIZE_MIN);
-        set_transfer_size(s);
-    }
 
     /*!
         \brief get the number of packet in the packet queue

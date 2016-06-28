@@ -70,7 +70,7 @@ void Scamp5cApp::draw_dout(){
 }
 
 void Scamp5cApp::draw_events(){
-
+    /*
     if(update_events){
         float *v = (float*)events_vertices;
         float x,y;
@@ -120,6 +120,29 @@ void Scamp5cApp::draw_events(){
     #endif
 
     glDisableVertexAttribArray(SimpleShader->loc_position);
+    */
+
+    if(update_events){
+        float color[4] = { 0.0, 0.0, 0.0, 1.0 };
+        int i = 0;
+
+        BlankTexture->glBind(GL_TEXTURE_2D);
+
+        glEnableVertexAttribArray(SimpleShader->loc_position);
+        for(auto&p:events_frame_list){
+            i++;
+            if(i<events_frame_list.size()){
+                color[0] = std::min(0.9f,0.1f + 0.1f*i);
+                SimpleShader->LoadColor(color);
+            }else{
+                SimpleShader->LoadColor( 0.0f, 1.0f, 0.2f, 1.0f );
+            }
+            glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,p->vertices);
+            glDrawElements(GL_POINTS,p->number,GL_UNSIGNED_SHORT,p->indices);
+        }
+        glDisableVertexAttribArray(SimpleShader->loc_position);
+        update_events = false;
+    }
 
 }
 
@@ -288,7 +311,11 @@ void Scamp5cApp::Draw(){
     y = H - FontTexture->GetLineSpace() - 4;
     FontTexture->glRenderText(print_buffer,x,y);
 
-    sprintf(print_buffer,"S: %d, H: %d",s5cSPI->GetSignatureCounter(),s5cSPI->GetHeaderCounter());
+//    sprintf(print_buffer,"S: %d, H: %d",s5cSPI->GetSignatureCounter(),s5cSPI->GetHeaderCounter());
+//    y = 4;
+//    FontTexture->glRenderText(print_buffer,x,y);
+
+    sprintf(print_buffer,"S: %d, C: %d",s5cSPI->GetTransferSize(),s5cSPI->GetTransferCounter());
     y = 4;
     FontTexture->glRenderText(print_buffer,x,y);
 
@@ -300,11 +327,8 @@ void Scamp5cApp::Draw(){
     y += FontTexture->GetLineSpace();
     FontTexture->glRenderText(print_buffer,x,y);
 
-    sprintf(print_buffer,"Transfer Size: %d",s5cSPI->GetTransferSize());
-    y += FontTexture->GetLineSpace();
-    FontTexture->glRenderText(print_buffer,x,y);
-
-    sprintf(print_buffer,"Events: %d, Target: %d",EventsCount,TrailCount);
+//    sprintf(TextBoard,"Events: %d, Target: %d",EventsCount,TrailCount);
+    sprintf(print_buffer,"%s",TextBoard);
     y += FontTexture->GetLineSpace();
     FontTexture->glRenderText(print_buffer,x,y);
 

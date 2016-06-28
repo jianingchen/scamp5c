@@ -2,7 +2,7 @@
 #include "Scamp5cApp.hpp"
 
 Scamp5cApp::Scamp5cApp(){
-
+    TextBoard[0] = '\0';
 }
 
 Scamp5cApp::~Scamp5cApp(){
@@ -130,6 +130,11 @@ void Scamp5cApp::Initialize(){
         this->host_callback_generic();
     });
 
+    s5cHost->RegisterErrorCallback(
+    [this](Scamp5cHost*host){
+        this->host_callback_error();
+    });
+
     // spi output resrouces
 
     AnalogReadoutTexture = new goTexture;
@@ -138,13 +143,13 @@ void Scamp5cApp::Initialize(){
         for(X=0;X<64;X++){
             uint8_t *p = AnalogReadoutTexture->Pixel(X,Y);
             if((X&16)^(Y&16)){
-                *p++ = 42;
-                *p++ = 42;
-                *p++ = 42;
+                *p++ = 1;
+                *p++ = 1;
+                *p++ = 1;
             }else{
-                *p++ = 8;
-                *p++ = 8;
-                *p++ = 8;
+                *p++ = 0;
+                *p++ = 0;
+                *p++ = 0;
             }
         }
     }
@@ -262,13 +267,13 @@ void Scamp5cApp::reset_display(){
         for(X=0;X<64;X++){
             uint8_t *p = AnalogReadoutTexture->Pixel(X,Y);
             if((X&16)^(Y&16)){
-                *p++ = 42;
-                *p++ = 42;
-                *p++ = 42;
+                *p++ = 1;
+                *p++ = 1;
+                *p++ = 1;
             }else{
-                *p++ = 8;
-                *p++ = 8;
-                *p++ = 8;
+                *p++ = 0;
+                *p++ = 0;
+                *p++ = 0;
             }
         }
     }
@@ -310,6 +315,9 @@ void Scamp5cApp::setup_gui(){
     int H = window_h;
     int X,Y;
 
+
+    // buttons
+
     X = W - 240;
     Y = 20;
     GUI->CreateButton(X,Y,220,40,"Quit");
@@ -326,6 +334,7 @@ void Scamp5cApp::setup_gui(){
     });
 
 
+    // sliders
 
     X = W - 240;
     Y = H;
@@ -353,7 +362,6 @@ void Scamp5cApp::setup_gui(){
     GUI->LastCreatedSlider()->SetValue(0,true);
     GUI->LastCreatedSlider()->Disable();
     GUI->LastCreatedSlider()->Hide();
-
 
     Y -= 60;
     GUI->CreateSlider(X,Y,220,40,"arg_2");

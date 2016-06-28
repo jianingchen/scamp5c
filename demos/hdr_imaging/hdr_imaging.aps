@@ -1,0 +1,94 @@
+
+apron.config_begin
+    sim.pix_source_webcam
+    host.set_frame_rate(500)
+//     host.template('scamp5c_host_template.txt')
+//     host.firmware('ipu_ok_eagi_itfc.bit')
+    window_1 = host.add_display('image1')
+    window_2 = host.add_display('image2')
+    slider_1 = host.add_slider('exposure loop', 1, 255, 100)
+    slider_2 = host.add_slider('diffuse iteration', 1, 9, 3)
+    slider_3 = host.add_slider('threshold 1', -128, 127, 127)
+    slider_4 = host.add_slider('threshold 2', -128, 127, 25)
+apron.config_end
+
+#start
+    
+    ipu.wait_frame_trigger
+    
+    // HDR Imaging
+    //--------------------------------
+    
+    // reset PIX can store its reset level
+    rpix(B)
+    
+    res(A)
+    
+    s1 = usb.slider(slider_1)
+    #exposure_loop
+    
+        _mov(s2,3)
+        #exposure_x3
+            
+            // capture a new sample of PIX providing the reset level of PIX
+            
+            cpix(E,C,B)
+            
+            //--------
+            
+            // flag pixels in C if > threshold_1
+            
+            s0 = usb.slider(slider_3)
+            E = in(s0)
+            
+            D = sub(C,E)// D = C - E
+            where(D)
+            R5 = FLAG
+            all
+            
+            //--------
+            
+            // make D a diffused copy of C
+            
+            D = copy(C)
+            s0 = usb.slider(slider_2)
+            #diffuse_loop
+                _nop
+                D = pro.diffuse(D,1,1)
+            _sub(s0,1)
+            _jump(nz,#diffuse_loop)
+            
+            //--------
+            
+            // flag pixels in D if > threshold_2
+            
+            s0 = usb.slider(slider_4)
+            E = in(s0)
+            
+            sub(D,E)// D = D - E
+            where(D)
+            R6 = FLAG
+            all
+            
+            //--------
+            
+            R7 = or(R5,R6)
+            R6 = not(R7)
+            where(R6)
+                A = copy(C)
+            all
+            
+        _sub(s2,1)
+        _jump(nz,#exposure_x3)
+    
+    _sub(s1,1)
+    _jump(nz,#exposure_loop)
+    
+    //--------------------------------
+    
+    usb.aout(A,window_1)
+    
+_jump(#start)
+    
+apron.genereate_host
+apron.compile_host

@@ -4,11 +4,11 @@
 
 //// Host Configuration
 apron.config_begin
-    // specify host template and bit file 
-    host.template('../scamp5c_host_template.txt')
-    host.firmware('../ok_s5c_ipu.bit')
+    // optional: specify host template and bit file 
+//     host.template('scamp5c_host_template.txt')
+//     host.firmware('ok_scamp5c_ipu.bit')
     
-    // set frame rate for the scamp5c hardware
+    // set frame rate for the scamp5c hardware (not effective in a frame loop with usb communication)
     host.set_frame_rate(25)
     
     // set image source when run as simulation

@@ -27,8 +27,8 @@ const char* Scamp5cApp::gui_name_strings[32] = {
     "input_3",
     "iteration_i",
     "iteration_j",
-    "iteration_k",
-    "iteration_l",
+    "exposure",
+    "diffusion",
 // 24
     "e",
     "f",
@@ -48,18 +48,24 @@ void Scamp5cApp::update_frame_state(int packet_type){
     last_packet_type = packet_type;
 }
 
+void Scamp5cApp::host_callback_error(){
+    printf("std packet error!\n");
+}
+
 void Scamp5cApp::host_callback_loopc(){
 
     update_frame_state(S5C_SPI_LOOPC);
 }
 
 void Scamp5cApp::host_callback_aout(){
-    int W = s5cHost->GetFrameWidth();
-    int H = s5cHost->GetFrameHeight();
+    int W = s5cHost->GetDataDim(1);
+    int H = s5cHost->GetDataDim(0);
     uint8_t *frame_bitmap = s5cHost->GetData();
 
     AnalogReadoutTexture->DeleteBitmap();
     AnalogReadoutTexture->CreateBitmap(W,H,JC_IMAGE_FORMAT_RGB);
+
+//    printf("aout: %d, %d\n",W,H);
 
     for(int Y=0;Y<H;Y++){
 
@@ -84,8 +90,8 @@ void Scamp5cApp::host_callback_aout(){
 }
 
 void Scamp5cApp::host_callback_dout(){
-    int W = s5cHost->GetFrameWidth();
-    int H = s5cHost->GetFrameHeight();
+    int W = s5cHost->GetDataDim(1);
+    int H = s5cHost->GetDataDim(0);
     uint8_t *frame_bitmap = s5cHost->GetData();
 
     DigitalReadoutTexture->DeleteBitmap();
@@ -116,8 +122,16 @@ void Scamp5cApp::host_callback_dout(){
 void Scamp5cApp::host_callback_events(){
     uint8_t *p = s5cHost->GetData();
 
-    CoordinatesCount = s5cHost->GetCoordinatesCount();
+    if(events_frame_list.size()>=MAX_EVENTS_FRAMES){
+        delete events_frame_list.front();
+        events_frame_list.pop_front();
+    }
+
+
+    CoordinatesCount = s5cHost->GetDataDim(0);
     EventsCount = 0;
+
+    auto v = new events_frame(CoordinatesCount);
 
     for(int i=0;i<CoordinatesCount;i++){
         int X = *p++;
@@ -127,10 +141,15 @@ void Scamp5cApp::host_callback_events(){
 
         if(Y > 0 && Y < 255){
             if(X > 0 && X < 255){
+                v->add_event(X - 128,128 - Y);
                 EventsCount++;
             }
         }
     }
+
+    events_frame_list.push_back(v);
+
+    sprintf(TextBoard,"Events: %d",EventsCount);
 
     update_events = true;
 
@@ -152,7 +171,7 @@ void Scamp5cApp::host_callback_target(){
     a->bottom_right.y = p[3];
     target_trail.push_back(a);
 
-    //printf("{ %d, %d, %d, %d }\n",p[0],p[1],p[2],p[3]);
+    sprintf(TextBoard,"Target: { %d, %d }, { %d, %d }",p[0],p[1],p[2],p[3]);
 
     update_target = true;
     update_frame_state(S5C_SPI_TARGET);
@@ -166,7 +185,7 @@ void Scamp5cApp::host_callback_appinfo(){
     memcpy(&gui_configuration,p,sizeof(gui_configuration));
 
     printf("gui configuration:\n",p[0],p[1],p[2],p[3]);
-    for(int i=0;i<8;i++){
+    for(int i=0;i<6;i++){
         printf("slider %d: ",i);
         printf("{ %d, ",gui_configuration.slider[i].name_index);
         printf("%d, ",gui_configuration.slider[i].domain_min);
@@ -175,22 +194,30 @@ void Scamp5cApp::host_callback_appinfo(){
         printf("%d, ",gui_configuration.slider[i].b_latched);
         printf("%d, ",gui_configuration.slider[i].b_signed);
         printf("%d }\n",gui_configuration.slider[i].b_disabled);
-    }
-
-    for(int i=0;i<8;i++){
-        s5cSPI->ipu_port_forward[i] = 0;
+        s5cHost->SetInputPort(i,gui_configuration.slider[i].default_value);
     }
 
     reset_display();
     configure_gui();
     s5cHost->ResetCounters();
-
+    s5cHost->SetInputPort(7,127);
 }
 
 void Scamp5cApp::host_callback_generic(){
-    uint8_t *p = s5cHost->GetData();
+    const int display_length = 12;
+    uint8_t *data = s5cHost->GetPacket()->GetPayload();
+    int data_length = s5cHost->GetPacket()->GetPayloadSize();
 
-    printf("generic packet: { %d, %d, %d, %d, ... }\n",p[0],p[1],p[2],p[3]);
+    printf("generic packet [%d]:",data_length);
+    for(int i=0;i<std::min(display_length,data_length);i++){
+        printf(" %2.2X",data[i]);
+    }
+    if(data_length>display_length){
+        puts(" ...");
+    }else{
+        putchar('\n');
+    }
+
 }
 
 void Scamp5cApp::configure_gui(){
@@ -223,7 +250,7 @@ void Scamp5cApp::configure_gui(){
             p->Show();
         }
         i++;
-        if(i>=8){
+        if(i>=6){
             break;
         }
     }

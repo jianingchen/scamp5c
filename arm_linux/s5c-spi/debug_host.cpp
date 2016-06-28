@@ -16,7 +16,7 @@ void LoopCounterCallback(Scamp5cHost *host){
 
 void EventsReadoutCallback(Scamp5cHost *host){
     printf("[ %d, %f ] ",host->GetPacketCount(),host->GetPacketRate());
-    printf("standard packet: events { %d, %d }.\n",host->GetCoordinatesCount(),host->GetCoordinatesDimension());
+    printf("standard packet: events { %d, %d }.\n",host->GetDataDim(0),host->GetDataDim(1));
 }
 
 void TargetReadoutCallback(Scamp5cHost *host){
@@ -27,7 +27,7 @@ void TargetReadoutCallback(Scamp5cHost *host){
 
 void FrameReadoutCallback(Scamp5cHost *host){
     printf("[ %d, %f ] ",host->GetPacketCount(),host->GetPacketRate());
-    printf("standard packet: aout { %d, %d }.\n",host->GetFrameHeight(),host->GetFrameWidth());
+    printf("standard packet: aout { %d, %d }.\n",host->GetDataDim(0),host->GetDataDim(1));
     if(Capture==true){
         Capture = false;
 
@@ -40,7 +40,7 @@ void FrameReadoutCallback(Scamp5cHost *host){
 
 void DigitalReadoutCallback(Scamp5cHost *host){
     printf("[ %d, %f ] ",host->GetPacketCount(),host->GetPacketRate());
-    printf("standard packet: dout { %d, %d }.\n",host->GetFrameHeight(),host->GetFrameWidth());
+    printf("standard packet: dout { %d, %d }.\n",host->GetDataDim(0),host->GetDataDim(1));
     if(Capture==true){
         Capture = false;
 

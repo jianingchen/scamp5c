@@ -11,12 +11,9 @@
 apron.config_begin
     sim.pix_source_webcam
     host.set_frame_rate(60)
-    host.template('scamp5c_host_template.txt')
-    host.firmware('../ipu_ok_eagi_itfc_16_may.bit')
     window_1 = host.add_display('cap')
+    slider_0 = host.add_slider('switch', 1, 4, 2, SPI_APP_TEXT_SWITCH, 1)
     slider_1 = host.add_slider('threshold', -120, 120, 32, SPI_APP_TEXT_THRESHOLD_A, 0)
-    slider_2 = host.add_slider('switch', 1, 4, 2, SPI_APP_TEXT_SWITCH, 1)
-    slider_3 = host.add_slider('iteration', 0, 20, 10, SPI_APP_TEXT_ITERATION_I)
 apron.config_end
 
 
@@ -28,6 +25,8 @@ ipu.reset_loop_counter
 spi.reset
 
 spi.set_transfer_size(600)
+
+ipu.delay_50us_x(250)
 
 #start
 
@@ -46,9 +45,14 @@ spi.set_transfer_size(600)
     
     
     // switch
-    s0 = spi.port(SPI_RX_1)
-    _cmp(s0,2)
+    s0 = spi.port(SPI_RX_0)
+    
+    _cmp(s0,1)
     _jump(z,#aout)
+    _nop
+    
+    _cmp(s0,2)
+    _jump(z,#aout64)
     _nop
     
     _cmp(s0,3)
@@ -60,8 +64,18 @@ spi.set_transfer_size(600)
     _nop
     
     
-    // case 2: analog register readout
+    // case 1: analog register readout
     #aout
+    _nop
+    spi.begin
+    spi.aout(C)
+    spi.end
+    _jump(#start)
+    _nop
+    
+    
+    // case 2: analog register readout (subsampled)
+    #aout64
     _nop
     spi.begin
     spi.aout64(C)
@@ -73,8 +87,8 @@ spi.set_transfer_size(600)
     // case 3: digital register readout
     #dout
     _nop
-    s0 = spi.port(SPI_RX_0)
-    E = in(s0)
+    s1 = spi.port(SPI_RX_1)
+    E = in(s1)
     D = sub(C,E)
     where(D)
     R5 = FLAG
@@ -86,11 +100,11 @@ spi.set_transfer_size(600)
     _nop
     
     
-    // case 4: readback in
+    // case 4: readback analog input
     #analog_in
     _nop
-    s0 = spi.port(SPI_RX_0)
-    E = in(s0)
+    s1 = spi.port(SPI_RX_1)
+    E = in(s1)
     spi.begin
     spi.aout64(E)
     spi.end

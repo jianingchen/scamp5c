@@ -96,7 +96,7 @@
 !macro_end
 
 
-
+//
 !macro_def
     ipu.wait_frame_trigger
 !macro_begin
@@ -130,6 +130,17 @@
     _nop
     
 !macro_end
+
+
+//
+!macro_def
+    ipu.set_frame_trigger($p0,$p1)
+!macro_begin
+    _exp($p0,IPU_PORT_FRAME_CNT_B0)
+    _exp($p1,IPU_PORT_FRAME_CNT_B1)
+    _exp(0,IPU_PORT_FRAME_CNT_B2)
+!macro_end
+
 
 
 //------------------------------------------------------------------------------

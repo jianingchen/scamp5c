@@ -382,7 +382,7 @@ _ret
 
 !if(USE_CALL_USB_DOUT_256_ROW_MAJOR, ==, 1)
 
-#_digitalread
+#_ipu_sa_dout_usb
  //   _exp(255, IPU_PORT_CLK_SWITCH)
     
 
@@ -433,7 +433,7 @@ _ret
             _exp(1, IPU_PORT_RD) //sends the VC command "kept" at start of macro
             _exp(255, IPU_PORT_CLK_SWITCH) //high speed for read and send
             _imp(sw, 234)
-            _exp(0, IPU_PORT_RD)	
+            _exp(0, IPU_PORT_RD)    
             ipu.send_byte(sw)
             
             _add(sx, 8) //increment by 8

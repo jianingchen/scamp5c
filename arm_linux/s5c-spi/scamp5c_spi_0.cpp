@@ -77,6 +77,13 @@ scamp5c_spi::scamp5c_spi(){
     rx_buf_a = (uint8_t*)malloc(SPI_TRANSFER_SIZE_MAX);
     rx_buf_b = (uint8_t*)malloc(SPI_TRANSFER_SIZE_MAX);
 
+    for(int i = 0;i<SPI_TRANSFER_SIZE_MAX;i++){
+        tx_buf_a[i] = 0;
+        tx_buf_b[i] = 0;
+        rx_buf_a[i] = 0;
+        rx_buf_b[i] = 0;
+    }
+
     rx_buf_front = rx_buf_a;
     rx_buf_back = rx_buf_b;
     tx_buf_front = tx_buf_a;
