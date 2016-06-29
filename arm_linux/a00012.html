@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>SCAMP-5c SPI Interface: scamp5c_spi_versions.hpp File Reference</title>
+<title>SCAMP-5c SPI Interface: scamp5c_spi.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,31 +85,63 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
-<div class="title">scamp5c_spi_versions.hpp File Reference<div class="ingroups"><a class="el" href="a00015.html">SPI API Derived Classes</a></div></div>  </div>
+<div class="title">scamp5c_spi.hpp File Reference<div class="ingroups"><a class="el" href="a00015.html">SPI API</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00011_source.html">scamp5c_spi.hpp</a>&quot;</code><br />
-<code>#include &quot;scamp5c_oxu4.hpp&quot;</code><br />
+<div class="textblock"><code>#include &lt;cstdio&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;atomic&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
 </div>
 <p><a href="a00012_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html">scamp5c_spi_ht</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">this interface uses the data-ready pin to trigger transfers.  <a href="a00002.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html">scamp5c_spi</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">the object-oriented interface of the spi bus  <a href="a00002.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html">scamp5c_spi_vts</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">this interface will dynamically change the transfer size to adapt payload size.  <a href="a00003.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00001.html">scamp5c_spi::packet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">the SPI packet class  <a href="a00001.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a48d362093f8dd058ca41b4af8b365099"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48d362093f8dd058ca41b4af8b365099"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RETURN_ERROR</b>(v)&#160;&#160;&#160;return report_error(__func__,__LINE__,v)</td></tr>
+<tr class="separator:a48d362093f8dd058ca41b4af8b365099"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64bc4c504173f993a3e95fba4acebc41"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a64bc4c504173f993a3e95fba4acebc41"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>REPORT_ERROR</b>(v)&#160;&#160;&#160;report_error(__func__,__LINE__,v)</td></tr>
+<tr class="separator:a64bc4c504173f993a3e95fba4acebc41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ea87e670cf91da70fa76fa67869ea82"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3ea87e670cf91da70fa76fa67869ea82"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>REPORT_WARNING</b>(str)&#160;&#160;&#160;report_warning(__func__,__LINE__,str)</td></tr>
+<tr class="separator:a3ea87e670cf91da70fa76fa67869ea82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac211c0ec83e786b35bd0daaa1fb435be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac211c0ec83e786b35bd0daaa1fb435be"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_NO_PAYLOAD</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:ac211c0ec83e786b35bd0daaa1fb435be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21a1d28811655110542943d03b86db6b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21a1d28811655110542943d03b86db6b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_CONST_SIZE</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a21a1d28811655110542943d03b86db6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae68ed638a4fc09c1e8d84e1090beb533"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae68ed638a4fc09c1e8d84e1090beb533"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_OPEN_SIZE</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:ae68ed638a4fc09c1e8d84e1090beb533"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c6910d7af8c75746ff3542c4d1b20b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24c6910d7af8c75746ff3542c4d1b20b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_PACKET_TYPE_COMMAND</b>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a24c6910d7af8c75746ff3542c4d1b20b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Jianing Chen </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 24 2016 18:02:28 for SCAMP-5c SPI Interface by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 29 2016 14:54:18 for SCAMP-5c SPI Interface by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
