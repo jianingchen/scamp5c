@@ -11,7 +11,7 @@ void goGUI::Button::event_callback(pad*p,int x,int y,event_type e){
 
     case PRESS_MAIN:
         is_holding = true;
-        press_count++;
+        hit_count++;
         if(action_press!=NULL){
             action_press(this,x,y);
         }

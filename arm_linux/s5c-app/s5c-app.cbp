@@ -76,6 +76,8 @@
 		<Unit filename="goTexture.hpp" />
 		<Unit filename="goTextureFont.cpp" />
 		<Unit filename="goTextureFont.hpp" />
+		<Unit filename="go_color.cpp" />
+		<Unit filename="go_color.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

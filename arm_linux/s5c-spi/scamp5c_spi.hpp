@@ -66,7 +66,10 @@ public:
     const size_t PACKET_HEADER_LENGTH = sizeof(packet_header);
     const uint8_t PACKET_SIGNATURE[3] = { 0x20, 0x16, 0xAA };
 
-    // a sub class for packet
+    /*!
+        \brief the SPI packet class
+
+    */
     class packet{
 
     friend class scamp5c_spi;
@@ -86,25 +89,40 @@ public:
             header_ptr = NULL;
             payload_ptr = NULL;
         }
-
+        
     public:
-
-        inline packet_header* GetHeader(){
-            return header_ptr;
-        }
-        inline uint8_t* GetPayload(){
-            return payload_ptr;
-        }
-        inline uint32_t GetSerialNumber(){
-            return sn;
-        }
-        inline uint8_t GetType(){
-            return header_ptr->packet_type;
-        }
+        
+        /*!
+            \brief get the size of the payload 
+            
+            \return number of bytes
+            
+        */
         inline uint32_t GetPayloadSize(){
             return header_ptr->payload_size;
         }
-
+        
+        /*!
+            \brief get the pointer to the payload data
+            
+            \return a pointer to the payload data
+            
+        */
+        inline uint8_t* GetPayload(){
+            return payload_ptr;
+        }
+        
+        inline uint8_t GetType(){
+            return header_ptr->packet_type;
+        }
+        
+        inline uint32_t GetSerialNumber(){
+            return sn;
+        }
+        
+        inline packet_header* GetHeader(){
+            return header_ptr;
+        }
     };
 
     scamp5c_spi();

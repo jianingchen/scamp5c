@@ -1,5 +1,6 @@
 
 #include "Scamp5cApp.hpp"
+#include "go_color.hpp"
 
 float Scamp5cApp::square_vertices[4][3] = {
     {  1.0,  1.0,  0.0 },
@@ -123,26 +124,24 @@ void Scamp5cApp::draw_events(){
     */
 
     if(update_events){
-        float color[4] = { 0.0, 0.0, 0.0, 1.0 };
-        int i = 0;
-
-        BlankTexture->glBind(GL_TEXTURE_2D);
-
-        glEnableVertexAttribArray(SimpleShader->loc_position);
-        for(auto&p:events_frame_list){
-            i++;
-            if(i<events_frame_list.size()){
-                color[0] = std::min(0.9f,0.1f + 0.1f*i);
-                SimpleShader->LoadColor(color);
-            }else{
-                SimpleShader->LoadColor( 0.0f, 1.0f, 0.2f, 1.0f );
-            }
-            glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,p->vertices);
-            glDrawElements(GL_POINTS,p->number,GL_UNSIGNED_SHORT,p->indices);
-        }
-        glDisableVertexAttribArray(SimpleShader->loc_position);
         update_events = false;
     }
+
+    go_color4f color = { 0.0, 0.0, 0.0, 1.0 };
+    int i = 0;
+
+    BlankTexture->glBind(GL_TEXTURE_2D);
+
+    glEnableVertexAttribArray(SimpleShader->loc_position);
+    for(auto&p:events_frame_series){
+        double e = 1.0/coordinates_trail_length;
+        double u = std::min(e*(++i),0.999999);
+        color.LoadGradient(color.FLAME,u);
+        SimpleShader->LoadColor(color);
+        glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,p->vertices);
+        glDrawElements(GL_POINTS,p->number,GL_UNSIGNED_SHORT,p->indices);
+    }
+    glDisableVertexAttribArray(SimpleShader->loc_position);
 
 }
 
@@ -152,8 +151,8 @@ void Scamp5cApp::draw_target(){
     if(update_target){
         TrailCount = 0;
 
-        if(target_trail.size()>0){
-            auto a = target_trail.back();
+        if(target_series.size()>0){
+            auto a = target_series.back();
             float x0 = a->top_left.x - 128;
             float y0 = 128 - a->top_left.y;
             float x1 = a->bottom_right.x - 128;
@@ -175,14 +174,14 @@ void Scamp5cApp::draw_target(){
         }
 
         i = 0;
-        for(auto &p: target_trail){
+        for(auto &p: target_series){
             float x0 = p->top_left.x - 128;
             float y0 = 128 - p->top_left.y;
             float x1 = p->bottom_right.x - 128;
             float y1 = 128 - p->bottom_right.y;
-            target_trail_vertices[i][0] = 0.5*(x0 + x1);
-            target_trail_vertices[i][1] = 0.5*(y0 + y1);
-            target_trail_indices[i] = i;
+            target_series_vertices[i][0] = 0.5*(x0 + x1);
+            target_series_vertices[i][1] = 0.5*(y0 + y1);
+            target_series_indices[i] = i;
             i++;
             TrailCount++;
         }
@@ -200,8 +199,8 @@ void Scamp5cApp::draw_target(){
     glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,target_vertices);
     glDrawElements(GL_LINE_LOOP,4,GL_UNSIGNED_SHORT,target_indices);
 
-    glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,target_trail_vertices);
-    glDrawElements(GL_LINE_STRIP,TrailCount,GL_UNSIGNED_SHORT,target_trail_indices);
+    glVertexAttribPointer(SimpleShader->loc_position,2,GL_FLOAT,GL_FALSE,0,target_series_vertices);
+    glDrawElements(GL_LINE_STRIP,TrailCount,GL_UNSIGNED_SHORT,target_series_indices);
 
     glDisableVertexAttribArray(SimpleShader->loc_position);
 
@@ -280,7 +279,7 @@ void Scamp5cApp::Draw(){
     }
 
     // draw target
-    if(target_trail.size()>0){
+    if(target_series.size()>0){
         esMatrixLoadIdentity(&modelview);
         esTranslate(&modelview,128,0.75*H,0.0);
         esMatrixMultiply(&M,&modelview,&projection);

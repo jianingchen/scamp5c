@@ -106,14 +106,14 @@ public:
         Button(){
             is_hovering = false;
             is_holding = false;
-            press_count = 0;
+            hit_count = 0;
         }
 
         void RegisterActionOnPress(std::function<void(Button*,int,int)>);
         void RegisterActionOnRelease(std::function<void(Button*,int,int)>);
 
-        inline uint32_t GetPressCount(){
-            return press_count;
+        inline uint32_t GetHitCount(){
+            return hit_count;
         }
         inline bool IsHolding(){
             return is_holding;
@@ -122,7 +122,7 @@ public:
     protected:
 
         pad *frame;
-        uint32_t press_count;
+        uint32_t hit_count;
         bool is_hovering;
         bool is_holding;
         std::function<void(Button*,int,int)> action_press;

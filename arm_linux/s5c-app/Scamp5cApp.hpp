@@ -11,10 +11,9 @@
 class Scamp5cApp{
 
 public:
-    static const size_t COORDINATES_BUFFER_DIM = 1024;
-    static const size_t MAX_EVENTS_FRAMES = 20;
     static const size_t MAX_EVENTS_PER_FRAME = 1024;
-    static const size_t TARGET_TRAIL_POINTS = 100;
+    static const size_t COORDINATES_TRAIL_DEFAULT = 50;
+    static const size_t COORDINATES_TRAIL_MAXIMUM = 120;
 
     #pragma pack(push)
     #pragma pack(1)
@@ -47,6 +46,37 @@ public:
 
     #pragma pack(pop)
 
+    class events_frame{
+
+    public:
+        float *vertices;
+        uint16_t *indices;
+        size_t number;
+        size_t cap;
+
+        events_frame(size_t max_n_events){
+            cap = max_n_events;
+            vertices = new float[cap*2];
+            indices = new uint16_t[cap];
+            number = 0;
+        }
+        ~events_frame(){
+            delete[] indices;
+            delete[] vertices;
+        }
+
+        inline void add_event(float x,float y){
+            if(number < cap){
+                vertices[number*2] = x;
+                vertices[number*2 + 1] = y;
+                indices[number] = number;
+                number++;
+            }
+        };
+    };
+
+
+public:
 
     scamp5c_oxu4_gpio *s5cGPIO;
     scamp5c_spi_ht *s5cSPI;
@@ -72,13 +102,14 @@ public:
     goTexture *DigitalReadoutTexture;
 
     bool update_events;
-    size_t CoordinatesCount;
-    uint8_t Coordinates[COORDINATES_BUFFER_DIM][2];
+    std::list<events_frame*> events_frame_series;
     uint32_t EventsCount;
 
     bool update_target;
-    std::list<target*> target_trail;
+    std::list<target*> target_series;
     uint32_t TrailCount;
+
+    size_t coordinates_trail_length;
 
     Scamp5cApp();
     ~Scamp5cApp();
@@ -115,49 +146,16 @@ protected:
 
     app_info gui_configuration;
     bool gui_configured;
+    std::list<goGUI::Slider*> spi_slider_list;
 
     int last_packet_type;
     int update_packet_type;
     bool new_frame_loop;
 
-    class events_frame{
-
-    public:
-        float *vertices;
-        uint16_t *indices;
-        size_t number;
-        size_t cap;
-
-        events_frame(size_t max_n_events){
-            cap = max_n_events;
-            vertices = new float[cap*2];
-            indices = new uint16_t[cap];
-            number = 0;
-        }
-        ~events_frame(){
-            delete[] indices;
-            delete[] vertices;
-        }
-
-        inline void add_event(float x,float y){
-            if(number < cap){
-                vertices[number*2] = x;
-                vertices[number*2 + 1] = y;
-                indices[number] = number;
-                number++;
-            }
-        };
-    };
-
-    std::list<events_frame*> events_frame_list;
-
-    float events_vertices[COORDINATES_BUFFER_DIM*4][2];
-    uint16_t events_indices[COORDINATES_BUFFER_DIM*8];
-
     float target_vertices[4][2];
     uint16_t target_indices[4];
-    float target_trail_vertices[TARGET_TRAIL_POINTS][2];
-    uint16_t target_trail_indices[TARGET_TRAIL_POINTS];
+    float target_series_vertices[COORDINATES_TRAIL_MAXIMUM][2];
+    uint16_t target_series_indices[COORDINATES_TRAIL_MAXIMUM];
 
     void reset_display();
     void configure_gui();

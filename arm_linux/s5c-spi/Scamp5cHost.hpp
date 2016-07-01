@@ -39,7 +39,10 @@
 
 /*!
     \brief the SPI interface hosting class
-
+    
+    This class handles the packets received from a SPI interface class so that 
+    standard packets are recognized and handled differently, while still maintaining 
+    the capability for user to deal with arbitart data packet. 
 */
 class Scamp5cHost{
 
@@ -49,6 +52,26 @@ public:
     Scamp5cHost();
     ~Scamp5cHost();
 
+    /*!
+        \brief assign the SPI interface class to operate upon
+        
+        Before using ::Scamp5cHost::Open to start the hosting class, a spi interface class 
+        must be created and assigned to the hosting class using this function. 
+        
+        For example, a typical initialization procedure: 
+        \code 
+        
+        auto SPI_Interface = new scamp5c_spi_ht;
+        
+        auto SPI_Host = new Scamp5cHost;
+        
+        SPI_Host->SetupSpi(SPI_Interface);
+        
+        SPI_Host->Open();
+        
+        \endcode
+        
+    */
     void SetupSpi(scamp5c_spi_ht *spi_class);
 
     /*!
@@ -65,10 +88,13 @@ public:
 
     /*!
         \brief process any present packet
-
-        The spi transfer and packet parsing is running in a seperate thread. This function is
-        only in charge of processing packets in queue and calling the registered callback functions.
-
+        
+        This function process packets in queue and calling the registered callback 
+        functions. It shall be called routinely within the main loop of a application. 
+        
+        Note, the spi interface mechanism is processed in a seperate thread while 
+        the callback functions regestered for this hosting class are called internally by 
+        this function and hence in the same thread calling this function. 
     */
     void Process();
 
@@ -104,7 +130,9 @@ public:
 
         \param d    dimension option
 
-        For different packet callback, the definition of the dimension is different.
+        In general, data in standard packet are two-dimensional which means they are 
+        organized into rows and columns. For different packet callbacks, the definition of 
+        the dimensions are different. The following chart manifest the definition: 
 
         |      type      |     d = 0     |     d = 1     |
         |----------------|---------------|---------------|
@@ -112,7 +140,7 @@ public:
         | S5C_SPI_AOUT   |  frame height |  frame width  |
         | S5C_SPI_DOUT   |  frame height |  frame width  |
         | S5C_SPI_TARGET |  constant: 2  |  constant: 2  |
-        | S5C_SPI_EVENTS |  point count  |  constant: 2  |
+        | S5C_SPI_EVENTS |  points count |  constant: 2  |
     */
     inline uint32_t GetDataDim(int d){
         if(d==0){
@@ -122,7 +150,7 @@ public:
             return data_dim_c;
         }
         return 0;
-    }
+    };
 
     /*!
         \brief this function can only be used within a packet callback function to get the data
@@ -141,19 +169,28 @@ public:
     */
     inline uint8_t *GetData(){
         return data_ptr;
-    }
+    };
 
     /*!
         \brief get the orgininal packet class received (can be used only in packet callback)
-
+        
+        \return a pointer to the packet
+        
+        This is usually used to process data from a generic packet.
+        
+        See ::scamp5c_spi::packet for more details. 
     */
     inline scamp5c_spi::packet *GetPacket(){
         return original_packet;
-    }
+    };
 
+    /*!
+        \brief set the value of \c SPI_RX_* port on the IPU
+        
+    */
     inline void SetInputPort(int i,uint8_t u){
         Scamp5spi->ipu_port_forward[i] = u;
-    }
+    };
 
 
     inline uint32_t GetPacketCount(){

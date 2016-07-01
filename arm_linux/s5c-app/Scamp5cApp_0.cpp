@@ -3,6 +3,7 @@
 
 Scamp5cApp::Scamp5cApp(){
     TextBoard[0] = '\0';
+    coordinates_trail_length = COORDINATES_TRAIL_DEFAULT;
 }
 
 Scamp5cApp::~Scamp5cApp(){
@@ -19,6 +20,7 @@ void Scamp5cApp::Initialize(){
 
     glClearColor(0.0f,0.0f,0.0f,0.0f);
     glDisable(GL_DEPTH_TEST);
+    glDepthFunc(GL_GEQUAL);
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -88,12 +90,11 @@ void Scamp5cApp::Initialize(){
     s5cSPI->SetTransferSize(400);
     s5cSPI->SetupGpio(s5cGPIO);
 
-    for(int i=0;i<8;i++){
-        s5cSPI->ipu_port_forward[i] = 0;
-    }
-
     s5cHost = new Scamp5cHost;
     s5cHost->SetupSpi(s5cSPI);
+    for(int i=0;i<8;i++){
+        s5cHost->SetInputPort(i,0);
+    }
 
     s5cHost->RegisterStandardOutputCallback(S5C_SPI_LOOPC,
     [this](Scamp5cHost*host){
@@ -139,57 +140,15 @@ void Scamp5cApp::Initialize(){
 
     AnalogReadoutTexture = new goTexture;
     AnalogReadoutTexture->CreateBitmap(64,64,JC_IMAGE_FORMAT_RGB);
-    for(Y=0;Y<64;Y++){
-        for(X=0;X<64;X++){
-            uint8_t *p = AnalogReadoutTexture->Pixel(X,Y);
-            if((X&16)^(Y&16)){
-                *p++ = 1;
-                *p++ = 1;
-                *p++ = 1;
-            }else{
-                *p++ = 0;
-                *p++ = 0;
-                *p++ = 0;
-            }
-        }
-    }
-    AnalogReadoutTexture->LoadTexture2D(GL_NEAREST,GL_CLAMP_TO_EDGE);
-    update_aout = false;
 
     DigitalReadoutTexture = new goTexture;
     DigitalReadoutTexture->CreateBitmap(256,256,JC_IMAGE_FORMAT_RGB);
-    for(Y=0;Y<256;Y++){
-        for(X=0;X<256;X++){
-            uint8_t *p = DigitalReadoutTexture->Pixel(X,Y);
-            if((X&16)^(Y&16)){
-                *p++ = 42;
-                *p++ = 42;
-                *p++ = 42;
-            }else{
-                *p++ = 8;
-                *p++ = 8;
-                *p++ = 8;
-            }
-        }
-    }
-    DigitalReadoutTexture->LoadTexture2D(GL_NEAREST,GL_CLAMP_TO_EDGE);
-    update_aout = false;
 
-    CoordinatesCount = 0;
-    for(int i=0;i<COORDINATES_BUFFER_DIM;i++){
-        Coordinates[i][0] = 0;
-        Coordinates[i][1] = 0;
-    }
-    EventsCount = 0;
-    update_events = false;
-
-    TrailCount = 0;
-    update_target = false;
+    reset_display();
 
     last_packet_type = -1;
     update_packet_type = -1;
     new_frame_loop = true;
-
 
     s5cHost->Open();
 
@@ -298,11 +257,6 @@ void Scamp5cApp::reset_display(){
     DigitalReadoutTexture->LoadTexture2D(GL_NEAREST,GL_CLAMP_TO_EDGE);
     update_aout = false;
 
-    CoordinatesCount = 0;
-    for(int i=0;i<COORDINATES_BUFFER_DIM;i++){
-        Coordinates[i][0] = 0;
-        Coordinates[i][1] = 0;
-    }
     EventsCount = 0;
     update_events = false;
 
@@ -318,98 +272,131 @@ void Scamp5cApp::setup_gui(){
 
     // buttons
 
+//    X = W - 240;
+//    Y = 20;
+//    GUI->CreateButton(X,Y,220,40,"Quit");
+//    GUI->LastCreatedButton()->RegisterActionOnRelease(
+//    [this](goGUI::Button *button,int x,int y){
+//        this->Quit = true;
+//    });
+//
+//    Y += 60;
+//    GUI->CreateButton(X,Y,220,40,"Reset");
+//    GUI->LastCreatedButton()->RegisterActionOnRelease(
+//    [this](goGUI::Button *button,int x,int y){
+//        reset_display();
+//    });
+
     X = W - 240;
     Y = 20;
-    GUI->CreateButton(X,Y,220,40,"Quit");
-    GUI->LastCreatedButton()->RegisterActionOnRelease(
-    [this](goGUI::Button *button,int x,int y){
-        this->Quit = true;
-    });
-
-    Y += 60;
-    GUI->CreateButton(X,Y,220,40,"Reset");
+    GUI->CreateButton(X,Y,100,40,"Reset");
     GUI->LastCreatedButton()->RegisterActionOnRelease(
     [this](goGUI::Button *button,int x,int y){
         reset_display();
     });
 
+    X += 120;
+    GUI->CreateButton(X,Y,100,40,"Quit");
+    GUI->LastCreatedButton()->RegisterActionOnRelease(
+    [this](goGUI::Button *button,int x,int y){
+        this->Quit = true;
+    });
 
-    // sliders
+    // app sliders
+    X = W - 240;
+    Y += 60;
+    auto slider = GUI->CreateSlider(X,Y,220,40,"trail length:");
+    slider->SetDomain(1,COORDINATES_TRAIL_MAXIMUM);
+    slider->IsInteger = true;
+    slider->RegisterActionOnUpdate(
+    [this](goGUI::Slider *slider,int x,int y){
+        coordinates_trail_length = int(slider->GetValue());
+    });
+    slider->SetValue(60,true);
+
+
+    // configurable sliders
 
     X = W - 240;
     Y = H;
 
     Y -= 60;
-    GUI->CreateSlider(X,Y,220,40,"arg_0");
-    GUI->LastCreatedSlider()->SetDomain(-100,100);
-    GUI->LastCreatedSlider()->IsInteger = true;
-    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    slider = GUI->CreateSlider(X,Y,220,40,"arg_0");
+    slider->SetDomain(-100,100);
+    slider->IsInteger = true;
+    slider->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[0] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(0,true);
-    GUI->LastCreatedSlider()->Disable();
-    GUI->LastCreatedSlider()->Hide();
+    slider->SetValue(0,true);
+    slider->Disable();
+    slider->Hide();
+    spi_slider_list.push_back(slider);
 
     Y -= 60;
-    GUI->CreateSlider(X,Y,220,40,"arg_1");
-    GUI->LastCreatedSlider()->SetDomain(-100,100);
-    GUI->LastCreatedSlider()->IsInteger = true;
-    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    slider = GUI->CreateSlider(X,Y,220,40,"arg_1");
+    slider->SetDomain(-100,100);
+    slider->IsInteger = true;
+    slider->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[1] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(0,true);
-    GUI->LastCreatedSlider()->Disable();
-    GUI->LastCreatedSlider()->Hide();
+    slider->SetValue(0,true);
+    slider->Disable();
+    slider->Hide();
+    spi_slider_list.push_back(slider);
 
     Y -= 60;
-    GUI->CreateSlider(X,Y,220,40,"arg_2");
-    GUI->LastCreatedSlider()->SetDomain(-100,100);
-    GUI->LastCreatedSlider()->IsInteger = true;
-    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    slider = GUI->CreateSlider(X,Y,220,40,"arg_2");
+    slider->SetDomain(-100,100);
+    slider->IsInteger = true;
+    slider->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[2] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(0,true);
-    GUI->LastCreatedSlider()->Disable();
-    GUI->LastCreatedSlider()->Hide();
+    slider->SetValue(0,true);
+    slider->Disable();
+    slider->Hide();
+    spi_slider_list.push_back(slider);
 
     Y -= 60;
-    GUI->CreateSlider(X,Y,220,40,"arg_3");
-    GUI->LastCreatedSlider()->SetDomain(-100,100);
-    GUI->LastCreatedSlider()->IsInteger = true;
-    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    slider = GUI->CreateSlider(X,Y,220,40,"arg_3");
+    slider->SetDomain(-100,100);
+    slider->IsInteger = true;
+    slider->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[3] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(0,true);
-    GUI->LastCreatedSlider()->Disable();
-    GUI->LastCreatedSlider()->Hide();
+    slider->SetValue(0,true);
+    slider->Disable();
+    slider->Hide();
+    spi_slider_list.push_back(slider);
 
     Y -= 60;
-    GUI->CreateSlider(X,Y,220,40,"arg_4");
-    GUI->LastCreatedSlider()->SetDomain(-100,100);
-    GUI->LastCreatedSlider()->IsInteger = true;
-    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    slider = GUI->CreateSlider(X,Y,220,40,"arg_4");
+    slider->SetDomain(-100,100);
+    slider->IsInteger = true;
+    slider->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[4] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(0,true);
-    GUI->LastCreatedSlider()->Disable();
-    GUI->LastCreatedSlider()->Hide();
+    slider->SetValue(0,true);
+    slider->Disable();
+    slider->Hide();
+    spi_slider_list.push_back(slider);
 
     Y -= 60;
-    GUI->CreateSlider(X,Y,220,40,"arg_5");
-    GUI->LastCreatedSlider()->SetDomain(-100,100);
-    GUI->LastCreatedSlider()->IsInteger = true;
-    GUI->LastCreatedSlider()->RegisterActionOnUpdate(
+    slider = GUI->CreateSlider(X,Y,220,40,"arg_5");
+    slider->SetDomain(-100,100);
+    slider->IsInteger = true;
+    slider->RegisterActionOnUpdate(
     [this](goGUI::Slider *slider,int x,int y){
         s5cSPI->ipu_port_forward[5] = (uint8_t)int(slider->GetValue());
     });
-    GUI->LastCreatedSlider()->SetValue(0,true);
-    GUI->LastCreatedSlider()->Disable();
-    GUI->LastCreatedSlider()->Hide();
+    slider->SetValue(0,true);
+    slider->Disable();
+    slider->Hide();
+    spi_slider_list.push_back(slider);
 
 }
 

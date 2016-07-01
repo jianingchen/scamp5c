@@ -25,13 +25,12 @@ spi.reset
 spi.set_transfer_size(20)
 
 #start
-    _nop
 
     ipu.wait_frame_trigger
     
     // take a picture with exposure time of 1/2000 sec
     rpix
-    ipu.delay_50us_x(10)// 500 us
+    ipu.delay_50us_x(4)// 200 us
     rpix(B,C)
     
     // apply a threshold to get a binary result
@@ -43,20 +42,18 @@ spi.set_transfer_size(20)
     
     ipu.inc_loop_counter
     
-    // The following condition ensures that the fifo has at least 512 bytes of space left.
-    // Otherwise it will skip the spi communication for this frame iteration.
+    // check fifo
     spi.get_fifo_space(s0)
     _sub(s0,SPI_FIFO_SPACE_128)
     _jump(c,#start)
     _nop
     
-    // Scan the bounding box of any blobs in R5 and send the coordinates through spi.
+    // scan the bounding box of any blobs in R5 and send the coordinates through spi
     spi.begin
     spi.scan_target(R5)
     spi.end
     
 _jump(#start)
-_nop
     
 
 //------------------------------------------------------------------------------

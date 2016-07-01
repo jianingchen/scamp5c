@@ -280,15 +280,15 @@ void goGUI::DrawSlider(Slider*slider){
     y = slider->global_y + slider->height - font_texture->GetLineSpace() - 4;
     if(slider->IsLatched and slider->is_holding_on_handle){
         if(slider->IsInteger){
-            snprintf(text_buffer,64,"%s: %d -> %d",slider->text.c_str(),(int)slider->holding_value,(int)slider->running_value);
+            snprintf(text_buffer,64,"%s %d -> %d",slider->text.c_str(),(int)slider->holding_value,(int)slider->running_value);
         }else{
-            snprintf(text_buffer,64,"%s: %.2f -> %.2f",slider->text.c_str(),slider->holding_value,slider->running_value);
+            snprintf(text_buffer,64,"%s %.2f -> %.2f",slider->text.c_str(),slider->holding_value,slider->running_value);
         }
     }else{
         if(slider->IsInteger){
-            snprintf(text_buffer,64,"%s: %d",slider->text.c_str(),(int)slider->holding_value);
+            snprintf(text_buffer,64,"%s %d",slider->text.c_str(),(int)slider->holding_value);
         }else{
-            snprintf(text_buffer,64,"%s: %.2f",slider->text.c_str(),slider->holding_value);
+            snprintf(text_buffer,64,"%s %.2f",slider->text.c_str(),slider->holding_value);
         }
     }
     font_texture->glRenderText(text_buffer,x,y);
