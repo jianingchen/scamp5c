@@ -1,22 +1,13 @@
 
-apron.config_begin
-    sim.pix_source_webcam
-//     host.template('../scamp5c_host_template.txt')
-//     host.firmware('../ok_scamp5_0106.bit')
-    host.set_frame_rate(600)
-    
-    Thresh_postsum = host.add_slider('Thresh_postsum', -128, 127, -14, SPI_APP_TEXT_THRESHOLD_D)
-    Abs_centre = host.add_slider('Abs_centre', -128, 127, -5, SPI_APP_TEXT_THRESHOLD_C)
-    Int_time = host.add_slider('Int_time', 0, 255, 5, SPI_APP_TEXT_EXPOSURE) //25 for 3kHz; 101 for 762HZ; 5 for 9.9kHz
-    Vres = host.add_slider('Vres', 0, 255, 73)    
-    Vxc = host.add_slider('Vxc', 0, 255, 158) 
-    Averages  = host.add_slider('Averages', 0, 255, 4)
-    HighLightInhibit  = host.add_slider('HighLightInhibit', 0, 255, 40, SPI_APP_TEXT_THRESHOLD_B)
-    
-    window_1 = host.add_display('Grouped area','Centre'))
-    window_3 = host.add_display('High_I_Suppressed')
-    window_2 = host.add_display('No_suppression')
 
+//------------------------------------------------------------------------------
+
+
+apron.config_begin
+    host.set_frame_rate(300)
+    slider_0 = host.add_slider('FT L', 0, 255, 5, SPI_APP_TEXT_T, 0)
+    slider_1 = host.add_slider('FT H', 5, 135, 13, SPI_APP_TEXT_H, 0)
+    window_1 = host.add_display('Demodulated','Centre')
 apron.config_end
 
 
@@ -28,114 +19,132 @@ ipu.reset_loop_counter
 spi.reset
 
 // spi packet for target is 16 bytes, so a smaller transfer size is better
-spi.set_transfer_size(80)
+spi.set_transfer_size(40)
 
-
-_nop
-_exp(6,IPU_PORT_FALL_C1)
-_exp(7,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
-_exp(8,IPU_PORT_FALL_C2)
+_exp(4,IPU_PORT_FALL_C1)
+_exp(5,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+_exp(9,IPU_PORT_FALL_C2)
 _exp(1,IPU_PORT_RISE_C3) //make this a count of 2 if running at 180MHz
 _exp(9,IPU_PORT_FALL_C3)
 
 _exp(8, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
 _exp(0, IPU_PORT_RD) //read off
+_exp(9, IPU_PORT_DACS) //Code for Vres
+_exp(65, IPU_PORT_B)//Setting a lower Vres than usual
+_exp(23, IPU_PORT_DACS)
+_exp(0, IPU_PORT_DACS)
+
 
 //------------------------------------------------------------------------------
 
-//SET X TO 24 for 3.04kHz; 100 is 769Hz (762Hz target); 6 for 9.9kHz
-//To Tune... Set Thresh_postnum = 0. Adjust Abs_centre so half of pixels are black. Reduce Thresh_postsum till get clear image of target.
 #start
     _nop
     
     ipu.wait_frame_trigger
     
-    s7 = usb.slider(Int_time)
-    all
-
-    s6 = usb.slider(Vres)  
-    _exp(9, IPU_PORT_DACS)//vxc=11 vres =9
-    _exp(s6, IPU_PORT_B)//vxc //was 158 for other boxes
-    //_exp(23, IPU_PORT_DACS)//vxc
+    s0 = usb.slider(slider_0)
+    s1 = usb.slider(slider_1)
+    ipu.set_frame_trigger(s0,s1)
     
-    s6 = usb.slider(Vxc)  
-    _exp(11, IPU_PORT_DACS)//vxc=11 vres =9
-    _exp(s6, IPU_PORT_B)//vxc //was 158 for other boxes
-    _exp(23, IPU_PORT_DACS)//vxc
-    _exp(0, IPU_PORT_DACS)//vxc
-    
+    _exp(4,IPU_PORT_FALL_C1)
+    _exp(5,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+    _exp(9,IPU_PORT_FALL_C2)
+    _nop
     A = 
     B = 
     C = 
     D = 
     E = 
-    R5 = 0
-    s6 = usb.slider(HighLightInhibit)
-    s9 = usb.slider(Averages)
+    R5 = 1
     
-    rpix
-
+    respix
+    
+    _mov(s7,49) //The Integration time constant 
+    _mov(s9,20) //Averages
+    
     // I create 5 accumulators (in theory better than 4) in  A B C D and E
     _mov(s8,s9)
-    #averagereceive  
+    #averagereceive  //over Averages number of repeats
     _nop
-    respix
-    nop
-    F = PIX
-    nop
-    _call(#quarter_cycle_wait)
-    _nop
-    NEWS = F PIX ///THis is Proper CDS
+    
+        respix
+        nop
+        
+        F = PIX
+        nop
+        _call(#quarter_cycle_wait)
+        _nop
+        
+        NEWS = F PIX ///THis is Proper CDS
         F = A
         A = F NEWS
-    _cmp(s9,s8)
-    _jump(z,#skipfirst)
-    _nop
-    F = E
-    E = F NEWS
-    #skipfirst
-    _nop
-    nop
-    respix
-    nop
-    F = PIX
-    _call(#quarter_cycle_wait)
-    _nop
-    NEWS = F PIX
+        
+        _cmp(s9,s8)
+        _jump(z,#skipfirst)
+        _nop
+        
+        F = E
+        E = F NEWS
+        
+        #skipfirst
+        _nop
+    
+        respix
+        nop
+        nop
+        F = PIX
+        _call(#quarter_cycle_wait)
+        _nop
+        
+        NEWS = F PIX
         F = B
         B = F NEWS
-    nop
-    respix
-    nop
-    F = PIX
-    _call(#quarter_cycle_wait)
-    _nop
-    NEWS = F PIX
+        _nop
+        _nop
+        _nop
+        
+        respix
+        nop
+        nop
+        F = PIX
+        _call(#quarter_cycle_wait)
+        _nop
+        
+        NEWS = F PIX
         F = C
         C = F NEWS
-    nop
-    respix
-    nop
-    F = PIX
-    _call(#quarter_cycle_wait)
-    _nop
-    NEWS = F PIX
+        _nop
+        _exp(7 , IPU_PORT_ADC_FEAMP) //Set low gain. A marker for setting upo timing.
+        _exp(0 , IPU_PORT_ADC_FEAMP) //Set low gain
+            
+        respix
+        nop
+        nop
+        F = PIX
+        
+        _call(#quarter_cycle_wait)
+        _nop
+        
+        NEWS = F PIX
         F = D
         D = F NEWS
-        _sub(s9,1)
-        _jump(nz, #averagereceive)
-        _nop
+        
+    _sub(s8,1)
+    _jump(nz, #averagereceive)
+    _nop
     //Add the final item to E
+    
     respix
+    nop 
     nop
     F = PIX
     _call(#quarter_cycle_wait)
     _nop
+    
     NEWS = F PIX
-        F = E
-        E = F NEWS  
-
-        
+    F = E
+    E = F NEWS  
+    
     //Sine
     F NEWS = B E //2 add 5. 
     E = F NEWS D C //subtract 3 and 4
@@ -143,44 +152,70 @@ _exp(0, IPU_PORT_RD) //read off
     nop //Cosine
     F NEWS = A D //1 add 4
     A = F NEWS C B //subtract 2 and 3
-
     
-        s5 = usb.slider(Abs_centre)
-        B = pe.in(s5)
-        C= E B  //Adding Sine
-        F= E 
-        where(F)
-        C = F //absolute differences. Gives positive numbers
-        all
-        
-
-        D= A B//Adding Cosine
-        F= A 
-        where(F)
-        D = F //absolute differences. Gives positive numbers
-        all  
-        
+    C = E //B  //Adding Sine
+    F = E 
+    set('SEL7' 'wrf') //where(F) 
+    C = F //absolute differences. Gives positive numbers
+    all
+    
+    
+    D= A //B//Adding Cosine
+    F= A 
+    //set('SEL7' 'wrf') 
+    where(F)
+    D = F //absolute differences. Gives positive numbers
+    all  
+    
+    _mov(s3,s9)
+    _add(s3,15) //This takes the number of averages and adapts the threshold slightly to deal with increased noise from greater samples
+    
+    B = pe.in(s3) //Basically the more averages performed, the threshold is moved upwards. Now fixed at ~20 averages
     //Adding Abs(Sine)+Abs(Cosine)
-        A = C D 
-        s0 = usb.slider(Thresh_postsum)
-        B = pe.in(s0)
-        D = A B
-        where(D)
-        R3 = FLAG
-        all
-        R7 = not(R5)
-        R4 = R7 R3
-     
-
-//         usb.aout(E,window_1) //Note this should NOT be a stable image. Since frequencies wont be matched, will go in and out of phase
-//         //... hence need for cosine and sine demodulation. End result in R4 and R3 should be more stable.
-//         usb.dout(R4,window_3)
-//         usb.dout(R3,window_2)
-
-    R5 = not(R4)
-
+    A = C D 
+    E = C D
+    
+    _mov(s6,5)
+    #diffuse
+    _nop
+        set('SEL4' 'W4' 'SEL1' 'selx' 'selw' 'sels' 'seln' 'sele')
+        C = NEWS
+        A = C
+    _sub(s6,1)
+    _jump(nz,#diffuse)
+    _nop
+    
+    A =
+    
+    _mov(s6,5)
+    #diffuseref
+    _nop
+        set('SEL4' 'W4' 'SEL1' 'selx' 'selw' 'sels' 'seln' 'sele')
+        D = NEWS
+        A = D
+    _sub(s6,1)
+    _jump(nz,#diffuseref)
+    _nop
+    
+    D = C B  //Add the threshold
+    F = D E //Diffused demodulated minus demodulated image
+    where(F)
+    _exp(4,IPU_PORT_CLK_SWITCH)
+    _exp(6,IPU_PORT_FALL_C1)
+    _exp(7,IPU_PORT_RISE_C2) 
+    _exp(8,IPU_PORT_FALL_C2)
+    _nop
+    R3 = FLAG //THese are the pixels we want. Marked black (0)
+    all
+    
+    //R5 = 0 //Implement if want to test without high intensity suppression
+    R7 = R5 R3 //R5 has the intense pixels contained within
+    R4 = not(R7)
+    
     ipu.inc_loop_counter
     
+    // scan target
+
     // check fifo
     spi.get_fifo_space(s0)
     _sub(s0,SPI_FIFO_SPACE_256)
@@ -189,15 +224,16 @@ _exp(0, IPU_PORT_RD) //read off
     
     // scan the bounding box of any blobs in R5 and send the coordinates through spi
     spi.begin
-    spi.scan_target(R5)
-//     spi.dout(R5)
+    spi.scan_target(R4)
     spi.end
     
-    all
-
+//     usb.dout(R4,window_1) 
+    
 _nop
 _jump(#start)
 _nop
+
+
 apron.genereate_host
 apron.compile_host
 
@@ -205,37 +241,26 @@ apron.compile_host
     
 #quarter_cycle_wait
 _nop
- //_exp(32, IPU_PORT_CLK_SWITCH)  //slow clocks so dont have to count too high
-                                _exp(1, IPU_PORT_RD)
-                                                _mov(s2,s7) 
-                                                #waitouter
-                                                _nop
-                                                _mov(s1, 1) 
-                                                #waitintegrate
-                                                _nop
-                                                _sub(s1, 1)
-                                                _jump(nz,#waitintegrate)
-                                                _nop
-                                                _sub(s2, 1)
-                                                _jump(nz,#waitouter)
-   
-     _nop                                           
-                                                
-
-     _exp(0, IPU_PORT_RD)
-     _exp(s6, IPU_PORT_B)
-     _nop
-     _nop
-       NEWS = PIX IN
-
-     where(NEWS  )
-
+    _exp(0, IPU_PORT_B) //Just set the IN value to zero
+    _exp(2, IPU_PORT_CLK_SWITCH)  //slow clocks so dont have to count too high
+    _exp(1, IPU_PORT_RD)
+    _mov(s2,s7) 
+    #waitouter
+    _nop
+    _sub(s2, 1)
+    _jump(nz,#waitouter)
+    _nop                                           
+    _exp(4, IPU_PORT_CLK_SWITCH)                                          
+    _exp(0, IPU_PORT_RD)
+     NEWS = PIX IN
+    _exp(6,IPU_PORT_FALL_C2)
+     where(NEWS  ) //test for high intensity
      R6 = FLAG 
-   
-     R7 = R5
-     R5 = R6 R7 //pixels not to work with cos too bright
+     R7 = not(R5) //previous intense pixels
+     R4 = R6 R7 //pixels not to work with cos too bright
+     R5 = R4
      all
-     R7 = not(R5)
+     _exp(9,IPU_PORT_FALL_C2)
+     _exp(8, IPU_PORT_CLK_SWITCH) 
  _ret
  _nop
- 

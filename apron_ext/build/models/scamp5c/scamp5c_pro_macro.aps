@@ -241,6 +241,119 @@ _exp(9,IPU_PORT_FALL_C2)
 
 
 !macro_def
+    pro.scan_target($r1,$p0,$p1,$p2,$p3)
+!macro_begin
+    
+    
+    _exp(255, IPU_PORT_CLK_SWITCH)
+    _exp(1, IPU_PORT_RD)
+    
+    // do the scanning
+    
+    _exp(255, IPU_PORT_ADDR) //search all rows
+    _exp(1, IPU_PORT_LRX)
+    _exp(0, IPU_PORT_LRX)
+    _exp(255, IPU_PORT_ADDR) //search all col
+    _exp(1, IPU_PORT_LCX)
+    _exp(0, IPU_PORT_LCX)
+    
+    _exp(0, IPU_PORT_ADDR)
+    _exp(1, IPU_PORT_LC)
+    _exp(0, IPU_PORT_LC)
+    _exp(1, IPU_PORT_LR)
+    _exp(0, IPU_PORT_LR)
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(0, IPU_PORT_RD)
+    _nop
+    R0 = $r1
+    $r1 = R0
+    nop
+    nop
+    nop
+    nop
+    _exp(4, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
+    _nop
+    
+    all
+    where($r1)
+    
+    _exp(2,IPU_PORT_FALL_C1)
+    _exp(7,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+    _exp(8,IPU_PORT_FALL_C2)    
+    
+    _exp(4, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    set( 'pgdb' 'pgdbobus' 'col_out' 'dir' ) //output first live column (all rows active)
+    keep
+    set( 'col_out' 'dir' )
+    _imp(sx,234) //Get data from Dig port
+    
+    _exp(4,IPU_PORT_CLK_SWITCH) // dreg operation clock
+    _nop
+    
+    
+    set( 'pgdb' 'row_out' )
+    keep
+    set( 'row_out' )
+    _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
+    
+     // store coordinates
+    _mov($p0,255)
+    _sub($p0,sx)
+    _mov($p1,sy)
+
+    
+    _exp(2,IPU_PORT_FALL_C1)
+    _exp(7,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+    _exp(8,IPU_PORT_FALL_C2)    
+    
+    _exp(4, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+    set( 'pgdb' 'pgdbobus' 'col_out' ) //output last live column (all rows active)
+    keep
+    set( 'col_out' )  
+    _imp(sx,234) //Get data from Dig port
+    
+    _exp(4,IPU_PORT_CLK_SWITCH) // dreg operation clock
+    _nop
+    
+    
+    set( 'pgdb' 'row_out' 'dir' )
+    keep
+    set( 'row_out' 'dir' )
+    _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
+    
+     // store coordinates
+    _mov($p2,255)
+    _sub($p2,sx)
+    _mov($p3,sy)
+    
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    _exp(1,IPU_PORT_FALL_C1)
+    _exp(5,IPU_PORT_FALL_C1)
+    _exp(6,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
+    _exp(9,IPU_PORT_FALL_C2)
+    
+    all
+    
+    _exp(8, IPU_PORT_CLK_SWITCH)
+    _nop
+    
+!macro_end
+
+
+
+//------------------------------------------------------------------------------
+
+
+
+!macro_def
     Wr_Code_to_Dig_Reg($r2,$r1)
 !macro_begin
 //Aim is to save a code stored in IPU register $r1 to Scamp registers R8 to R1 inclusive

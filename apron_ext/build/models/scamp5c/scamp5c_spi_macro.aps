@@ -635,18 +635,12 @@
     _exp(1, IPU_PORT_LR)
     _exp(0, IPU_PORT_LR)
     
-    _exp(8, IPU_PORT_CLK_SWITCH)
-    _nop
     _exp(0, IPU_PORT_RD)
-    _nop
-    R0 = $r1
-    $r1 = R0
-    nop
-    nop
-    nop
-    nop
     _exp(4, IPU_PORT_CLK_SWITCH) //returns clocks back to normal (9MHz at 90MHz clk)
     _nop
+    
+    R0 = $r1
+    $r1 = R0
     
     all
     where($r1)
@@ -699,6 +693,7 @@
     keep
     set( 'row_out' 'dir' )
     _imp(sy,234)//Now have row coord of pixel found in column y=s3 x=s5
+    nop
     
      //send coordinates
     _mov(su,255)
@@ -709,7 +704,7 @@
     
     _exp(8, IPU_PORT_CLK_SWITCH)
     _nop
-    _exp(1,IPU_PORT_FALL_C1)
+    //_exp(1,IPU_PORT_FALL_C1)
     _exp(5,IPU_PORT_FALL_C1)
     _exp(6,IPU_PORT_RISE_C2) //make this a count of 2 if running at 180MHz
     _exp(9,IPU_PORT_FALL_C2)
