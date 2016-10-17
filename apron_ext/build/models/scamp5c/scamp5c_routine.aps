@@ -386,7 +386,7 @@ _ret
  //   _exp(255, IPU_PORT_CLK_SWITCH)
     
 
-     _exp(8, IPU_PORT_CLK_SWITCH)
+ //    _exp(8, IPU_PORT_CLK_SWITCH) //Deleted 17/10/16
 //     _nop
     
     _exp(0, IPU_PORT_B)

@@ -92,9 +92,11 @@
 !macro_begin
     host_dout($h)
     all
-    _exp(6,IPU_PORT_FALL_C1) //THESE CLOCK CHANGES are here since THE critical item appears to be WHERE rather than the rest of the readout algo
+     _exp(4, IPU_PORT_CLK_SWITCH) //Added 17/10/16. Digital clocks need enabling prior to the "where". Readout errors occur otherwise, i.e. "0" read as "1"
+//Note that register being read has not necessarily actually degraded (issue is readout error not DRAM failure)
+     _exp(6,IPU_PORT_FALL_C1) //THESE CLOCK CHANGES are here since THE critical item appears to be WHERE rather than the rest of the readout algo
     _exp(7,IPU_PORT_RISE_C2) 
-    _exp(9,IPU_PORT_FALL_C2) 
+    _exp(8,IPU_PORT_FALL_C2) 
     _nop 
     where($r1)
     _call(#_ipu_sa_dout_usb)
