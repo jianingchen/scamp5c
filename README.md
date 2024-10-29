@@ -1,3 +1,13 @@
+
+
+
+# Notice
+
+All content in this repository is obsolete. 
+For recent information, please visit:
+https://scamp.gitlab.io/scamp5d_doc/
+
+
 # scamp5c
 SCAMP-5c Vision System
 
